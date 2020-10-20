@@ -1,6 +1,6 @@
 # Team Members and Roles
 
-## George Khanachat
+## Georges Khanachat
 Software Engineer
 
 ## Omar Abouelleil
