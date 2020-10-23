@@ -6,6 +6,11 @@
 # Custom
 *.exe
 *.lib
+*.o
+*.a
+*.dll
+*.dll.a
+*.exp
 
 # User-specific files
 *.rsuser
