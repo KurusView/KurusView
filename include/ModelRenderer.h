@@ -1,0 +1,11 @@
+#ifndef INC_3DLIB_MODELRENDERER_H
+#define INC_3DLIB_MODELRENDERER_H
+
+
+class ModelRenderer
+{
+
+};
+
+
+#endif //INC_3DLIB_MODELRENDERER_H
