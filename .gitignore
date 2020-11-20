@@ -11,6 +11,12 @@
 *.dll
 *.dll.a
 *.exp
+*.vcxproj*
+*.sln
+*_autogen/
+.idea/
+*.vscode/
+cmake-build-debug/
 
 #CMake
 CMakeLists.txt.user
