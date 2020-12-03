@@ -25,7 +25,7 @@ set(CMAKE_AUTOUIC ON)
 
 # Find the Qt widgets package. This locates the relevant include and
 # lib directories, and the necessary static libraries for linking.
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
 # Just for show: This is what find_package has found:
 message(STATUS "Qt5Widgets Include Dirs: ${Qt5Widgets_INCLUDE_DIRS}")
