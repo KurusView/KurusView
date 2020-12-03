@@ -35,7 +35,7 @@ message(STATUS "Qt5Widgets Libraries: ${Qt5Widgets_LIBRARIES}")
 include_directories(include/)
 
 # Define the library and it's sources
-add_library(3DLibrary lib/MVector.cpp include/MVector.h lib/Cell.cpp include/Cell.h lib/Material.cpp include/Material.h lib/Model.cpp include/Model.h lib/Matrix.cpp include/Matrix.h lib/ModelRenderer.cpp include/ModelRenderer.h)
+add_library(3DLibrary lib/MVector.cpp include/MVector.h lib/MCell.cpp include/MCell.h lib/Material.cpp include/Material.h lib/Model.cpp include/Model.h lib/Matrix.cpp include/Matrix.h lib/ModelRenderer.cpp include/ModelRenderer.h)
 
 # Same as previously: define the executable and it's sources.
 add_executable(3DEXE WIN32 src/main.cpp)
