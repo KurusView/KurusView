@@ -38,7 +38,7 @@ include_directories(include/)
 add_library(3DLibrary lib/MVector.cpp include/MVector.h lib/MCell.cpp include/MCell.h lib/Material.cpp include/Material.h lib/Model.cpp include/Model.h lib/Matrix.cpp include/Matrix.h lib/ModelRenderer.cpp include/ModelRenderer.h)
 
 # Same as previously: define the executable and it's sources.
-add_executable(3DEXE WIN32 src/main.cpp)
+add_executable(3DEXE src/main.cpp)
 
 # Tell CMake that the executable depends on the Qt::Widget and 3DLibrary libraries.
 target_link_libraries(3DEXE Qt5::Widgets 3DLibrary)
