@@ -26,7 +26,7 @@ void Model::loadModel(const std::string &filePath)
 
 //    Read each line in the file into the line string
     while (std::getline(inputFile, line)) {
-        if (line[0] == '#') // This line is a comment and should be ignored
+        if (line[0] == '#' || line.empty()) // This line is a comment and should be ignored or an empty line
             continue; // Skip to the next line
 
 //        Read line into an input string stream, which allows extracting the space separated values
