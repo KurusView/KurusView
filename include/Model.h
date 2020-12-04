@@ -30,7 +30,7 @@ public:
      * @brief Model - Constructor that loads a model from a file using loadModel
      * @param [in] filePath - Path to the data file
      */
-    explicit Model(std::string &filePath);
+    explicit Model(const std::string &filePath);
 
     /**
      * @brief ~Model - Default Destructor
@@ -41,13 +41,13 @@ public:
      * @brief loadModel - Loads a model from a VTK style data file
      * @param [in] filePath - Path to the data file
      */
-    void loadModel(std::string &filePath);
+    void loadModel(const std::string &filePath);
 
     /**
      * @brief saveModel - Saves the currently loaded model to a VTK style data file
      * @param [in] filePath - Path to save the file in
      */
-    void saveModel(std::string &filePath);
+    void saveModel(const std::string &filePath);
 
     /**
      * @brief displayVertexCount - Calculates the number of vertices and displays them
