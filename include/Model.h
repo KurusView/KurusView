@@ -13,8 +13,8 @@
 class Model
 {
 private:
-    /** @brief vertices - List of all the vectors in the model */
-    std::vector<MVector> vertices;
+    /** @brief vectors - List of all the vectors in the model */
+    std::vector<MVector> vectors;
     /** @brief cells - List of all the cells in the model */
     std::vector<MCell> cells;
     /** @brief materials - List of all the materials in the model */

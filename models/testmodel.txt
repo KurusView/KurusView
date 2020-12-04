@@ -1,0 +1,46 @@
+# Any line starting with a '#' is considered to be a comment and ignored
+# any line starting with a 'm' is a material definition a unique index for
+# the material is given next, followed by its density followed by colour,
+# then its name
+# note that for the colour each pair of digits is a hexadecimal number
+# in the range 0-FF (0-255 decimal) representing a colour component:
+# B8 - red component
+# 73 - green component
+# 73 - blue component
+# e.g. material 0 has a density of 8960 and is called copper,
+# its colour is a redish-grey (R=b8, G = 73, B = 73)
+m 0 8960 b87373 copper
+# material 1 has a density of 2700 and is called aluminium,
+# its colour is grey (R=bc, G = bc, B = bc)
+m 1 2700 bcbcbc aluminium
+# Any line starting with a 'v' is a vertex (a vector)
+# the 1st, 2nd and 3rd are the x, y and z coordinates
+# e.g. vertex 0 is positioned at 0., 0., 0. (the . is just to emphasize floating point numbers)
+v 0 0. 0. 0.
+v 1 1. 0. 0.
+v 2 1. 1. 0.
+v 3 0. 1. 0.
+v 4 0. 0. 1.
+v 5 1. 0. 1.
+v 6 1. 1. 1.
+v 7 0. 1. 1.
+# 8 vertices have now been defined, these can be used as the corners
+# of a hexahedral cell
+# a cell is defined by a line beginning with a 'c'. The second parameter
+# the cell index, the third is a character (either h - hexahedral, p -
+# pyramid, t - tetrahedral). Thie 4th in the index of a material that the
+# cell is made of and the remaining numbers state which node defines
+# each corner.
+# e.g. cell 0 is a hexahredal, made from material 0 (copper) which and
+# has nodes 0 - 7 define its vertices
+c 0 h 0 0 1 2 3 4 5 6 7
+
+## Second example
+# define some more vertices for a second tetrahedral (4 more)
+v 8 2. 0. 0.
+v 9 2. 0 0.
+v 10 3. 1 0.
+v 11 2.5 0.5 1.
+# cell 1 is a tetrahedral made from material 1
+# (aluminium) defined by vertices 8,9,10,11
+c 1 t 1 8 9 10 11
