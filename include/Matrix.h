@@ -2,13 +2,16 @@
 #define INC_3DLIB_MATRIX_H
 
 #include "MVector.h"
+#include <iostream>
 #include <vector>
 
 class Matrix {
-public:
-    Matrix(MVector &v1, MVector &v2, MVector &v3);
+    friend std::ostream &operator<<(std::ostream &os, Matrix &obj);
 
-    Matrix() : mat3x3(0) {};
+public:
+    Matrix(const MVector &v1, const MVector &v2, const MVector &v3);
+
+    Matrix() : mat3x3(3, MVector()) {};
 
     Matrix operator+(Matrix const &obj) const;
 
@@ -20,14 +23,14 @@ public:
 
     Matrix operator*(double const &scalar) const;
 
-    Matrix transponse(Matrix const &obj) const;
+    Matrix transponse() const;
 
     double det() const;
 
     ~Matrix();
 
 private:
-    std::vector<std::vector<double>> mat3x3;
+    std::vector<MVector> mat3x3;
 };
 
 
