@@ -27,6 +27,8 @@ public:
 
     double det() const;
 
+    Matrix inverse() const;
+
     ~Matrix();
 
 private:

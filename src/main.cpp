@@ -80,7 +80,7 @@ void matrixTest() {
     std::cout << "\n\nBegin Matrix Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     MVector a(1, 4, 7);
-    MVector b(2, 123, 8);
+    MVector b(2, 6, 8);
     MVector c(3, 6, 9);
     Matrix m1(a, b, c);
     Matrix m2(a, b, c);
@@ -90,19 +90,20 @@ void matrixTest() {
     Matrix subtract;
     Matrix times;
     Matrix transpose;
+    Matrix inverse;
     double det;
 
     addition = m1 + m2;
     subtract = m1 - m2;
     times = m1 * 2.53421;
     timesVec = m1 * a;
-
     timesMat = m1 * m2;
-
     transpose = m1.transponse();
     det = m1.det();
+    inverse = m1.inverse();
+
     std::cout << addition << subtract << times << timesVec << timesMat;
-    std::cout << transpose;
+    std::cout << transpose << inverse;
     std::cout << det << std::endl;
 
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
