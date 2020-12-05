@@ -126,3 +126,26 @@ double Matrix::det() const {
           mat3x3[2].getX() * (mat3x3[0].getY() * mat3x3[1].getZ() - mat3x3[1].getY() * mat3x3[0].getZ());
     return det;
 }
+
+Matrix Matrix::inverse() const {
+    Matrix cofactors, result, mat;
+
+    mat.mat3x3 = this->mat3x3;
+
+    if (mat.det() == 0) return result;
+
+    cofactors.mat3x3[0].setX((mat3x3[1].getY() * mat3x3[2].getZ()) - (mat3x3[2].getY() * mat3x3[1].getZ()));
+    cofactors.mat3x3[0].setY(-((mat3x3[1].getX() * mat3x3[2].getZ()) - (mat3x3[2].getX() * mat3x3[1].getZ())));
+    cofactors.mat3x3[0].setZ((mat3x3[1].getX() * mat3x3[2].getY()) - (mat3x3[2].getX() * mat3x3[1].getY()));
+
+    cofactors.mat3x3[1].setX(-((mat3x3[0].getY() * mat3x3[2].getZ()) - (mat3x3[2].getY() * mat3x3[0].getZ())));
+    cofactors.mat3x3[1].setY((mat3x3[0].getX() * mat3x3[2].getZ()) - (mat3x3[2].getX() * mat3x3[0].getZ()));
+    cofactors.mat3x3[1].setZ(-((mat3x3[0].getX() * mat3x3[2].getY()) - (mat3x3[2].getX() * mat3x3[0].getY())));
+
+    cofactors.mat3x3[2].setX((mat3x3[0].getY() * mat3x3[1].getZ()) - (mat3x3[1].getY() * mat3x3[0].getZ()));
+    cofactors.mat3x3[2].setY(-((mat3x3[0].getX() * mat3x3[1].getZ()) - (mat3x3[1].getX() * mat3x3[0].getZ())));
+    cofactors.mat3x3[2].setZ((mat3x3[0].getX() * mat3x3[1].getY()) - (mat3x3[1].getX() * mat3x3[0].getY()));
+
+    result = cofactors.transponse() * (1 / mat.det());
+    return result;
+}
