@@ -78,9 +78,9 @@ void modelTest() {
 void matrixTest() {
     std::cout << "\n\nBegin Matrix Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
-    MVector a(1, 2, 3);
-    MVector b(1, 2, 3);
-    MVector c(1, 2, 3);
+    MVector a(1, 4, 7);
+    MVector b(2, 123, 8);
+    MVector c(3, 6, 9);
     Matrix m1(a, b, c);
     Matrix m2(a, b, c);
     MVector timesVec;
@@ -89,6 +89,7 @@ void matrixTest() {
     Matrix subtract;
     Matrix times;
     Matrix transpose;
+    double det;
 
     addition = m1 + m2;
     subtract = m1 - m2;
@@ -98,8 +99,10 @@ void matrixTest() {
     timesMat = m1 * m2;
 
     transpose = m1.transponse();
+    det = m1.det();
     std::cout << addition << subtract << times << timesVec << timesMat;
     std::cout << transpose;
+    std::cout << det << std::endl;
 
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     std::cout << "End Matrix Test" << std::endl;

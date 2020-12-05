@@ -118,3 +118,11 @@ Matrix Matrix::transponse() const {
     result.mat3x3[2].setZ(mat3x3[2].getZ());
     return result;
 }
+
+double Matrix::det() const {
+    double det;
+    det = mat3x3[0].getX() * (mat3x3[1].getY() * mat3x3[2].getZ() - mat3x3[2].getY() * mat3x3[1].getZ()) -
+          mat3x3[1].getX() * (mat3x3[0].getY() * mat3x3[2].getZ() - mat3x3[2].getY() * mat3x3[0].getZ()) +
+          mat3x3[2].getX() * (mat3x3[0].getY() * mat3x3[1].getZ() - mat3x3[1].getY() * mat3x3[0].getZ());
+    return det;
+}
