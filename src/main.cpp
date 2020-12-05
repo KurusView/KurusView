@@ -32,14 +32,19 @@ void mVectorTest() {
     std::cout << "\n\nBegin MVector Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
 
-    MVector a(1, 2, 3);
+    MVector a(69, 2, 3);
     MVector b(1, 2, 3);
     MVector c(1, 2, 3);
-    MVector z;
-    z = a + b + c;
-    std::cout << z;
+    MVector addition, subtraction, times;
+    addition = a + b + c;
+    subtraction = a - b - c;
+    times = a * b;
+    std::cout << addition << subtraction << times;
 
-    std::cout << "---------------------------------------------------------------------------------------" << std::endl;
+    std::cout << "Mod: " << a.getModulus() << std::endl;
+
+    std::cout << "---------------------------------------------------------------------------------------"
+              << std::endl;
     std::cout << "End MVector Test" << std::endl;
 }
 
@@ -74,7 +79,29 @@ void modelTest() {
 void matrixTest() {
     std::cout << "\n\nBegin Matrix Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
-//    TEST CODE HERE
+    MVector a(1, 2, 3);
+    MVector b(1, 2, 3);
+    MVector c(1, 2, 3);
+    Matrix m1(a, b, c);
+    Matrix m2(a, b, c);
+    MVector timesVec;
+    Matrix addition;
+    Matrix timesMat;
+    Matrix subtract;
+    Matrix times;
+    Matrix transpose;
+
+    addition = m1 + m2;
+    subtract = m1 - m2;
+    times = m1 * 2.53421;
+    timesVec = m1 * a;
+
+    timesMat = m1 * m2;
+
+    transpose = m1.transponse();
+    std::cout << addition << subtract << times << timesVec << timesMat;
+    std::cout << transpose;
+
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     std::cout << "End Matrix Test" << std::endl;
 }
