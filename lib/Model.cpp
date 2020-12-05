@@ -92,3 +92,17 @@ void Model::loadModel(const std::string &filePath) {
 
     inputFile.close();
 }
+
+void Model::saveModel(const std::string &filePath) {
+//    Open the file with an output file stream
+    std::ofstream outputFile;
+    outputFile.open(filePath, std::ofstream::out);
+
+//    Ensure file is open
+    if (!outputFile.is_open()) {
+        std::cout << "Could not open file." << std::endl;
+        return;
+    }
+
+    outputFile.close();
+}
