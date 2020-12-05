@@ -10,8 +10,7 @@
 /**
  * @brief Model - This object is responsible for reading and writing model entities to VTK style data files
  */
-class Model
-{
+class Model {
 private:
     /** @brief vectors - List of all the vectors in the model */
     std::vector<MVector> vectors;

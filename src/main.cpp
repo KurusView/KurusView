@@ -18,8 +18,7 @@ void matrixTest();
 
 void modelRendererTest();
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     mVectorTest();
     mCellTest();
     materialTest();
@@ -29,8 +28,7 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-void mVectorTest()
-{
+void mVectorTest() {
     std::cout << "\n\nBegin MVector Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
 
@@ -45,8 +43,7 @@ void mVectorTest()
     std::cout << "End MVector Test" << std::endl;
 }
 
-void mCellTest()
-{
+void mCellTest() {
     std::cout << "\n\nBegin MCell Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
 //    TEST CODE HERE
@@ -54,8 +51,7 @@ void mCellTest()
     std::cout << "End MCell Test" << std::endl;
 }
 
-void materialTest()
-{
+void materialTest() {
     std::cout << "\n\nBegin Material Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
 //    TEST CODE HERE
@@ -63,8 +59,7 @@ void materialTest()
     std::cout << "End Material Test" << std::endl;
 }
 
-void modelTest()
-{
+void modelTest() {
     std::cout << "\n\nBegin Model Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
 
@@ -75,8 +70,7 @@ void modelTest()
     std::cout << "End Model Test" << std::endl;
 }
 
-void matrixTest()
-{
+void matrixTest() {
     std::cout << "\n\nBegin Matrix Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
 //    TEST CODE HERE
@@ -84,8 +78,7 @@ void matrixTest()
     std::cout << "End Matrix Test" << std::endl;
 }
 
-void modelRendererTest()
-{
+void modelRendererTest() {
     std::cout << "\n\nBegin ModelRenderer Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
 //    TEST CODE HERE

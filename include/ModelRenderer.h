@@ -2,8 +2,7 @@
 #define INC_3DLIB_MODELRENDERER_H
 
 
-class ModelRenderer
-{
+class ModelRenderer {
 
 };
 

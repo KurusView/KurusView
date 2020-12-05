@@ -2,8 +2,7 @@
 #define INC_3DLIB_MATERIAL_H
 
 
-class Material
-{
+class Material {
 
 };
 

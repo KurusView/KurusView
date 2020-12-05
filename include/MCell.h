@@ -2,8 +2,7 @@
 #define INC_3DLIB_MCELL_H
 
 
-class MCell
-{
+class MCell {
 
 };
 

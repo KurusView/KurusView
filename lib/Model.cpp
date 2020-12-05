@@ -4,14 +4,12 @@
 #include "Model.h"
 #include "MVector.h"
 
-Model::Model(const std::string &filePath)
-{
+Model::Model(const std::string &filePath) {
     std::cout << "Creating new model from file" << std::endl;
     loadModel(filePath);
 }
 
-void Model::loadModel(const std::string &filePath)
-{
+void Model::loadModel(const std::string &filePath) {
 //    Open the file with an input file stream
     std::ifstream inputFile(filePath);
 
