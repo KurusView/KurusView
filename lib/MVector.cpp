@@ -47,13 +47,24 @@ void MVector::setZ(float z) {
 
 double MVector::getModulus() const {
     // Calculates the modulus of a vector
-    // The squareroot of the sum of the squares
+    // The square root of the sum of the squares
     double mod = sqrt((x * x) + (y * y) + (z * z));
     return mod;
 }
 
 MVector MVector::operator+(const MVector &obj) const {
     // Overloads the + operator to perform vector addition.
+
+    /*
+     *     | 1 |   | 1 |   | a |
+     *     | 4 | + | 4 | = | b |
+     *     | 7 |   | 7 |   | c |
+     *
+     *     For Example:
+     *     a = 1 + 1 = 2
+     *     b = 4 + 4 = 8
+     */
+
     MVector result;
     result.x = x + obj.x;
     result.y = y + obj.y;
@@ -63,6 +74,17 @@ MVector MVector::operator+(const MVector &obj) const {
 
 MVector MVector::operator-(const MVector &obj) const {
     // Overloads the - operator to perform vector subtraction
+
+    /*
+     *     | 1 |   | 1 |   | a |
+     *     | 4 | - | 4 | = | b |
+     *     | 7 |   | 7 |   | c |
+     *
+     *     For Example:
+     *     a = 1 - 1 = 0
+     *     b = 4 - 4 = 0
+     */
+
     MVector result;
     result.x = x - obj.x;
     result.y = y - obj.y;
@@ -70,11 +92,22 @@ MVector MVector::operator-(const MVector &obj) const {
     return result;
 }
 
-MVector::~MVector() {}
+MVector::~MVector() = default;
 
 MVector MVector::operator*(const MVector &obj) const {
     // Overloads the * operator to perform the vector product
     // of two vectors
+
+    /*
+     *     | 1 |   | 2 |   | a |
+     *     | 4 | * | 3 | = | b |
+     *     | 7 |   | 6 |   | c |
+     *
+     *     For Example:
+     *     a = 4*6 - 7*3 = 3
+     *     b = 7*2 - 1*6 = 8
+     */
+
     MVector result;
     result.x = (y * obj.getZ()) - (z * obj.getY());
     result.y = (z * obj.getX()) - (x * obj.getZ());
