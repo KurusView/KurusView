@@ -64,7 +64,8 @@ void modelTest() {
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
 
     Model model("../../models/testmodel.txt");
-    model.saveModel("../../models/saves/testmodel.txt");
+    model.saveModel("savetestmodel.txt");
+    model.loadModel("savetestmodel.txt");
 
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     std::cout << "End Model Test" << std::endl;
