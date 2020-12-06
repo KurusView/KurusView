@@ -6,6 +6,8 @@
 #include <ModelRenderer.h>
 #include <iostream>
 
+#define pi 3.141592653589793238462643383279502884197169399375105820974944592307816406286
+
 void mVectorTest();
 
 void mCellTest();
@@ -35,9 +37,9 @@ void mVectorTest() {
     MVector a(69, 2, 3);
     MVector b(1, 2, 3);
     MVector c(1, 2, 3);
-    MVector rot(3.14159, 0, 0);
-    MVector rot2(0, 3.14159, 0);
-    MVector rot3(0, 0, 3.14159);
+    MVector rot(pi, 0, 0);
+    MVector rot2(0, pi, 0);
+    MVector rot3(0, 0, pi);
 
     std::vector<MVector> rotation;
     rotation.push_back(rot);
@@ -94,9 +96,10 @@ void matrixTest() {
     MVector a(1, 1, 1);
     MVector b(1, 1, 1);
     MVector c(1, 1, 1);
-    MVector rot(3.14159, 0, 0);
-    MVector rot2(0, 3.14159, 0);
-    MVector rot3(0, 0, 3.14159);
+    MVector rot(pi / 2, 0, 0);
+    MVector rot2(pi / 2, 0, 0);
+    MVector rot3(pi / 2, 0, 0);
+    MVector rot4(pi / 2, 0, 0);
     Matrix m1(a, b, c);
     Matrix m2(a, b, c);
     MVector timesVec;
@@ -125,6 +128,7 @@ void matrixTest() {
     rotation.push_back(rot);
     rotation.push_back(rot2);
     rotation.push_back(rot3);
+    rotation.push_back(rot4);
     m1.rotate(rotation);
     std::cout << m1;
 
