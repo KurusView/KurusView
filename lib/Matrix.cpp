@@ -263,7 +263,7 @@ Matrix Matrix::inverse() const {
     return result;
 }
 
-void Matrix::rotate(const std::vector<MVector> &Rotation) {
+Matrix Matrix::RotationMatrix(const std::vector<MVector> &Rotation) {
 
     // Undergoes multiple rotations that needs to be done on a specific matrix or vector
     // Has an input of an array of MVectors where within the vector lays the
@@ -336,8 +336,12 @@ void Matrix::rotate(const std::vector<MVector> &Rotation) {
     for (int i = 1; i < orderOfRotation.size(); ++i) {
         product = product * orderOfRotation[i];
     }
+    return product;
+}
 
-    Matrix result;
+void Matrix::rotate(const std::vector<MVector> &Rotation) {
+    Matrix result, product;
+    product = RotationMatrix(Rotation);
     result.mat3x3 = this->mat3x3;
     result = result * product;
     this->mat3x3 = result.mat3x3;

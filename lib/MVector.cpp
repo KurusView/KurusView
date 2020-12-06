@@ -1,4 +1,5 @@
-#include "MVector.h"
+#include <Matrix.h>
+#include <MVector.h>
 
 std::ostream &operator<<(std::ostream &os, MVector &obj) {
     //Overloads << operator
@@ -113,6 +114,19 @@ MVector MVector::operator*(const MVector &obj) const {
     result.y = (z * obj.getX()) - (x * obj.getZ());
     result.z = (x * obj.getY()) - (y * obj.getX());
     return result;
+}
+
+void MVector::rotate(const std::vector<MVector> &Rotation) {
+    Matrix product;
+    MVector result, temp;
+    product = product.RotationMatrix(Rotation);
+    temp.x = this->x;
+    temp.y = this->y;
+    temp.z = this->z;
+    result = product * temp;
+    this->x = result.x;
+    this->y = result.y;
+    this->z = result.z;
 }
 
 
