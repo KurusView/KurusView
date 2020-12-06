@@ -81,6 +81,7 @@ void matrixTest() {
     MVector a(1, 4, 7);
     MVector b(2, 6, 8);
     MVector c(3, 6, 9);
+    MVector rot(90, 0, 0);
     Matrix m1(a, b, c);
     Matrix m2(a, b, c);
     MVector timesVec;
@@ -104,6 +105,11 @@ void matrixTest() {
     std::cout << addition << subtract << times << timesVec << timesMat;
     std::cout << transpose << inverse;
     std::cout << det << std::endl;
+    std::vector<MVector> rotation;
+    rotation.push_back(rot);
+    Matrix rotate;
+    m1.rotate(rotation);
+    std::cout << m1;
 
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     std::cout << "End Matrix Test" << std::endl;

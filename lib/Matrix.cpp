@@ -262,3 +262,59 @@ Matrix Matrix::inverse() const {
     result = cofactors.transponse() * (1 / mat.det());
     return result;
 }
+
+void Matrix::rotate(const std::vector<MVector> &Rotation) {
+    int size = Rotation.size();
+    MVector vx1(1, 0, 0), vx2, vx3, vy1, vy2(0, 1, 0), vy3, vz1, vz2, vz3(0, 0, 1);
+    Matrix rx, ry, rz;
+    std::vector<Matrix> orderOfRotation;
+    Matrix product;
+    vx2.setX(0);
+    vx3.setX(0);
+    vy1.setY(0);
+    vy3.setY(0);
+    vz1.setZ(0);
+    vz2.setZ(0);
+    for (int i = 0; i < size; ++i) {
+        if (Rotation[i].getX() != 0) {
+            vx2.setY(cos(Rotation[i].getX()));
+            vx2.setZ(sin(Rotation[i].getX()));
+            vx3.setY(-sin(Rotation[i].getX()));
+            vx3.setZ(cos(Rotation[i].getX()));
+            rx.mat3x3.push_back(vx1);
+            rx.mat3x3.push_back(vx2);
+            rx.mat3x3.push_back(vx3);
+            orderOfRotation.push_back(rx);
+        }
+        if (Rotation[i].getY() != 0) {
+            vy1.setX(cos(Rotation[i].getY()));
+            vy1.setZ(-sin(Rotation[i].getY()));
+            vy3.setX(sin(Rotation[i].getY()));
+            vy3.setZ(cos(Rotation[i].getY()));
+            ry.mat3x3.push_back(vy1);
+            ry.mat3x3.push_back(vy2);
+            ry.mat3x3.push_back(vy3);
+            orderOfRotation.push_back(ry);
+        }
+        if (Rotation[i].getZ() != 0) {
+            vz1.setX(cos(Rotation[i].getZ()));
+            vz1.setY(sin(Rotation[i].getZ()));
+            vz2.setX(-sin(Rotation[i].getZ()));
+            vz2.setY(cos(Rotation[i].getZ()));
+            rz.mat3x3.push_back(vz1);
+            rz.mat3x3.push_back(vz2);
+            rz.mat3x3.push_back(vz3);
+            orderOfRotation.push_back(rz);
+        }
+    }
+
+    for (int i = 0; i < orderOfRotation.size(); ++i) {
+        product = product * orderOfRotation[i];
+    }
+
+    Matrix result;
+    result.mat3x3 = this->mat3x3;
+    result = result * product;
+    this->mat3x3 = result.mat3x3;
+}
+
