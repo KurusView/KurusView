@@ -35,6 +35,19 @@ void mVectorTest() {
     MVector a(69, 2, 3);
     MVector b(1, 2, 3);
     MVector c(1, 2, 3);
+    MVector rot(3.14159, 0, 0);
+    MVector rot2(0, 3.14159, 0);
+    MVector rot3(0, 0, 3.14159);
+
+    std::vector<MVector> rotation;
+    rotation.push_back(rot);
+    rotation.push_back(rot2);
+    rotation.push_back(rot3);
+
+    a.rotate(rotation);
+
+    std::cout << a;
+
     MVector addition, subtraction, times;
     addition = a + b + c;
     subtraction = a - b - c;
