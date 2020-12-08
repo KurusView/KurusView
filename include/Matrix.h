@@ -13,8 +13,10 @@ public:
     // Initializes a matrix using three 3x1 vectors
     Matrix(const MVector &v1, const MVector &v2, const MVector &v3);
 
-    // Initializing rotation matrix
-    Matrix RotationMatrix(const std::vector<MVector> &Rotation);
+    Matrix(double v1x, double v1y, double v1z, double v2x, double v2y, double v2z, double v3x, double v3y, double v3z);
+
+        // Initializing rotation matrix
+    static std::vector<Matrix> RotationMatrix(const std::vector<MVector> &Rotation);
 
     void rotate(const std::vector<MVector> &Rotation);
 
