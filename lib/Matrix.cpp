@@ -19,6 +19,17 @@ Matrix::Matrix(const MVector &v1, const MVector &v2, const MVector &v3) {
 
 }
 
+
+Matrix::Matrix(double v1x, double v1y, double v1z, double v2x, double v2y, double v2z, double v3x, double v3y, double v3z) {
+    // Initializes matrix using 3 prepopulated vectors
+    MVector v1(v1x, v1y, v1z);
+    MVector v2(v2x, v2y, v2z);
+    MVector v3(v3x, v3y, v3z);
+    mat3x3.push_back(v1);
+    mat3x3.push_back(v2);
+    mat3x3.push_back(v3);
+}
+
 // Default Constructor
 Matrix::~Matrix() = default;
 
@@ -263,7 +274,7 @@ Matrix Matrix::inverse() const {
     return result;
 }
 
-Matrix Matrix::RotationMatrix(const std::vector<MVector> &Rotation) {
+std::vector<Matrix> Matrix::RotationMatrix(const std::vector<MVector> &Rotation) {
 
     // Undergoes multiple rotations that needs to be done on a specific matrix or vector
     // Has an input of an array of MVectors where within the vector lays the
@@ -328,22 +339,20 @@ Matrix Matrix::RotationMatrix(const std::vector<MVector> &Rotation) {
             orderOfRotation.push_back(rz);
         }
     }
-
-    // Multiplies the rotation matrices within the array of matrices
-    // To give a result of the final rotation matrix to be
-    // multiplied with the input matrix
-    product = orderOfRotation[0];
-    for (int i = 1; i < orderOfRotation.size(); ++i) {
-        product = product * orderOfRotation[i];
-    }
-    return product;
+    return orderOfRotation;
 }
 
 void Matrix::rotate(const std::vector<MVector> &Rotation) {
-    Matrix result, product;
-    product = RotationMatrix(Rotation);
+    Matrix result;
+    std::vector<Matrix> matrices;
+    matrices = RotationMatrix(Rotation);
     result.mat3x3 = this->mat3x3;
-    result = result * product;
+    // Multiplies the rotation matrices within the array of matrices
+    // To give a result of the final rotation matrix to be
+    // multiplied with the input matrix
+    for (auto & matrix : matrices) {
+        result = result * matrix;
+    }
     this->mat3x3 = result.mat3x3;
 }
 

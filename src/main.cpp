@@ -34,12 +34,12 @@ void mVectorTest() {
     std::cout << "\n\nBegin MVector Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
 
-    MVector a(69, 2, 3);
+    MVector a(1, 2, 3);
     MVector b(1, 2, 3);
     MVector c(1, 2, 3);
-    MVector rot(pi, 0, 0);
-    MVector rot2(0, pi, 0);
-    MVector rot3(0, 0, pi);
+    MVector rot(pi/2, 0, 0);
+    MVector rot2(0, pi/4, 0);
+    MVector rot3(0, 0, 1.23);
 
     std::vector<MVector> rotation;
     rotation.push_back(rot);
@@ -93,13 +93,13 @@ void modelTest() {
 void matrixTest() {
     std::cout << "\n\nBegin Matrix Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
-    MVector a(1, 1, 1);
-    MVector b(1, 1, 1);
-    MVector c(1, 1, 1);
+    MVector a(1, 4, 7);
+    MVector b(2, 5, 8);
+    MVector c(3, 6, 9);
     MVector rot(pi / 2, 0, 0);
-    MVector rot2(pi / 2, 0, 0);
-    MVector rot3(pi / 2, 0, 0);
-    MVector rot4(pi / 2, 0, 0);
+    MVector rot2(0, 0, pi);
+    MVector rot3(pi, 0, 0);
+    MVector rot4(0, pi/3, 0);
     Matrix m1(a, b, c);
     Matrix m2(a, b, c);
     MVector timesVec;
