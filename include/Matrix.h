@@ -15,7 +15,7 @@ public:
 
     Matrix(double v1x, double v1y, double v1z, double v2x, double v2y, double v2z, double v3x, double v3y, double v3z);
 
-        // Initializing rotation matrix
+    // Initializing rotation matrix
     static std::vector<Matrix> RotationMatrix(const std::vector<MVector> &Rotation);
 
     void rotate(const std::vector<MVector> &Rotation);
@@ -39,13 +39,13 @@ public:
     Matrix operator*(double const &scalar) const;
 
     // Transposing a matrix
-    Matrix transponse() const;
+    void Transponse();
 
     // Finding determinant of matrix
     double det() const;
 
     //Finding the inverse of a matrix
-    Matrix inverse() const;
+    void inverse();
 
     ~Matrix();
 
