@@ -20,7 +20,8 @@ Matrix::Matrix(const MVector &v1, const MVector &v2, const MVector &v3) {
 }
 
 
-Matrix::Matrix(double v1x, double v1y, double v1z, double v2x, double v2y, double v2z, double v3x, double v3y, double v3z) {
+Matrix::Matrix(double v1x, double v1y, double v1z, double v2x, double v2y, double v2z, double v3x, double v3y,
+               double v3z) {
     // Initializes matrix using 3 prepopulated vectors
     MVector v1(v1x, v1y, v1z);
     MVector v2(v2x, v2y, v2z);
@@ -184,7 +185,7 @@ MVector Matrix::operator*(const MVector &obj) const {
     return result;
 }
 
-Matrix Matrix::transponse() const {
+void Matrix::Transponse() {
     // Transposing a matrix by reflecting the matrix of a diagonal
 
     /*
@@ -205,7 +206,7 @@ Matrix Matrix::transponse() const {
     result.mat3x3[2].setX(mat3x3[0].getZ());
     result.mat3x3[2].setY(mat3x3[1].getZ());
     result.mat3x3[2].setZ(mat3x3[2].getZ());
-    return result;
+    this->mat3x3 = result.mat3x3;
 }
 
 double Matrix::det() const {
@@ -227,7 +228,7 @@ double Matrix::det() const {
     return det;
 }
 
-Matrix Matrix::inverse() const {
+void Matrix::inverse() {
     // Finding the inverse of a matrix through producing a cofactor matrix, transposing it
     // and multiplying it by the inverse of the determinant of the input matrix
 
@@ -255,7 +256,6 @@ Matrix Matrix::inverse() const {
     mat.mat3x3 = this->mat3x3;
 
     // Checks whether the determinant is zero because matrices with a det = 0 dont have an inverse
-    if (mat.det() == 0) return result;
 
     cofactors.mat3x3[0].setX((mat3x3[1].getY() * mat3x3[2].getZ()) - (mat3x3[2].getY() * mat3x3[1].getZ()));
     cofactors.mat3x3[0].setY(-((mat3x3[1].getX() * mat3x3[2].getZ()) - (mat3x3[2].getX() * mat3x3[1].getZ())));
@@ -270,8 +270,9 @@ Matrix Matrix::inverse() const {
     cofactors.mat3x3[2].setZ((mat3x3[0].getX() * mat3x3[1].getY()) - (mat3x3[1].getX() * mat3x3[0].getY()));
 
     // Calculation of the inverse
-    result = cofactors.transponse() * (1 / mat.det());
-    return result;
+    cofactors.Transponse();
+    result = cofactors * (1 / mat.det());
+    this->mat3x3 = result.mat3x3;
 }
 
 std::vector<Matrix> Matrix::RotationMatrix(const std::vector<MVector> &Rotation) {
@@ -350,7 +351,7 @@ void Matrix::rotate(const std::vector<MVector> &Rotation) {
     // Multiplies the rotation matrices within the array of matrices
     // To give a result of the final rotation matrix to be
     // multiplied with the input matrix
-    for (auto & matrix : matrices) {
+    for (auto &matrix : matrices) {
         result = result * matrix;
     }
     this->mat3x3 = result.mat3x3;
