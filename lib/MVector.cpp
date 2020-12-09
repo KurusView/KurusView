@@ -31,17 +31,17 @@ double MVector::getZ() const {
     return z;
 }
 
-void MVector::setX(float x) {
+void MVector::setX(double x) {
     // Sets the value of x for a specific vector
     this->x = x;
 }
 
-void MVector::setY(float y) {
+void MVector::setY(double y) {
     // Sets the value of y for a specific vector
     this->y = y;
 }
 
-void MVector::setZ(float z) {
+void MVector::setZ(double z) {
     // Sets the value of z for a specific vector
     this->z = z;
 }
@@ -126,7 +126,7 @@ void MVector::rotate(const std::vector<MVector> &Rotation) {
     // Multiplies the rotation matrices within the array of matrices
     // To give a result of the final rotation matrix to be
     // multiplied with the input vector
-    for (auto & matrix : matrices) {
+    for (auto &matrix : matrices) {
         result = matrix * result;
     }
     this->x = result.x;

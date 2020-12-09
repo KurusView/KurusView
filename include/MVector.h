@@ -28,11 +28,11 @@ public:
     double getZ() const;
 
     //Setter functions for x, y and z
-    void setX(float x);
+    void setX(double x);
 
-    void setY(float y);
+    void setY(double y);
 
-    void setZ(float z);
+    void setZ(double z);
 
     ~MVector();
 
