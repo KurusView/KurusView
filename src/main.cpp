@@ -5,8 +5,7 @@
 #include <Matrix.h>
 #include <ModelRenderer.h>
 #include <iostream>
-
-#define pi 3.141592653589793238462643383279502884197169399375105820974944592307816406286
+#include <cmath>
 
 void mVectorTest();
 
@@ -46,8 +45,8 @@ void mVectorTest() {
     std::cout << b;
 
     // Initializing rotation vectors
-    MVector rot(pi / 2, 0, 0);
-    MVector rot2(0, pi / 4, 0);
+    MVector rot(M_PI / 2, 0, 0);
+    MVector rot2(0, M_PI / 4, 0);
     MVector rot3(0, 0, 1.23);
 
     // Populating to input into rotation function
@@ -136,7 +135,7 @@ void matrixTest() {
     addition = m1 + m2;
     subtraction = m1 - m2;
     productMat = m1 * m2;
-    productScalar = m1 * pi;
+    productScalar = m1 * M_PI;
     productVec = m1 * a;
 
     std::cout << "Addition: " << std::endl;
@@ -153,8 +152,8 @@ void matrixTest() {
     std::cout << std::endl;
 
     // Initializing rotation vectors
-    MVector rot(pi / 2, 0, 0);
-    MVector rot2(0, pi / 4, 0);
+    MVector rot(M_PI / 2, 0, 0);
+    MVector rot2(0, M_PI / 4, 0);
     MVector rot3(0, 0, 1.23);
 
     // Populating to input into rotation function
