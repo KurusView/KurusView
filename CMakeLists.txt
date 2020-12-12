@@ -27,19 +27,30 @@ set(CMAKE_AUTOUIC ON)
 # lib directories, and the necessary static libraries for linking.
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
+# TODO: Generalize library includes and links
+# Set variables to include and library directories for SDL2, GLEW and GLM
+set(SDL2_INCLUDE_DIR C:/libs/SDL/include)
+set(SDL2_LIB_DIR C:/libs/SDL/lib/x86)
+
+set(GLEW_INCLUDE_DIR C:/libs/glew-2.1.0/include/GL)
+set(GLEW_LIB_DIR C:/libs/glew-2.1.0/lib/Release/Win32)
+
+set(GLM_INCLUDE_DIR C:/libs/glm/glm)
+
 # Just for show: This is what find_package has found:
 message(STATUS "Qt5Widgets Include Dirs: ${Qt5Widgets_INCLUDE_DIRS}")
 message(STATUS "Qt5Widgets Libraries: ${Qt5Widgets_LIBRARIES}")
 
 # Add the include directory to prevent the need to provide the full path when including library files
-include_directories(include include/Cells)
+include_directories(include include/Cells ${SDL2_INCLUDE_DIR} ${GLEW_INCLUDE_DIR} ${GLM_INCLUDE_DIR})
+link_directories(${SDL2_LIB_DIR} ${GLEW_LIB_DIR})
 
 # Define the library and it's sources
-add_library(3DLibrary lib/MVector.cpp include/MVector.h lib/MCell.cpp include/MCell.h lib/Material.cpp include/Material.h lib/Model.cpp include/Model.h lib/Matrix.cpp include/Matrix.h lib/ModelRenderer.cpp include/ModelRenderer.h lib/Cells/MTetrahedron.cpp include/Cells/MTetrahedron.h lib/Cells/MHexahedron.cpp include/Cells/MHexahedron.h lib/Cells/MPyramid.cpp include/Cells/MPyramid.h)
+add_library(3DLibrary lib/MVector.cpp include/MVector.h lib/MCell.cpp include/MCell.h lib/Material.cpp include/Material.h lib/Model.cpp include/Model.h lib/Matrix.cpp include/Matrix.h lib/ModelRenderer.cpp include/ModelRenderer.h lib/Cells/MTetrahedron.cpp include/Cells/MTetrahedron.h lib/Cells/MHexahedron.cpp include/Cells/MHexahedron.h lib/Cells/MPyramid.cpp include/Cells/MPyramid.h lib/Display.cpp include/Display.h)
 
 # Same as previously: define the executable and it's sources.
 add_executable(3DEXE src/main.cpp)
 
 # Tell CMake that the executable depends on the Qt::Widget and 3DLibrary libraries.
-target_link_libraries(3DEXE Qt5::Widgets 3DLibrary)
+target_link_libraries(3DEXE Qt5::Widgets 3DLibrary SDL2 SDL2main glew32 glew32s OpenGL32)
 # --------------------------------------------------------------------

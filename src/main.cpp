@@ -239,7 +239,9 @@ void matrixTest() {
 void modelRendererTest() {
     std::cout << "\n\nBegin ModelRenderer Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
-//    TEST CODE HERE
+    Model model("../../models/testmodel.txt");
+    ModelRenderer modelRenderer(model);
+    modelRenderer.run();
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     std::cout << "End ModelRenderer Test" << std::endl;
 }
