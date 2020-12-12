@@ -275,7 +275,7 @@ void Matrix::inverse() {
     this->mat3x3 = result.mat3x3;
 }
 
-std::vector<Matrix> Matrix::RotationMatrix(const std::vector<MVector> &Rotation) {
+Matrix Matrix::RotationMatrix(const std::vector<MVector> &Rotation) {
 
     // Undergoes multiple rotations that needs to be done on a specific matrix or vector
     // Has an input of an array of MVectors where within the vector lays the
@@ -340,20 +340,13 @@ std::vector<Matrix> Matrix::RotationMatrix(const std::vector<MVector> &Rotation)
             orderOfRotation.push_back(rz);
         }
     }
-    return orderOfRotation;
+    Matrix result;
+    result = orderOfRotation[orderOfRotation.size() - 1];
+    for (int i = orderOfRotation.size() - 2; i >= 0; --i) {
+        result = result * orderOfRotation[i];
+    }
+
+    return result;
 }
 
-void Matrix::rotate(const std::vector<MVector> &Rotation) {
-    Matrix result;
-    std::vector<Matrix> matrices;
-    matrices = RotationMatrix(Rotation);
-    result.mat3x3 = this->mat3x3;
-    // Multiplies the rotation matrices within the array of matrices
-    // To give a result of the final rotation matrix to be
-    // multiplied with the input matrix
-    for (auto &matrix : matrices) {
-        result = result * matrix;
-    }
-    this->mat3x3 = result.mat3x3;
-}
 

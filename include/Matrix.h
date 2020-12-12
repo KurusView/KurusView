@@ -16,9 +16,7 @@ public:
     Matrix(double v1x, double v1y, double v1z, double v2x, double v2y, double v2z, double v3x, double v3y, double v3z);
 
     // Initializing rotation matrix
-    static std::vector<Matrix> RotationMatrix(const std::vector<MVector> &Rotation);
-
-    void rotate(const std::vector<MVector> &Rotation);
+    Matrix RotationMatrix(const std::vector<MVector> &Rotation);
 
     // Initializes matrix with 3 columns and initializing each cell using the MVector constructor.
     Matrix() : mat3x3(3, MVector()) {};

@@ -116,22 +116,5 @@ MVector MVector::operator*(const MVector &obj) const {
     return result;
 }
 
-void MVector::rotate(const std::vector<MVector> &Rotation) {
-    MVector result;
-    std::vector<Matrix> matrices;
-    result.x = this->x;
-    result.y = this->y;
-    result.z = this->z;
-    matrices = Matrix::RotationMatrix(Rotation);
-    // Multiplies the rotation matrices within the array of matrices
-    // To give a result of the final rotation matrix to be
-    // multiplied with the input vector
-    for (auto &matrix : matrices) {
-        result = matrix * result;
-    }
-    this->x = result.x;
-    this->y = result.y;
-    this->z = result.z;
-}
 
 

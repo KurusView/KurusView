@@ -18,8 +18,6 @@ public:
     //Constructor to initialize the vector in 3D
     MVector(double x, double y, double z);
 
-    void rotate(const std::vector<MVector> &Rotation);
-
     // Getter functions for x, y and z
     double getX() const;
 
