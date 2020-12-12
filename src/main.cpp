@@ -45,15 +45,15 @@ void mVectorTest() {
     std::cout << b;
 
     // Initializing rotation vectors
-    MVector rot(M_PI / 2, 0, 0);
-    MVector rot2(0, M_PI / 4, 0);
-    MVector rot3(0, 0, 1.23);
+    MVector rot(M_PI, 0, 0);
+    MVector rot2(0, M_PI / 8, 0);
+    MVector rot3(0, 0, M_PI / 2);
 
     // Populating to input into rotation function
     std::vector<MVector> rotation;
     rotation.push_back(rot);
-    rotation.push_back(rot2);
     rotation.push_back(rot3);
+    rotation.push_back(rot2);
 
     // Testing vector functions
     addition = a + b;
@@ -69,10 +69,18 @@ void mVectorTest() {
     std::cout << "Modulus: " << a.getModulus() << std::endl;
     std::cout << std::endl;
 
-    a.rotate(rotation);
+    Matrix Rotation;
+    Rotation = Rotation.RotationMatrix(rotation);
+
+    std::cout << "Rotation Matrix: " << std::endl;
+    std::cout << Rotation;
+
+    MVector rotated;
+
+    rotated = Rotation * a;
 
     std::cout << "Rotated Vector: " << std::endl;
-    std::cout << a;
+    std::cout << rotated;
 
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     std::cout << "End MVector Test" << std::endl;
@@ -162,10 +170,10 @@ void matrixTest() {
     rotation.push_back(rot2);
     rotation.push_back(rot3);
 
-    m1.rotate(rotation);
-
-    std::cout << "Rotated Matrix m1: " << std::endl;
-    std::cout << m1;
+//    m1.rotate(rotation);
+//
+//    std::cout << "Rotated Matrix m1: " << std::endl;
+//    std::cout << m1;
 
     inverse.inverse();
 
