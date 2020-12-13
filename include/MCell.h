@@ -46,11 +46,11 @@ protected:
 public:
 
     // ================ CONSTRUCTORS/DESTRUCTORS ================
-    MCell( std::vector<MVector> _MCellVertices, Material _MCellMaterial, double _MCellID); // shared_ptr material, MVector.
+    MCell( std::vector<MVector> _MCellVertices, Material _MCellMaterial, double _MCellID ); // shared_ptr material, MVector.
     ~MCell() = default;
 
     // ====================== OPERATORS ==========================
-    MCell& operator=( const MCell& _mcell );
+    //MCell& operator=( const MCell& _mcell );
 
     // stdout, to file streams
     friend std::ostream &operator<<( std::ostream &os, const MCell& _MCell );
@@ -59,11 +59,12 @@ public:
     // ======================= ACCESSORS =========================
 
     // XXX: a note on const: https://stackoverflow.com/questions/8406898/benefits-of-using-const-with-scalar-type-e-g-const-double-or-const-int
-    double getVolume( void );
-    double getWeight( void );
-    double getMass( void );
-    double getDensity( void );
-    double getMCellID ( void );
+    const double getVolume( void ) const;
+    const double getWeight( void ) const;
+    const double getMass( void ) const;
+    const double getDensity( void ) const;
+    const double getID ( void ) const;
+    const double getCount ( void ) const;
 
     std::vector<std::string> getMCellType ( void ); // eg. t, tetrahedron (for file and stdout output)
 
