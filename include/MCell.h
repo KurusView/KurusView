@@ -2,6 +2,7 @@
 #define INC_3DLIB_MCELL_H
 
 #include <iostream>
+#include <fstream>
 #include <vector>
 
 #include "MVector.h"

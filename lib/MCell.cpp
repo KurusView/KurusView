@@ -1,4 +1,7 @@
 #include "MCell.h"
+
+#include <map>
+
 MCell::MCell(std::vector<MVector> vertices, Material material, const long int id) : MCellID(id),
                                                                                     MCellType(_MCellType_t::NONE) {
     MCellInstanceCount++;
@@ -55,3 +58,28 @@ void MCell::setVertices(std::vector<MVector> vertices) {
     this->MCellVertices = vertices;
 }
 
+
+std::vector<std::string> MCell::getType(void) const {
+
+    // cant be constexpr, look for Compile Time Evaluated alternative
+    // https://stackoverflow.com/questions/16490835/how-to-build-a-compile-time-key-value-store
+    std::map<MCell::_MCellType_t, std::vector<std::string>> MCellType_str{
+            {MCell::_MCellType_t::TETRAHEDRON, {"t", "tetrahedron"}},
+            {MCell::_MCellType_t::PYRAMID,     {"p", "pyramid"}},
+            {MCell::_MCellType_t::HEXAHEDRON,  {"h", "hexahedron"}}
+    };
+
+    return MCellType_str[this->MCellType];
+}
+
+std::ostream &operator<<(std::ostream &os, const MCell &mCell) {
+    os << mCell.getType()[1];
+
+    return os;
+}
+
+std::ofstream &operator<<(std::ofstream &os, const MCell &mCell) {
+    os << mCell.getType()[0];
+
+    return os;
+}
