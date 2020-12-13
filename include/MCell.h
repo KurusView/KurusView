@@ -52,8 +52,8 @@ protected:
 public:
 
     // ================ CONSTRUCTORS/DESTRUCTORS ================
-    MCell(std::vector<MVector> vertices, Material material, double id); // shared_ptr material, vector
     ~MCell() = default;
+    MCell(std::vector<MVector> vertices, Material material, const long int id); // shared_ptr material, vector
 
     // ====================== OPERATORS ==========================
     //MCell& operator=( const MCell& _mcell );
