@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+
 #include <MVector.h>
 #include <MCell.h>
 #include <Material.h>
