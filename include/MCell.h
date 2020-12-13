@@ -21,7 +21,7 @@ protected:
     double MCellWeight;
     double MCellMass;
     double MCellDensity;
-    double MCellID;
+    const long int MCellID;
 
     // color? - check with Material
 
@@ -79,8 +79,6 @@ public:
     const double getCount(void) const;
 
     std::vector<std::string> getType(void) const; // eg. t, tetrahedron (for file and stdout output)
-
-    bool setID(double id); // fail on repeated ID?
 
 
     // for now return instance copy of these. https://en.wikipedia.org/wiki/Copy_elision#Return_value_optimization
