@@ -10,9 +10,13 @@
 class MCell {
 private:
 
-    // Data Members
+    // Private Data Member - holds count of all cells
     static long int MCellInstanceCount;
 
+
+protected:
+
+    // Data Members
     double MCellVolume;
     double MCellWeight;
     double MCellMass;
@@ -23,8 +27,7 @@ private:
 
     std::vector<MVector> MCellVertices; // shared ptr
     Material MCellMaterial;             // shared ptr
-
-protected:
+    MVector MCellCOG;                   // shared ptr
 
     // note: when mapping enum to string for printing, make it Compile Time Evaluated
     // (not std::map), maybe constexpr: https://stackoverflow.com/a/63265237
