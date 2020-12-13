@@ -49,16 +49,16 @@ protected:
 public:
 
     // ================ CONSTRUCTORS/DESTRUCTORS ================
-    MCell( std::vector<MVector> _MCellVertices, Material _MCellMaterial, double _MCellID ); // shared_ptr material, MVector.
+    MCell(std::vector<MVector> vertices, Material material, double id); // shared_ptr material, vector
     ~MCell() = default;
 
     // ====================== OPERATORS ==========================
     //MCell& operator=( const MCell& _mcell );
 
     // stdout, to file streams
-    friend std::ostream &operator<<(std::ostream &os, const MCell &_MCell);
+    friend std::ostream &operator<<(std::ostream &os, const MCell &mCell);
 
-    friend std::ofstream &operator<<(std::ofstream &os, const MCell &_MCell);
+    friend std::ofstream &operator<<(std::ofstream &os, const MCell &mCell);
 
     // ======================= ACCESSORS =========================
 
