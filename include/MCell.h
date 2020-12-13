@@ -11,6 +11,7 @@ class MCell {
 private:
 
     // Data Members
+    static long int MCellInstanceCount;
 
     double MCellVolume;
     double MCellWeight;
@@ -66,7 +67,7 @@ public:
     const double getID ( void ) const;
     const double getCount ( void ) const;
 
-    std::vector<std::string> getMCellType ( void ); // eg. t, tetrahedron (for file and stdout output)
+    std::vector<std::string> getType (void ) const; // eg. t, tetrahedron (for file and stdout output)
 
     bool setID (double id ); // fail on repeated ID?
 
@@ -83,5 +84,6 @@ public:
     // ==============================================================
 };
 
+long int MCell::MCellInstanceCount = 0;
 
 #endif //INC_3DLIB_MCELL_H
