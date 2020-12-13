@@ -68,7 +68,7 @@ public:
 
     std::vector<std::string> getMCellType ( void ); // eg. t, tetrahedron (for file and stdout output)
 
-    int setMCellID ( double MCellID ); // fail on repeated ID?
+    bool setID (double id ); // fail on repeated ID?
 
 
     // for now return instance copy of these. https://en.wikipedia.org/wiki/Copy_elision#Return_value_optimization
@@ -77,8 +77,8 @@ public:
     const Material getMaterial( void ); // shared
     const std::vector<MVector> getVertices( void ); // MVector shared, std::vector: http://www.cplusplus.com/forum/general/56177/
 
-    void setMaterial( Material ); // shared
-    void setVertices ( std::vector<MVector> ); // MVector shared
+    void setMaterial( Material material ); // shared
+    void setVertices ( std::vector<MVector> vertices ); // MVector shared
 
     // ==============================================================
 };
