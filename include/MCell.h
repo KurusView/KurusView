@@ -39,7 +39,7 @@ protected:
         PYRAMID,
     };
 
-    _MCellType_t MCellType = _MCellType_t::NONE; // do this in constructor member initializer list?
+    _MCellType_t MCellType;
 
     // require shape specific knowledge and are to be implemented by derived classes (virtual)
     virtual double calcVolume(void);
@@ -52,8 +52,8 @@ protected:
 public:
 
     // ================ CONSTRUCTORS/DESTRUCTORS ================
-    ~MCell() = default;
     MCell(std::vector<MVector> vertices, Material material, const long int id); // shared_ptr material, vector
+    ~MCell();
 
     // ====================== OPERATORS ==========================
     //MCell& operator=( const MCell& _mcell );
@@ -85,8 +85,9 @@ public:
     // best implemented by reference, use smart pointers:
     const MVector getCentreOfGrav(void); // unique in 3D space? - NO! shared
     const Material getMaterial(void); // shared
-    const std::vector<MVector>
-    getVertices(void); // MVector shared, std::vector: http://www.cplusplus.com/forum/general/56177/
+    const std::vector<MVector> getVertices(void); // MVector shared
+
+    // Note on returning vector: std::vector: http://www.cplusplus.com/forum/general/56177/
 
     void setMaterial(Material material); // shared
     void setVertices(std::vector<MVector> vertices); // MVector shared
