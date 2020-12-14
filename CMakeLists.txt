@@ -32,10 +32,10 @@ message(STATUS "Qt5Widgets Include Dirs: ${Qt5Widgets_INCLUDE_DIRS}")
 message(STATUS "Qt5Widgets Libraries: ${Qt5Widgets_LIBRARIES}")
 
 # Add the include directory to prevent the need to provide the full path when including library files
-include_directories(include/)
+include_directories(include include/Cells)
 
 # Define the library and it's sources
-add_library(3DLibrary lib/MVector.cpp include/MVector.h lib/MCell.cpp include/MCell.h lib/Material.cpp include/Material.h lib/Model.cpp include/Model.h lib/Matrix.cpp include/Matrix.h lib/ModelRenderer.cpp include/ModelRenderer.h)
+add_library(3DLibrary lib/MVector.cpp include/MVector.h lib/MCell.cpp include/MCell.h lib/Material.cpp include/Material.h lib/Model.cpp include/Model.h lib/Matrix.cpp include/Matrix.h lib/ModelRenderer.cpp include/ModelRenderer.h lib/Cells/MTetrahedron.cpp include/Cells/MTetrahedron.h lib/Cells/MHexahedron.cpp include/Cells/MHexahedron.h lib/Cells/MPyramid.cpp include/Cells/MPyramid.h)
 
 # Same as previously: define the executable and it's sources.
 add_executable(3DEXE src/main.cpp)
