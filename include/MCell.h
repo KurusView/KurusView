@@ -12,7 +12,7 @@ class MCell {
 private:
 
     // Private Data Member - holds count of all cells
-    static long int MCellInstanceCount;
+    static unsigned long int MCellInstanceCount;
 
 
 protected:
@@ -74,7 +74,7 @@ public:
 
     double getID() const;
 
-    double getCount() const;
+    static double getCount();
 
     std::vector<std::string> getType() const; // eg. t, tetrahedron (for file and stdout output)
 

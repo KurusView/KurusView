@@ -2,7 +2,8 @@
 
 #include <map>
 
-long int MCell::MCellInstanceCount = 0;
+// cell instance count
+unsigned long int MCell::MCellInstanceCount = 0;
 
 // Member Initializer Lists should be in declaration order
 MCell::MCell(std::vector<MVector> vertices, Material material, const long int id) : MCellID(id),
@@ -49,8 +50,8 @@ const std::vector<MVector> MCell::getVertices() const {
     return this->MCellVertices;
 }
 
-double MCell::getCount() const {
-    return this->MCellInstanceCount;
+double MCell::getCount() {
+    return MCell::MCellInstanceCount;
 }
 
 
