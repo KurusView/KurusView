@@ -68,13 +68,13 @@ std::vector<std::string> MCell::getType() const {
     return MCellType_str[this->MCellType];
 }
 
-std::ostream &operator<<(std::ostream &os, const MCell &mCell) {
+inline std::ostream &operator<<(std::ostream &os, const MCell &mCell) {
     os << mCell.getType()[1];
 
     return os;
 }
 
-std::ofstream &operator<<(std::ofstream &os, const MCell &mCell) {
+inline std::ofstream &operator<<(std::ofstream &os, const MCell &mCell) {
     os << mCell.getType()[0];
 
     return os;
