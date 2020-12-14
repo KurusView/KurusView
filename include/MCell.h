@@ -66,15 +66,15 @@ public:
     // ======================= ACCESSORS =========================
 
     // XXX: a note on const: https://stackoverflow.com/questions/8406898/benefits-of-using-const-with-scalar-type-e-g-const-double-or-const-int
-    const double getVolume() const;
+    double getVolume() const;
 
-    const double getWeight() const;
+    double getWeight() const;
 
-    const double getDensity() const;
+    double getDensity() const;
 
-    const double getID() const;
+    double getID() const;
 
-    const double getCount() const;
+    double getCount() const;
 
     std::vector<std::string> getType() const; // eg. t, tetrahedron (for file and stdout output)
 

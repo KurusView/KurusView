@@ -13,11 +13,11 @@ MCell::~MCell() {
     MCellInstanceCount--;
 }
 
-const double MCell::getVolume() const {
+double MCell::getVolume() const {
     return this->MCellVolume;
 }
 
-const double MCell::getWeight() const {
+double MCell::getWeight() const {
     return this->MCellWeight;
 }
 
@@ -25,11 +25,11 @@ const MVector MCell::getCentreOfGrav() const {
     return this->MCellCOG;
 }
 
-const double MCell::getDensity() const {
+double MCell::getDensity() const {
     return this->MCellDensity;
 }
 
-const double MCell::getID() const {
+double MCell::getID() const {
     return this->MCellID;
 }
 
@@ -41,7 +41,7 @@ const std::vector<MVector> MCell::getVertices() const {
     return this->MCellVertices;
 }
 
-const double MCell::getCount() const {
+double MCell::getCount() const {
     return this->MCellInstanceCount;
 }
 
