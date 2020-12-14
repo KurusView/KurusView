@@ -18,9 +18,8 @@ private:
 protected:
 
     // Data Members
-    double MCellVolume;
-    double MCellWeight;
-    double MCellMass;
+    mutable double MCellVolume;
+    mutable double MCellWeight;
     double MCellDensity;
     const long int MCellID;
 
@@ -28,7 +27,7 @@ protected:
 
     std::vector<MVector> MCellVertices; // shared ptr
     Material MCellMaterial;             // shared ptr
-    MVector MCellCOG;                   // shared ptr
+    mutable MVector MCellCOG;           // shared ptr
 
     // note: when mapping enum to string for printing, make it Compile Time Evaluated
     // (not std::map), maybe constexpr: https://stackoverflow.com/a/63265237
@@ -42,12 +41,12 @@ protected:
 
     _MCellType_t MCellType;
 
-    // require shape specific knowledge and are to be implemented by derived classes (virtual)
-    virtual double calcVolume();
+    // require shape specific knowledge and are to be implemented by derived classes (Pure Virtual)
+    virtual double calcVolume() const;
 
-    virtual double calcWeight();
+    virtual double calcWeight() const;
 
-    virtual MVector calcCentreOfGrav();
+    virtual MVector calcCentreOfGrav() const;
 
 
 public:
@@ -82,9 +81,9 @@ public:
 
     // for now return instance copy of these. https://en.wikipedia.org/wiki/Copy_elision#Return_value_optimization
     // best implemented by reference, use smart pointers:
-    const MVector getCentreOfGrav(); // unique in 3D space? - NO! shared
-    const Material getMaterial(); // shared
-    const std::vector<MVector> getVertices(); // MVector shared
+    const MVector getCentreOfGrav() const; // unique in 3D space? - NO! shared
+    const Material getMaterial() const; // shared
+    const std::vector<MVector> getVertices() const; // MVector shared
 
     // Note on returning vector: std::vector: http://www.cplusplus.com/forum/general/56177/
 

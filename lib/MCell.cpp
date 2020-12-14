@@ -21,7 +21,7 @@ const double MCell::getWeight() const {
     return this->MCellWeight;
 }
 
-const MVector MCell::getCentreOfGrav() {
+const MVector MCell::getCentreOfGrav() const {
     return this->MCellCOG;
 }
 
@@ -33,11 +33,11 @@ const double MCell::getID() const {
     return this->MCellID;
 }
 
-const Material MCell::getMaterial() {
+const Material MCell::getMaterial() const {
     return this->MCellMaterial;
 }
 
-const std::vector<MVector> MCell::getVertices() {
+const std::vector<MVector> MCell::getVertices() const {
     return this->MCellVertices;
 }
 
