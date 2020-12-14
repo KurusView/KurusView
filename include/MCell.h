@@ -42,11 +42,11 @@ protected:
     _MCellType_t MCellType;
 
     // require shape specific knowledge and are to be implemented by derived classes (Pure Virtual)
-    virtual double calcVolume() const;
+    virtual double calcVolume() const = 0;
 
-    virtual double calcWeight() const;
+    virtual double calcWeight() const = 0;
 
-    virtual MVector calcCentreOfGrav() const;
+    virtual MVector calcCentreOfGrav() const = 0;
 
 
 public:
