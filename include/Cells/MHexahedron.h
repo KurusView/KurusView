@@ -4,7 +4,7 @@
 
 #include "MCell.h"
 
-class MHexahedron : MCell {
+class MHexahedron : public MCell {
 public:
     MHexahedron (std::vector<MVector> vertices, Material material, const long int id) ;
     ~MHexahedron() = default; // this should call the base destructor regardless
