@@ -43,11 +43,11 @@ protected:
     _MCellType_t MCellType;
 
     // require shape specific knowledge and are to be implemented by derived classes (virtual)
-    virtual double calcVolume(void);
+    virtual double calcVolume();
 
-    virtual double calcWeight(void);
+    virtual double calcWeight();
 
-    virtual MVector calcCentreOfGrav(void);
+    virtual MVector calcCentreOfGrav();
 
 
 public:
@@ -67,26 +67,24 @@ public:
     // ======================= ACCESSORS =========================
 
     // XXX: a note on const: https://stackoverflow.com/questions/8406898/benefits-of-using-const-with-scalar-type-e-g-const-double-or-const-int
-    const double getVolume(void) const;
+    const double getVolume() const;
 
-    const double getWeight(void) const;
+    const double getWeight() const;
 
-    const double getMass(void) const;
+    const double getDensity() const;
 
-    const double getDensity(void) const;
+    const double getID() const;
 
-    const double getID(void) const;
+    const double getCount() const;
 
-    const double getCount(void) const;
-
-    std::vector<std::string> getType(void) const; // eg. t, tetrahedron (for file and stdout output)
+    std::vector<std::string> getType() const; // eg. t, tetrahedron (for file and stdout output)
 
 
     // for now return instance copy of these. https://en.wikipedia.org/wiki/Copy_elision#Return_value_optimization
     // best implemented by reference, use smart pointers:
-    const MVector getCentreOfGrav(void); // unique in 3D space? - NO! shared
-    const Material getMaterial(void); // shared
-    const std::vector<MVector> getVertices(void); // MVector shared
+    const MVector getCentreOfGrav(); // unique in 3D space? - NO! shared
+    const Material getMaterial(); // shared
+    const std::vector<MVector> getVertices(); // MVector shared
 
     // Note on returning vector: std::vector: http://www.cplusplus.com/forum/general/56177/
 

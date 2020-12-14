@@ -13,39 +13,35 @@ MCell::~MCell() {
     MCellInstanceCount--;
 }
 
-const double MCell::getVolume(void) const {
+const double MCell::getVolume() const {
     return this->MCellVolume;
 }
 
-const double MCell::getWeight(void) const {
+const double MCell::getWeight() const {
     return this->MCellWeight;
 }
 
-const double MCell::getMass(void) const {
-    return this->MCellMass;
+const MVector MCell::getCentreOfGrav() {
+    return this->MCellCOG;
 }
 
-const double MCell::getDensity(void) const {
+const double MCell::getDensity() const {
     return this->MCellDensity;
 }
 
-const double MCell::getID(void) const {
+const double MCell::getID() const {
     return this->MCellID;
-}
-
-const MVector MCell::getCentreOfGrav(void) {
-    return this->MCellCOG;
 }
 
 const Material MCell::getMaterial() {
     return this->MCellMaterial;
 }
 
-const std::vector<MVector> MCell::getVertices(void) {
+const std::vector<MVector> MCell::getVertices() {
     return this->MCellVertices;
 }
 
-const double MCell::getCount(void) const {
+const double MCell::getCount() const {
     return this->MCellInstanceCount;
 }
 
@@ -59,7 +55,7 @@ void MCell::setVertices(std::vector<MVector> vertices) {
 }
 
 
-std::vector<std::string> MCell::getType(void) const {
+std::vector<std::string> MCell::getType() const {
 
     // cant be constexpr, look for Compile Time Evaluated alternative
     // https://stackoverflow.com/questions/16490835/how-to-build-a-compile-time-key-value-store
