@@ -32,14 +32,14 @@ protected:
     // note: when mapping enum to string for printing, make it Compile Time Evaluated
     // (not std::map), maybe constexpr: https://stackoverflow.com/a/63265237
     // If the above becomes a headache make this any other POD
-    enum class _MCellType_t {
+    enum class MCellType_TypeDef {
         NONE,
         TETRAHEDRON,
         HEXAHEDRON,
         PYRAMID,
     };
 
-    _MCellType_t MCellType;
+    MCellType_TypeDef MCellType;
 
     // require shape specific knowledge and are to be implemented by derived classes (Pure Virtual)
     virtual double calcVolume() const = 0;
@@ -93,6 +93,6 @@ public:
     // ==============================================================
 };
 
-long int MCell::MCellInstanceCount = 0;
+//long int MCell::MCellInstanceCount = 0;
 
 #endif //INC_3DLIB_MCELL_H

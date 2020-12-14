@@ -5,7 +5,15 @@
 #include "MCell.h"
 
 class MPyramid : MCell {
+public:
+    MPyramid (std::vector<MVector> vertices, Material material, const long int id) ;
+    ~MPyramid() = default; // this should call the base destructor regardless
 
+    double calcVolume() const override;
+
+    double calcWeight() const override;
+
+    MVector calcCentreOfGrav() const override;
 };
 
 

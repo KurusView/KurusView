@@ -2,11 +2,19 @@
 
 #include <map>
 
+long int MCell::MCellInstanceCount = 0;
+
+// Member Initializer Lists should be in declaration order
 MCell::MCell(std::vector<MVector> vertices, Material material, const long int id) : MCellID(id),
-                                                                                    MCellType(_MCellType_t::NONE) {
+                                                                                    MCellVertices(vertices),
+                                                                                    MCellMaterial(material),
+                                                                                    MCellType(MCellType_TypeDef::NONE) {
     MCellInstanceCount++;
-    // when instantiating derived class, call this constructor to update global cell counter and id
-    // https://stackoverflow.com/a/12045286
+    // when instantiating derived class, this constructor is called. Polymorphism can exist between base
+    // and derived classes with the "using" keyword.
+
+    // the derived class should initialize the other data members evaluating the calc methods. This methods being
+    // Pure Virtual can be called from the derived constructor without UB
 }
 
 MCell::~MCell() {
@@ -59,10 +67,10 @@ std::vector<std::string> MCell::getType() const {
 
     // cant be constexpr, look for Compile Time Evaluated alternative
     // https://stackoverflow.com/questions/16490835/how-to-build-a-compile-time-key-value-store
-    std::map<MCell::_MCellType_t, std::vector<std::string>> MCellType_str{
-            {MCell::_MCellType_t::TETRAHEDRON, {"t", "tetrahedron"}},
-            {MCell::_MCellType_t::PYRAMID,     {"p", "pyramid"}},
-            {MCell::_MCellType_t::HEXAHEDRON,  {"h", "hexahedron"}}
+    std::map<MCell::MCellType_TypeDef, std::vector<std::string>> MCellType_str{
+            {MCell::MCellType_TypeDef::TETRAHEDRON, {"t", "tetrahedron"}},
+            {MCell::MCellType_TypeDef::PYRAMID,     {"p", "pyramid"}},
+            {MCell::MCellType_TypeDef::HEXAHEDRON,  {"h", "hexahedron"}}
     };
 
     return MCellType_str[this->MCellType];

@@ -5,7 +5,15 @@
 #include "MCell.h"
 
 class MHexahedron : MCell {
+public:
+    MHexahedron (std::vector<MVector> vertices, Material material, const long int id) ;
+    ~MHexahedron() = default; // this should call the base destructor regardless
 
+    double calcVolume() const override;
+
+    double calcWeight() const override;
+
+    MVector calcCentreOfGrav() const override;
 };
 
 
