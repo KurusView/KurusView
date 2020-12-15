@@ -20,7 +20,7 @@ void ModelRenderer::run() {
     std::vector<MVector> testMVects = {MVector(-0.5, 0.5, 0),
                                        MVector(0, -0.5, 0),
                                        MVector(0.5, 0.5, 0)};
-    Mesh mesh(testMVects);
+    Mesh mesh;
 //    Constantly update the window until the user closes it
     while (!display.isClosed()) {
 //        Fill the screen with a dark-blue background. RGBA floats between 0-1.

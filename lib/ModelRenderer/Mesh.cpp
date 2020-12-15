@@ -4,7 +4,11 @@
 
 #include "Mesh.h"
 
-Mesh::Mesh(std::vector<MVector> vertices) {
+Mesh::Mesh() {
+    std::vector<MVector> vertices = {MVector(-0.5, 0.5, 0),
+                                     MVector(0, -0.5, 0),
+                                     MVector(0.5, 0.5, 0)};
+    m_drawCount = vertices.size();
 
     // Generate vertex array object names and bind them
     glGenVertexArrays(1, &m_vertexArrayObject);
