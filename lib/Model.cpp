@@ -106,7 +106,7 @@ void Model::saveModel(const std::string &filePath) {
 
 //    Output materials
     outputFile << "# Materials" << std::endl;
-    for (int i = 0; i < materials.size(); ++i) {
+    for (unsigned int i = 0; i < materials.size(); ++i) {
         // TODO Get density from material
         int density = 2700;
 
@@ -124,7 +124,7 @@ void Model::saveModel(const std::string &filePath) {
 
 //    Output all vectors
     outputFile << "# Vectors" << std::endl;
-    for (int i = 0; i < vectors.size(); ++i) {
+    for (unsigned int i = 0; i < vectors.size(); ++i) {
         std::cout << "Print vector" << std::endl;
 
         outputFile << 'v' << ' ' << i << ' ' << vectors[i].getX() << ' ' << vectors[i].getY() << ' '
@@ -133,7 +133,7 @@ void Model::saveModel(const std::string &filePath) {
 
 //    Output all cells
     outputFile << "# Cells" << std::endl;
-    for (int i = 0; i < cells.size(); ++i) {
+    for (unsigned int i = 0; i < cells.size(); ++i) {
         // TODO Get cell type
         char cellType = 'h';
 
