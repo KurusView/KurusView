@@ -69,6 +69,9 @@ void Model::loadModel(const std::string &filePath) {
             std::string cellVectors;
 
             switch (cellType) {
+                case 'q':
+                    cellVectors += tokens[6] + " " + tokens[5] + " " + tokens[4];
+                    break;
                 case 'h': // Hexahedron
                     cellVectors += tokens[11] + " " + tokens[10] + " " + tokens[9] + " ";
                 case 'p': // Pyramid
