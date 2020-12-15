@@ -9,6 +9,7 @@
 #include <glew.h>
 #include <string>
 #include <MVector.h>
+#include <Model.h>
 
 class Mesh {
 private:
@@ -22,7 +23,7 @@ private:
     unsigned int m_drawCount;
 
 public:
-    Mesh();
+    Mesh(Model &model);
 
     void draw() const;
 
