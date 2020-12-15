@@ -69,6 +69,7 @@ void Model::loadModel(const std::string &filePath) {
             std::string cellVectors;
 
             switch (cellType) {
+                //TODO: Complete for all or move in MCell classes
                 case 'q':
                     cellVectors += tokens[6] + " " + tokens[5] + " " + tokens[4];
                     indices.push_back(stoi(tokens[4]));
@@ -84,15 +85,9 @@ void Model::loadModel(const std::string &filePath) {
                     indices.push_back(stoi(tokens[4]));
                     indices.push_back(stoi(tokens[5]));
                     indices.push_back(stoi(tokens[6]));
-                    indices.push_back(stoi(tokens[4]));
-                    indices.push_back(stoi(tokens[5]));
                     indices.push_back(stoi(tokens[7]));
                     indices.push_back(stoi(tokens[4]));
-                    indices.push_back(stoi(tokens[6]));
-                    indices.push_back(stoi(tokens[7]));
                     indices.push_back(stoi(tokens[5]));
-                    indices.push_back(stoi(tokens[6]));
-                    indices.push_back(stoi(tokens[7]));
                     break;
                 default:
                     break;

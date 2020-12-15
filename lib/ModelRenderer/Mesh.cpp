@@ -45,7 +45,7 @@ void Mesh::draw() const {
     // Bind the vertex array object
     glBindVertexArray(m_vertexArrayObject);
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    glDrawElements(GL_TRIANGLES, m_drawCount, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLE_STRIP, m_drawCount, GL_UNSIGNED_INT, nullptr);
     // Bind the vertex array object
     glBindVertexArray(0);
 }
