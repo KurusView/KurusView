@@ -76,7 +76,7 @@ void mVectorTest() {
     std::cout << std::endl;
 
     Matrix Rotation;
-    Rotation = Rotation.RotationMatrix(rotation);
+    Rotation = RotationMatrix(rotation);
 
     std::cout << "Rotation Matrix: " << std::endl;
     std::cout << Rotation;
@@ -86,14 +86,15 @@ void mVectorTest() {
     rotated = Rotation * a;
 
     std::cout << "Rotated Vector: " << std::endl;
+    std::cout << rotated;
 
 
     // Test ID functionality
 
     MVector anonymous;
-    MVector idRepresented(0,0,0, 10);
+    MVector idRepresented(0, 0, 0, 10);
     MVector transformed;
-    transformed = idRepresented*anonymous;
+    transformed = idRepresented * anonymous;
 
     std::cout << "Anonymous MVector ID: " << anonymous.getID() << std::endl;
     std::cout << "ID represented MVector ID: " << idRepresented.getID() << std::endl;
@@ -200,26 +201,28 @@ void matrixTest() {
     std::cout << productMat;
     std::cout << "Matrix-Vector multiplication: " << std::endl;
     std::cout << productVec;
+    std::cout << "Matrix-Scalar multiplication: " << std::endl;
+    std::cout << productScalar;
     std::cout << "Matrix-Vector multiplication: " << std::endl;
     std::cout << productVec;
     std::cout << "Determinant: " << m1.det() << std::endl;
     std::cout << std::endl;
 
     // Initializing rotation vectors
-    MVector rot(M_PI / 2, 0, 0);
-    MVector rot2(0, M_PI / 4, 0);
-    MVector rot3(0, 0, 1.23);
+    MVector rot(M_PI, 0, 0);
+    MVector rot2(0, M_PI / 8, 0);
+    MVector rot3(0, 0, M_PI / 2);
 
     // Populating to input into rotation function
     std::vector<MVector> rotation;
     rotation.push_back(rot);
-    rotation.push_back(rot2);
     rotation.push_back(rot3);
+    rotation.push_back(rot2);
 
-//    m1.rotate(rotation);
-//
-//    std::cout << "Rotated Matrix m1: " << std::endl;
-//    std::cout << m1;
+    Matrix rotMatrix = RotationMatrix(rotation);
+
+    std::cout << "Rotation Matrix: " << std::endl;
+    std::cout << rotMatrix;
 
     inverse.inverse();
 
