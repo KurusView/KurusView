@@ -110,9 +110,9 @@ void mCellTest() {
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
 //    TEST CODE HERE
 
-    std::shared_ptr<MVector> testSharedVector         = std::make_shared<MVector>(1,2,3);
-    std::shared_ptr<Material> testSharedMaterial      = std::make_shared<Material>();
-    std::vector<std::shared_ptr<MVector>> test_vector = {testSharedVector};
+    std::shared_ptr<const MVector> testSharedVector         = std::make_shared<MVector>(1,2,3);
+    std::shared_ptr<const Material> testSharedMaterial      = std::make_shared<Material>();
+    std::vector<std::shared_ptr<const MVector>> test_vector = {testSharedVector};
 
     MTetrahedron tetra( test_vector, testSharedMaterial, 0);
     MTetrahedron tetraX( test_vector, testSharedMaterial, 0);

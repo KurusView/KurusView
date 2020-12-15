@@ -39,7 +39,7 @@ protected:
      * @note Protected accessibility because MCell is an abstract class. Explicit because Derived class should not be
      *       able to hardcode ID - it should come straight from the data file
      */
-    explicit MCell(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material, long int id);
+    explicit MCell(std::vector<std::shared_ptr<const MVector>> vertices, std::shared_ptr<const Material> material, long int id);
 
     /**
      * @brief default constructor - deleted
@@ -76,17 +76,17 @@ protected:
      */
 
     /// @brief holds a vector of MVectors defining the vertex of the cell
-    std::vector<std::shared_ptr<MVector>> MCellVertices;
+    std::vector<std::shared_ptr<const MVector>> MCellVertices;
 
     /// @brief holds a the material of the cell
-    std::shared_ptr<Material> MCellMaterial;
+    std::shared_ptr<const Material> MCellMaterial;
 
 
     /**
      * @brief holds the Centre Of Gravity of the cell as a shared pointer MVector
      * @note shared_ptr because Overlapping Cells might share Centre of Gravity
      */
-    mutable std::shared_ptr<MVector> MCellCOG;
+    mutable std::shared_ptr<const MVector> MCellCOG;
 
 
     /**
@@ -207,19 +207,19 @@ public:
      * @brief get MCellCOG (accessor)
      * @return shared pointer to anonymous (ID - less) 3D MVector instance
      */
-    std::shared_ptr<MVector> getCentreOfGrav() const;
+    std::shared_ptr<const MVector> getCentreOfGrav() const;
 
     /**
      * @brief  get MCellMaterial (accessor)
      * @return shared pointer to Material instance
      */
-    std::shared_ptr<Material> getMaterial() const;
+    std::shared_ptr<const Material> getMaterial() const;
 
     /**
      * @brief  get MCellVertices (accessor)
      * @return vector of shared pointer to ID represented MVectors
      */
-    std::vector<std::shared_ptr<MVector>> getVertices() const;
+    std::vector<std::shared_ptr<const MVector>> getVertices() const;
 
 
     //TODO: do we really need these? - probably not
@@ -228,13 +228,13 @@ public:
      * @brief set MCellMaterial accesor
      * @param material - a shared pointer to Material of the cell
      */
-    void setMaterial(std::shared_ptr<Material> material);
+    void setMaterial(const std::shared_ptr<const Material>& material);
 
     /**
      * @brief set MCellMaterial accesor
      * @param vertices - a vector a shared pointer to vertex of the cell
      */
-    void setVertices(std::vector<std::shared_ptr<MVector>> vertices);
+    void setVertices(const std::vector<std::shared_ptr<const MVector>>& vertices);
 
 };
 
