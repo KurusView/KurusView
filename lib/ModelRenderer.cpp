@@ -17,7 +17,7 @@ void ModelRenderer::run() {
 //    Constantly update the window until the user closes it
     while (!display.isClosed()) {
 //        Fill the screen with a dark-blue background. RGBA floats between 0-1.
-        display.clear(0, 0.15, 0.3, 0.9);
+        display.clear(0.0f, 0.15f, 0.3f, 0.9f);
 //        TODO: Transform the model
 //        TODO: Use shader to draw and transform the mesh
 //        Update the window with all the newly drawn pixels
