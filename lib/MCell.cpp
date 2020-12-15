@@ -11,6 +11,7 @@ MCell::MCell(std::vector<MVector> vertices, Material material, const long int id
                                                                                     MCellMaterial(material),
                                                                                     MCellType(MCellType_TypeDef::NONE) {
     MCellInstanceCount++;
+    //MCellDensity = material.getDensity();
     // when instantiating derived class, this constructor is called. Polymorphism can exist between base
     // and derived classes with the "using" keyword.
 

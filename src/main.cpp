@@ -122,7 +122,7 @@ void mCellTest() {
     std::cout << "better count: " << MCell::getCount() << std::endl;
     std::cout << "type: " << test << std::endl;
 
-    std::vector<MCell*> cellList;
+    std::vector<MCell *> cellList;
     cellList.push_back(&testX);
 
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;

@@ -4,10 +4,10 @@ MHexahedron::MHexahedron(std::vector<MVector> vertices, Material material, const
                                                                                                   id) {
     MCellType = MCellType_TypeDef::TETRAHEDRON;
 
-    // calling base Pure Virtuals from Derived constructor is safe here.
-    MCellVolume = calcVolume();
-    MCellWeight = calcWeight();
-    MCellCOG = calcCentreOfGrav();
+    // calling base Pure Virtual from Derived constructor is safe here.
+    MCellVolume = this->calcVolume();
+    MCellWeight = this->calcWeight();
+    MCellCOG = this->calcCentreOfGrav();
 }
 
 
