@@ -8,6 +8,7 @@
 #include <ModelRenderer.h>
 #include <iostream>
 #include <cmath>
+#include <memory>
 
 #include "Cells/MHexahedron.h"
 #include "Cells/MTetrahedron.h"
@@ -121,6 +122,7 @@ void mCellTest() {
     vertices.push_back(v2);
     vertices.push_back(v3);
 
+    /*
     // =============== dummy material =================
     Material material;
 
@@ -136,6 +138,21 @@ void mCellTest() {
 
     std::vector<MCell *> cellList;
     cellList.push_back(&testX);
+    */
+    std::shared_ptr<MVector> testSharedVector         = std::make_shared<MVector>(1,2,3);
+    std::shared_ptr<Material> testSharedMaterial      = std::make_shared<Material>();
+    std::vector<std::shared_ptr<MVector>> test_vector = {testSharedVector};
+
+    MTetrahedron tetra( test_vector, testSharedMaterial, 0);
+    MTetrahedron tetraX( test_vector, testSharedMaterial, 0);
+
+    {
+        MTetrahedron tetraY( test_vector, testSharedMaterial, 0); // this one should not be seen on count
+    }
+
+    std::cout << "volume: " << tetra.getVolume() << std::endl;
+    std::cout << "count: " << MCell::getCount() << std::endl;
+    std::cout << "type: " << tetra << std::endl;
 
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     std::cout << "End MCell Test" << std::endl;
