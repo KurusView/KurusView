@@ -1,15 +1,18 @@
 #include "MCell.h"
 
 #include <map>
+#include <utility>
 
 // cell instance count
 unsigned long int MCell::MCellInstanceCount = 0;
 
 // Member Initializer Lists should be in declaration order
-MCell::MCell(std::vector<MVector> vertices, Material material, const long int id) : MCellID(id),
-                                                                                    MCellVertices(vertices),
-                                                                                    MCellMaterial(material),
-                                                                                    MCellType(MCellType_TypeDef::NONE) {
+MCell::MCell(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material, const long int id) :
+        MCellID(id),
+        MCellVertices(std::move(vertices)), // https://stackoverflow.com/a/41874953
+        MCellMaterial(std::move(material)),
+        MCellType(MCellType_TypeDef::NONE) {
+
     MCellInstanceCount++;
     //MCellDensity = material.getDensity();
     // when instantiating derived class, this constructor is called. Polymorphism can exist between base
@@ -31,7 +34,7 @@ double MCell::getWeight() const {
     return this->MCellWeight;
 }
 
-const MVector MCell::getCentreOfGrav() const {
+std::shared_ptr<MVector> MCell::getCentreOfGrav() const {
     return this->MCellCOG;
 }
 
@@ -43,11 +46,11 @@ double MCell::getID() const {
     return this->MCellID;
 }
 
-const Material MCell::getMaterial() const {
+std::shared_ptr<Material> MCell::getMaterial() const {
     return this->MCellMaterial;
 }
 
-const std::vector<MVector> MCell::getVertices() const {
+std::vector<std::shared_ptr<MVector>> MCell::getVertices() const {
     return this->MCellVertices;
 }
 
@@ -56,12 +59,14 @@ double MCell::getCount() {
 }
 
 
-void MCell::setMaterial(Material material) {
+void MCell::setMaterial(std::shared_ptr<Material> material) {
     this->MCellMaterial = material;
 }
 
-void MCell::setVertices(std::vector<MVector> vertices) {
+void MCell::setVertices(std::vector<std::shared_ptr<MVector>> vertices) {
+    //this->MCellVertices = std::make_shared<MVector>(vertices);
     this->MCellVertices = vertices;
+
 }
 
 

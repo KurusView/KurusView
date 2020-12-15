@@ -7,16 +7,17 @@
 class MHexahedron : public MCell {
 public:
 
-    MHexahedron (std::vector<MVector> vertices, Material material, const long int id) ;
+    MHexahedron (std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material, long int id) ;
     MHexahedron() = delete;
 
     ~MHexahedron() = default; // this should call the base destructor regardless
 
+private:
     double calcVolume() const override;
 
     double calcWeight() const override;
 
-    MVector calcCentreOfGrav() const override;
+    std::shared_ptr<MVector> calcCentreOfGrav() const override;
 };
 
 

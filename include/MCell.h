@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <memory>
 
 #include "MVector.h"
 #include "Material.h"
@@ -18,9 +19,11 @@ private:
 protected:
 
     // Protected constructor/destructors (abstract class)
-    // Derived class should not be able to hardcode ID (explicit)
-    explicit MCell(std::vector<MVector> vertices, Material material, const long int id); // shared_ptr material, vector
-    MCell() = delete; // no such concept as anonymous cells
+    // Derived class should not be able to hardcode ID - they should come straight from the data file (explicit)
+    explicit MCell(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material, long int id);
+
+    // no such thing as anonymous cells should exist
+    MCell() = delete;
 
     ~MCell();
 
@@ -34,9 +37,10 @@ protected:
 
     // color? - check with Material
 
-    std::vector<MVector> MCellVertices; // shared ptr
-    Material MCellMaterial;             // shared ptr
-    mutable MVector MCellCOG;           // shared ptr
+    std::vector<std::shared_ptr<MVector>> MCellVertices; // shared ptr
+    std::shared_ptr<Material> MCellMaterial;             // shared ptr
+
+    mutable std::shared_ptr<MVector> MCellCOG;           // shared ptr - Overlapping Cells might share Centre of Gravity
 
     // note: when mapping enum to string for printing, make it Compile Time Evaluated
     // (not std::map), maybe constexpr: https://stackoverflow.com/a/63265237
@@ -51,15 +55,17 @@ protected:
     MCellType_TypeDef MCellType;
 
     // require shape specific knowledge and are to be implemented by derived classes (Pure Virtual)
+    // TODO: is it better if these return weak_ptr ? - shared would work but have more overhead
     virtual double calcVolume() const = 0;
 
     virtual double calcWeight() const = 0;
 
-    virtual MVector calcCentreOfGrav() const = 0;
+    virtual std::shared_ptr<MVector> calcCentreOfGrav() const = 0;
 
 
 public:
 
+    // TODO: do operators and friends require this visibility?
     // ====================== OPERATORS ==========================
     //MCell& operator=( const MCell& _mcell );
 
@@ -71,6 +77,7 @@ public:
     // ======================= ACCESSORS =========================
 
     // XXX: a note on const: https://stackoverflow.com/questions/8406898/benefits-of-using-const-with-scalar-type-e-g-const-double-or-const-int
+    // XXX: a note on return copy https://en.wikipedia.org/wiki/Copy_elision#Return_value_optimization
     double getVolume() const;
 
     double getWeight() const;
@@ -84,16 +91,15 @@ public:
     std::vector<std::string> getType() const; // eg. t, tetrahedron (for file and stdout output)
 
 
-    // for now return instance copy of these. https://en.wikipedia.org/wiki/Copy_elision#Return_value_optimization
-    // best implemented by reference, use smart pointers:
-    const MVector getCentreOfGrav() const; // unique in 3D space? - NO! shared
-    const Material getMaterial() const; // shared
-    const std::vector<MVector> getVertices() const; // MVector shared
+    std::shared_ptr<MVector> getCentreOfGrav() const; // unique in 3D space? - NO! shared
+    std::shared_ptr<Material> getMaterial() const; // shared
+    std::vector<std::shared_ptr<MVector>> getVertices() const; // MVector shared
 
     // Note on returning vector: std::vector: http://www.cplusplus.com/forum/general/56177/
 
-    void setMaterial(Material material); // shared
-    void setVertices(std::vector<MVector> vertices); // MVector shared
+    //TODO: do we really need these? - probably not
+    void setMaterial(std::shared_ptr<Material> material); // shared
+    void setVertices(std::vector<std::shared_ptr<MVector>> vertices); // MVector shared
 
     // ==============================================================
 };

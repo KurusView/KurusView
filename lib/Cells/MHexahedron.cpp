@@ -1,7 +1,8 @@
 #include "MHexahedron.h"
 
-MHexahedron::MHexahedron(std::vector<MVector> vertices, Material material, const long id) : MCell(vertices, material,
-                                                                                                  id) {
+MHexahedron::MHexahedron(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material,
+                         long int id) : MCell(vertices, material, id) {
+
     MCellType = MCellType_TypeDef::TETRAHEDRON;
 
     // calling base Pure Virtual from Derived constructor is safe here.
@@ -19,6 +20,6 @@ double MHexahedron::calcWeight() const {
     return 22; //stub
 }
 
-MVector MHexahedron::calcCentreOfGrav() const {
-    return MVector(1, 2, 3); //stub
+std::shared_ptr<MVector> MHexahedron::calcCentreOfGrav() const {
+    return std::make_shared<MVector>(1,2,3);
 }
