@@ -9,8 +9,17 @@ std::ostream &operator<<(std::ostream &os, MVector &obj) {
     return os;
 }
 
-MVector::MVector(double x, double y, double z) {
+MVector::MVector() : x(0), y(0), z(0), MVectorID(-1) {}
+
+MVector::MVector(double x, double y, double z) : MVectorID(-1) {
     // Initializes a vector a specific input coordinates
+    this->x = x;
+    this->y = y;
+    this->z = z;
+}
+
+// todo: refactor x,y,z to MVectorx,y,z and use Member Initializer List
+MVector::MVector(double x, double y, double z, const long id) : MVectorID(id) {
     this->x = x;
     this->y = y;
     this->z = z;
@@ -53,6 +62,11 @@ double MVector::getModulus() const {
     return mod;
 }
 
+long int MVector::getID() const {
+    return this->MVectorID;
+}
+
+
 MVector MVector::operator+(const MVector &obj) const {
     // Overloads the + operator to perform vector addition.
 
@@ -93,7 +107,6 @@ MVector MVector::operator-(const MVector &obj) const {
     return result;
 }
 
-MVector::~MVector() = default;
 
 MVector MVector::operator*(const MVector &obj) const {
     // Overloads the * operator to perform the vector product
