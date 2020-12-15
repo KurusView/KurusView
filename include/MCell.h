@@ -18,13 +18,16 @@ private:
 protected:
 
     // Protected constructor/destructors (abstract class)
-    MCell(std::vector<MVector> vertices, Material material, const long int id); // shared_ptr material, vector
+    // Derived class should not be able to hardcode ID (explicit)
+    explicit MCell(std::vector<MVector> vertices, Material material, const long int id); // shared_ptr material, vector
     ~MCell();
 
-    // Data Members
-    mutable double MCellVolume;
-    mutable double MCellWeight;
-    double MCellDensity;
+    // Data Members - Volume, Weight, Density use default ctors as they are initialized in the derived class immediately
+    // mutable as they might need to be updated on the background and I want the accessor interface consistently const
+    mutable double MCellVolume{};
+    mutable double MCellWeight{};
+    mutable double MCellDensity{};
+    
     const long int MCellID;
 
     // color? - check with Material
