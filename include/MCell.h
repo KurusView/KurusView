@@ -93,6 +93,5 @@ public:
     // ==============================================================
 };
 
-//long int MCell::MCellInstanceCount = 0;
 
 #endif //INC_3DLIB_MCELL_H
