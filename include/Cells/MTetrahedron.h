@@ -6,7 +6,10 @@
 
 class MTetrahedron : public MCell {
 public:
+
     MTetrahedron (std::vector<MVector> vertices, Material material, const long int id) ;
+    MTetrahedron() = delete;
+
     ~MTetrahedron() = default; // this should call the base destructor regardless
 
     double calcVolume() const override;

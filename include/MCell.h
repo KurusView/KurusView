@@ -20,6 +20,8 @@ protected:
     // Protected constructor/destructors (abstract class)
     // Derived class should not be able to hardcode ID (explicit)
     explicit MCell(std::vector<MVector> vertices, Material material, const long int id); // shared_ptr material, vector
+    MCell() = delete; // no such concept as anonymous cells
+
     ~MCell();
 
     // Data Members - Volume, Weight, Density use default ctors as they are initialized in the derived class immediately

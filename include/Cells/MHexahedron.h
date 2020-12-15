@@ -6,7 +6,10 @@
 
 class MHexahedron : public MCell {
 public:
+
     MHexahedron (std::vector<MVector> vertices, Material material, const long int id) ;
+    MHexahedron() = delete;
+
     ~MHexahedron() = default; // this should call the base destructor regardless
 
     double calcVolume() const override;

@@ -6,7 +6,10 @@
 
 class MPyramid : public MCell {
 public:
+
     MPyramid (std::vector<MVector> vertices, Material material, const long int id) ;
+    MPyramid() = delete;
+
     ~MPyramid() = default; // this should call the base destructor regardless
 
     double calcVolume() const override;
