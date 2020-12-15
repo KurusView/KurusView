@@ -275,7 +275,11 @@ void Matrix::inverse() {
     this->mat3x3 = result.mat3x3;
 }
 
-Matrix Matrix::RotationMatrix(const std::vector<MVector> &Rotation) {
+void Matrix::setMat(int col, MVector vector) {
+    this->mat3x3[col] = vector;
+}
+
+Matrix RotationMatrix(const std::vector<MVector> &Rotation) {
 
     // Undergoes multiple rotations that needs to be done on a specific matrix or vector
     // Has an input of an array of MVectors where within the vector lays the
@@ -296,13 +300,6 @@ Matrix Matrix::RotationMatrix(const std::vector<MVector> &Rotation) {
     Matrix product;
 
     // Initializing the matrix with the formulas that correspond to each one
-    vx2.setX(0);
-    vx3.setX(0);
-    vy1.setY(0);
-    vy3.setY(0);
-    vz1.setZ(0);
-    vz2.setZ(0);
-
     // Loops through all the MVectors in the vector array
     // Undergoes the calculations in the four elements of
     // the matrix that need to be calculated
@@ -314,9 +311,9 @@ Matrix Matrix::RotationMatrix(const std::vector<MVector> &Rotation) {
             vx2.setZ(sin(Rotation[i].getX()));
             vx3.setY(-sin(Rotation[i].getX()));
             vx3.setZ(cos(Rotation[i].getX()));
-            rx.mat3x3[0] = (vx1);
-            rx.mat3x3[1] = (vx2);
-            rx.mat3x3[2] = (vx3);
+            rx.setMat(0, vx1);
+            rx.setMat(1, vx2);
+            rx.setMat(2, vx3);
             orderOfRotation.push_back(rx);
         }
         if (Rotation[i].getY() != 0) {
@@ -324,9 +321,9 @@ Matrix Matrix::RotationMatrix(const std::vector<MVector> &Rotation) {
             vy1.setZ(-sin(Rotation[i].getY()));
             vy3.setX(sin(Rotation[i].getY()));
             vy3.setZ(cos(Rotation[i].getY()));
-            ry.mat3x3[0] = (vy1);
-            ry.mat3x3[1] = (vy2);
-            ry.mat3x3[2] = (vy3);
+            ry.setMat(0, vy1);
+            ry.setMat(1, vy2);
+            ry.setMat(2, vy3);
             orderOfRotation.push_back(ry);
         }
         if (Rotation[i].getZ() != 0) {
@@ -334,9 +331,9 @@ Matrix Matrix::RotationMatrix(const std::vector<MVector> &Rotation) {
             vz1.setY(sin(Rotation[i].getZ()));
             vz2.setX(-sin(Rotation[i].getZ()));
             vz2.setY(cos(Rotation[i].getZ()));
-            rz.mat3x3[0] = (vz1);
-            rz.mat3x3[1] = (vz2);
-            rz.mat3x3[2] = (vz3);
+            rz.setMat(0, vz1);
+            rz.setMat(1, vz2);
+            rz.setMat(2, vz3);
             orderOfRotation.push_back(rz);
         }
     }

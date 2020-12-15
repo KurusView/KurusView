@@ -18,7 +18,6 @@ MVector::MVector(double x, double y, double z) : MVectorID(-1) {
     this->z = z;
 }
 
-// todo: refactor x,y,z to MVectorx,y,z and use Member Initializer List
 MVector::MVector(double x, double y, double z, const long id) : MVectorID(id) {
     this->x = x;
     this->y = y;
