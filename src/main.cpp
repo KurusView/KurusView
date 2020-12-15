@@ -239,7 +239,7 @@ void matrixTest() {
 void modelRendererTest() {
     std::cout << "\n\nBegin ModelRenderer Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
-    Model model("../../models/testmodel3.txt");
+    Model model("../../models/tetrahedron.txt");
     ModelRenderer modelRenderer(model);
     modelRenderer.run();
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
