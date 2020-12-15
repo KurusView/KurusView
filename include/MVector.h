@@ -57,7 +57,7 @@ public:
     // Find modulus of a specific vector to calculate scalar/dot product
     double getModulus() const;
 
-    long int getID() const;
+//    long int getID() const;
 
 private:
     //3-Dimensional data of a vector
@@ -66,7 +66,7 @@ private:
     double z;
 
     // MVector ID
-    long int MVectorID;
+//    long int MVectorID;
 };
 
 #endif //INC_3DLIB_MVECTOR_H

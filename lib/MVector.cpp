@@ -9,16 +9,16 @@ std::ostream &operator<<(std::ostream &os, MVector &obj) {
     return os;
 }
 
-MVector::MVector() : x(0), y(0), z(0), MVectorID(-1) {}
+MVector::MVector() : x(0), y(0), z(0) {}
 
-MVector::MVector(double x, double y, double z) : MVectorID(-1) {
+MVector::MVector(double x, double y, double z) {
     // Initializes a vector a specific input coordinates
     this->x = x;
     this->y = y;
     this->z = z;
 }
 
-MVector::MVector(double x, double y, double z, const long id) : MVectorID(id) {
+MVector::MVector(double x, double y, double z, const long id) {
     this->x = x;
     this->y = y;
     this->z = z;
@@ -59,10 +59,6 @@ double MVector::getModulus() const {
     // The square root of the sum of the squares
     double mod = sqrt((x * x) + (y * y) + (z * z));
     return mod;
-}
-
-long int MVector::getID() const {
-    return this->MVectorID;
 }
 
 
