@@ -5,7 +5,7 @@
 #include "Mesh.h"
 
 Mesh::Mesh(Model &model) {
-    m_drawCount = model.getVectors().size();
+    m_drawCount = model.getIndices().size();
 
     // Generate vertex array object names and bind them
     glGenVertexArrays(1, &m_vertexArrayObject);
@@ -19,6 +19,12 @@ Mesh::Mesh(Model &model) {
     // Use as the source for GL drawing commands
     glBufferData(GL_ARRAY_BUFFER, model.getVectors().size() * sizeof(model.getVectors()[0]), model.getVectors().data(),
                  GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_vertexArrayBuffers[INDEX_VB]);
+    // Set data for Vertex Array Indices
+    // Use as the source for GL drawing commands
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, model.getIndices().size() * sizeof(model.getIndices()[0]),
+                 model.getIndices().data(), GL_STATIC_DRAW);
 
     // Enable Vertex Attribute Array 0
     glEnableVertexAttribArray(0);
@@ -38,8 +44,8 @@ Mesh::~Mesh() {
 void Mesh::draw() const {
     // Bind the vertex array object
     glBindVertexArray(m_vertexArrayObject);
-    // Render triangles starting from index 0
-    glDrawArrays(GL_TRIANGLES, 0, m_drawCount);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glDrawElements(GL_TRIANGLES, m_drawCount, GL_UNSIGNED_INT, 0);
     // Bind the vertex array object
     glBindVertexArray(0);
 }

@@ -15,6 +15,7 @@ class Mesh {
 private:
     enum {
         POSITION_VB,
+        INDEX_VB,
         NUM_BUFFERS
     };
 
