@@ -156,3 +156,11 @@ void Model::saveModel(const std::string &filePath) {
 
     outputFile.close();
 }
+
+const std::vector<MVector> &Model::getVectors() const {
+    return vectors;
+}
+
+const std::vector<MCell *> &Model::getCells() const {
+    return cells;
+}

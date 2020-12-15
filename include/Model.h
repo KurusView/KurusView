@@ -20,6 +20,11 @@ private:
     std::vector<Material> materials;
 
 public:
+
+    const std::vector<MCell *> &getCells() const;
+
+    const std::vector<MVector> &getVectors() const;
+
     /**
      * @brief Model - Default Constructor
      */
