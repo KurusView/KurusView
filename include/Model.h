@@ -15,7 +15,7 @@ private:
     /** @brief vectors - List of all the vectors in the model */
     std::vector<MVector> vectors;
     /** @brief cells - List of all the cells in the model */
-    std::vector<MCell> cells;
+    std::vector<MCell*> cells;
     /** @brief materials - List of all the materials in the model */
     std::vector<Material> materials;
 

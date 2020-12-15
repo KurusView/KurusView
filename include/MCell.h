@@ -17,6 +17,10 @@ private:
 
 protected:
 
+    // Protected constructor/destructors (abstract class)
+    MCell(std::vector<MVector> vertices, Material material, const long int id); // shared_ptr material, vector
+    ~MCell();
+
     // Data Members
     mutable double MCellVolume;
     mutable double MCellWeight;
@@ -50,10 +54,6 @@ protected:
 
 
 public:
-
-    // ================ CONSTRUCTORS/DESTRUCTORS ================
-    MCell(std::vector<MVector> vertices, Material material, const long int id); // shared_ptr material, vector
-    ~MCell();
 
     // ====================== OPERATORS ==========================
     //MCell& operator=( const MCell& _mcell );
