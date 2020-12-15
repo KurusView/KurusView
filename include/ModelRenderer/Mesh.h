@@ -22,7 +22,7 @@ private:
     unsigned int m_drawCount;
 
 public:
-    Mesh(MVector *vertices, unsigned int numVertices);
+    Mesh(std::vector<MVector> vertices);
 
     void draw() const;
 

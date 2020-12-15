@@ -4,8 +4,7 @@
 
 #include "Mesh.h"
 
-Mesh::Mesh(MVector *vertices, unsigned int numVertices) {
-    m_drawCount = numVertices;
+Mesh::Mesh(std::vector<MVector> vertices) {
 
     // Generate vertex array object names and bind them
     glGenVertexArrays(1, &m_vertexArrayObject);
@@ -17,7 +16,7 @@ Mesh::Mesh(MVector *vertices, unsigned int numVertices) {
     // Create and initialize buffer object data store
     // Set data for Vertex Attributes
     // Use as the source for GL drawing commands
-    glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(vertices[0]), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vertices[0]), vertices.data(), GL_STATIC_DRAW);
 
     // Enable Vertex Attribute Array 0
     glEnableVertexAttribArray(0);
