@@ -110,35 +110,6 @@ void mCellTest() {
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
 //    TEST CODE HERE
 
-    // ============ dummy mvector array ======================
-    // Initializing rotation vectors
-    MVector v1(M_PI, 0, 0);
-    MVector v2(0, M_PI / 8, 0);
-    MVector v3(0, 0, M_PI / 2);
-
-    // Populating to input into rotation function
-    std::vector<MVector> vertices;
-    vertices.push_back(v1);
-    vertices.push_back(v2);
-    vertices.push_back(v3);
-
-    /*
-    // =============== dummy material =================
-    Material material;
-
-    // ================= cell tests ==================
-    MTetrahedron test(vertices, material, 1);
-    MTetrahedron testX(vertices, material, 1);
-    MTetrahedron testY(vertices, material, 1);
-
-    std::cout << "volume: " << test.getVolume() << std::endl;
-    std::cout << "count: " << test.getCount() << std::endl;
-    std::cout << "better count: " << MCell::getCount() << std::endl;
-    std::cout << "type: " << test << std::endl;
-
-    std::vector<MCell *> cellList;
-    cellList.push_back(&testX);
-    */
     std::shared_ptr<MVector> testSharedVector         = std::make_shared<MVector>(1,2,3);
     std::shared_ptr<Material> testSharedMaterial      = std::make_shared<Material>();
     std::vector<std::shared_ptr<MVector>> test_vector = {testSharedVector};
