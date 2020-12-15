@@ -15,11 +15,13 @@ private:
     /** @brief vectors - List of all the vectors in the model */
     std::vector<MVector> vectors;
     /** @brief cells - List of all the cells in the model */
-    std::vector<MCell*> cells;
+    std::vector<MCell *> cells;
     /** @brief materials - List of all the materials in the model */
     std::vector<Material> materials;
+    std::vector<unsigned int> indices;
 
 public:
+    const std::vector<unsigned int> &getIndices() const;
 
     const std::vector<MCell *> &getCells() const;
 

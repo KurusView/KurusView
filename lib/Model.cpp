@@ -71,6 +71,9 @@ void Model::loadModel(const std::string &filePath) {
             switch (cellType) {
                 case 'q':
                     cellVectors += tokens[6] + " " + tokens[5] + " " + tokens[4];
+                    indices.push_back(stoi(tokens[4]));
+                    indices.push_back(stoi(tokens[5]));
+                    indices.push_back(stoi(tokens[6]));
                     break;
                 case 'h': // Hexahedron
                     cellVectors += tokens[11] + " " + tokens[10] + " " + tokens[9] + " ";
@@ -78,6 +81,18 @@ void Model::loadModel(const std::string &filePath) {
                     cellVectors += tokens[8] + " ";
                 case 't': // Tetrahedron
                     cellVectors += tokens[7] + " " + tokens[6] + " " + tokens[5] + " " + tokens[4];
+                    indices.push_back(stoi(tokens[4]));
+                    indices.push_back(stoi(tokens[5]));
+                    indices.push_back(stoi(tokens[6]));
+                    indices.push_back(stoi(tokens[4]));
+                    indices.push_back(stoi(tokens[5]));
+                    indices.push_back(stoi(tokens[7]));
+                    indices.push_back(stoi(tokens[4]));
+                    indices.push_back(stoi(tokens[6]));
+                    indices.push_back(stoi(tokens[7]));
+                    indices.push_back(stoi(tokens[5]));
+                    indices.push_back(stoi(tokens[6]));
+                    indices.push_back(stoi(tokens[7]));
                     break;
                 default:
                     break;
@@ -163,4 +178,8 @@ const std::vector<MVector> &Model::getVectors() const {
 
 const std::vector<MCell *> &Model::getCells() const {
     return cells;
+}
+
+const std::vector<unsigned int> &Model::getIndices() const {
+    return indices;
 }
