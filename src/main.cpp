@@ -9,6 +9,10 @@
 #include <iostream>
 #include <cmath>
 
+#include "Cells/MHexahedron.h"
+#include "Cells/MTetrahedron.h"
+#include "Cells/MPyramid.h"
+
 void mVectorTest();
 
 void mCellTest();
@@ -92,6 +96,35 @@ void mCellTest() {
     std::cout << "\n\nBegin MCell Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
 //    TEST CODE HERE
+
+    // ============ dummy mvector array ======================
+    // Initializing rotation vectors
+    MVector v1(M_PI, 0, 0);
+    MVector v2(0, M_PI / 8, 0);
+    MVector v3(0, 0, M_PI / 2);
+
+    // Populating to input into rotation function
+    std::vector<MVector> vertices;
+    vertices.push_back(v1);
+    vertices.push_back(v2);
+    vertices.push_back(v3);
+
+    // =============== dummy material =================
+    Material material;
+
+    // ================= cell tests ==================
+    MTetrahedron test(vertices, material, 1);
+    MTetrahedron testX(vertices, material, 1);
+    MTetrahedron testY(vertices, material, 1);
+
+    std::cout << "volume: " << test.getVolume() << std::endl;
+    std::cout << "count: " << test.getCount() << std::endl;
+    std::cout << "better count: " << MCell::getCount() << std::endl;
+    std::cout << "type: " << test << std::endl;
+
+    std::vector<MCell*> cellList;
+    cellList.push_back(&testX);
+
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     std::cout << "End MCell Test" << std::endl;
 }
