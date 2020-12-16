@@ -1,9 +1,7 @@
 #include "MHexahedron.h"
 
-#include <utility>
-
-MHexahedron::MHexahedron(std::vector<std::shared_ptr<const MVector>> vertices, std::shared_ptr<const Material> material,
-                         long int id) : MCell(std::move(vertices), std::move(material), id) {
+MHexahedron::MHexahedron(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material,
+                         long int id) : MCell(vertices, material, id) {
 
     MCellType = MCellType_TypeDef::TETRAHEDRON;
 

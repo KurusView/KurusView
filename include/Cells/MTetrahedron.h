@@ -10,9 +10,6 @@ public:
     MTetrahedron (std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material, long int id) ;
     MTetrahedron() = delete;
 
-    MTetrahedron(std::vector<std::shared_ptr<const MVector>> vertices, std::shared_ptr<const Material> material,
-                 long id);
-
     ~MTetrahedron() = default; // this should call the base destructor regardless
 
 private:

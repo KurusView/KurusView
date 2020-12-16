@@ -10,8 +10,6 @@ public:
     MPyramid (std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material, long int id);
     MPyramid() = delete;
 
-    MPyramid(std::vector<std::shared_ptr<const MVector>> vertices, std::shared_ptr<const Material> material, long id);
-
     ~MPyramid() = default; // this should call the base destructor regardless
 
 private:
