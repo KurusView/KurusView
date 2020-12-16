@@ -9,7 +9,7 @@
  */
 class ModelRenderer {
 private:
-    Model model; /**< Points to the model that was passed to ModelRenderer */
+    Model * model; /**< Points to the model that was passed to ModelRenderer */
     int width, height; /**< Width and Height of window */
     std::string title; /**< Window Title */
 public:
@@ -17,7 +17,7 @@ public:
      * @brief ModelRenderer - Constructs a ModelRenderer instance
      * @param [in] model - A loaded model to be displayed
      */
-    explicit ModelRenderer(const Model &model);
+    explicit ModelRenderer(Model *model);
 
     /**
      * @brief run - Creates a window and visualises the model

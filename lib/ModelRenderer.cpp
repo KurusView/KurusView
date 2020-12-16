@@ -3,7 +3,7 @@
 #include <Mesh.h>
 #include "ModelRenderer.h"
 
-ModelRenderer::ModelRenderer(const Model &model) {
+ModelRenderer::ModelRenderer(Model *model) {
     this->model = model;
     this->width = 800;
     this->height = 600;
@@ -21,7 +21,7 @@ void ModelRenderer::run() {
     //                                   MVector(0, -0.5, 0),
     //                                   MVector(0.5, 0.5, 0)};
 
-    Mesh mesh(model);
+    Mesh mesh(*model);
 //    Constantly update the window until the user closes it
     while (!display.isClosed()) {
 //        Fill the screen with a dark-blue background. RGBA floats between 0-1.

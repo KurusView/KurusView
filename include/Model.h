@@ -7,6 +7,7 @@
 #include "Material.h"
 #include "MVector.h"
 
+
 /**
  * @brief Model - This object is responsible for reading and writing model entities to VTK style data files
  */
@@ -17,7 +18,8 @@ private:
     /** @brief cells - List of all the cells in the model */
     std::vector<MCell *> cells;
     /** @brief materials - List of all the materials in the model */
-    std::vector<Material> materials;
+    //std::vector<Material> materials;
+    Material materials;
     std::vector<unsigned int> indices;
 
 public:

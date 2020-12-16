@@ -240,7 +240,7 @@ void modelRendererTest() {
     std::cout << "\n\nBegin ModelRenderer Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     Model model("../../models/tetrahedron.txt");
-    ModelRenderer modelRenderer(model);
+    ModelRenderer modelRenderer(&model);
     modelRenderer.run();
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     std::cout << "End ModelRenderer Test" << std::endl;

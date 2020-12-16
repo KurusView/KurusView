@@ -9,7 +9,7 @@
 Shader::Shader(const std::string &fileName) {
     // Create the OpenGL Program and Vertex & Fragment Shader
     m_program = glCreateProgram();
-    m_shaders[0] = CreateShader(LoadShader(fileName + ".vert"), GL_VERTEX_SHADER);;
+    m_shaders[0] = CreateShader(LoadShader(fileName + ".vert"), GL_VERTEX_SHADER);
     m_shaders[1] = CreateShader(LoadShader(fileName + ".frag"), GL_FRAGMENT_SHADER);
 
     // Link both shaders to the program

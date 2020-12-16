@@ -123,6 +123,7 @@ void Model::saveModel(const std::string &filePath) {
 
 //    Output materials
     outputFile << "# Materials" << std::endl;
+    /*
     for (unsigned int i = 0; i < materials.size(); ++i) {
         // TODO Get density from material
         int density = 2700;
@@ -138,6 +139,7 @@ void Model::saveModel(const std::string &filePath) {
         outputFile << 'm' << ' ' << i << ' ' << density << ' ' << hexCol << ' '
                    << name << std::endl << std::endl;
     }
+     */
 
 //    Output all vectors
     outputFile << "# Vectors" << std::endl;
