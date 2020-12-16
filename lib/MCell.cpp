@@ -83,9 +83,36 @@ std::vector<std::string> MCell::getType() const {
     return MCellType_str[this->MCellType];
 }
 
-// inline
-std::ostream &operator<<(std::ostream &os, const MCell &mCell) {
-    os << mCell.getType()[1];
+// inline?
+std::ofstream &operator<<(std::ofstream &os, const MCell &mCell) {
+
+    /* c 0 h 32 1 2 3 4 5 ...
+     *   | | |  |_|_|_|_|_ IDs of vertexes (MVectors)
+     *   | | |_ Material ID
+     *   | |_ Cell type (h: hexahedron, p: pyramid, t: tetrahedron)
+     *   |_ Cell ID
+     */
+
+    Material material = *mCell.getMaterial();
+
+    os << "c " << mCell.getID() << " "
+       << mCell.getType()[0] << " "
+       << material.getId() << " ";
+
+    for (auto &it : mCell.getVertices()) {
+        os << it->getID() << " ";
+    }
+
+
+    /* The above is equivalent to this
+     *
+     *  std::vector<std::shared_ptr<MVector>> vertices = mCell.getVertices();
+     *  for (std::vector<std::shared_ptr<MVector>>::iterator it = vertices.begin(); it != vertices.end(); it++) {
+     *      os << (*it)->getID() << " ";
+     *  }
+     */
+
+    os << std::endl;
 
     return os;
 }
