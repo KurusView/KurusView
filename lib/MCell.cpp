@@ -72,12 +72,12 @@ void MCell::setVertices(std::vector<std::shared_ptr<MVector>> vertices) {
 
 std::vector<std::string> MCell::getType() const {
 
-    // cant be constexpr, look for Compile Time Evaluated alternative
+    // TODO cant be constexpr, look for Compile Time Evaluated alternative
     // https://stackoverflow.com/questions/16490835/how-to-build-a-compile-time-key-value-store
     std::map<MCell::MCellType_TypeDef, std::vector<std::string>> MCellType_str{
-            {MCell::MCellType_TypeDef::TETRAHEDRON, {"t", "tetrahedron"}},
-            {MCell::MCellType_TypeDef::PYRAMID,     {"p", "pyramid"}},
-            {MCell::MCellType_TypeDef::HEXAHEDRON,  {"h", "hexahedron"}}
+            {MCell::MCellType_TypeDef::TETRAHEDRON, {"t", "Tetrahedron"}},
+            {MCell::MCellType_TypeDef::PYRAMID,     {"p", "Pyramid"}},
+            {MCell::MCellType_TypeDef::HEXAHEDRON,  {"h", "Hexahedron"}}
     };
 
     return MCellType_str[this->MCellType];
@@ -90,9 +90,31 @@ std::ostream &operator<<(std::ostream &os, const MCell &mCell) {
     return os;
 }
 
-// inline
-std::ofstream &operator<<(std::ofstream &os, const MCell &mCell) {
-    os << mCell.getType()[0];
+// inline?
+std::ostream &operator<<(std::ostream &os, const MCell &mCell) {
+
+    Material material = *mCell.getMaterial();
+    MVector COG = *mCell.getCentreOfGrav();
+
+    os << "MCell type: " << mCell.getType()[1] << "Unique ID: " << mCell.getID() << std::endl
+       << "\t Volume: " << mCell.getVolume() << " Weight: " << mCell.getWeight();
+    // << " Centre Of Gravity: " << COG << std::endl  //TODO - requires ostream on MVector
+    // << " Material: " << material <<std::endl;      //TODO - requires ostream on Material
+
+    // Print vertex IDs
+    os << "\t Vertexes: [";
+    for (auto &it : mCell.getVertices()) {
+        os << it->getID() << ", ";
+    }
+
+    // move cursor back and overwrite pending ", "
+    os << '\b' << '\b' << "]" << std::endl;
+
+    // Print actual MVectors?
+
+    // Avoid unused variable compiler warnings for now
+    (void) material;
+    (void) COG;
 
     return os;
 }
