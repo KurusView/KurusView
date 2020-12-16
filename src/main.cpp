@@ -110,20 +110,30 @@ void mCellTest() {
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
 //    TEST CODE HERE
 
-    std::shared_ptr<MVector> testSharedVector         = std::make_shared<MVector>(1,2,3);
-    std::shared_ptr<Material> testSharedMaterial      = std::make_shared<Material>();
-    std::vector<std::shared_ptr<MVector>> test_vector = {testSharedVector};
+    // Define a vertex
+    std::shared_ptr<MVector> testSharedVector = std::make_shared<MVector>(1, 2, 3, 99);
 
-    MTetrahedron tetra( test_vector, testSharedMaterial, 0);
-    MTetrahedron tetraX( test_vector, testSharedMaterial, 0);
+    // Define a Material
+    std::shared_ptr<Material> testSharedMaterial = std::make_shared<Material>("testM",
+                                                                              "FFFF",
+                                                                              123456,
+                                                                              11);
+
+    // create vector of vertexes
+    std::vector<std::shared_ptr<MVector>> test_vector = {testSharedVector, testSharedVector, testSharedVector};
+
+    // create some tetrahedrons to increase the instance count
+    MTetrahedron tetra(test_vector, testSharedMaterial, 0);
+    MTetrahedron tetraX(test_vector, testSharedMaterial, 0);
 
     {
-        MTetrahedron tetraY( test_vector, testSharedMaterial, 0); // this one should not be seen on count
+        // this one gets destructed and should not increase the count
+        MTetrahedron tetraY(test_vector, testSharedMaterial, 0); // this one should not be seen on count
     }
 
     std::cout << "volume: " << tetra.getVolume() << std::endl;
     std::cout << "count: " << MCell::getCount() << std::endl;
-    std::cout << "type: " << tetra << std::endl;
+    std::cout << "To file: " << tetra << std::endl;
 
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     std::cout << "End MCell Test" << std::endl;
