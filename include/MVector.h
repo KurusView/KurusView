@@ -5,6 +5,21 @@
 #include <cmath>
 #include <vector>
 
+/**
+ * @brief vertex data placeholder for OpenGL
+ *
+ * @note OpenGL needs an object with no other data members than the vector points - the presence of method declarations
+ *       does not have an effect because on drawing because method declarations are not compiled! - My guess is OpenGL
+ *       takes these objects and places them contiguously in memory, any other data members (like MVectorID) would look
+ *       like the x value of the next object - or overflow into something else and cause weird bugs like the one we experienced
+ */
+struct vertexData {
+    double x;
+    double y;
+    double z;
+};
+
+
 class Matrix;
 
 class MVector {
@@ -34,6 +49,8 @@ public:
 
     double getZ() const;
 
+    vertexData getVertex();
+
     //Setter functions for x, y and z
     void setX(double x);
 
@@ -61,12 +78,12 @@ public:
 
 private:
     //3-Dimensional data of a vector
-    double x;
-    double y;
-    double z;
+
+    /// @note this is required by internal OpenGL magic - see object declaration for further explanation
+    vertexData vertex;
 
     // MVector ID
-//    long int MVectorID;
+    long int MVectorID;
 };
 
 #endif //INC_3DLIB_MVECTOR_H

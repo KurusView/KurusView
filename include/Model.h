@@ -13,7 +13,7 @@
 class Model {
 private:
     /** @brief vectors - List of all the vectors in the model */
-    std::vector<MVector> vectors;
+    std::vector<vertexData> vectors;
     /** @brief cells - List of all the cells in the model */
     std::vector<MCell *> cells;
     /** @brief materials - List of all the materials in the model */
@@ -25,7 +25,7 @@ public:
 
     const std::vector<MCell *> &getCells() const;
 
-    const std::vector<MVector> &getVectors() const;
+    const std::vector<vertexData> &getVectors() const;
 
     /**
      * @brief Model - Default Constructor

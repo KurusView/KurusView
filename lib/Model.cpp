@@ -52,13 +52,17 @@ void Model::loadModel(const std::string &filePath) {
             std::cout << "Material " << mindex << "-" << mname << "| D:" << mdensity << " | R:" << mred << " G:"
                       << mgreen << " B:" << mblue << std::endl;
         } else if (line[0] == 'v') {
+
             // Instantiate an object with the provided x, y and z values
             MVector mVector(std::stod(tokens[2]), std::stod(tokens[3]), std::stod(tokens[4]));
+
             // Insert it into the vectors list
-            vectors.insert(vectors.begin() + std::stoi(tokens[1]), mVector);
+            vectors.insert(vectors.begin() + std::stoi(tokens[1]), mVector.getVertex());
+
             // Display added vector
             std::cout << "Vector " << std::stoi(tokens[1])
                       << "| X:" << mVector.getX() << " Y:" << mVector.getY() << " Z:" << mVector.getZ() << std::endl;
+
         } else if (line[0] == 'c') {
 //            This line is a cell definition
 //            Temporary, will be replaced by object instantiation of Cell
@@ -140,8 +144,8 @@ void Model::saveModel(const std::string &filePath) {
     for (unsigned int i = 0; i < vectors.size(); ++i) {
         std::cout << "Print vector" << std::endl;
 
-        outputFile << 'v' << ' ' << i << ' ' << vectors[i].getX() << ' ' << vectors[i].getY() << ' '
-                   << vectors[i].getZ() << std::endl << std::endl;
+        outputFile << 'v' << ' ' << i << ' ' << vectors[i].x << ' ' << vectors[i].y << ' '
+                   << vectors[i].z << std::endl << std::endl;
     }
 
 //    Output all cells
@@ -167,7 +171,7 @@ void Model::saveModel(const std::string &filePath) {
     outputFile.close();
 }
 
-const std::vector<MVector> &Model::getVectors() const {
+const std::vector<vertexData> &Model::getVectors() const {
     return vectors;
 }
 
