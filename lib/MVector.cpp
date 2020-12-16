@@ -9,14 +9,12 @@ std::ostream &operator<<(std::ostream &os, MVector &obj) {
     return os;
 }
 
-MVector::MVector() : vertex{0,0,0} {}
+MVector::MVector() : vertex{0,0,0}, MVectorID(-1) {}
 
 // Initializes a vector a specific input coordinates
-MVector::MVector(double x, double y, double z) : vertex{x,y,z} {}
+MVector::MVector(double x, double y, double z) : vertex{x,y,z}, MVectorID(-1) {}
 
-MVector::MVector(double x, double y, double z, const long id) : vertex{x,y,z} {
-    (void) id;
-}
+MVector::MVector(double x, double y, double z, const long id) : vertex{x,y,z}, MVectorID(id) {}
 
 double MVector::getX() const {
     // Returns the value of x for a specific vector
@@ -53,6 +51,10 @@ double MVector::getModulus() const {
     // The square root of the sum of the squares
     double mod = sqrt((vertex.x * vertex.x) + (vertex.y * vertex.y) + (vertex.z * vertex.z));
     return mod;
+}
+
+long int MVector::getID() const {
+    return this->MVectorID;
 }
 
 

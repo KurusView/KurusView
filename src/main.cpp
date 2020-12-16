@@ -92,14 +92,14 @@ void mVectorTest() {
 
     // Test ID functionality
 
-//    MVector anonymous;
-//    MVector idRepresented(0, 0, 0, 10);
-//    MVector transformed;
-//    transformed = idRepresented * anonymous;
+    MVector anonymous;
+    MVector idRepresented(0, 0, 0, 10);
+    MVector transformed;
+    transformed = idRepresented * anonymous;
 
-//    std::cout << "Anonymous MVector ID: " << anonymous.getID() << std::endl;
-//    std::cout << "ID represented MVector ID: " << idRepresented.getID() << std::endl;
-//    std::cout << "Transformed MVector ID: " << transformed.getID() << std::endl;
+    std::cout << "Anonymous MVector ID: " << anonymous.getID() << std::endl;
+    std::cout << "ID represented MVector ID: " << idRepresented.getID() << std::endl;
+    std::cout << "Transformed MVector ID: " << transformed.getID() << std::endl;
 
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     std::cout << "End MVector Test" << std::endl;

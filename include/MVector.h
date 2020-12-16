@@ -74,7 +74,7 @@ public:
     // Find modulus of a specific vector to calculate scalar/dot product
     double getModulus() const;
 
-//    long int getID() const;
+    long int getID() const;
 
 private:
     //3-Dimensional data of a vector
