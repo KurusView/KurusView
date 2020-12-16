@@ -222,7 +222,14 @@ public:
     std::vector<std::shared_ptr<MVector>> getVertices() const;
 
 
-    //TODO: do we really need these? - probably not
+    /**
+     * @TODO: Do we really need these? - These setters are meant to be used to apply transforms on the object
+     *        (MColor change, rotation, etc), it is unclear at the moment if they are _actually_ needed, as the
+     *        transformer - the gpu or some other function could access the memory directly through getVectors().
+     *        It probably makes more sense for this class to remain as visualization oriented as possible.
+     *
+     *        See reverted commit b0e030c for a reference on implementing const methods.
+     */
 
     /**
      * @brief set MCellMaterial accesor
