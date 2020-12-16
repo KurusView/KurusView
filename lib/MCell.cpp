@@ -1,7 +1,6 @@
 #include "MCell.h"
 
 #include <map>
-#include <utility>
 
 // cell instance count
 unsigned long int MCell::MCellInstanceCount = 0;
@@ -60,12 +59,12 @@ double MCell::getCount() {
 
 
 void MCell::setMaterial(std::shared_ptr<Material> material) {
-    this->MCellMaterial = material;
+    this->MCellMaterial = std::move(material);
 }
 
 void MCell::setVertices(std::vector<std::shared_ptr<MVector>> vertices) {
     //this->MCellVertices = std::make_shared<MVector>(vertices);
-    this->MCellVertices = vertices;
+    this->MCellVertices = std::move(vertices);
 
 }
 
