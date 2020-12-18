@@ -1,0 +1,5 @@
+#ifndef INC_3DLIB_MOUSE_H
+#define INC_3DLIB_MOUSE_H
+
+
+#endif //INC_3DLIB_MOUSE_H

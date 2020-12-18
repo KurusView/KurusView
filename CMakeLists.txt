@@ -46,10 +46,10 @@ include_directories(include include/Cells include/ModelRenderer ${SDL2_INCLUDE_D
 link_directories(${SDL2_LIB_DIR} ${GLEW_LIB_DIR})
 
 # Define the library and it's sources
-add_library(3DLibrary lib/MVector.cpp include/MVector.h lib/MCell.cpp include/MCell.h lib/Material.cpp include/Material.h lib/Model.cpp include/Model.h lib/Matrix.cpp include/Matrix.h lib/ModelRenderer.cpp include/ModelRenderer.h lib/Cells/MTetrahedron.cpp include/Cells/MTetrahedron.h lib/Cells/MHexahedron.cpp include/Cells/MHexahedron.h lib/Cells/MPyramid.cpp include/Cells/MPyramid.h lib/ModelRenderer/Display.cpp include/ModelRenderer/Display.h lib/ModelRenderer/Shader.cpp include/ModelRenderer/Shader.h lib/ModelRenderer/Mesh.cpp include/ModelRenderer/Mesh.h)
+add_library(3DLibrary lib/MVector.cpp include/MVector.h lib/MCell.cpp include/MCell.h lib/Material.cpp include/Material.h lib/Model.cpp include/Model.h lib/Matrix.cpp include/Matrix.h lib/ModelRenderer.cpp include/ModelRenderer.h lib/Cells/MTetrahedron.cpp include/Cells/MTetrahedron.h lib/Cells/MHexahedron.cpp include/Cells/MHexahedron.h lib/Cells/MPyramid.cpp include/Cells/MPyramid.h lib/ModelRenderer/Display.cpp include/ModelRenderer/Display.h lib/ModelRenderer/Shader.cpp include/ModelRenderer/Shader.h lib/ModelRenderer/Mesh.cpp include/ModelRenderer/Mesh.h lib/ModelRenderer/Mouse.cpp)
 
 # Same as previously: define the executable and it's sources.
-add_executable(3DEXE src/main.cpp)
+add_executable(3DEXE src/main.cpp include/ModelRenderer/Mouse.h)
 
 # Tell CMake that the executable depends on the Qt::Widget and 3DLibrary libraries.
 target_link_libraries(3DEXE Qt5::Widgets 3DLibrary SDL2 SDL2main glew32 glew32s OpenGL32)
