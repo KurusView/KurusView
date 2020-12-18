@@ -19,11 +19,7 @@ private:
     /** @brief materials - List of all the materials in the model */
     std::vector<std::shared_ptr<Material>> materials;
 
-    std::vector<unsigned int> indices;
-
 public:
-    const std::vector<unsigned int> &getIndices() const;
-
     const std::vector<std::shared_ptr<MCell>> &getCells() const;
 
     const std::vector<MVector> &getVectors() const;

@@ -194,7 +194,3 @@ const std::vector<MVector> &Model::getVectors() const {
 const std::vector<std::shared_ptr<MCell>> &Model::getCells() const {
     return cells;
 }
-
-const std::vector<unsigned int> &Model::getIndices() const {
-    return indices;
-}
