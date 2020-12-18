@@ -15,14 +15,14 @@ class Mesh {
 private:
     enum {
         POSITION_VB,
-        INDEX_VB,
         NUM_BUFFERS
     };
 
     GLuint m_vertexArrayObject{};
     GLuint m_vertexArrayBuffers[NUM_BUFFERS]{};
-    unsigned int m_drawCount;
+    GLuint *m_IndexArrayBuffers;
     Model *model;
+    std::vector<std::vector<unsigned int>> indexBuffers;
 
 public:
     Mesh(Model *model);

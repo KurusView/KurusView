@@ -13,12 +13,10 @@ ModelRenderer::ModelRenderer(Model *model) {
 void ModelRenderer::run() {
 //    Create an empty, new window with the provided size and title
     Display display(width, height, title);
-//    TODO: Load shader
     Shader shader("../../res/basicShader");
 //    TODO: Load camera
-//    TODO: Load mesh
 
-    Mesh mesh(*model);
+    Mesh mesh(model);
 
 //    Constantly update the window until the user closes it
     while (!display.isClosed()) {
