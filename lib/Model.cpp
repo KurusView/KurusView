@@ -138,52 +138,22 @@ void Model::saveModel(const std::string &filePath) {
         return;
     }
 
+    outputFile << "# Model" << std::endl;
+
 //    Output materials
-    outputFile << "# Materials" << std::endl;
-    for (unsigned int i = 0; i < materials.size(); ++i) {
-        // TODO Get density from material
-        int density = 2700;
-
-        // TODO Get colour from material
-        int red = 100, green = 100, blue = 100;
-        // Combine int color values into a single hexvalue
-        char hexCol[16];
-        snprintf(hexCol, sizeof hexCol, "%02x%02x%02x", red, green, blue);
-
-        // TODO Get material name
-        std::string name = "copper";
-        outputFile << 'm' << ' ' << i << ' ' << density << ' ' << hexCol << ' '
-                   << name << std::endl << std::endl;
-    }
+    outputFile << std::endl << "# Materials" << std::endl;
+    for (const auto &material: materials)
+        outputFile << *material;
 
 //    Output all vectors
-    outputFile << "# Vectors" << std::endl;
-    for (unsigned int i = 0; i < vectors.size(); ++i) {
-        std::cout << "Print vector" << std::endl;
-
-        outputFile << 'v' << ' ' << i << ' ' << vectors[i].getX() << ' ' << vectors[i].getY() << ' '
-                   << vectors[i].getZ() << std::endl << std::endl;
-    }
+    outputFile << std::endl << "# Vectors" << std::endl;
+    for (const auto &vector: vectors)
+        outputFile << *vector;
 
 //    Output all cells
-    outputFile << "# Cells" << std::endl;
-    for (unsigned int i = 0; i < cells.size(); ++i) {
-        // TODO Get cell type
-        char cellType = 'h';
-
-        // TODO Get material index
-        int materialIndex = 1;
-
-        // TODO Get all vector indices
-        std::vector<int> vectorIndices = {0, 1, 2, 3, 4, 5, 6, 7};
-
-        // Output cell indicator, index and type
-        outputFile << 'c' << ' ' << i << ' ' << cellType << ' ' << materialIndex;
-        for (int vectorIndex : vectorIndices) {
-            // Print all vectors in the cell
-            outputFile << ' ' << vectorIndex;
-        }
-    }
+    outputFile << std::endl << "# Cells" << std::endl;
+    for (const auto &cell: cells)
+        outputFile << *cell;
 
     outputFile.close();
 }
