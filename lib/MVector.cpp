@@ -137,5 +137,9 @@ MVector MVector::operator*(const MVector &obj) const {
     return result;
 }
 
+double dotProduct(MVector v1, MVector v2) {
+    return (v1.getX() * v2.getX() + v1.getY() * v2.getY() + v1.getZ() * v2.getZ());
+}
+
 
 

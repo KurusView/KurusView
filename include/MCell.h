@@ -64,9 +64,6 @@ protected:
     /// @brief MCellWeight - stores the weight of the cell, can not be set by accessors
     mutable double MCellWeight{};
 
-    /// @brief MCellDensity - stores the density of the cell, can not be set by accessors
-    mutable double MCellDensity{};
-
     /// @brief MCellDensity - stores the density of the cell, , can not be set by accessors
     const long int MCellID;
 
@@ -176,12 +173,6 @@ public:
      * @return MCellWeight copy
      */
     double getWeight() const;
-
-    /**
-     * @brief get MCellDensity (accessor)
-     * @return MCellDensity copy
-     */
-    double getDensity() const;
 
     /**
      * @brief get MCellID (accessor)

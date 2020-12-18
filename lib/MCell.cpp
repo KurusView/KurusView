@@ -13,9 +13,6 @@ MCell::MCell(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Mat
         MCellType(MCellType_TypeDef::NONE) {
 
     MCellInstanceCount++;
-    //MCellDensity = material.getDensity();
-    // when instantiating derived class, this constructor is called. Polymorphism can exist between base
-    // and derived classes with the "using" keyword.
 
     // the derived class should initialize the other data members evaluating the calc methods. This methods being
     // Pure Virtual can be called from the derived constructor without UB
@@ -35,10 +32,6 @@ double MCell::getWeight() const {
 
 std::shared_ptr<MVector> MCell::getCentreOfGrav() const {
     return this->MCellCOG;
-}
-
-double MCell::getDensity() const {
-    return this->MCellDensity;
 }
 
 double MCell::getID() const {

@@ -1,6 +1,5 @@
 #include "MTetrahedron.h"
 
-#include <utility>
 
 MTetrahedron::MTetrahedron(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material,
                            long int id) : MCell(std::move(vertices), std::move(material), id) {
@@ -80,8 +79,7 @@ double MTetrahedron::calcVolume() const {
 // Output: Weight of the tetrahedron.
 double MTetrahedron::calcWeight() const {
     double MCellVolume = this->calcVolume();
-    double density = this->getDensity();
-    double MCellWeightTetra = MCellVolume * density;
+    double MCellWeightTetra = MCellVolume * MCellMaterial->getDensity();
     return MCellWeightTetra; // Return the value of the weight.
 }
 
