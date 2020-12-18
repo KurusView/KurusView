@@ -50,12 +50,11 @@ public:
 
     /**
      * @brief displayVertexCount - Calculates the number of vertices and displays them
-     * @return - Vertex Count
      */
     void displayVertexCount();
 
     /**
-     * @brief displayCells - Displays the number of cells and the types of each cell
+     * @brief displayCells - Displays the number of cells and the type of each cell
      */
     void displayCells();
 
