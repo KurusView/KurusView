@@ -31,9 +31,6 @@ Matrix::Matrix(double v1x, double v1y, double v1z, double v2x, double v2y, doubl
     mat3x3.push_back(v3);
 }
 
-// Default Constructor
-Matrix::~Matrix() {};
-
 Matrix Matrix::operator+(const Matrix &obj) const {
     // Matrix addition by looping through each vector in the matrix
 
