@@ -21,7 +21,8 @@ public:
      * @param material - material of the cell
      * @param id - unique cell identifier
      */
-    MPyramid (std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material, long int id);
+    MPyramid(const std::vector<std::shared_ptr<MVector>> &vertices, const std::shared_ptr<Material> &material,
+             long int id);
 
     /**
      * @brief deleted default constructor. See MCell default ctor for reference.
