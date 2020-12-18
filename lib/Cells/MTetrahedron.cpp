@@ -10,6 +10,14 @@ MTetrahedron::MTetrahedron(std::vector<std::shared_ptr<MVector>> vertices, std::
     MCellVolume = this->calcVolume();
     MCellWeight = this->calcWeight();
     MCellCOG = this->calcCentreOfGrav();
+
+    // reserve space for the vertex IDs
+    vertexIDs.reserve(4);
+
+    // populate vertexIDs
+    for (auto &it : vertices) {
+        vertexIDs.emplace_back(it->getID());
+    }
 }
 
 // Function to calculate the volume of the tetrahedron.

@@ -10,6 +10,14 @@ MPyramid::MPyramid(std::vector<std::shared_ptr<MVector>> vertices, std::shared_p
     MCellVolume = this->calcVolume();
     MCellWeight = this->calcWeight();
     MCellCOG = this->calcCentreOfGrav();
+
+    // reserve space for the vertex IDs
+    vertexIDs.reserve(4);
+
+    // populate vertexIDs
+    for (auto &it : vertices) {
+        vertexIDs.emplace_back(it->getID());
+    }
 }
 
 // Function to find the volume of pyramid.

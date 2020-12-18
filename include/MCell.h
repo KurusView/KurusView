@@ -75,6 +75,26 @@ protected:
     /// @brief holds a vector of MVectors defining the vertex of the cell
     std::vector<std::shared_ptr<MVector>> MCellVertices;
 
+    /**
+     * @brief holds a list of all the vertices IDs, populated on construction
+     * @note
+     * std::vector<T> reserves space for two elements by default. On push_back(), a new larger (+1) memory space is
+     * reserved if the pushed element doesnt fit. This makes push_back() extremely inefficient if enough space is not
+     * reserved from the beginning (eg. 100 push_backs on a default constructed std::vector will run 100 malloc and 100
+     * memmove - they are copied to the new memory space after reserving it ).
+     *
+     * @note
+     * The base constructor however does not know how many elements the vertexIDs vector is going to hold because the
+     * base class does not know what cell type is being initialized (although the derived class could pass it a flag)
+     * the best approach then is to reserve space in the derived constructor. Note, however, that the derived class
+     * constructor body runs after the base class constructor is done - and hence the std::vector is allocating memory
+     * twice, once in the base class constructor (space for 2) and once in the derived constructor (space for n). Not
+     * ideal, but way better than not reserving, and it keeps code simple by not passing flags to the base ctor.
+     *
+     * @internal Look up vector::emplace_back();
+     */
+    std::vector<unsigned int> vertexIDs;
+
     /// @brief holds a the material of the cell
     std::shared_ptr<Material> MCellMaterial;
 
@@ -212,6 +232,7 @@ public:
      */
     std::vector<std::shared_ptr<MVector>> getVertices() const;
 
+    std::vector<unsigned int> getVerticesIdD() const;
 
     /**
      * @TODO: Do we really need these? - These setters are meant to be used to apply transforms on the object

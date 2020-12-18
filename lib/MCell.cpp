@@ -57,6 +57,7 @@ void MCell::setMaterial(std::shared_ptr<Material> material) {
 
 void MCell::setVertices(std::vector<std::shared_ptr<MVector>> vertices) {
     //this->MCellVertices = std::make_shared<MVector>(vertices);
+    //update vertexIDs
     this->MCellVertices = std::move(vertices);
 
 }
@@ -136,4 +137,8 @@ std::ostream &operator<<(std::ostream &os, const MCell &mCell) {
     (void) COG;
 
     return os;
+}
+
+std::vector<unsigned int> MCell::getVerticesIdD() const {
+    return vertexIDs;
 }
