@@ -232,7 +232,7 @@ public:
      */
     std::vector<std::shared_ptr<MVector>> getVertices() const;
 
-    std::vector<unsigned int> getVerticesIdD() const;
+    std::vector<unsigned int> getVertexIndices() const;
 
     /**
      * @TODO: Do we really need these? - These setters are meant to be used to apply transforms on the object

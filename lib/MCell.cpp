@@ -139,6 +139,6 @@ std::ostream &operator<<(std::ostream &os, const MCell &mCell) {
     return os;
 }
 
-std::vector<unsigned int> MCell::getVerticesIdD() const {
+std::vector<unsigned int> MCell::getVertexIndices() const {
     return vertexIDs;
 }
