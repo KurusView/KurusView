@@ -4,6 +4,12 @@
 MTetrahedron::MTetrahedron(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material,
                            long int id) : MCell(std::move(vertices), std::move(material), id) {
 
+    if (vertices.size() != 4) {
+        throw std::runtime_error("Exception: Tetrahedron must have 4 vertices, but " +
+                                 std::to_string(vertices.size()) + " given. Cell ID: " +
+                                 std::to_string(id));
+    }
+    
     MCellType = MCellType_TypeDef::TETRAHEDRON;
 
     // calling base Pure Virtuals from Derived constructor is safe here.

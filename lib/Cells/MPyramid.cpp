@@ -4,6 +4,12 @@
 MPyramid::MPyramid(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material, long int id)
         : MCell(std::move(vertices), std::move(material), id) {
 
+    if (vertices.size() != 5) {
+        throw std::runtime_error("Exception: Pyramid must have 5 vertices, but " +
+                                 std::to_string(vertices.size()) + " given. Cell ID: " +
+                                 std::to_string(id));
+    }
+
     MCellType = MCellType_TypeDef::PYRAMID;
 
     // calling base Pure Virtuals from Derived constructor is safe here.
