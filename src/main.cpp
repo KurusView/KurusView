@@ -101,6 +101,15 @@ void mVectorTest() {
     std::cout << "ID represented MVector ID: " << idRepresented.getID() << std::endl;
     std::cout << "Transformed MVector ID: " << transformed.getID() << std::endl;
 
+    std::cout << "Scalar Triple Product test" << std::endl;
+    MVector stp_dotA(4,2,3);
+    MVector stp_xB(1,2,3);
+    MVector stp_xC(1,2,4);
+
+    double stp = scalarTripleProduct(stp_dotA, stp_xB, stp_xC); //assert 0
+    std::cout << "assert: " << stp << " =6" << std::endl;
+    //static_assert(stp, "0");
+
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     std::cout << "End MVector Test" << std::endl;
 }
@@ -120,7 +129,9 @@ void mCellTest() {
                                                                               11);
 
     // create vector of vertexes
-    std::vector<std::shared_ptr<MVector>> test_vector = {testSharedVector, testSharedVector, testSharedVector};
+    std::vector<std::shared_ptr<MVector>> test_vector = {testSharedVector, testSharedVector,
+                                                         testSharedVector, testSharedVector,
+                                                         testSharedVector};
 
     // create some tetrahedrons to increase the instance count
     MTetrahedron tetra(test_vector, testSharedMaterial, 0);
@@ -154,6 +165,9 @@ void modelTest() {
     Model model("../../models/testmodel.txt");
     model.saveModel("savetestmodel.txt");
     model.loadModel("savetestmodel.txt");
+    model.saveModel("savetestmodel2.txt");
+    model.displayVertexCount();
+    model.displayCells();
 
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     std::cout << "End Model Test" << std::endl;
@@ -203,7 +217,7 @@ void matrixTest() {
     std::cout << productScalar;
     std::cout << "Matrix-Vector multiplication: " << std::endl;
     std::cout << productVec;
-    std::cout << "Determinant: " << m1.det() << std::endl;
+    std::cout << "Determinant: " << m1.determinant() << std::endl;
     std::cout << std::endl;
 
     // Initializing rotation vectors
@@ -227,9 +241,9 @@ void matrixTest() {
     std::cout << "Inverse of Matrix: " << std::endl;
     std::cout << inverse;
 
-    transpose.Transponse();
+    transpose.transpose();
 
-    std::cout << "Transpose of Matrix: " << std::endl;
+    std::cout << "transpose of Matrix: " << std::endl;
     std::cout << transpose;
 
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;

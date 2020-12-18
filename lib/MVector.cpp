@@ -1,4 +1,3 @@
-#include <Matrix.h>
 #include <MVector.h>
 
 std::ostream &operator<<(std::ostream &os, MVector &obj) {
@@ -9,17 +8,25 @@ std::ostream &operator<<(std::ostream &os, MVector &obj) {
     return os;
 }
 
+std::ofstream &operator<<(std::ofstream &os, MVector &obj) {
+    os << "v " << obj.getID()
+       << " " << obj.getX()
+       << " " << obj.getY()
+       << " " << obj.getZ() << std::endl;
 
-MVector::MVector() : x(0), y(0), z(0) {}
+    return os;
+}
 
-MVector::MVector(double x, double y, double z) {
+MVector::MVector() : x(0), y(0), z(0), MVectorID(-1) {}
+
+MVector::MVector(double x, double y, double z) : MVectorID(-1) {
     // Initializes a vector a specific input coordinates
     this->x = x;
     this->y = y;
     this->z = z;
 }
 
-MVector::MVector(double x, double y, double z, const long id) {
+MVector::MVector(double x, double y, double z, const long id) : MVectorID(id) {
     this->x = x;
     this->y = y;
     this->z = z;
@@ -63,6 +70,7 @@ double MVector::getModulus() const {
 }
 
 long int MVector::getID() const {
+    // Returns value of the MVector ID
     return this->MVectorID;
 }
 
@@ -129,5 +137,55 @@ MVector MVector::operator*(const MVector &obj) const {
     return result;
 }
 
+MVector MVector::operator/(const double &scalar) const {
+    // Overloads the / operator to perform division between
+    // two vectors
 
+    /*
+     *     | 1 |       | a |
+     *     | 4 | / 3 = | b |
+     *     | 7 |       | c |
+     *
+     *     For Example:
+     *     a = 1/3
+     *     b = 4/3
+     */
+
+    MVector result;
+    result.setX(x / scalar);
+    result.setY(y / scalar);
+    result.setZ(z / scalar);
+    return result;
+}
+
+MVector MVector::operator*(const double &scalar) const {
+    // Overloads the / operator to perform division between
+    // two vectors
+
+    /*
+     *     | 1 |       | a |
+     *     | 4 | * 3 = | b |
+     *     | 7 |       | c |
+     *
+     *     For Example:
+     *     a = 1*3 = 3
+     *     b = 4*3 = 12
+     */
+
+    MVector result;
+    result.setX(x * scalar);
+    result.setY(y * scalar);
+    result.setZ(z * scalar);
+    return result;
+}
+
+double dotProduct(MVector v1, MVector v2) {
+    // Dot product calculated between v1 and v2
+    // Source: https://tutorial.math.lamar.edu/classes/calcii/dotproduct.aspx
+    return (v1.getX() * v2.getX() + v1.getY() * v2.getY() + v1.getZ() * v2.getZ());
+}
+
+double scalarTripleProduct(MVector dotA, MVector xB, MVector xC) {
+    return dotProduct(dotA, (xB * xC));
+}
 

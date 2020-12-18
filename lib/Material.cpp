@@ -36,3 +36,12 @@ Material::Material(std::string name, std::string colour, double density, unsigne
                                                                                             colour(colour),
                                                                                             density(density) {
 }
+
+std::ofstream &operator<<(std::ofstream &os, Material &obj) {
+    os << "m " << obj.getId()
+       << " " << obj.getDensity()
+       << " " << obj.getColour()
+       << " " << obj.getName() << std::endl;
+
+    return os;
+}

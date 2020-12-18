@@ -7,18 +7,17 @@
 #include "Material.h"
 #include "MVector.h"
 
-
 /**
  * @brief Model - This object is responsible for reading and writing model entities to VTK style data files
  */
 class Model {
 private:
     /** @brief vectors - List of all the vectors in the model */
-    std::vector<MVector> vectors;
+    std::vector<std::shared_ptr<MVector>> vectors;
     /** @brief cells - List of all the cells in the model */
-    std::vector<MCell *> cells;
+    std::vector<std::shared_ptr<MCell>> cells;
     /** @brief materials - List of all the materials in the model */
-    std::vector<Material> materials;
+    std::vector<std::shared_ptr<Material>> materials;
 
     std::vector<unsigned int> indices;
 
@@ -59,12 +58,11 @@ public:
 
     /**
      * @brief displayVertexCount - Calculates the number of vertices and displays them
-     * @return - Vertex Count
      */
-    int displayVertexCount();
+    void displayVertexCount();
 
     /**
-     * @brief displayCells - Displays the number of cells and the types of each cell
+     * @brief displayCells - Displays the number of cells and the type of each cell
      */
     void displayCells();
 
@@ -72,7 +70,7 @@ public:
      * @brief calcCentre - Calculates the centre of the model
      * @return - MVector that points to the centre of the model
      */
-    MVector calcCentre(void);
+    MVector calcCentre();
 };
 
 
