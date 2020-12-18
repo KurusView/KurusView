@@ -130,8 +130,7 @@ void mCellTest() {
 
     // create vector of vertexes
     std::vector<std::shared_ptr<MVector>> test_vector = {testSharedVector, testSharedVector,
-                                                         testSharedVector, testSharedVector,
-                                                         testSharedVector};
+                                                         testSharedVector, testSharedVector};
 
     // create some tetrahedrons to increase the instance count
     MTetrahedron tetra(test_vector, testSharedMaterial, 0);
