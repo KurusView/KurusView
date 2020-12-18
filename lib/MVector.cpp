@@ -32,12 +32,12 @@ MVector::MVector(double x, double y, double z, const long id) : MVectorID(id) {
     this->z = z;
 }
 
-double MVector::getX() const {
+const double MVector::getX() const {
     // Returns the value of x for a specific vector
     return x;
 }
 
-double MVector::getY() const {
+const double MVector::getY() const {
     // Returns the value of y for a specific vector
     return y;
 }
@@ -179,16 +179,16 @@ MVector MVector::operator*(const double &scalar) const {
     return result;
 }
 
-double MVector::operator[](int index) const {
+const double &MVector::operator[](int index) const  {
     switch (index) {
         case 0:
-            return getX();
+            return x;
             break;
         case 1:
-            return getY();
+            return y;
             break;
         case 2:
-            return getZ();
+            return z;
             break;
         default:
             std::cerr << std::endl

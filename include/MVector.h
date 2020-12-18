@@ -58,13 +58,13 @@ public:
      * @brief getX (accessor)
      * @return - x-coordinate
      */
-    double getX() const;
+    const double getX() const;
 
     /**
      * @brief getY (accessor)
      * @return - y-coordinate
      */
-    double getY() const;
+    const double getY() const;
 
     /**
      * @brief getZ (accessor)
@@ -134,7 +134,7 @@ public:
      */
     long int getID() const;
 
-    double operator[](int index) const;
+    const double &operator[](int index) const;
 
 private:
     /// @brief holds the coordinates a vector in 3D - X, Y and Z coordinates

@@ -245,8 +245,8 @@ void matrixTest() {
     std::cout << "transpose of Matrix: " << std::endl;
     std::cout << transpose;
 
-    Matrix test;
-    test.getMat()[0][2];
+    Matrix test(a, b, c);
+    std::cout << test.getMat()[0][2] << std::endl;
 
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     std::cout << "End Matrix Test" << std::endl;
