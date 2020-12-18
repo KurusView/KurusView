@@ -11,6 +11,7 @@ class Matrix;
 class MVector {
     // Out stream to allow for complete print outs of a vector
     friend std::ostream &operator<<(std::ostream &os, MVector &obj);
+
     friend std::ofstream &operator<<(std::ofstream &os, MVector &obj);
 
 public:
@@ -70,5 +71,7 @@ private:
     // MVector ID
     long int MVectorID;
 };
+
+double dotProduct(MVector v1, MVector v2);
 
 #endif //INC_3DLIB_MVECTOR_H
