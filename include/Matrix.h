@@ -102,6 +102,8 @@ public:
      */
     void setMat(int col, MVector vector);
 
+    std::vector<MVector> &getMat();
+
     /// @brief default destructor
     ~Matrix() = default;
 
@@ -117,5 +119,7 @@ private:
      * @return - Rotation Matrix
      */
 Matrix RotationMatrix(const std::vector<MVector> &Rotation);
+
+Matrix ScalingMatrix(const double &scalingFactor);
 
 #endif //INC_3DLIB_MATRIX_H
