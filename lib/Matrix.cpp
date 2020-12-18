@@ -301,6 +301,10 @@ Matrix Matrix::operator/(const double &scalar) const {
     return result;
 }
 
+std::vector<MVector> Matrix::getMat() {
+    return mat3x3;
+}
+
 Matrix RotationMatrix(const std::vector<MVector> &Rotation) {
 
     // Undergoes multiple rotations that needs to be done on a specific matrix or vector
@@ -367,5 +371,16 @@ Matrix RotationMatrix(const std::vector<MVector> &Rotation) {
 
     return result;
 }
+
+
+Matrix ScalingMatrix(const double &scalingFactor) {
+    Matrix result;
+    result.getMat()[0].setX(scalingFactor);
+    result.getMat()[1].setY(scalingFactor);
+    result.getMat()[2].setZ(scalingFactor);
+    return result;
+}
+
+
 
 
