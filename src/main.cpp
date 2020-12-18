@@ -102,9 +102,9 @@ void mVectorTest() {
     std::cout << "Transformed MVector ID: " << transformed.getID() << std::endl;
 
     std::cout << "Scalar Triple Product test" << std::endl;
-    MVector stp_dotA(4,2,3);
-    MVector stp_xB(1,2,3);
-    MVector stp_xC(1,2,4);
+    MVector stp_dotA(4, 2, 3);
+    MVector stp_xB(1, 2, 3);
+    MVector stp_xC(1, 2, 4);
 
     double stp = scalarTripleProduct(stp_dotA, stp_xB, stp_xC); //assert 0
     std::cout << "assert: " << stp << " =6" << std::endl;
@@ -244,6 +244,9 @@ void matrixTest() {
 
     std::cout << "transpose of Matrix: " << std::endl;
     std::cout << transpose;
+
+    Matrix test;
+    test.getMat()[0][2];
 
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     std::cout << "End Matrix Test" << std::endl;

@@ -134,6 +134,8 @@ public:
      */
     long int getID() const;
 
+    double operator[](int index);
+
 private:
     /// @brief holds the coordinates a vector in 3D - X, Y and Z coordinates
     double x;

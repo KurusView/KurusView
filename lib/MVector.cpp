@@ -179,6 +179,26 @@ MVector MVector::operator*(const double &scalar) const {
     return result;
 }
 
+double MVector::operator[](int index) {
+    switch (index) {
+        case 0:
+            return getX();
+            break;
+        case 1:
+            return getY();
+            break;
+        case 2:
+            return getZ();
+            break;
+        default:
+            std::cerr << std::endl
+                      << "Error: Vectors contain 3 coordinates only, make sure the index is less than or equal to two."
+                      << std::endl;
+            exit(2);
+            break;
+    }
+}
+
 double dotProduct(MVector v1, MVector v2) {
     // Dot product calculated between v1 and v2
     // Source: https://tutorial.math.lamar.edu/classes/calcii/dotproduct.aspx
