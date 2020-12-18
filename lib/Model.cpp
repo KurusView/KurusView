@@ -173,3 +173,16 @@ void Model::displayCells() {
         std::cout << "Cell " << cell->getID() << ": " << cell->getType()[1] << std::endl;
     }
 }
+
+MVector Model::calcCentre() {
+    MVector centreOfGravity;
+    double totalMass = 0;
+
+    for (const auto &cell : cells) {
+        totalMass += cell->getWeight();
+        centreOfGravity = centreOfGravity + (*(cell->getCentreOfGrav()) * cell->getWeight());
+    }
+
+    centreOfGravity = centreOfGravity / totalMass;
+    return centreOfGravity;
+}
