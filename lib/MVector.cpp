@@ -1,55 +1,64 @@
-//#include <Matrix.h>
+#include <Matrix.h>
 #include <MVector.h>
 
 std::ostream &operator<<(std::ostream &os, MVector &obj) {
     //Overloads << operator
     // Produces an outstream to print the values of x, y and z of a vector simultaneously
-    os << "x: " << obj.vertex.x << "  y: " << obj.vertex.y << "  z: " << obj.vertex.z << std::endl;
+    os << "x: " << obj.x << "  y: " << obj.y << "  z: " << obj.z << std::endl;
     os << std::endl;
     return os;
 }
 
-MVector::MVector() : vertex{0,0,0}, MVectorID(-1) {}
 
-// Initializes a vector a specific input coordinates
-MVector::MVector(double x, double y, double z) : vertex{x,y,z}, MVectorID(-1) {}
+MVector::MVector() : x(0), y(0), z(0) {}
 
-MVector::MVector(double x, double y, double z, const long id) : vertex{x,y,z}, MVectorID(id) {}
+MVector::MVector(double x, double y, double z) {
+    // Initializes a vector a specific input coordinates
+    this->x = x;
+    this->y = y;
+    this->z = z;
+}
+
+MVector::MVector(double x, double y, double z, const long id) {
+    this->x = x;
+    this->y = y;
+    this->z = z;
+}
 
 double MVector::getX() const {
     // Returns the value of x for a specific vector
-    return vertex.x;
+    return x;
 }
 
 double MVector::getY() const {
     // Returns the value of y for a specific vector
-    return vertex.y;
+    return y;
 }
 
 double MVector::getZ() const {
     // Returns the value of z for a specific vector
-    return vertex.z;
+    return z;
 }
 
 void MVector::setX(double x) {
     // Sets the value of x for a specific vector
-    this->vertex.x = x;
+    this->x = x;
 }
 
 void MVector::setY(double y) {
     // Sets the value of y for a specific vector
-    this->vertex.y = y;
+    this->y = y;
 }
 
 void MVector::setZ(double z) {
     // Sets the value of z for a specific vector
-    this->vertex.z = z;
+    this->z = z;
 }
 
 double MVector::getModulus() const {
     // Calculates the modulus of a vector
     // The square root of the sum of the squares
-    double mod = sqrt((vertex.x * vertex.x) + (vertex.y * vertex.y) + (vertex.z * vertex.z));
+    double mod = sqrt((x * x) + (y * y) + (z * z));
     return mod;
 }
 
@@ -72,9 +81,9 @@ MVector MVector::operator+(const MVector &obj) const {
      */
 
     MVector result;
-    result.vertex.x = vertex.x + obj.vertex.x;
-    result.vertex.y = vertex.y + obj.vertex.y;
-    result.vertex.z = vertex.z + obj.vertex.z;
+    result.x = x + obj.x;
+    result.y = y + obj.y;
+    result.z = z + obj.z;
     return result;
 }
 
@@ -92,9 +101,9 @@ MVector MVector::operator-(const MVector &obj) const {
      */
 
     MVector result;
-    result.vertex.x = vertex.x - obj.vertex.x;
-    result.vertex.y = vertex.y - obj.vertex.y;
-    result.vertex.z = vertex.z - obj.vertex.z;
+    result.x = x - obj.x;
+    result.y = y - obj.y;
+    result.z = z - obj.z;
     return result;
 }
 
@@ -114,14 +123,10 @@ MVector MVector::operator*(const MVector &obj) const {
      */
 
     MVector result;
-    result.vertex.x = (vertex.y * obj.getZ()) - (vertex.z * obj.getY());
-    result.vertex.y = (vertex.z * obj.getX()) - (vertex.x * obj.getZ());
-    result.vertex.z = (vertex.x * obj.getY()) - (vertex.y * obj.getX());
+    result.x = (y * obj.getZ()) - (z * obj.getY());
+    result.y = (z * obj.getX()) - (x * obj.getZ());
+    result.z = (x * obj.getY()) - (y * obj.getX());
     return result;
-}
-
-vertexData MVector::getVertex() {
-    return vertex;
 }
 
 

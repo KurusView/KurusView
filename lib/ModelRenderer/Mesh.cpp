@@ -29,8 +29,16 @@ Mesh::Mesh(Model &model) {
     // Enable Vertex Attribute Array 0
     glEnableVertexAttribArray(0);
 
-    // Modify the attribute array 0, which was just enabled
-    glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 0, nullptr);
+    /**
+     * @brief: Modify the attribute array 0, which was just enabled
+     *
+     * @internal: define an array of generic vertex attribute data - http://docs.gl/gl4/glVertexAttribPointer
+     * @note: stride 0 (packed) was used - this was the cause of bug 65ccba1. Our vertex (MVector) object contains more
+     *        than position data (the ID), and possibly shader data in the future.
+     *
+     * @TODO: Should normalized be false?
+     */
+    glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, sizeof(MVector), nullptr);
 
     // Bind the vertex array object
     glBindVertexArray(0);
