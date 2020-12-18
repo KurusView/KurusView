@@ -21,6 +21,10 @@ void Model::loadModel(const std::string &filePath) {
         return;
     }
 
+    materials.clear();
+    vectors.clear();
+    cells.clear();
+
     // Strings to store the current line and the current token within the line
     std::string line, buf;
 
