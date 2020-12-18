@@ -152,4 +152,12 @@ private:
 */
 double dotProduct(MVector v1, MVector v2);
 
+/**
+ * @brief Scalar Triple Product - https://en.wikipedia.org/wiki/Triple_product
+ * @return - Scalar Triple Product product dotA,xB,xC
+ * @internal this is used extensively in volume calculations
+ */
+
+double scalarTripleProduct(MVector dotA, MVector xB, MVector xC);
+
 #endif //INC_3DLIB_MVECTOR_H
