@@ -1,4 +1,3 @@
-#include <Matrix.h>
 #include <MVector.h>
 
 std::ostream &operator<<(std::ostream &os, MVector &obj) {
@@ -71,6 +70,7 @@ double MVector::getModulus() const {
 }
 
 long int MVector::getID() const {
+    // Returns value of the MVector ID
     return this->MVectorID;
 }
 
@@ -138,6 +138,19 @@ MVector MVector::operator*(const MVector &obj) const {
 }
 
 MVector MVector::operator/(const double &scalar) const {
+    // Overloads the / operator to perform division between
+    // two vectors
+
+    /*
+     *     | 1 |       | a |
+     *     | 4 | / 3 = | b |
+     *     | 7 |       | c |
+     *
+     *     For Example:
+     *     a = 1/3
+     *     b = 4/3
+     */
+
     MVector result;
     result.setX(x / scalar);
     result.setY(y / scalar);
@@ -146,6 +159,19 @@ MVector MVector::operator/(const double &scalar) const {
 }
 
 MVector MVector::operator*(const double &scalar) const {
+    // Overloads the / operator to perform division between
+    // two vectors
+
+    /*
+     *     | 1 |       | a |
+     *     | 4 | * 3 = | b |
+     *     | 7 |       | c |
+     *
+     *     For Example:
+     *     a = 1*3 = 3
+     *     b = 4*3 = 12
+     */
+
     MVector result;
     result.setX(x * scalar);
     result.setY(y * scalar);
@@ -154,6 +180,8 @@ MVector MVector::operator*(const double &scalar) const {
 }
 
 double dotProduct(MVector v1, MVector v2) {
+    // Dot product calculated between v1 and v2
+    // Source: https://tutorial.math.lamar.edu/classes/calcii/dotproduct.aspx
     return (v1.getX() * v2.getX() + v1.getY() * v2.getY() + v1.getZ() * v2.getZ());
 }
 
