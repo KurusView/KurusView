@@ -6,9 +6,9 @@ MTetrahedron::MTetrahedron(std::vector<std::shared_ptr<MVector>> vertices, std::
     MCellType = MCellType_TypeDef::TETRAHEDRON;
 
     // calling base Pure Virtuals from Derived constructor is safe here.
-    MCellVolume = calcVolume();
-    MCellWeight = calcWeight();
-    MCellCOG = calcCentreOfGrav();
+    MCellVolume = this->calcVolume();
+    MCellWeight = this->calcWeight();
+    MCellCOG = this->calcCentreOfGrav();
 }
 
 // Function to calculate the volume of the tetrahedron.
