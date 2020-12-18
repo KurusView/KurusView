@@ -13,7 +13,7 @@
 class Model {
 private:
     /** @brief vectors - List of all the vectors in the model */
-    std::vector<std::shared_ptr<MVector>> vectors;
+    std::vector<MVector> vectors;
     /** @brief cells - List of all the cells in the model */
     std::vector<std::shared_ptr<MCell>> cells;
     /** @brief materials - List of all the materials in the model */

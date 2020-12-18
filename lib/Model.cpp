@@ -69,8 +69,8 @@ void Model::loadModel(const std::string &filePath) {
 
                 // Insert a shared pointer to a new MVector into the provided index
                 vectors.insert(vectors.begin() + std::stoul(tokens[1]),
-                               std::make_shared<MVector>(std::stod(tokens[2]), std::stod(tokens[3]),
-                                                         std::stod(tokens[4]), std::stoul(tokens[1])));
+                               MVector(std::stod(tokens[2]), std::stod(tokens[3]),
+                                       std::stod(tokens[4]), std::stoul(tokens[1])));
             } else if (line[0] == 'c') {
                 // This line is a cell line formatted as follows:
                 // 0      1            2                3                 4               5         ...
@@ -96,16 +96,16 @@ void Model::loadModel(const std::string &filePath) {
                 // Populate cellVectors with the vectors this cell is based on
                 switch (cellType) {
                     case 'h': // Hexahedron
-                        cellVectors[7] = vectors[stoi(tokens[11])];
-                        cellVectors[6] = vectors[stoi(tokens[10])];
-                        cellVectors[5] = vectors[stoi(tokens[9])];
+                        cellVectors[7] = std::make_shared<MVector>(vectors[stoi(tokens[11])]);
+                        cellVectors[6] = std::make_shared<MVector>(vectors[stoi(tokens[10])]);
+                        cellVectors[5] = std::make_shared<MVector>(vectors[stoi(tokens[9])]);
                     case 'p': // Pyramid
-                        cellVectors[4] = vectors[stoi(tokens[8])];
+                        cellVectors[4] = std::make_shared<MVector>(vectors[stoi(tokens[8])]);
                     case 't': // Tetrahedron
-                        cellVectors[3] = vectors[stoi(tokens[7])];
-                        cellVectors[2] = vectors[stoi(tokens[6])];
-                        cellVectors[1] = vectors[stoi(tokens[5])];
-                        cellVectors[0] = vectors[stoi(tokens[4])];
+                        cellVectors[3] = std::make_shared<MVector>(vectors[stoi(tokens[7])]);
+                        cellVectors[2] = std::make_shared<MVector>(vectors[stoi(tokens[6])]);
+                        cellVectors[1] = std::make_shared<MVector>(vectors[stoi(tokens[5])]);
+                        cellVectors[0] = std::make_shared<MVector>(vectors[stoi(tokens[4])]);
                         break;
                     default:
                         break;
@@ -151,8 +151,8 @@ void Model::saveModel(const std::string &filePath) {
 
 //    Output all vectors
     outputFile << std::endl << "# Vectors" << std::endl;
-    for (const auto &vector: vectors)
-        outputFile << *vector;
+    for (MVector &vector : vectors)
+        outputFile << vector;
 
 //    Output all cells
     outputFile << std::endl << "# Cells" << std::endl;
