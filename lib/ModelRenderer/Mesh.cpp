@@ -7,7 +7,7 @@
 Mesh::Mesh(Model *model) {
     this->model = model;
     m_IndexArrayBuffers = new GLuint[model->getCells().size()];
-    indexBuffers = std::vector<std::vector<unsigned int>>(model->getCells().size());
+    indexBuffers = std::vector < std::vector < unsigned int >> (model->getCells().size());
 
     for (unsigned int i = 0; i < model->getCells().size(); ++i) {
         MCell &cell = *model->getCells()[i];

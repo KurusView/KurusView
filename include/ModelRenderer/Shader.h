@@ -7,6 +7,8 @@
 
 #include <string>
 #include <glew.h>
+#include <Matrix.h>
+#include "glm.hpp"
 
 class Shader {
 private:
@@ -14,8 +16,14 @@ private:
     // Can use enumeration to set which one refers to which
     static const unsigned int NUM_SHADERS = 2;
 
+    enum {
+        TRANSFORM_U,
+        NUM_UNIFORMS
+    };
+
     GLuint m_program;
     GLuint m_shaders[NUM_SHADERS]{};
+    GLuint m_uniforms[NUM_UNIFORMS]{};
 
     static GLuint CreateShader(const std::string &text, GLenum shaderType);
 
@@ -30,6 +38,8 @@ public:
      * @brief bind - Binds this shader class to the GPU
      */
     void bind() const;
+
+    void update(glm::mat4 &transform);
 
     virtual ~Shader();
 };
