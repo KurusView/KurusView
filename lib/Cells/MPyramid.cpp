@@ -1,7 +1,5 @@
 #include "MPyramid.h"
 
-#include <utility>
-
 
 MPyramid::MPyramid(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material, long int id)
         : MCell(std::move(vertices), std::move(material), id) {
@@ -115,8 +113,7 @@ double MPyramid::calcVolume() const {
 // Output: Weight of the pyramid.
 double MPyramid::calcWeight() const {
     double PyraVolume = this->calcVolume(); // Call the function that calculates the volume.
-    double MCellDensity = this->getDensity(); // Get the density of the shape.
-    double MCellWeightPyra = PyraVolume + MCellDensity;
+    double MCellWeightPyra = PyraVolume + MCellMaterial->getDensity();
     return MCellWeightPyra; // Stub
 }
 
