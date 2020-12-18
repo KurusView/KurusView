@@ -179,7 +179,7 @@ MVector MVector::operator*(const double &scalar) const {
     return result;
 }
 
-double MVector::operator[](int index) {
+double MVector::operator[](int index) const {
     switch (index) {
         case 0:
             return getX();
