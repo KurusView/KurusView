@@ -5,9 +5,10 @@ MTetrahedron::MTetrahedron(const std::vector<std::shared_ptr<MVector>> &vertices
                            const std::shared_ptr<Material> &material, long int id) : MCell(vertices, material, id) {
 
     if (vertices.size() != 4) {
-        throw std::runtime_error("Exception: Tetrahedron must have 4 vertices, but " +
-                                 std::to_string(vertices.size()) + " given. Cell ID: " +
-                                 std::to_string(id));
+        std::cerr << std::endl << "Error: Tetrahedron must have 4 vertices, but " +
+                                  std::to_string(vertices.size()) + " given. Cell ID: " +
+                                  std::to_string(id) << std::endl;
+        exit(1);
     }
     
     MCellType = MCellType_TypeDef::TETRAHEDRON;

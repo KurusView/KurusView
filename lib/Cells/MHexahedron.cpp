@@ -5,9 +5,10 @@ MHexahedron::MHexahedron(const std::vector<std::shared_ptr<MVector>> &vertices,
                          const std::shared_ptr<Material> &material, long int id) : MCell(vertices, material, id) {
 
     if (vertices.size() != 8) {
-        throw std::runtime_error("Exception: Hexahedron must have 8 vertices, but " +
-                                 std::to_string(vertices.size()) + " given. Cell ID: " +
-                                 std::to_string(id));
+        std::cerr << std::endl << "Error: Hexahedron must have 8 vertices, but " +
+                                  std::to_string(vertices.size()) + " given. Cell ID: " +
+                                  std::to_string(id) << std::endl;
+        exit(1);
     }
 
     MCellType = MCellType_TypeDef::HEXAHEDRON;
