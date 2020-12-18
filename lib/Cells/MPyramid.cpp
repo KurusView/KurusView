@@ -12,7 +12,7 @@ MPyramid::MPyramid(std::vector<std::shared_ptr<MVector>> vertices, std::shared_p
     MCellCOG = this->calcCentreOfGrav();
 
     // reserve space for the vertex IDs
-    vertexIDs.reserve(4);
+    vertexIDs.reserve(5);
 
     // populate vertexIDs
     for (auto &it : vertices) {
