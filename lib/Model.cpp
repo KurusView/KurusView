@@ -187,11 +187,11 @@ MVector Model::calcCentre() {
     return centreOfGravity;
 }
 
-const std::vector<MVector> &Model::getVectors() const {
+const std::vector<std::shared_ptr<MVector>> &Model::getVectors() const {
     return vectors;
 }
 
-const std::vector<MCell *> &Model::getCells() const {
+const std::vector<std::shared_ptr<MCell>> &Model::getCells() const {
     return cells;
 }
 
