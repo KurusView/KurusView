@@ -36,7 +36,6 @@ Mesh::Mesh(Model &model) {
      * @note: stride 0 (packed) was used - this was the cause of bug 65ccba1. Our vertex (MVector) object contains more
      *        than position data (the ID), and possibly shader data in the future.
      *
-     * @TODO: Should normalized be false?
      */
     glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, sizeof(MVector), nullptr);
 
