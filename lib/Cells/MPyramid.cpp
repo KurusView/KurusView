@@ -112,11 +112,14 @@ double MPyramid::calcVolume() const {
 // Input: Nothing
 // Output: Weight of the pyramid.
 double MPyramid::calcWeight() const {
-    double PyraVolume = this->calcVolume(); // Call the function that calculates the volume.
-    double MCellWeightPyra = PyraVolume + MCellMaterial->getDensity();
-    return MCellWeightPyra; // Stub
+    // calcVolume is called before on ctor so MCell volume is populated
+    return MCellVolume * MCellMaterial->getDensity();
 }
 
 std::shared_ptr<MVector> MPyramid::calcCentreOfGrav() const {
-    return std::make_shared<MVector>(1,2,3);
+    auto vertex = getVertices();
+
+    // Partially Overlapping Cells can share Centre of Gravity
+    return std::make_shared<MVector>( (*vertex[0] + *vertex[1] +
+                                       *vertex[2] + *vertex[3] + *vertex[4]) / 5.0 );
 }

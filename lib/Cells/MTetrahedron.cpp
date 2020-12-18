@@ -78,11 +78,15 @@ double MTetrahedron::calcVolume() const {
 // Input: Nothing.
 // Output: Weight of the tetrahedron.
 double MTetrahedron::calcWeight() const {
-    double MCellVolume = this->calcVolume();
-    double MCellWeightTetra = MCellVolume * MCellMaterial->getDensity();
-    return MCellWeightTetra; // Return the value of the weight.
+    // calcVolume is called before on ctor so MCell volume is populated
+    return MCellVolume * MCellMaterial->getDensity();
 }
 
 std::shared_ptr<MVector> MTetrahedron::calcCentreOfGrav() const {
-    return std::make_shared<MVector>(1,2,3);
+    // https://math.stackexchange.com/questions/1592128/finding-center-of-mass-for-tetrahedron
+    auto vertex = getVertices();
+
+    // Partially Overlapping Cells can share Centre of Gravity
+    return std::make_shared<MVector>( (*vertex[0] + *vertex[1] +
+                                       *vertex[2] + *vertex[3]) / 4.0 );
 }

@@ -18,9 +18,16 @@ double MHexahedron::calcVolume() const {
 }
 
 double MHexahedron::calcWeight() const {
-    return 22; //stub
+    // calcVolume is called before on ctor so MCell volume is populated
+    return MCellVolume * MCellMaterial->getDensity();
 }
 
 std::shared_ptr<MVector> MHexahedron::calcCentreOfGrav() const {
-    return std::make_shared<MVector>(1,2,3);
+    auto vertex = getVertices();
+
+    // Partially Overlapping Cells can share Centre of Gravity
+    return std::make_shared<MVector>( (*vertex[0] + *vertex[1] +
+                                       *vertex[2] + *vertex[3] +
+                                       *vertex[4] + *vertex[5] +
+                                       *vertex[6] + *vertex[7]) / 8.0 );
 }

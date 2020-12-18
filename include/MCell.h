@@ -115,7 +115,7 @@ protected:
      * @brief calculates weight of the cell
      * @return scalar weight of the cell - unit dependant on volume and density
      *
-     * @note requires shape specific knowledge is to be implemented by derived classes (Pure Virtual)
+     * @TODO: This one does NOT need to be virtual.
      */
     virtual double calcWeight() const = 0;
 
@@ -123,7 +123,7 @@ protected:
      * @brief calculates centre of gravity of the cell
      * @return shared pointer to anonymous (ID - less) 3D MVector
      *
-     * @todo This should probably return weak_ptr - shared_ptr has more overhead. We dont care about the freeing
+     * @TODO This should probably return weak_ptr - shared_ptr has more overhead. We dont care about the freeing
      *       differences as calc* functions are only called internally so at least one instance will exist if the
      *       method was called
      */
