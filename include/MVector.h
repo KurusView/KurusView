@@ -2,6 +2,7 @@
 #define INC_3DLIB_MVECTOR_H
 
 #include <iostream>
+#include <fstream>
 #include <cmath>
 #include <vector>
 
@@ -10,6 +11,7 @@ class Matrix;
 class MVector {
     // Out stream to allow for complete print outs of a vector
     friend std::ostream &operator<<(std::ostream &os, MVector &obj);
+    friend std::ofstream &operator<<(std::ofstream &os, MVector &obj);
 
 public:
     // default constructor  Vector ve

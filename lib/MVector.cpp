@@ -9,6 +9,15 @@ std::ostream &operator<<(std::ostream &os, MVector &obj) {
     return os;
 }
 
+std::ofstream &operator<<(std::ofstream &os, MVector &obj) {
+    os << "v " << obj.getID()
+       << " " << obj.getX()
+       << " " << obj.getY()
+       << " " << obj.getZ() << std::endl;
+
+    return os;
+}
+
 MVector::MVector() : x(0), y(0), z(0), MVectorID(-1) {}
 
 MVector::MVector(double x, double y, double z) : MVectorID(-1) {
