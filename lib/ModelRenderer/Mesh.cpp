@@ -12,7 +12,7 @@ Mesh::Mesh(Model *model) {
     for (unsigned int i = 0; i < model->getCells().size(); ++i) {
         MCell &cell = *model->getCells()[i];
         char cellType = cell.getType()[0][0];
-        std::vector<unsigned int> &ids = cell.getVertexIndices();
+        const std::vector<unsigned int> &ids = cell.getVertexIndices();
         if (cellType == 't')
             // 0 1 2 3 0 1
             indexBuffers[i] = {ids[0], ids[1], ids[2], ids[3], ids[0], ids[1]};

@@ -232,7 +232,13 @@ public:
      */
     std::vector<std::shared_ptr<MVector>> getVertices() const;
 
-    std::vector<unsigned int> getVertexIndices() const;
+    /**
+     * @brief getVertexIndices (accessor)
+     * @return const reference to vector of unsigned int vector indices
+     *
+     * @note: const - Returning a mutable reference bypasses protected visibility (Dangerous)
+     */
+    const std::vector<unsigned int> &getVertexIndices();
 
     /**
      * @TODO: Do we really need these? - These setters are meant to be used to apply transforms on the object
