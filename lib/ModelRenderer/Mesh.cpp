@@ -4,8 +4,9 @@
 
 #include "Mesh.h"
 
-Mesh::Mesh(Model &model) {
     m_drawCount = model.getIndices().size();
+Mesh::Mesh(Model *model) {
+    this->model = model;
 
     // Generate vertex array object names and bind them
     glGenVertexArrays(1, &m_vertexArrayObject);

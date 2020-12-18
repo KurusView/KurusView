@@ -22,9 +22,10 @@ private:
     GLuint m_vertexArrayObject{};
     GLuint m_vertexArrayBuffers[NUM_BUFFERS]{};
     unsigned int m_drawCount;
+    Model *model;
 
 public:
-    Mesh(Model &model);
+    Mesh(Model *model);
 
     void draw() const;
 
