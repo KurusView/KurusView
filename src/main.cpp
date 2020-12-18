@@ -204,7 +204,7 @@ void matrixTest() {
     std::cout << productScalar;
     std::cout << "Matrix-Vector multiplication: " << std::endl;
     std::cout << productVec;
-    std::cout << "Determinant: " << m1.det() << std::endl;
+    std::cout << "Determinant: " << m1.determinant() << std::endl;
     std::cout << std::endl;
 
     // Initializing rotation vectors
@@ -228,9 +228,9 @@ void matrixTest() {
     std::cout << "Inverse of Matrix: " << std::endl;
     std::cout << inverse;
 
-    transpose.Transponse();
+    transpose.transpose();
 
-    std::cout << "Transpose of Matrix: " << std::endl;
+    std::cout << "transpose of Matrix: " << std::endl;
     std::cout << transpose;
 
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;

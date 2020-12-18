@@ -32,7 +32,7 @@ Matrix::Matrix(double v1x, double v1y, double v1z, double v2x, double v2y, doubl
 }
 
 // Default Constructor
-Matrix::~Matrix() = default;
+Matrix::~Matrix() {};
 
 Matrix Matrix::operator+(const Matrix &obj) const {
     // Matrix addition by looping through each vector in the matrix
@@ -185,7 +185,7 @@ MVector Matrix::operator*(const MVector &obj) const {
     return result;
 }
 
-void Matrix::Transponse() {
+void Matrix::transpose() {
     // Transposing a matrix by reflecting the matrix of a diagonal
 
     /*
@@ -209,14 +209,14 @@ void Matrix::Transponse() {
     this->mat3x3 = result.mat3x3;
 }
 
-double Matrix::det() const {
+double Matrix::determinant() const {
     // Finding the determinant of a matrix to do various
     // calculations like finding the inverse of the matrix
 
     /*
      *
      *         | 1   2   3|         | 5  6 |       | 4  6 |       | 4  5 |
-     *     det | 4   5   6|   = 1 * | 8  9 | + 2 * | 7  9 | + 3 * | 7  8 | = 1(9*5-6*8) + 2(4*9-7*6)+ 3(4*8-5*7) = 0
+     *     determinant | 4   5   6|   = 1 * | 8  9 | + 2 * | 7  9 | + 3 * | 7  8 | = 1(9*5-6*8) + 2(4*9-7*6)+ 3(4*8-5*7) = 0
      *         | 7   8   9|
      *
      */
@@ -255,7 +255,7 @@ void Matrix::inverse() {
 
     mat.mat3x3 = this->mat3x3;
 
-    // Checks whether the determinant is zero because matrices with a det = 0 dont have an inverse
+    // Checks whether the determinant is zero because matrices with a determinant = 0 dont have an inverse
 
     cofactors.mat3x3[0].setX((mat3x3[1].getY() * mat3x3[2].getZ()) - (mat3x3[2].getY() * mat3x3[1].getZ()));
     cofactors.mat3x3[0].setY(-((mat3x3[1].getX() * mat3x3[2].getZ()) - (mat3x3[2].getX() * mat3x3[1].getZ())));
@@ -270,13 +270,38 @@ void Matrix::inverse() {
     cofactors.mat3x3[2].setZ((mat3x3[0].getX() * mat3x3[1].getY()) - (mat3x3[1].getX() * mat3x3[0].getY()));
 
     // Calculation of the inverse
-    cofactors.Transponse();
-    result = cofactors * (1 / mat.det());
+    cofactors.transpose();
+    result = cofactors * (1 / mat.determinant());
     this->mat3x3 = result.mat3x3;
 }
 
 void Matrix::setMat(int col, MVector vector) {
     this->mat3x3[col] = vector;
+}
+
+Matrix Matrix::operator/(const double &scalar) const {
+    // Matrix multiplication with a scalar
+    // by looping through each vector in the matrix
+    // and scaling it
+
+    /*
+     *     | 1   2   3|       | a   b   c|
+     *     | 4   5   6| / 2 = | d   e   f|
+     *     | 7   8   9|       | g   h   i|
+     *
+     *     For Example:
+     *     a = 1 / 2
+     *     b = 2 / 2
+     */
+
+    Matrix result;
+    // Loops through every vector
+    for (int i = 0; i < 3; ++i) {
+        result.mat3x3[i].setX(mat3x3[i].getX() / scalar);
+        result.mat3x3[i].setY(mat3x3[i].getY() / scalar);
+        result.mat3x3[i].setZ(mat3x3[i].getZ() / scalar);
+    }
+    return result;
 }
 
 Matrix RotationMatrix(const std::vector<MVector> &Rotation) {
