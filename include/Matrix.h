@@ -102,7 +102,7 @@ public:
      */
     void setMat(int col, MVector vector);
 
-    std::vector<MVector> getMat();
+    std::vector<MVector> &getMat();
 
     /// @brief default destructor
     ~Matrix() = default;

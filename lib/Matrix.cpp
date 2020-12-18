@@ -301,7 +301,7 @@ Matrix Matrix::operator/(const double &scalar) const {
     return result;
 }
 
-std::vector<MVector> Matrix::getMat() {
+std::vector<MVector> &Matrix::getMat() {
     return mat3x3;
 }
 
