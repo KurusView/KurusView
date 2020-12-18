@@ -137,6 +137,22 @@ MVector MVector::operator*(const MVector &obj) const {
     return result;
 }
 
+MVector MVector::operator/(const double &scalar) const {
+    MVector result;
+    result.setX(x / scalar);
+    result.setY(y / scalar);
+    result.setZ(z / scalar);
+    return result;
+}
+
+MVector MVector::operator*(const double &scalar) const {
+    MVector result;
+    result.setX(x * scalar);
+    result.setY(y * scalar);
+    result.setZ(z * scalar);
+    return result;
+}
+
 double dotProduct(MVector v1, MVector v2) {
     return (v1.getX() * v2.getX() + v1.getY() * v2.getY() + v1.getZ() * v2.getZ());
 }

@@ -1,3 +1,11 @@
+/**
+ * @file MCell.h
+ * @author github.com/georgekhanachat
+ * @brief Header file for MVector class
+ *
+ * This object encapsulates a vector with coordinates in 3D and an ID
+ */
+
 #ifndef INC_3DLIB_MVECTOR_H
 #define INC_3DLIB_MVECTOR_H
 
@@ -9,9 +17,22 @@
 class Matrix;
 
 class MVector {
-    // Out stream to allow for complete print outs of a vector
+    /**
+     * @brief classic friend overloaded ostream operator<< declaration - prints MVector properties to stdout in human
+     *        friendly format
+     * @param os - lhs element [ a.operator<<(b) ], might be std::cout or see return
+     * @param obj - MVector instance
+     * @return os reference for cascading <<
+     */
     friend std::ostream &operator<<(std::ostream &os, MVector &obj);
 
+    /**
+     * @brief classic friend overloaded ofstream operator<< declaration - prints MVector properties to file in Model
+     *        Loader parser format
+     * @param os - lhs element [ a.operator<<(b) ], might be std::cout or see return
+     * @param obj - MVector instance
+     * @return os reference for cascading <<
+     */
     friend std::ofstream &operator<<(std::ofstream &os, MVector &obj);
 
 public:
@@ -56,6 +77,12 @@ public:
 
     // Vector/Cross/Outer Product
     MVector operator*(const MVector &obj) const;
+
+    // Multiplication with scalar
+    MVector operator*(const double &scalar) const;
+
+    // Multiplication with scalar
+    MVector operator/(const double &scalar) const;
 
     // Find modulus of a specific vector to calculate scalar/dot product
     double getModulus() const;
