@@ -1,8 +1,8 @@
 #include "MPyramid.h"
 
 
-MPyramid::MPyramid(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material, long int id)
-        : MCell(std::move(vertices), std::move(material), id) {
+MPyramid::MPyramid(const std::vector<std::shared_ptr<MVector>> &vertices,
+                   const std::shared_ptr<Material> &material, long int id) : MCell(vertices, material, id) {
 
     if (vertices.size() != 5) {
         throw std::runtime_error("Exception: Pyramid must have 5 vertices, but " +
