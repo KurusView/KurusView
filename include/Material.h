@@ -2,6 +2,7 @@
 #define INC_3DLIB_MATERIAL_H
 
 #include <string>
+#include <fstream>
 
 // Class for the Material and its properties.
 class Material {
@@ -15,6 +16,8 @@ public:
     Material(std::string name, std::string colour, double density, unsigned int id);
 
     ~Material() = default;
+
+    friend std::ofstream &operator<<(std::ofstream &os, Material &obj);
 
     unsigned int getId() const;
 
