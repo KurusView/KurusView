@@ -1,10 +1,7 @@
-//
-// Created by oabou on 12/12/2020.
-//
-
-#include "Display.h"
 #include <glew.h>
 #include <iostream>
+
+#include "Display.h"
 
 Display::Display(int width, int height, const std::string &title) {
 //    Initialize the video subsystem in the SDL Library, this also automatically initializes the events subsystem
@@ -38,6 +35,8 @@ Display::Display(int width, int height, const std::string &title) {
 //    Only renders faces that are front-facing towards the viewer
 //    glEnable(GL_CULL_FACE);
 //    glCullFace(GL_BACK);
+
+    mouseState.Initialize();
 }
 
 Display::~Display() {
@@ -52,10 +51,20 @@ void Display::update() {
 
     SDL_Event event;
 //    Polls are currently pending events
-    while (SDL_PollEvent(&event))
-//        If the window was closed, set m_isClosed to indicate that
-        if (event.type == SDL_QUIT)
-            m_isClosed = true;
+    while (SDL_PollEvent(&event)) {
+
+        switch (event.type) {
+
+            // If the window was closed, set m_isClosed to indicate that
+            case (SDL_QUIT):
+                m_isClosed = true;
+                break;
+            default:
+                mouseState.ReceiveEvent(event);
+        }
+    }
+
+    mouseState.Update();
 }
 
 void Display::clear(float red, float green, float blue, float alpha) {

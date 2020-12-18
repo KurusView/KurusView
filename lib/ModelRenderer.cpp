@@ -28,5 +28,8 @@ void ModelRenderer::run() {
         mesh.draw();
 //        Update the window with all the newly drawn pixels
         display.update();
+
+        //std::cout << "Mouse X: " << display.mouseState.GetWheelX() <<
+        //              ", Y: "    << display.mouseState.GetWheelY() << std::endl;
     }
 }

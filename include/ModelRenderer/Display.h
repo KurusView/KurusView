@@ -8,6 +8,7 @@
 
 #include <string>
 #include <SDL.h>
+#include "Mouse.h"
 
 /**
  * @brief Display - Responsible for creating an SDL Window with an OpenGL context
@@ -48,6 +49,8 @@ public:
     bool isClosed() const;
 
     virtual ~Display();
+
+    InputMouse mouseState;
 };
 
 
