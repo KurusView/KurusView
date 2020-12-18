@@ -1,9 +1,11 @@
 #include "MHexahedron.h"
 
-MHexahedron::MHexahedron(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material,
-                         long int id) : MCell(vertices, material, id) {
+#include <utility>
 
-    MCellType = MCellType_TypeDef::TETRAHEDRON;
+MHexahedron::MHexahedron(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material,
+                         long int id) : MCell(std::move(vertices), std::move(material), id) {
+
+    MCellType = MCellType_TypeDef::HEXAHEDRON;
 
     // calling base Pure Virtual from Derived constructor is safe here.
     MCellVolume = this->calcVolume();

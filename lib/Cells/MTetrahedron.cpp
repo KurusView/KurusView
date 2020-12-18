@@ -1,14 +1,16 @@
 #include "MTetrahedron.h"
 
+#include <utility>
+
 MTetrahedron::MTetrahedron(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material,
-                           long int id) : MCell(vertices, material, id) {
+                           long int id) : MCell(std::move(vertices), std::move(material), id) {
 
     MCellType = MCellType_TypeDef::TETRAHEDRON;
 
     // calling base Pure Virtuals from Derived constructor is safe here.
-    MCellVolume = calcVolume();
-    MCellWeight = calcWeight();
-    MCellCOG = calcCentreOfGrav();
+    MCellVolume = this->calcVolume();
+    MCellWeight = this->calcWeight();
+    MCellCOG = this->calcCentreOfGrav();
 }
 
 // Function to calculate the volume of the tetrahedron.

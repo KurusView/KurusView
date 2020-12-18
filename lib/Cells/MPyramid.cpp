@@ -1,10 +1,12 @@
 #include "MPyramid.h"
 
+#include <utility>
+
 
 MPyramid::MPyramid(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material, long int id)
-        : MCell(vertices, material, id) {
+        : MCell(std::move(vertices), std::move(material), id) {
 
-    MCellType = MCellType_TypeDef::TETRAHEDRON;
+    MCellType = MCellType_TypeDef::PYRAMID;
 
     // calling base Pure Virtuals from Derived constructor is safe here.
     MCellVolume = this->calcVolume();
