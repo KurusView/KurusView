@@ -52,7 +52,7 @@ public:
      * @brief displayVertexCount - Calculates the number of vertices and displays them
      * @return - Vertex Count
      */
-    int displayVertexCount();
+    void displayVertexCount();
 
     /**
      * @brief displayCells - Displays the number of cells and the types of each cell
@@ -63,7 +63,7 @@ public:
      * @brief calcCentre - Calculates the centre of the model
      * @return - MVector that points to the centre of the model
      */
-    MVector calcCentre(void);
+    MVector calcCentre();
 };
 
 

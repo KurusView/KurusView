@@ -161,3 +161,15 @@ void Model::saveModel(const std::string &filePath) {
 
     outputFile.close();
 }
+
+void Model::displayVertexCount() {
+    std::cout << "Number of Vertices: " << vectors.size() << std::endl;
+}
+
+void Model::displayCells() {
+//    MCell::getCount(); // For global count
+    std::cout << "Number of Cells: " << cells.size() << std::endl;
+    for (const auto &cell:cells) {
+        std::cout << "Cell " << cell->getID() << ": " << cell->getType()[1] << std::endl;
+    }
+}
