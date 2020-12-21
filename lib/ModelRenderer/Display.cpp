@@ -3,7 +3,10 @@
 
 #include "Display.h"
 
-Display::Display(int width, int height, const std::string &title) {
+Display::Display(int width, int height, const std::string &title, float &angleX, float &angleY, glm::vec3 &scale)
+        : mouseState(angleX,
+                     angleY,
+                     scale) {
 //    Initialize the video subsystem in the SDL Library, this also automatically initializes the events subsystem
     SDL_Init(SDL_INIT_VIDEO);
 

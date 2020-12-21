@@ -26,7 +26,7 @@ public:
      * @param [in] height - Window height in pixels
      * @param [in] title - Window title
      */
-    Display(int width, int height, const std::string &title);
+    Display(int width, int height, const std::string &title, float &angleX, float &angleY, glm::vec3 &scale);
 
     /**
      * @brief update - Swaps between the two window buffers

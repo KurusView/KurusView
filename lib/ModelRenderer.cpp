@@ -13,12 +13,13 @@ ModelRenderer::ModelRenderer(Model *model) {
 }
 
 void ModelRenderer::run() {
-    glm::vec3 m_scale = {1,1,1};
-    float m_rotate = 1.55;
+    glm::vec3 m_scale = {1, 1, 1};
+    float m_rotateX = 0;
+    float m_rotateY = 0;
 
     glm::mat4 transform;
 //    Create an empty, new window with the provided size and title
-    Display display(width, height, title);
+    Display display(width, height, title, m_rotateX, m_rotateY, m_scale);
     Shader shader("../../res/basicShader");
 //    TODO: Load camera
 
@@ -30,7 +31,8 @@ void ModelRenderer::run() {
         display.clear(0.0f, 0.15f, 0.3f, 0.9f);
 //        TODO: Transform the model
 //        TODO: Use shader to draw and transform the mesh
-        transform = glm::scale(m_scale) * glm::rotate(m_rotate, glm::vec3(0, 1, 0));
+        transform = glm::scale(m_scale) * glm::rotate(m_rotateX, glm::vec3(1, 0, 0)) *
+                    glm::rotate(m_rotateY, glm::vec3(0, 1, 0));
         shader.bind();
         mesh.draw();
         shader.update(transform);
