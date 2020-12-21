@@ -20,7 +20,7 @@ void ModelRenderer::run() {
 
     Mesh mesh(model);
 
-    glm::vec3 m_scale = {80, 80, 80};
+    glm::vec3 m_scale = {1, 1, 1};
     float m_rotate = 1.55;
 
     glm::mat4 transform;
