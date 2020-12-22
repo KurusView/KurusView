@@ -33,6 +33,10 @@ int main(int argc, char *argv[]) {
     modelTest();
     matrixTest();
     modelRendererTest();
+
+    (void) argc;
+    (void) argv;
+
     return 0;
 }
 

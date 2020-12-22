@@ -58,13 +58,13 @@ public:
      * @brief getX (accessor)
      * @return - x-coordinate
      */
-    const double getX() const;
+    double getX() const;
 
     /**
      * @brief getY (accessor)
      * @return - y-coordinate
      */
-    const double getY() const;
+    double getY() const;
 
     /**
      * @brief getZ (accessor)

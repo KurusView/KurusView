@@ -32,12 +32,12 @@ MVector::MVector(double x, double y, double z, const long id) : MVectorID(id) {
     this->z = z;
 }
 
-const double MVector::getX() const {
+double MVector::getX() const {
     // Returns the value of x for a specific vector
     return x;
 }
 
-const double MVector::getY() const {
+double MVector::getY() const {
     // Returns the value of y for a specific vector
     return y;
 }

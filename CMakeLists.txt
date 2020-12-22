@@ -5,6 +5,12 @@ cmake_minimum_required(VERSION 3.1.0)
 # Name of the project
 project(3DLib)
 
+# https://stackoverflow.com/a/10055571
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    message([STATUS] " Using GCC " ...)
+    add_compile_options("-Wall" "-Wextra" "-pedantic")
+endif ()
+
 # The CMake build process might generate some new files in the current
 # directory. This makes sure they can be found.
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
