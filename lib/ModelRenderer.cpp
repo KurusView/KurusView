@@ -20,7 +20,7 @@ void ModelRenderer::run() {
     glm::mat4 transform;
 //    Create an empty, new window with the provided size and title
     Display display(width, height, title, m_rotateX, m_rotateY, m_scale);
-    Shader shader("../../res/basicShader");
+    Shader shader("../../../res/basicShader");
 //    TODO: Load camera
 
     Mesh mesh(model);

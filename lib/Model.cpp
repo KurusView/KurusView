@@ -37,7 +37,7 @@ void Model::loadModel(const std::string &filePath) {
         while (std::getline(inputFile, line)) {
 
             // Only parse 'm' and 'v' in the first pass, then only 'c'
-            if (!i && line[0] == 'c' || i && line[0] != 'c' ||
+            if ((!i && line[0] == 'c') || (i && line[0] != 'c') ||
                 line.empty()) // This line is a comment and should be ignored or an empty line
                 continue; // Skip to the next line
 

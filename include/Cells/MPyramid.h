@@ -5,8 +5,8 @@
  */
 
 
-#ifndef INC_3DLIB_MPYRAMID_H
-#define INC_3DLIB_MPYRAMID_H
+#ifndef INC_KURUSVIEW_MPYRAMID_H
+#define INC_KURUSVIEW_MPYRAMID_H
 
 
 #include "MCell.h"
@@ -65,4 +65,4 @@ private:
 };
 
 
-#endif //INC_3DLIB_MPYRAMID_H
+#endif //INC_KURUSVIEW_MPYRAMID_H

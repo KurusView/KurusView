@@ -6,8 +6,8 @@
  * Implements the MCell interface base class. MTetrahedron, MPyramid, MHexahedron inherit from this class.
  */
 
-#ifndef INC_3DLIB_MCELL_H
-#define INC_3DLIB_MCELL_H
+#ifndef INC_KURUSVIEW_MCELL_H
+#define INC_KURUSVIEW_MCELL_H
 
 
 #include <iostream>
@@ -263,4 +263,4 @@ public:
 
 };
 
-#endif //INC_3DLIB_MCELL_H
+#endif //INC_KURUSVIEW_MCELL_H

@@ -33,6 +33,10 @@ int main(int argc, char *argv[]) {
     modelTest();
     matrixTest();
     modelRendererTest();
+
+    (void) argc;
+    (void) argv;
+
     return 0;
 }
 
@@ -102,9 +106,9 @@ void mVectorTest() {
     std::cout << "Transformed MVector ID: " << transformed.getID() << std::endl;
 
     std::cout << "Scalar Triple Product test" << std::endl;
-    MVector stp_dotA(4,2,3);
-    MVector stp_xB(1,2,3);
-    MVector stp_xC(1,2,4);
+    MVector stp_dotA(4, 2, 3);
+    MVector stp_xB(1, 2, 3);
+    MVector stp_xC(1, 2, 4);
 
     double stp = scalarTripleProduct(stp_dotA, stp_xB, stp_xC); //assert 0
     std::cout << "assert: " << stp << " =6" << std::endl;
@@ -245,6 +249,9 @@ void matrixTest() {
     std::cout << "transpose of Matrix: " << std::endl;
     std::cout << transpose;
 
+    Matrix test(a, b, c);
+    std::cout << test.getMat()[0][2] << std::endl;
+
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     std::cout << "End Matrix Test" << std::endl;
 }
@@ -252,7 +259,8 @@ void matrixTest() {
 void modelRendererTest() {
     std::cout << "\n\nBegin ModelRenderer Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
-    Model model("../../models/tetrahedron.txt");
+    // TODO More convenient paths
+    Model model("../../../models/ExampleModel2.mod");
     ModelRenderer modelRenderer(&model);
     modelRenderer.run();
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;

@@ -2,8 +2,8 @@
 // Created by oabou on 15/12/2020.
 //
 
-#ifndef INC_3DLIB_SHADER_H
-#define INC_3DLIB_SHADER_H
+#ifndef INC_KURUSVIEW_SHADER_H
+#define INC_KURUSVIEW_SHADER_H
 
 #include <string>
 #include <glew.h>
@@ -45,4 +45,4 @@ public:
 };
 
 
-#endif //INC_3DLIB_SHADER_H
+#endif //INC_KURUSVIEW_SHADER_H

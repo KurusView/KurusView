@@ -2,8 +2,8 @@
 // Created by oabou on 15/12/2020.
 //
 
-#ifndef INC_3DLIB_MESH_H
-#define INC_3DLIB_MESH_H
+#ifndef INC_KURUSVIEW_MESH_H
+#define INC_KURUSVIEW_MESH_H
 
 #include <glm.hpp>
 #include <glew.h>
@@ -34,4 +34,4 @@ public:
 };
 
 
-#endif //INC_3DLIB_MESH_H
+#endif //INC_KURUSVIEW_MESH_H
