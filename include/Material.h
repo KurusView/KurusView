@@ -1,5 +1,5 @@
-#ifndef INC_3DLIB_MATERIAL_H
-#define INC_3DLIB_MATERIAL_H
+#ifndef INC_KURUSVIEW_MATERIAL_H
+#define INC_KURUSVIEW_MATERIAL_H
 
 #include <string>
 #include <fstream>
@@ -35,4 +35,4 @@ public:
 
 };
 
-#endif //INC_3DLIB_MATERIAL_H
+#endif //INC_KURUSVIEW_MATERIAL_H

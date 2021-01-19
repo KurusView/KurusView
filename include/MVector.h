@@ -6,8 +6,8 @@
  * This object encapsulates a vector with coordinates in 3D and an ID
  */
 
-#ifndef INC_3DLIB_MVECTOR_H
-#define INC_3DLIB_MVECTOR_H
+#ifndef INC_KURUSVIEW_MVECTOR_H
+#define INC_KURUSVIEW_MVECTOR_H
 
 #include <iostream>
 #include <fstream>
@@ -134,6 +134,8 @@ public:
      */
     long int getID() const;
 
+    const double &operator[](int index) const;
+
 private:
     /// @brief holds the coordinates a vector in 3D - X, Y and Z coordinates
     double x;
@@ -160,4 +162,4 @@ double dotProduct(MVector v1, MVector v2);
 
 double scalarTripleProduct(MVector dotA, MVector xB, MVector xC);
 
-#endif //INC_3DLIB_MVECTOR_H
+#endif //INC_KURUSVIEW_MVECTOR_H

@@ -4,8 +4,8 @@
  * @brief Header file for MHexahedron derived class
  */
 
-#ifndef INC_3DLIB_MHEXAHEDRON_H
-#define INC_3DLIB_MHEXAHEDRON_H
+#ifndef INC_KURUSVIEW_MHEXAHEDRON_H
+#define INC_KURUSVIEW_MHEXAHEDRON_H
 
 
 #include "MCell.h"
@@ -64,4 +64,4 @@ private:
 };
 
 
-#endif //INC_3DLIB_MHEXAHEDRON_H
+#endif //INC_KURUSVIEW_MHEXAHEDRON_H

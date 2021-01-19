@@ -6,8 +6,8 @@
  * This object encapsulates a 3x3 matrix
  */
 
-#ifndef INC_3DLIB_MATRIX_H
-#define INC_3DLIB_MATRIX_H
+#ifndef INC_KURUSVIEW_MATRIX_H
+#define INC_KURUSVIEW_MATRIX_H
 
 #include "MVector.h"
 #include <iostream>
@@ -122,4 +122,4 @@ Matrix RotationMatrix(const std::vector<MVector> &Rotation);
 
 Matrix ScalingMatrix(const double &scalingFactor);
 
-#endif //INC_3DLIB_MATRIX_H
+#endif //INC_KURUSVIEW_MATRIX_H

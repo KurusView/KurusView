@@ -3,18 +3,24 @@
 cmake_minimum_required(VERSION 3.1.0)
 
 # Name of the project
-project(3DLib)
+project(KurusView)
+
+# https://stackoverflow.com/a/10055571
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    message([STATUS] " Using GCC " ...)
+    add_compile_options("-Wall" "-Wextra" "-pedantic")
+endif ()
 
 # The CMake build process might generate some new files in the current
 # directory. This makes sure they can be found.
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Place Library outputs in a lib directory within the build directory
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/KurusView/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/KurusView/lib)
 
 # Place executable output in a bin directory within the build directory
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/KurusView/bin)
 
 # This allows CMake to run one of Qt's build tools called moc
 # if it is needed. moc.exe can be found in Qt's bin directory.
@@ -46,11 +52,11 @@ include_directories(include include/Cells include/ModelRenderer ${SDL2_INCLUDE_D
 link_directories(${SDL2_LIB_DIR} ${GLEW_LIB_DIR})
 
 # Define the library and it's sources
-add_library(3DLibrary lib/MVector.cpp include/MVector.h lib/MCell.cpp include/MCell.h lib/Material.cpp include/Material.h lib/Model.cpp include/Model.h lib/Matrix.cpp include/Matrix.h lib/ModelRenderer.cpp include/ModelRenderer.h lib/Cells/MTetrahedron.cpp include/Cells/MTetrahedron.h lib/Cells/MHexahedron.cpp include/Cells/MHexahedron.h lib/Cells/MPyramid.cpp include/Cells/MPyramid.h lib/ModelRenderer/Display.cpp include/ModelRenderer/Display.h lib/ModelRenderer/Shader.cpp include/ModelRenderer/Shader.h lib/ModelRenderer/Mesh.cpp include/ModelRenderer/Mesh.h)
+add_library(${PROJECT_NAME} lib/MVector.cpp include/MVector.h lib/MCell.cpp include/MCell.h lib/Material.cpp include/Material.h lib/Model.cpp include/Model.h lib/Matrix.cpp include/Matrix.h lib/ModelRenderer.cpp include/ModelRenderer.h lib/Cells/MTetrahedron.cpp include/Cells/MTetrahedron.h lib/Cells/MHexahedron.cpp include/Cells/MHexahedron.h lib/Cells/MPyramid.cpp include/Cells/MPyramid.h lib/ModelRenderer/Display.cpp include/ModelRenderer/Display.h lib/ModelRenderer/Shader.cpp include/ModelRenderer/Shader.h lib/ModelRenderer/Mesh.cpp include/ModelRenderer/Mesh.h)
 
 # Same as previously: define the executable and it's sources.
-add_executable(3DEXE src/main.cpp)
+add_executable(KurusViewEXE src/main.cpp)
 
-# Tell CMake that the executable depends on the Qt::Widget and 3DLibrary libraries.
-target_link_libraries(3DEXE Qt5::Widgets 3DLibrary SDL2 SDL2main glew32 glew32s OpenGL32)
+# Tell CMake that the executable depends on the Qt::Widget and KurusView libraries.
+target_link_libraries(KurusViewEXE Qt5::Widgets ${PROJECT_NAME} SDL2 SDL2main glew32 glew32s OpenGL32)
 # --------------------------------------------------------------------
