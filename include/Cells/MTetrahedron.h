@@ -4,8 +4,8 @@
  * @brief Header file for MTetrahedron derived class
  */
 
-#ifndef INC_3DLIB_MTETRAHEDRON_H
-#define INC_3DLIB_MTETRAHEDRON_H
+#ifndef INC_KURUSVIEW_MTETRAHEDRON_H
+#define INC_KURUSVIEW_MTETRAHEDRON_H
 
 
 #include "MCell.h"
@@ -64,4 +64,4 @@ private:
 };
 
 
-#endif //INC_3DLIB_MTETRAHEDRON_H
+#endif //INC_KURUSVIEW_MTETRAHEDRON_H

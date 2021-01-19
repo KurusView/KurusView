@@ -1,4 +1,4 @@
-# Group 21 Computing Project
+# Group 21 Computing Project - KurusView
 
 ![image](https://user-images.githubusercontent.com/38017709/104436085-11a57700-5585-11eb-979e-47145ab32988.png)
 

@@ -1,5 +1,5 @@
-#ifndef INC_3DLIB_MODELRENDERER_H
-#define INC_3DLIB_MODELRENDERER_H
+#ifndef INC_KURUSVIEW_MODELRENDERER_H
+#define INC_KURUSVIEW_MODELRENDERER_H
 
 
 class ModelRenderer {
@@ -7,4 +7,4 @@ class ModelRenderer {
 };
 
 
-#endif //INC_3DLIB_MODELRENDERER_H
+#endif //INC_KURUSVIEW_MODELRENDERER_H
