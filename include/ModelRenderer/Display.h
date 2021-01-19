@@ -2,8 +2,8 @@
 // Created by oabou on 12/12/2020.
 //
 
-#ifndef INC_3DLIB_DISPLAY_H
-#define INC_3DLIB_DISPLAY_H
+#ifndef INC_KURUSVIEW_DISPLAY_H
+#define INC_KURUSVIEW_DISPLAY_H
 
 
 #include <string>
@@ -51,4 +51,4 @@ public:
 };
 
 
-#endif //INC_3DLIB_DISPLAY_H
+#endif //INC_KURUSVIEW_DISPLAY_H

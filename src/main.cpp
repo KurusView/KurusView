@@ -259,7 +259,8 @@ void matrixTest() {
 void modelRendererTest() {
     std::cout << "\n\nBegin ModelRenderer Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
-    Model model("../../models/ExampleModel2.mod");
+    // TODO More convenient paths
+    Model model("../../../models/ExampleModel2.mod");
     ModelRenderer modelRenderer(&model);
     modelRenderer.run();
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;

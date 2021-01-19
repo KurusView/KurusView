@@ -15,7 +15,7 @@ ModelRenderer::ModelRenderer(Model *model) {
 void ModelRenderer::run() {
 //    Create an empty, new window with the provided size and title
     Display display(width, height, title);
-    Shader shader("../../res/basicShader");
+    Shader shader("../../../res/basicShader");
 //    TODO: Load camera
 
     Mesh mesh(model);
