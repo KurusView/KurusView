@@ -10,9 +10,9 @@
 #include <cmath>
 #include <memory>
 
-#include "Cells/MHexahedron.h"
-#include "Cells/MTetrahedron.h"
-#include "Cells/MPyramid.h"
+#include "MHexahedron.h"
+#include "MTetrahedron.h"
+#include "MPyramid.h"
 
 void mVectorTest();
 
@@ -261,12 +261,12 @@ void modelRendererTest(int &argc, char **argv) {
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
 
     // TODO: Uncomment Test Code
-//    ModelRenderer modelRenderer(argc, argv);
-//
-//    int exitCode = ModelRenderer::exec();
-//
-//    if (exitCode)
-//        exit(exitCode);
+    ModelRenderer modelRenderer(argc, argv);
+
+    int exitCode = ModelRenderer::exec();
+
+    if (exitCode)
+        exit(exitCode);
 
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     std::cout << "End ModelRenderer Test" << std::endl;
