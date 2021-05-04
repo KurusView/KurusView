@@ -2,6 +2,12 @@
 # This is the minimum cmake version needed for Qt
 cmake_minimum_required(VERSION 3.1.0)
 
+foreach (p CMP0071) # 3.10: Let AUTOMOC and AUTOUIC process GENERATED files
+    if (POLICY ${p})
+        cmake_policy(SET ${p} NEW)
+    endif ()
+endforeach ()
+
 # Name of the project
 project(KurusView)
 
@@ -33,19 +39,55 @@ set(CMAKE_AUTOUIC ON)
 # lib directories, and the necessary static libraries for linking.
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
+set(UIS lib/ModelRenderer/mainwindow.ui)
+qt5_wrap_ui(UI_Srcs ${UIS})
+
+set(ICONS Icons/icons.qrc)
+qt5_add_resources(QRC_Srcs ${ICONS})
+
 # Just for show: This is what find_package has found:
 message(STATUS "Qt5Widgets Include Dirs: ${Qt5Widgets_INCLUDE_DIRS}")
 message(STATUS "Qt5Widgets Libraries: ${Qt5Widgets_LIBRARIES}")
 
+# Link to VTK
+find_package(VTK REQUIRED)
+include(${VTK_USE_FILE})
+
+####################### Find all include directories #######################
+# Find all include files
+file(GLOB_RECURSE INC_SOURCES "include/*.h")
+# Find all the include directories
+#[[Create Empty List]]
+SET(INC_DIRS "")
+#[[Loop through all the include files and store their directory]]
+FOREACH (file_path ${INC_SOURCES})
+    GET_FILENAME_COMPONENT(dir_path ${file_path} PATH)
+    SET(INC_DIRS ${INC_DIRS} ${dir_path})
+ENDFOREACH ()
+#[[Remove duplicates to end up with a list of all the include directories]]
+LIST(REMOVE_DUPLICATES INC_DIRS)
+############################################################################
+
 # Add the include directory to prevent the need to provide the full path when including library files
-include_directories(include include/Cells)
+include_directories(${INC_DIRS})
 
 # Define the library and it's sources
-add_library(${PROJECT_NAME} lib/MVector.cpp include/MVector.h lib/MCell.cpp include/MCell.h lib/Material.cpp include/Material.h lib/Model.cpp include/Model.h lib/Matrix.cpp include/Matrix.h lib/ModelRenderer.cpp include/ModelRenderer.h lib/Cells/MTetrahedron.cpp include/Cells/MTetrahedron.h lib/Cells/MHexahedron.cpp include/Cells/MHexahedron.h lib/Cells/MPyramid.cpp include/Cells/MPyramid.h)
+file(GLOB_RECURSE LIB_SOURCES "lib/*.cpp")
+add_library(${PROJECT_NAME}_LIB ${LIB_SOURCES} ${INC_SOURCES} ${UI_Srcs} ${QRC_Srcs})
 
 # Same as previously: define the executable and it's sources.
-add_executable(KurusViewEXE src/main.cpp)
+file(GLOB_RECURSE EXE_SOURCES "src/*.cpp")
+add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${EXE_SOURCES} ${INC_SOURCES})
+
+# Tell CMake that the library depends on the Qt::Widget and VTK libraries.
+target_link_libraries(${PROJECT_NAME}_LIB Qt5::Widgets ${VTK_LIBRARIES})
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        # Copy the models directory and its contents to the build folder
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/models $<TARGET_FILE_DIR:${PROJECT_NAME}>/models
+        # Create a save_models directory in the build folder to store any models the program saves
+        COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:${PROJECT_NAME}>/save_models)
 
 # Tell CMake that the executable depends on the Qt::Widget and KurusView libraries.
-target_link_libraries(KurusViewEXE Qt5::Widgets ${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}_LIB)
 # --------------------------------------------------------------------

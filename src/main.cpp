@@ -24,7 +24,7 @@ void modelTest();
 
 void matrixTest();
 
-void modelRendererTest();
+void modelRendererTest(int &argc, char **argv);
 
 int main(int argc, char *argv[]) {
     mVectorTest();
@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
     materialTest();
     modelTest();
     matrixTest();
-    modelRendererTest();
+    modelRendererTest(argc, argv);
 
     (void) argc;
     (void) argv;
@@ -165,10 +165,10 @@ void modelTest() {
     std::cout << "\n\nBegin Model Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
 
-    Model model("../../models/testmodel.txt");
-    model.saveModel("savetestmodel.txt");
-    model.loadModel("savetestmodel.txt");
-    model.saveModel("savetestmodel2.txt");
+    Model model("models/testmodel.txt");
+    model.saveModel("save_models/savetestmodel.txt");
+    model.loadModel("save_models/savetestmodel.txt");
+    model.saveModel("save_models/savetestmodel2.txt");
     model.displayVertexCount();
     model.displayCells();
 
@@ -256,10 +256,18 @@ void matrixTest() {
     std::cout << "End Matrix Test" << std::endl;
 }
 
-void modelRendererTest() {
+void modelRendererTest(int &argc, char **argv) {
     std::cout << "\n\nBegin ModelRenderer Test" << std::endl;
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
-//    TEST CODE HERE
+
+    // TODO: Uncomment Test Code
+//    ModelRenderer modelRenderer(argc, argv);
+//
+//    int exitCode = ModelRenderer::exec();
+//
+//    if (exitCode)
+//        exit(exitCode);
+
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
     std::cout << "End ModelRenderer Test" << std::endl;
 }
