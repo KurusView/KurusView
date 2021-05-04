@@ -73,11 +73,11 @@ include_directories(${INC_DIRS})
 
 # Define the library and it's sources
 file(GLOB_RECURSE LIB_SOURCES "lib/*.cpp")
-add_library(${PROJECT_NAME}_LIB ${LIB_SOURCES} ${INC_SOURCES} ${UI_Srcs} ${QRC_Srcs})
+add_library(${PROJECT_NAME}_LIB ${LIB_SOURCES} ${INC_SOURCES} ${UI_Srcs})
 
 # Same as previously: define the executable and it's sources.
 file(GLOB_RECURSE EXE_SOURCES "src/*.cpp")
-add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${EXE_SOURCES} ${INC_SOURCES})
+add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${EXE_SOURCES} ${INC_SOURCES} ${QRC_Srcs})
 
 # Tell CMake that the library depends on the Qt::Widget and VTK libraries.
 target_link_libraries(${PROJECT_NAME}_LIB Qt5::Widgets ${VTK_LIBRARIES})
