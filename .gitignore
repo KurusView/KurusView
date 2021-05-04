@@ -16,7 +16,7 @@
 *_autogen/
 .idea/
 *.vscode/
-cmake-build-debug/
+cmake-build-*/
 build/
 
 #CMake
