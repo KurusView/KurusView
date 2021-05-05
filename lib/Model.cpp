@@ -6,10 +6,14 @@
 #include <MTetrahedron.h>
 #include "Model.h"
 #include "MVector.h"
+#include <vtkHexahedron.h>
+#include <vtkTetra.h>
+#include <vtkPyramid.h>
 
 Model::Model(const std::string &filePath) {
     std::cout << "Creating new model from file" << std::endl;
     loadModel(filePath);
+    buildVTKModel();
 }
 
 void Model::loadModel(const std::string &filePath) {
@@ -185,4 +189,51 @@ MVector Model::calcCentre() {
 
     centreOfGravity = centreOfGravity / totalMass;
     return centreOfGravity;
+}
+
+void Model::buildVTKModel() {
+    vtkModel = vtkSmartPointer<vtkUnstructuredGrid>::New();
+
+    vtkNew<vtkPoints> points;
+    // Store all points from the model vector list
+    for (auto &vector : vectors) {
+        points->InsertNextPoint(vector.getX(), vector.getY(), vector.getZ());
+    }
+
+    std::vector<vtkSmartPointer<vtkCell3D>> cells3D;
+    // Loop through each cell to identify the cell type (Hexahedron, Tetrahedron and Pyramid)
+    // Create a vtkCell3D for every MCell as an intermediate for the vtk model.
+    for (int i = 0; i < cells.size(); ++i) {
+        switch (cells[i]->getType()[0][0]) {
+            case 'h':
+                cells3D.emplace_back(vtkSmartPointer<vtkHexahedron>::New());
+                break;
+            case 't':
+                cells3D.emplace_back(vtkSmartPointer<vtkTetra>::New());
+                break;
+            case 'p':
+                cells3D.emplace_back(vtkSmartPointer<vtkPyramid>::New());
+                break;
+        }
+        // Associate cell vertices with the associated IDs
+        for (int j = 0; j < cells[i]->getVertices().size(); ++j) {
+            cells3D[i]->GetPointIds()->SetId(j, cells[i]->getVertexIndices()[j]);
+        }
+    }
+
+    // An unstructured grid allows any cell type to be combined in arbitrary combinations.
+    vtkSmartPointer<vtkUnstructuredGrid> uGrid = vtkSmartPointer<vtkUnstructuredGrid>::New();
+    // Insert each cell into an unstructured grid.
+    for (auto &cell: cells3D) {
+        uGrid->InsertNextCell(cell->GetCellType(), cell->GetPointIds());
+    }
+
+    // Unstructured grid has a global list of vectors (points)
+    // which it uses to construct the cells using indices
+    uGrid->SetPoints(points);
+    vtkModel = uGrid;
+}
+
+vtkSmartPointer<vtkUnstructuredGrid> Model::getVTKModel() {
+    return vtkModel;
 }

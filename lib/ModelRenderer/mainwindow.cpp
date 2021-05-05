@@ -1,3 +1,4 @@
+#include "Model.h"
 #include <vtkActor.h>
 #include <vtkProperty.h>
 #include <vtkCamera.h>
@@ -13,6 +14,7 @@
 #include <vtkPlane.h>
 #include <vtkDataSetMapper.h>
 #include <vtkCubeSource.h>
+#include <vtkUnstructuredGrid.h>
 
 #include <QFileDialog>
 
@@ -30,14 +32,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->qvtkWidget->SetRenderWindow(
             renderWindow);            // note that vtkWidget is the name I gave to my QtVTKOpenGLWidget in Qt creator
 
-    // Create a cube using a vtkCubeSource for the initial data source
-    vtkSmartPointer<vtkCubeSource> cubeSource = vtkSmartPointer<vtkCubeSource>::New();
-    // save the source algorithm so that filters can be applied later
-    vtkSmartPointer<vtkAlgorithm> modelData = (vtkSmartPointer<vtkAlgorithm>) cubeSource;
+    // Create model instance from an input model
+    std::shared_ptr<Model> vtkModel = std::make_shared<Model>("models/ExampleModel3.mod");
+    //TODO: User input of filepath for both .mod and .stl and have logic to decide between each
 
     // Create a mapper that will hold the object's geometry in a format suitable for rendering
     mapper = vtkSmartPointer<vtkDataSetMapper>::New();
-    mapper->SetInputConnection(modelData->GetOutputPort());
+    mapper->SetInputData(vtkModel->getVTKModel());
 
     // Create an actor that is used to set the object's properties for rendering and place it in the window
     vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
