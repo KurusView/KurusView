@@ -17,6 +17,10 @@ public:
 
 private:
     Ui::WelcomeWindow *ui;
+
+public slots:
+    void handleOpenButton();
+    void handleAboutButton();
 };
 
 #endif // WELCOMEWINDOW_H
