@@ -39,7 +39,7 @@ set(CMAKE_AUTOUIC ON)
 # lib directories, and the necessary static libraries for linking.
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
-set(UIS lib/ModelRenderer/mainwindow.ui)
+set(UIS lib/ModelRenderer/mainwindow.ui lib/ModelRenderer/welcomewindow.ui)
 qt5_wrap_ui(UI_Srcs ${UIS})
 
 set(ICONS Icons/icons.qrc)

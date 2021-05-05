@@ -3,6 +3,7 @@
 
 #include <QApplication>
 #include <mainwindow.h>
+#include <welcomewindow.h>
 
 class ModelRenderer : public QApplication {
 public:
@@ -10,6 +11,7 @@ public:
 
 private:
     MainWindow window;
+    WelcomeWindow welcomeWindow;
 };
 
 
