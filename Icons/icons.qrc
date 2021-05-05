@@ -4,6 +4,7 @@
         <!-- KurusView -->
         <file>kurusview.png</file>
         <file>kurusview.ico</file>
+        <file>splashscreen.png</file>
 
         <!-- Typical file operations. -->
         <file>fileopen.png</file>
