@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../../Icons/icons.qrc">
+    <normaloff>:/Icons/logo.png</normaloff>:/Icons/logo.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_4">
     <item>
@@ -44,8 +48,16 @@
     <property name="title">
      <string>File</string>
     </property>
+    <widget class="QMenu" name="menuRecent_Files">
+     <property name="title">
+      <string>Recent Views</string>
+     </property>
+     <addaction name="actionOpen_Some_Files"/>
+    </widget>
     <addaction name="actionFileOpen"/>
+    <addaction name="menuRecent_Files"/>
     <addaction name="actionFileSave"/>
+    <addaction name="actionSettings"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -67,7 +79,7 @@
   </widget>
   <action name="actionFileOpen">
    <property name="icon">
-    <iconset resource="../Icons/icons.qrc">
+    <iconset resource="../../Icons/icons.qrc">
      <normaloff>:/Icons/fileopen.png</normaloff>:/Icons/fileopen.png</iconset>
    </property>
    <property name="text">
@@ -76,16 +88,16 @@
   </action>
   <action name="actionFileSave">
    <property name="icon">
-    <iconset resource="../Icons/icons.qrc">
+    <iconset resource="../../Icons/icons.qrc">
      <normaloff>:/Icons/filesave.png</normaloff>:/Icons/filesave.png</iconset>
    </property>
    <property name="text">
-    <string>Save</string>
+    <string>Save View</string>
    </property>
   </action>
   <action name="actionHelp">
    <property name="icon">
-    <iconset resource="../Icons/icons.qrc">
+    <iconset resource="../../Icons/icons.qrc">
      <normaloff>:/Icons/help.png</normaloff>:/Icons/help.png</iconset>
    </property>
    <property name="text">
@@ -94,11 +106,24 @@
   </action>
   <action name="actionPrint">
    <property name="icon">
-    <iconset resource="../Icons/icons.qrc">
+    <iconset resource="../../Icons/icons.qrc">
      <normaloff>:/Icons/print.png</normaloff>:/Icons/print.png</iconset>
    </property>
    <property name="text">
     <string>Print</string>
+   </property>
+  </action>
+  <action name="actionOpen_Some_Files">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Open Some Files!</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Settings</string>
    </property>
   </action>
  </widget>
@@ -110,7 +135,8 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../Icons/icons.qrc"/>
+  <include location="../../Icons/icons.qrc"/>
+  <include location="../../Icons/icons.qrc"/>
  </resources>
  <connections/>
 </ui>
