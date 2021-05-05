@@ -13,6 +13,7 @@ MCell::MCell(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Mat
         MCellMaterial(std::move(material)),
         MCellType(MCellType_TypeDef::NONE) {
 
+    for (auto &vertex:MCellVertices) vertexIDs.push_back(vertex->getID());
     MCellInstanceCount++;
 
     // the derived class should initialize the other data members evaluating the calc methods. This methods being
