@@ -5,7 +5,7 @@
 #include <QVTKOpenGLWidget.h>
 
 ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv), window(), welcomeWindow() {
-    QPixmap splashImage(":/Icons/logo.png");
+    QPixmap splashImage(":/Icons/kurusview.png");
     QSplashScreen splashScreen(splashImage);
     splashScreen.show();
     // needed to ensure appropriate OpenGL context is created for VTK rendering.

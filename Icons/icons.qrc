@@ -2,8 +2,8 @@
 <RCC version="1.0">
     <qresource prefix="/Icons">
         <!-- KurusView -->
-        <file>logo.png</file>
-        <file>logo.ico</file>
+        <file>kurusview.png</file>
+        <file>kurusview.ico</file>
 
         <!-- Typical file operations. -->
         <file>fileopen.png</file>
