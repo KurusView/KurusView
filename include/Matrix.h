@@ -81,6 +81,7 @@ public:
      */
     Matrix operator/(double const &scalar) const;
 
+
     /**
      * @brief transpose - Reflects matrix across the diagonal
      */
@@ -106,6 +107,10 @@ public:
 
     /// @brief default destructor
     ~Matrix() = default;
+
+    bool operator==(const Matrix &m) const;
+
+    bool operator!=(const Matrix &m) const;
 
 private:
     /// @brief Vector of 3D vectors from an imported header file

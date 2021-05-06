@@ -305,6 +305,14 @@ std::vector<MVector> &Matrix::getMat() {
     return mat3x3;
 }
 
+bool Matrix::operator==(const Matrix &m) const {
+    return (m.mat3x3[0] == mat3x3[0] && m.mat3x3[1] == mat3x3[1] && m.mat3x3[2] == mat3x3[2]);
+}
+
+bool Matrix::operator!=(const Matrix &m) const {
+    return !(m.mat3x3 == mat3x3);
+}
+
 Matrix RotationMatrix(const std::vector<MVector> &Rotation) {
 
     // Undergoes multiple rotations that needs to be done on a specific matrix or vector

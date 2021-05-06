@@ -20,6 +20,13 @@ endif ()
 # The CMake build process might generate some new files in the current
 # directory. This makes sure they can be found.
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+option(PACKAGE_TESTS "Build the tests" ON)
+
+enable_testing()
+include(GoogleTest)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 add_subdirectory(lib)
 add_subdirectory(src)
+add_subdirectory(tests)
+# --------------------------------------------------------------------
