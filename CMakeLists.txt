@@ -17,6 +17,13 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     add_compile_options("-Wall" "-Wextra" "-pedantic")
 endif ()
 
+if (WIN32)
+    set(CPACK_GENERATOR "NSIS")
+else ()
+    set(CPACK_GENERATOR "ZIP")
+endif ()
+include(CPack)
+
 # The CMake build process might generate some new files in the current
 # directory. This makes sure they can be found.
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -94,3 +101,13 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 # Tell CMake that the executable depends on the Qt::Widget and KurusView libraries.
 target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}_LIB)
 # --------------------------------------------------------------------
+
+install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_LIB
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib/static)
+
+add_custom_target(package_${PROJECT_NAME}
+        "${CMAKE_COMMAND}" --build "${CMAKE_BINARY_DIR}" --target package
+        DEPENDS ${PROJECT_NAME} ${PROJECT_NAME}_LIB
+        COMMENT "Packaging ${PROJECT_NAME}...")
