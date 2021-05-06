@@ -6,7 +6,7 @@
 #include <QFile>
 #include <QVTKOpenGLWidget.h>
 
-ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv), window(), welcomeWindow() {
+ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv), modelWindow(), welcomeWindow() {
     // Get Primary Screen Height
     int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
     // Load in the splash screen image and scale it to 1/3 of the screen height, keeping the same aspect ratio
