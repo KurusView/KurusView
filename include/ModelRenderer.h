@@ -10,7 +10,7 @@ public:
     ModelRenderer(int &argc, char **argv);
 
 private:
-    MainWindow window;
+    MainWindow modelWindow;
     WelcomeWindow welcomeWindow;
 };
 

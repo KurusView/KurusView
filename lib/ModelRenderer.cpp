@@ -24,11 +24,11 @@ ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv),
     QString styleSheet = QLatin1String(styleSheetFile.readAll());
     // Load the stylesheet
     setStyleSheet(styleSheet);
+
     // TODO Check if a path was given as an argument
     //  If so, then directly load up a model window with that model
     //  Otherwise, show the welcome window, which will then load the
     //  model window based on user selection
-
-    window.show();
+    modelWindow.show();
     welcomeWindow.show();
 }
