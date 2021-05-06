@@ -136,6 +136,10 @@ public:
 
     const double &operator[](int index) const;
 
+    bool operator==(const MVector &v) const;
+
+    bool operator!=(const MVector &v) const;
+
 private:
     /// @brief holds the coordinates a vector in 3D - X, Y and Z coordinates
     double x;

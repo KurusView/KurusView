@@ -93,4 +93,11 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 
 # Tell CMake that the executable depends on the Qt::Widget and KurusView libraries.
 target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}_LIB)
+
+option(PACKAGE_TESTS "Build the tests" ON)
+enable_testing()
+include(GoogleTest)
+add_subdirectory(tests)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
 # --------------------------------------------------------------------
