@@ -6,6 +6,9 @@
         <file>kurusview.ico</file>
         <file>splashscreen.png</file>
 
+        <!-- Stylesheets -->
+        <file>Combinear.qss</file>
+
         <!-- Typical file operations. -->
         <file>fileopen.png</file>
         <file>filesave.png</file>

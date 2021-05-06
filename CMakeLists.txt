@@ -42,6 +42,7 @@ find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 file(GLOB_RECURSE UIS "lib/*.ui")
 qt5_wrap_ui(UI_Srcs ${UIS})
 
+# TODO Change name from icons, since it doesn't only contain icons
 set(ICONS Icons/icons.qrc)
 qt5_add_resources(QRC_Srcs ${ICONS})
 
