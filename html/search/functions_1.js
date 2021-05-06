@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['adjustforparameterizedtests',['AdjustForParameterizedTests',['../classgoogletest-filter-unittest_1_1_g_test_filter_unit_test.html#a34dfc0ab056c19a6644fab9880a49c42',1,'googletest-filter-unittest::GTestFilterUnitTest']]],
-  ['assertequalignoreleadingwhitespace',['assertEqualIgnoreLeadingWhitespace',['../classcpp_1_1gmock__class__test_1_1_test_case.html#a68f88bba11511f8c582123d47bf80464',1,'cpp::gmock_class_test::TestCase']]],
-  ['assertequivalentnodes',['AssertEquivalentNodes',['../classgtest__xml__test__utils_1_1_g_test_x_m_l_test_case.html#a977273e8863f4f41d121bb5a64b08d32',1,'gtest_xml_test_utils::GTestXMLTestCase']]],
-  ['assertpartitionisvalid',['AssertPartitionIsValid',['../classgoogletest-filter-unittest_1_1_g_test_filter_unit_test.html#adcd73eb79d053b0baf4aa600044c4d0e',1,'googletest-filter-unittest::GTestFilterUnitTest']]],
-  ['assertsetequal',['AssertSetEqual',['../classgoogletest-filter-unittest_1_1_g_test_filter_unit_test.html#ace0dfd41efa0dc5c019c1e96e6ce8137',1,'googletest-filter-unittest::GTestFilterUnitTest']]]
+  ['calccentre',['calcCentre',['../class_model.html#a684fce1b8bf9d129bd03d6375a2a7c7f',1,'Model']]],
+  ['calccentreofgrav',['calcCentreOfGrav',['../class_m_cell.html#aaafeea0e5385a57631ea6b49124137f2',1,'MCell']]],
+  ['calcvolume',['calcVolume',['../class_m_cell.html#abef50e732986f28c2a740925e63359a7',1,'MCell']]],
+  ['calcweight',['calcWeight',['../class_m_cell.html#a5279d7c510ffb1db9402dcf5fd62a1af',1,'MCell']]]
 ];
