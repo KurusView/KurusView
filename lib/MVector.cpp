@@ -179,7 +179,7 @@ MVector MVector::operator*(const double &scalar) const {
     return result;
 }
 
-const double &MVector::operator[](int index) const  {
+const double &MVector::operator[](int index) const {
     switch (index) {
         case 0:
             return x;
@@ -197,6 +197,14 @@ const double &MVector::operator[](int index) const  {
             exit(2);
             break;
     }
+}
+
+bool MVector::operator==(const MVector &v) const {
+    return (v.x == this->x && v.y == this->y && v.z == this->z);
+}
+
+bool MVector::operator!=(const MVector &v) const {
+    return !(v == (*this));
 }
 
 double dotProduct(MVector v1, MVector v2) {
