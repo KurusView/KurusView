@@ -26,7 +26,7 @@ enable_testing()
 include(GoogleTest)
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
-add_subdirectory(lib)
+include(lib/KurusViewLib.cmake)
 add_subdirectory(src)
 add_subdirectory(tests)
 # --------------------------------------------------------------------

@@ -12,11 +12,11 @@ set(CMAKE_AUTOUIC ON)
 # lib directories, and the necessary static libraries for linking.
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
-file(GLOB_RECURSE UIS "*.ui" PUBLIC)
+file(GLOB_RECURSE UIS "lib/*.ui" PUBLIC)
 qt5_wrap_ui(UI_Srcs ${UIS})
 
 # TODO Change name from icons, since it doesn't only contain icons
-set(ICONS ../Icons/icons.qrc)
+set(ICONS Icons/icons.qrc)
 qt5_add_resources(QRC_Srcs ${ICONS})
 
 # Just for show: This is what find_package has found:
@@ -29,7 +29,7 @@ include(${VTK_USE_FILE})
 
 ####################### Find all include directories #######################
 # Find all include files
-file(GLOB_RECURSE INC_SOURCES "../include/*.h")
+file(GLOB_RECURSE INC_SOURCES "include/*.h")
 # Find all the include directories
 #[[Create Empty List]]
 SET(INC_DIRS "")
@@ -47,13 +47,13 @@ LIST(REMOVE_DUPLICATES INC_DIRS)
 include_directories(${INC_DIRS})
 
 # Define the library and it's sources
-file(GLOB_RECURSE LIB_SOURCES "*.cpp")
+file(GLOB_RECURSE LIB_SOURCES "lib/*.cpp")
 add_library(${PROJECT_NAME}_LIB ${LIB_SOURCES} ${INC_SOURCES} ${UI_Srcs} ${QRC_Srcs})
 
 # Tell CMake that the library depends on the Qt::Widget and VTK libraries.
 target_link_libraries(${PROJECT_NAME}_LIB Qt5::Widgets ${VTK_LIBRARIES})
 
 # Show required variables in the parent scope, to be seen by the
-SET(INC_DIRS ${INC_DIRS} PARENT_SCOPE)
-SET(INC_SOURCES ${INC_SOURCES} PARENT_SCOPE)
-SET(QRC_Srcs ${QRC_Srcs} PARENT_SCOPE)
+#SET(INC_DIRS ${INC_DIRS} PARENT_SCOPE)
+#SET(INC_SOURCES ${INC_SOURCES} PARENT_SCOPE)
+#SET(QRC_Srcs ${QRC_Srcs} PARENT_SCOPE)
