@@ -1,0 +1,33 @@
+sudo: false
+branches:
+  only:
+    - vtk_integration
+# Build your code
+# Modify these variables that will be used in generateDocumentationAndDeploy.sh
+# (see below). They tell Doxygen where to find the source on and where to send
+# the generated documentation.
+env:
+  global:
+    - GH_REPO_NAME: "2020_GROUP_21"
+    - DOXYFILE: $TRAVIS_BUILD_DIR/Doxyfile
+    - GH_REPO_REF: github.com/KurusView/2020_GROUP_21.git
+# The virtual machines created by Travis do not by default have doxygen
+# installed. This is fortunately not difficult on a Debian flavoured Linux
+# system.
+addons:
+  apt:
+    packages:
+      - doxygen
+      - graphviz
+# Finally we define the script that Travis will run every time code is submitted
+# to the repository.
+script:
+  - cmake .
+  - make
+# After successfully building and testing your software we give Doxygen the
+# instruction to scan the code for docstrings and generate the html output.
+# The bulk of these instructions is encapsulated in a script.
+after_success:
+  - cd $TRAVIS_BUILD_DIR
+  - chmod +x generateDocumentationAndDeploy.sh
+  - ./generateDocumentationAndDeploy.sh
