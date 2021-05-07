@@ -64,8 +64,3 @@ TEST(MVectorTest, notCompOperator) {
     MVector a(1, 4, 7), b(2, 4, 7);
     ASSERT_TRUE(a != b);
 }
-
-int main(int argc, char **argv) {
-    testing::InitGoogleTest();
-    return RUN_ALL_TESTS();
-}

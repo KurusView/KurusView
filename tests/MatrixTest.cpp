@@ -109,8 +109,3 @@ TEST(MatrixTest, notCompOperator) {
     Matrix matrix1(a, b, c), matrix2(c, b, a);
     ASSERT_TRUE(matrix1 != matrix2);
 }
-
-int main(int argc, char **argv) {
-    testing::InitGoogleTest();
-    return RUN_ALL_TESTS();
-}
