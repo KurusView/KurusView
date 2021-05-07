@@ -18,6 +18,8 @@
 *.vscode/
 cmake-build-*/
 build/
+html/
+latex/
 
 #CMake
 CMakeLists.txt.user
