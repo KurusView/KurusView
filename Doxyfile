@@ -969,7 +969,7 @@ EXCLUDE_SYMLINKS       = YES
 # exclude all test directories for example use the pattern */test/*
 
 EXCLUDE_PATTERNS       = */googletest/*
-EXCLUDE_PATTERNS      += */doxygen-awesome-css/README.md
+EXCLUDE_PATTERNS      += */doxygen-awesome-css/*
 
 # The EXCLUDE_SYMBOLS tag can be used to specify one or more symbol names
 # (namespaces, classes, functions, etc.) that should be excluded from the
@@ -1062,7 +1062,7 @@ FILTER_SOURCE_PATTERNS =
 # (index.html). This can be useful if you have a project on for instance GitHub
 # and want to reuse the introduction page also for the doxygen output.
 
-USE_MDFILE_AS_MAINPAGE =
+USE_MDFILE_AS_MAINPAGE = README.md
 
 #---------------------------------------------------------------------------
 # Configuration options related to source browsing
