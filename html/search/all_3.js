@@ -14,5 +14,5 @@ var searchData=
   ['getx',['getX',['../class_m_vector.html#aea57f0e60e4e9da2924d53b07e25ea3a',1,'MVector']]],
   ['gety',['getY',['../class_m_vector.html#ac692cbc75dd4f0fc56a0a10fd3b673e4',1,'MVector']]],
   ['getz',['getZ',['../class_m_vector.html#ab60d42129589977525cd483a483a3ff1',1,'MVector']]],
-  ['group_2021_20computing_20project_20_2d_20kurusview',['Group 21 Computing Project - KurusView',['../md__home_travis_build_KurusView_2020_GROUP_21_README.html',1,'']]]
+  ['group_2021_20computing_20project_20_2d_20kurusview',['Group 21 Computing Project - KurusView',['../index.html',1,'']]]
 ];
