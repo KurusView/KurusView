@@ -2,6 +2,7 @@
 #define WELCOMEWINDOW_H
 
 #include <QMainWindow>
+#include <QStringListModel>
 
 namespace Ui {
     class WelcomeWindow;
@@ -13,10 +14,17 @@ Q_OBJECT
 public:
     explicit WelcomeWindow(QWidget *parent = nullptr);
 
+    void addToRecentFiles(QString &inputFileName);
+
+    void updateRecentActionList();
+
     ~WelcomeWindow();
 
 private:
     Ui::WelcomeWindow *ui;
+    QStringList recentFilePaths;
+    QStringListModel *model;
+    const int maxFileNr;
 
 public slots:
 
