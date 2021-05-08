@@ -14,7 +14,7 @@
 #include <vtkPlane.h>
 #include <vtkDataSetMapper.h>
 #include <vtkCubeSource.h>
-#include <vtkUnstructuredGrid.h>
+#include <QVTKOpenGLWidget.h>
 
 #include <QFileDialog>
 
