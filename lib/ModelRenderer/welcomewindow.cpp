@@ -5,7 +5,7 @@
 #include <QtCore>
 
 WelcomeWindow::WelcomeWindow(QWidget *parent) :
-    QDialog(parent),
+    QMainWindow(parent),
     ui(new Ui::WelcomeWindow)
 {
     ui->setupUi(this);
