@@ -4,13 +4,15 @@
 #include <QApplication>
 #include <modelwindow.h>
 #include <welcomewindow.h>
+#include <vector>
+#include <memory>
 
 class ModelRenderer : public QApplication {
 public:
     ModelRenderer(int &argc, char **argv);
 
 private:
-    ModelWindow modelWindow;
+    std::vector<std::shared_ptr<ModelWindow>> modelWindows;
     WelcomeWindow welcomeWindow;
 };
 
