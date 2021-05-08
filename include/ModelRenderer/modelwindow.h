@@ -28,7 +28,7 @@ public:
      * @param parent
      * @see Model | Model
      */
-    explicit ModelWindow(const QString& filePath, QWidget *parent = nullptr);
+    explicit ModelWindow(const QString &filePath, QWidget *parent = nullptr);
 
     ~ModelWindow() override;
 
@@ -50,6 +50,18 @@ private:
     void toggleClipFilter(bool enable);
 
 public slots:
+
+    void handleBackgroundColor();
+
+    void handleModelColor();
+
+    void handleResetColor();
+
+    void handleResetLighting();
+
+    void handleLightIntensitySlider(int position);
+
+    void mux_handleLightActorSlider(int position);
     void handleChangePerspective();
     void updateFilters();
 };

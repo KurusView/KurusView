@@ -18,6 +18,7 @@
 #include <math.h>
 
 #include <QFileDialog>
+#include <QColorDialog>
 
 #include "modelwindow.h"
 #include "ui_modelwindow.h"
@@ -106,11 +107,137 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     ui->qvtkWidget->GetRenderWindow()->Render();
 
     show();
+
+    // colour group
+    connect(ui->backgroundColourPushButton, &QPushButton::released, this, &ModelWindow::handleBackgroundColor);
+    connect(ui->modelColourPushButton, &QPushButton::released, this, &ModelWindow::handleModelColor);
+    connect(ui->resetColoursPushButton, &QPushButton::released, this, &ModelWindow::handleResetColor);
+
+    // lightning group
+    connect(ui->lightIntensitySlider, &QSlider::valueChanged, this, &ModelWindow::handleLightIntensitySlider);
+    connect(ui->lightOpacitySlider, &QSlider::valueChanged, this, &ModelWindow::mux_handleLightActorSlider);
+    connect(ui->lightSpecularitySlider, &QSlider::valueChanged, this, &ModelWindow::mux_handleLightActorSlider);
+    connect(ui->resetLightingPushButton, &QPushButton::released, this, &ModelWindow::handleResetLighting);
 }
 
 ModelWindow::~ModelWindow() {
     delete ui;
 }
+
+void ModelWindow::handleBackgroundColor() {
+    // qvtkWidget would be the active view in ViewFrame
+
+    QColor color = QColorDialog::getColor(Qt::yellow, this);
+    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
+
+    if (color.isValid()) {
+        ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->SetBackground(
+                color.redF(), color.greenF(), color.blueF()
+        );
+
+        // update button color
+        ui->backgroundColourPushButton->setStyleSheet("background-color: " + color.name() + "; border:none;");
+    }
+
+    // refresh view
+    ui->qvtkWidget->GetRenderWindow()->Render();
+}
+
+void ModelWindow::handleModelColor() {
+
+    // qvtkWidget would be the active view in ViewFrame
+
+    QColor color = QColorDialog::getColor(Qt::yellow, this);
+    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
+
+    if (color.isValid()) {
+        vtkActorCollection *actors = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
+
+        // support multiple actors
+        auto *actor = (vtkActor *) actors->GetItemAsObject(0);
+        actor->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+
+        // update button color
+        ui->modelColourPushButton->setStyleSheet("background-color: " + color.name() + "; border:none;");
+    }
+
+    // refresh view
+    ui->qvtkWidget->GetRenderWindow()->Render();
+}
+
+void ModelWindow::handleResetColor() {
+
+    //reset buttons
+    ui->modelColourPushButton->setStyleSheet("background-color: silver; border:none;");
+    ui->backgroundColourPushButton->setStyleSheet("background-color: silver; border:none;");
+
+    // reset background
+    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
+    ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->SetBackground(
+            colors->GetColor3d("Silver").GetData());
+
+    // reset model
+    auto *actors = (vtkActor *) ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
+            0);
+    actors->GetProperty()->SetColor(colors->GetColor3d("Red").GetData());
+
+    // refresh view
+    ui->qvtkWidget->GetRenderWindow()->Render();
+}
+
+
+void ModelWindow::handleResetLighting() {
+    ui->lightIntensitySlider->setValue(50);
+    ui->lightOpacitySlider->setValue(100);
+    ui->lightSpecularitySlider->setValue(0);
+}
+
+void ModelWindow::handleLightIntensitySlider(int position) {
+
+    // get light sources
+    vtkSmartPointer<vtkLightCollection> col = vtkSmartPointer<vtkLightCollection>::New();
+    vtkSmartPointer<vtkLight> light = vtkSmartPointer<vtkLight>::New();
+    col = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetLights();
+
+    int lightSourceCount = col->GetNumberOfItems();
+
+    // sanity check
+    if (lightSourceCount < 1) {
+        return;
+    }
+
+    // update light intensity of all sources
+    for (int i = 0; i < lightSourceCount; i++) {
+        light = (vtkLight *) col->GetItemAsObject(i);
+        light->SetIntensity((double) position / 100.0f);
+    }
+
+    // refresh
+    ui->qvtkWidget->GetRenderWindow()->Render();
+}
+
+
+void ModelWindow::mux_handleLightActorSlider(int position) {
+    // find who raised the signal
+    QObject *emitter = sender();
+
+    vtkActorCollection *actors = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
+
+    // update all actors (.mod might have multiple)
+    for (int i = 0; i < actors->GetNumberOfItems(); i++) {
+        auto actor = (vtkActor *) actors->GetItemAsObject(i);
+
+        if (emitter == ui->lightSpecularitySlider) {
+            actor->GetProperty()->SetSpecular((double) position / 100.0f);
+        } else { // opacity
+            actor->GetProperty()->SetOpacity((double) position / 100.0f);
+        }
+    }
+
+    // refresh
+    ui->qvtkWidget->GetRenderWindow()->Render();
+}
+
 
 void ModelWindow::updateFilters() {
     // Check which button called this slot
