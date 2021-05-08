@@ -89,8 +89,8 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
 
     // lightning group
     connect(ui->lightIntensitySlider, &QSlider::valueChanged, this, &ModelWindow::handleLightIntensitySlider);
-    connect(ui->lightOpacitySlider, &QSlider::valueChanged, this, &ModelWindow::handleLightOpacitySlider);
-    connect(ui->lightSpecularitySlider, &QSlider::valueChanged, this, &ModelWindow::handleLightSpecularitySlider);
+    connect(ui->lightOpacitySlider, &QSlider::valueChanged, this, &ModelWindow::mux_handleLightActorSlider);
+    connect(ui->lightSpecularitySlider, &QSlider::valueChanged, this, &ModelWindow::mux_handleLightActorSlider);
     connect(ui->resetLightingPushButton, &QPushButton::released, this, &ModelWindow::handleResetLighting);
 }
 
@@ -191,27 +191,21 @@ void ModelWindow::handleLightIntensitySlider(int position) {
 }
 
 
-void ModelWindow::handleLightOpacitySlider(int position) {
+void ModelWindow::mux_handleLightActorSlider(int position) {
+    // find who raised the signal
+    QObject *emitter = sender();
 
     vtkActorCollection *actors = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
 
     // update all actors (.mod might have multiple)
     for (int i = 0; i < actors->GetNumberOfItems(); i++) {
         auto actor = (vtkActor *) actors->GetItemAsObject(i);
-        actor->GetProperty()->SetOpacity((double) position / 100.0f);
-    }
 
-    // refresh
-    ui->qvtkWidget->GetRenderWindow()->Render();
-}
-
-void ModelWindow::handleLightSpecularitySlider(int position) {
-    vtkActorCollection *actors = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
-
-    // update all actors (.mod might have multiple)
-    for (int i = 0; i < actors->GetNumberOfItems(); i++) {
-        auto actor = (vtkActor *) actors->GetItemAsObject(i);
-        actor->GetProperty()->SetSpecular((double) position / 100.0f);
+        if (emitter == ui->lightSpecularitySlider) {
+            actor->GetProperty()->SetSpecular((double) position / 100.0f);
+        } else { // opacity
+            actor->GetProperty()->SetOpacity((double) position / 100.0f);
+        }
     }
 
     // refresh

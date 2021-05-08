@@ -48,9 +48,7 @@ public slots:
 
     void handleLightIntensitySlider(int position);
 
-    void handleLightOpacitySlider(int position);
-
-    void handleLightSpecularitySlider(int position);
+    void mux_handleLightActorSlider(int position);
 };
 
 
