@@ -182,7 +182,15 @@
           <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_4"/>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <widget class="QPushButton" name="measurementButton">
+             <property name="text">
+              <string>Measurement</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
         <item row="0" column="6" colspan="6">
