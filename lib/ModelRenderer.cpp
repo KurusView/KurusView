@@ -5,6 +5,8 @@
 #include <QScreen>
 #include <QFile>
 #include <QVTKOpenGLWidget.h>
+#include <QStyleFactory>
+
 
 ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv), welcomeWindow() {
     // Get Primary Screen Height
@@ -17,13 +19,16 @@ ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv),
 
     // needed to ensure appropriate OpenGL context is created for VTK rendering.
     QSurfaceFormat::setDefaultFormat(QVTKOpenGLWidget::defaultFormat());
-    // Open Stylesheet file
-    QFile styleSheetFile(":/Icons/Combinear.qss");
-    styleSheetFile.open(QFile::ReadOnly);
-    // Store all the contents of the file in a string
-    QString styleSheet = QLatin1String(styleSheetFile.readAll());
-    // Load the stylesheet
-    setStyleSheet(styleSheet);
+
+//    // Open Stylesheet file
+//    QFile styleSheetFile(":/Icons/Combinear.qss");
+//    styleSheetFile.open(QFile::ReadOnly);
+//    // Store all the contents of the file in a string
+//    QString styleSheet = QLatin1String(styleSheetFile.readAll());
+//    // Load the stylesheet
+//    setStyleSheet(styleSheet);
+
+    QApplication::setStyle(QStyleFactory::create("Fusion"));
 
     // TODO Check if a path was given as an argument
     //  If so, then directly load up a model window with that model
