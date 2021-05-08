@@ -204,6 +204,15 @@ void ModelWindow::handleLightOpacitySlider(int position) {
 }
 
 void ModelWindow::handleLightSpecularitySlider(int position) {
+    vtkActorCollection *actors = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
 
+    // update all actors (.mod might have multiple)
+    for (int i = 0; i < actors->GetNumberOfItems(); i++) {
+        auto actor = (vtkActor *) actors->GetItemAsObject(i);
+        actor->GetProperty()->SetSpecular((double) position / 100.0f);
+    }
+
+    // refresh
+    ui->qvtkWidget->GetRenderWindow()->Render();
 }
 
