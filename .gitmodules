@@ -2,3 +2,8 @@
 	path = googletest
 	url = https://github.com/google/googletest.git
 	ignore = dirty
+[submodule "doxygen-awesome-css"]
+	path = doxygen-awesome-css
+	url = https://github.com/jothepro/doxygen-awesome-css.git
+	ignore = dirty
+
