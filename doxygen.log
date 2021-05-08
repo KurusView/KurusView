@@ -192,8 +192,7 @@ Generating code for file /home/travis/build/KurusView/2020_GROUP_21/inclu/home/t
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:45: warning: Member handleResetColor() (slot) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:47: warning: Member handleResetLighting() (slot) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:49: warning: Member handleLightIntensitySlider(int position) (slot) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:51: warning: Member handleLightOpacitySlider(int position) (slot) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:53: warning: Member handleLightSpecularitySlider(int position) (slot) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:51: warning: Member mux_handleLightActorSlider(int position) (slot) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:137: warning: Member operator[](int index) const  (function) of class MVector is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:139: warning: Member operator==(const MVector &v) const  (function) of class MVector is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:141: warning: Member operator!=(const MVector &v) const  (function) of class MVector is not documented.
@@ -254,5 +253,5 @@ Generating file member index...
 Generating example index...
 finalizing index lists...
 writing tag file...
-lookup cache used 173/65536 hits=1102 misses=191
+lookup cache used 172/65536 hits=1096 misses=190
 finished...
