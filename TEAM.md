@@ -1,13 +1,13 @@
 # Team Members and Roles
 
 ## Georges Khanachat
-Software Engineer
+[Monte-Carlo metaprogramming specialist](https://en.wikipedia.org/wiki/Infinite_monkey_theorem)
 
 ## Omar Abouelleil
-Software Engineer
+Minion
 
 ## Javier Mapez
-Software Engineer
+Software Engineer ?
 
 ## Yusuf Tizani
-Software Engineer
+Former child

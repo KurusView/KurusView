@@ -6,7 +6,7 @@
 #include <QFile>
 #include <QVTKOpenGLWidget.h>
 
-ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv), modelWindow(), welcomeWindow() {
+ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv), welcomeWindow() {
     // Get Primary Screen Height
     int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
     // Load in the splash screen image and scale it to 1/3 of the screen height, keeping the same aspect ratio
@@ -29,6 +29,12 @@ ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv),
     //  If so, then directly load up a model window with that model
     //  Otherwise, show the welcome window, which will then load the
     //  model window based on user selection
-    modelWindow.show();
-    welcomeWindow.show();
+
+    // If path is not given as argument, load up welcomeWindow
+    if (argc == 1) {
+        welcomeWindow.show();
+        return;
+    }
+
+    modelWindows.push_back(std::make_shared<ModelWindow>(QString(argv[1])));
 }
