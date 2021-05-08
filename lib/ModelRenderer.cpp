@@ -7,6 +7,7 @@
 #include <QVTKOpenGLWidget.h>
 #include <QStyleFactory>
 
+#include "Utils/dark_mode_detect.h"
 
 ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv), welcomeWindow() {
     // Get Primary Screen Height
@@ -29,32 +30,29 @@ ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv),
 //    setStyleSheet(styleSheet);
 
     QApplication::setStyle(QStyleFactory::create("Fusion"));
-
     QPalette palette;
-    palette.setColor(QPalette::Window, QColor(53, 53, 53));
-    palette.setColor(QPalette::WindowText, Qt::white);
-    palette.setColor(QPalette::Base, QColor(15, 15, 15));
-    palette.setColor(QPalette::AlternateBase, QColor(53, 53, 53));
-    palette.setColor(QPalette::ToolTipBase, Qt::white);
-    palette.setColor(QPalette::ToolTipText, Qt::white);
-    palette.setColor(QPalette::Text, Qt::white);
-    palette.setColor(QPalette::Button, QColor(53, 53, 53));
-    palette.setColor(QPalette::ButtonText, Qt::white);
-    palette.setColor(QPalette::BrightText, Qt::red);
 
-    palette.setColor(QPalette::Highlight, QColor(142, 45, 197).lighter());
-    palette.setColor(QPalette::HighlightedText, Qt::black);
+    if (isDark()) {
+        palette.setColor(QPalette::Window, QColor(53, 53, 53));
+        palette.setColor(QPalette::WindowText, Qt::white);
+        palette.setColor(QPalette::Base, QColor(15, 15, 15));
+        palette.setColor(QPalette::AlternateBase, QColor(53, 53, 53));
+        palette.setColor(QPalette::ToolTipBase, Qt::white);
+        palette.setColor(QPalette::ToolTipText, Qt::white);
+        palette.setColor(QPalette::Text, Qt::white);
+        palette.setColor(QPalette::Button, QColor(53, 53, 53));
+        palette.setColor(QPalette::ButtonText, Qt::white);
+        palette.setColor(QPalette::BrightText, Qt::red);
 
-    // rules for disabled texts
-    palette.setColor(QPalette::Disabled, QPalette::Text, Qt::darkGray);
-    palette.setColor(QPalette::Disabled, QPalette::ButtonText, Qt::darkGray);
+        palette.setColor(QPalette::Highlight, QColor(142, 45, 197).lighter());
+        palette.setColor(QPalette::HighlightedText, Qt::black);
 
-    // enable dark mode
+        // rules for disabled texts
+        palette.setColor(QPalette::Disabled, QPalette::Text, Qt::darkGray);
+        palette.setColor(QPalette::Disabled, QPalette::ButtonText, Qt::darkGray);
+    }
+
     QApplication::setPalette(palette);
-
-    // switch back to light mode
-//    QPalette palletblank;
-//    QApplication::setPalette(palletblank);
 
     // TODO Check if a path was given as an argument
     //  If so, then directly load up a model window with that model
