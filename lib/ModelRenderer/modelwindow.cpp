@@ -161,7 +161,9 @@ void ModelWindow::handleResetColor() {
 
 
 void ModelWindow::handleResetLighting() {
-
+    ui->lightIntensitySlider->setValue(50);
+    ui->lightOpacitySlider->setValue(100);
+    ui->lightSpecularitySlider->setValue(0);
 }
 
 void ModelWindow::handleLightIntensitySlider(int position) {
