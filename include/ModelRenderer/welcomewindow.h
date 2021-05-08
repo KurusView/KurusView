@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QStringListModel>
+#include <QSettings>
 
 namespace Ui {
     class WelcomeWindow;
@@ -16,8 +17,6 @@ public:
 
     void addToRecentFiles(QString &inputFileName);
 
-    void updateRecentActionList();
-
     ~WelcomeWindow();
 
 private:
@@ -25,6 +24,7 @@ private:
     QStringList recentFilePaths;
     QStringListModel *model;
     const int maxFileNr;
+    QSettings settings;
 
 public slots:
 

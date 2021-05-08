@@ -7,18 +7,21 @@
 WelcomeWindow::WelcomeWindow(QWidget *parent) :
         QMainWindow(parent),
         ui(new Ui::WelcomeWindow),
-        maxFileNr(10) {
+        maxFileNr(10),
+        settings(QDir::currentPath() + "/kurusview.ini", QSettings::IniFormat) {
     ui->setupUi(this);
 
     model = new QStringListModel(this);
 
-    ui->recentListView->
-            setModel(model);
-// Connect the signal from the
-    connect(ui
-                    ->openPushButton, &QPushButton::released, this, &WelcomeWindow::handleOpenButton);
-    connect(ui
-                    ->aboutPushButton, &QPushButton::released, this, &WelcomeWindow::handleAboutButton);
+    ui->recentListView->setModel(model);
+
+    // Connect the signal from the
+    connect(ui->openPushButton, &QPushButton::released, this, &WelcomeWindow::handleOpenButton);
+    connect(ui->aboutPushButton, &QPushButton::released, this, &WelcomeWindow::handleAboutButton);
+
+    settings.sync();
+    recentFilePaths = settings.value("recentFiles").value<QStringList>();
+    model->setStringList(recentFilePaths);
 }
 
 WelcomeWindow::~WelcomeWindow() {
@@ -54,11 +57,10 @@ void WelcomeWindow::addToRecentFiles(QString &inputFileName) {
     while (recentFilePaths.size() > maxFileNr)
         recentFilePaths.removeLast();
 
+    settings.setValue("recentFiles", recentFilePaths);
+    settings.sync();
     // Populate the model with the data.
     model->setStringList(recentFilePaths);
-
-    for (int i = 0; i < recentFilePaths.size(); ++i) {
-        qDebug() << recentFilePaths[i];
-    }
+    settings.sync();
 }
 
