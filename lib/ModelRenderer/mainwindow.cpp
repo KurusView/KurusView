@@ -17,6 +17,10 @@
 #include <vtkUnstructuredGrid.h>
 
 #include <QFileDialog>
+#include <vtkPointHandleRepresentation3D.h>
+#include <vtkDistanceRepresentation3D.h>
+#include <vtkDistanceWidget.h>
+#include <QVTKWidget.h>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -73,6 +77,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     light->SetSpecularColor(1, 1, 1);
     light->SetIntensity(0.5);
     renderer->AddLight(light);
+
+    // Source: https://www.programmersought.com/article/75456501356/
+    vtkDistanceWidget *distanceWidget = vtkDistanceWidget::New();
+    distanceWidget->SetInteractor(ui->qvtkWidget->GetRenderWindow()->GetInteractor());
+    vtkDistanceRepresentation3D *representation = vtkDistanceRepresentation3D::New();
+    distanceWidget->SetRepresentation(representation);
+    distanceWidget->SetPriority(0.9);
+    dynamic_cast<vtkDistanceRepresentation *> (distanceWidget->GetRepresentation())->SetLabelFormat("%-#6.2f mm");
+    distanceWidget->ManagesCursorOn();
+    distanceWidget->On();
 }
 
 MainWindow::~MainWindow() {
