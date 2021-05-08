@@ -15,6 +15,7 @@
 #include <vtkDataSetMapper.h>
 #include <vtkCubeSource.h>
 #include <QVTKOpenGLWidget.h>
+#include <math.h>
 
 #include <QFileDialog>
 
@@ -27,6 +28,9 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     //TODO: Make sure the model is properly initialized before loading the window
     // standard call to setup Qt UI (same as previously)
     ui->setupUi(this);
+
+    // Camera View Button Slots
+    connect(ui->resetCameraViewPushButton, &QPushButton::released, this, &ModelWindow::handleResetViewButton);
 
     // Now need to create a VTK render window and link it to the QtVTK widget
     vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
@@ -86,4 +90,29 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
 
 ModelWindow::~ModelWindow() {
     delete ui;
+}
+
+void ModelWindow::handleResetViewButton() {
+    // Store pointer to the renderer, as it will be used multiple times
+    vtkRenderer *qVTKRenderer = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer();
+
+    // Resets the camera to point to the center of the actors and moves it so all actors can be seen
+    qVTKRenderer->ResetCamera();
+    
+    // Calculate the distance from the focal point
+    double *focalPoint = qVTKRenderer->GetActiveCamera()->GetFocalPoint();
+    double *position = qVTKRenderer->GetActiveCamera()->GetPosition();
+    double distance = std::sqrt(std::pow(position[0] - focalPoint[0], 2)
+                                + std::pow(position[1] - focalPoint[1], 2)
+                                + std::pow(position[2] - focalPoint[2], 2));
+
+    // Set position and view to initial values based on focal point and distance
+    qVTKRenderer->GetActiveCamera()->SetPosition(focalPoint[0], focalPoint[1], focalPoint[2] + distance);
+    qVTKRenderer->GetActiveCamera()->SetViewUp(0.0, 1.0, 0.0);
+
+    // Resets the camera clipping range based on the bounds of the visible actors
+    qVTKRenderer->ResetCameraClippingRange();
+
+    // Re-render the model
+    ui->qvtkWidget->GetRenderWindow()->Render();
 }
