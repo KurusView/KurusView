@@ -4,6 +4,5 @@ var class_welcome_window =
     [ "~WelcomeWindow", "class_welcome_window.html#a19e92915de4238d9cebfc94c6ff0ed28", null ],
     [ "addToRecentFiles", "class_welcome_window.html#a6faa13607aacf9dbb2fff495144dd989", null ],
     [ "handleAboutButton", "class_welcome_window.html#a35d5fdd96f2592b991c142d1fc3e0d02", null ],
-    [ "handleOpenButton", "class_welcome_window.html#a6df5805ce1c6d7bd0d59a71ed13a0a4b", null ],
-    [ "updateRecentActionList", "class_welcome_window.html#a02e02107accc56611bddcf58c7fdb807", null ]
+    [ "handleOpenButton", "class_welcome_window.html#a6df5805ce1c6d7bd0d59a71ed13a0a4b", null ]
 ];

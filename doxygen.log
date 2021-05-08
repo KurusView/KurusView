@@ -73,7 +73,7 @@ Parsing file /home/travis/build/KurusView/2020_GROUP_21/lib/Cells/MHexahedron.cp
 Preprocessing /home/travis/build/KurusView/2020_GROUP_21/lib/Cells/MPyramid.cpp...
 Parsing file /home/travis/build/KurusView/2020_GROUP_2/home/travis/build/KurusView/2020_GROUP_21/include/Matrix.h:16: warning: Compound Matrix is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/Material.h:8: warning: Compound Material is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:11: warning: Compound WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:12: warning: Compound WelcomeWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:19: warning: Compound MVector is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/lib/MVector.cpp:29: warning: no matching class member found for 
   MVector::MVector(double x, double y, double z, long id)
@@ -199,9 +199,8 @@ Generating code for file /home/travis/build/KurusView/2020_GROUP_21/inclu/home/t
 /home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:141: warning: Member operator!=(const MVector &v) const  (function) of class MVector is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:31: warning: Member handleOpenButton() (slot) of class WelcomeWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:33: warning: Member handleAboutButton() (slot) of class WelcomeWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:15: warning: Member WelcomeWindow(QWidget *parent=nullptr) (function) of class WelcomeWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:17: warning: Member addToRecentFiles(QString &inputFileName) (function) of class WelcomeWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:19: warning: Member updateRecentActionList() (function) of class WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:16: warning: Member WelcomeWindow(QWidget *parent=nullptr) (function) of class WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:18: warning: Member addToRecentFiles(QString &inputFileName) (function) of class WelcomeWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/README.md:48: warning: End of list marker found without any preceding list items
 de/Cells/MHexahedron.h...
 Generating code for file /home/travis/build/KurusView/2020_GROUP_21/include/Cells/MPyramid.h...
