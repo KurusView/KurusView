@@ -41,7 +41,8 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
 
     // Create a mapper that will hold the object's geometry in a format suitable for rendering
     mapper = vtkSmartPointer<vtkDataSetMapper>::New();
-    mapper->SetInputData(currentModel.getVTKModel());
+//    mapper->SetInputConnection(currentModel.getVTKModel()->GetOutputPort());
+    mapper->SetInputData(dynamic_cast<vtkDataSet *>(currentModel.getVTKModel()->GetOutputDataObject(0)));
 
     // Create an actor that is used to set the object's properties for rendering and place it in the window
     vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();

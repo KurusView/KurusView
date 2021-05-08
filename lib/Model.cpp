@@ -9,11 +9,21 @@
 #include <vtkHexahedron.h>
 #include <vtkTetra.h>
 #include <vtkPyramid.h>
+#include <vtkUnstructuredGrid.h>
+#include <vtkUnstructuredGridReader.h>
+#include <vtkSTLReader.h>
 
 Model::Model(const std::string &filePath) {
     std::cout << "Creating new model from file" << std::endl;
-    loadModel(filePath);
-    buildVTKModel();
+
+    std::string fileExtension = filePath.substr(filePath.find_last_of('.') + 1);
+
+    if (fileExtension == "stl") {
+        loadSTLModel(filePath);
+    } else if (fileExtension == "mod") {
+        loadModel(filePath);
+        buildVTKModel();
+    }
 }
 
 void Model::loadModel(const std::string &filePath) {
@@ -74,7 +84,7 @@ void Model::loadModel(const std::string &filePath) {
                 // Insert a shared pointer to a new MVector into the provided index
                 vectors.insert(vectors.begin() + std::stoul(tokens[1]),
                                MVector(std::stod(tokens[2]), std::stod(tokens[3]),
-                                       std::stod(tokens[4]), std::stoul(tokens[1])));
+                                       std::stod(tokens[4]), std::stol(tokens[1])));
             } else if (line[0] == 'c') {
                 // This line is a cell line formatted as follows:
                 // 0      1            2                3                 4               5         ...
@@ -192,8 +202,6 @@ MVector Model::calcCentre() {
 }
 
 void Model::buildVTKModel() {
-    vtkModel = vtkSmartPointer<vtkUnstructuredGrid>::New();
-
     vtkNew<vtkPoints> points;
     // Store all points from the model vector list
     for (auto &vector : vectors) {
@@ -231,9 +239,19 @@ void Model::buildVTKModel() {
     // Unstructured grid has a global list of vectors (points)
     // which it uses to construct the cells using indices
     uGrid->SetPoints(points);
-    vtkModel = uGrid;
+    vtkSmartPointer<vtkUnstructuredGridReader> uGridReader = vtkSmartPointer<vtkUnstructuredGridReader>::New();
+    uGridReader->SetOutput(uGrid);
+    vtkModel = uGridReader;
 }
 
-vtkSmartPointer<vtkUnstructuredGrid> Model::getVTKModel() {
+vtkSmartPointer<vtkAlgorithm> Model::getVTKModel() {
     return vtkModel;
 }
+
+void Model::loadSTLModel(const std::string &filePath) {
+    vtkSmartPointer<vtkSTLReader> STLModel = vtkSmartPointer<vtkSTLReader>::New();
+    STLModel->SetFileName(filePath.c_str());
+    STLModel->Update();
+    vtkModel = STLModel;
+}
+
