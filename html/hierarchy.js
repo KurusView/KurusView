@@ -16,6 +16,6 @@ var hierarchy =
       [ "WelcomeWindow", "class_welcome_window.html", null ]
     ] ],
     [ "QMainWindow", null, [
-      [ "MainWindow", "class_main_window.html", null ]
+      [ "ModelWindow", "class_model_window.html", null ]
     ] ]
 ];
