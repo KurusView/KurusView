@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QVTKOpenGLWidget.h>
 #include <QStyleFactory>
+#include <QtCore/QtCore>
 
 #include "Utils/dark_mode_detect.h"
 
@@ -30,29 +31,39 @@ ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv),
 //    setStyleSheet(styleSheet);
 
     QApplication::setStyle(QStyleFactory::create("Fusion"));
-    QPalette palette;
 
-    if (isDark()) {
-        palette.setColor(QPalette::Window, QColor(53, 53, 53));
-        palette.setColor(QPalette::WindowText, Qt::white);
-        palette.setColor(QPalette::Base, QColor(15, 15, 15));
-        palette.setColor(QPalette::AlternateBase, QColor(53, 53, 53));
-        palette.setColor(QPalette::ToolTipBase, Qt::white);
-        palette.setColor(QPalette::ToolTipText, Qt::white);
-        palette.setColor(QPalette::Text, Qt::white);
-        palette.setColor(QPalette::Button, QColor(53, 53, 53));
-        palette.setColor(QPalette::ButtonText, Qt::white);
-        palette.setColor(QPalette::BrightText, Qt::red);
+    DarkPalette.setColor(QPalette::Window, QColor(53, 53, 53));
+    DarkPalette.setColor(QPalette::WindowText, Qt::white);
+    DarkPalette.setColor(QPalette::Base, QColor(15, 15, 15));
+    DarkPalette.setColor(QPalette::AlternateBase, QColor(53, 53, 53));
+    DarkPalette.setColor(QPalette::ToolTipBase, Qt::white);
+    DarkPalette.setColor(QPalette::ToolTipText, Qt::white);
+    DarkPalette.setColor(QPalette::Text, Qt::white);
+    DarkPalette.setColor(QPalette::Button, QColor(53, 53, 53));
+    DarkPalette.setColor(QPalette::ButtonText, Qt::white);
+    DarkPalette.setColor(QPalette::BrightText, Qt::red);
 
-        palette.setColor(QPalette::Highlight, QColor(142, 45, 197).lighter());
-        palette.setColor(QPalette::HighlightedText, Qt::black);
+    DarkPalette.setColor(QPalette::Highlight, QColor(142, 45, 197).lighter());
+    DarkPalette.setColor(QPalette::HighlightedText, Qt::black);
 
-        // rules for disabled texts
-        palette.setColor(QPalette::Disabled, QPalette::Text, Qt::darkGray);
-        palette.setColor(QPalette::Disabled, QPalette::ButtonText, Qt::darkGray);
-    }
+    // rules for disabled texts
+    DarkPalette.setColor(QPalette::Disabled, QPalette::Text, Qt::darkGray);
+    DarkPalette.setColor(QPalette::Disabled, QPalette::ButtonText, Qt::darkGray);
 
-    QApplication::setPalette(palette);
+    // apply mode on start-up
+    applyLightMode();
+
+    // configure PIT
+    auto *activeTimer = new QTimer(this);
+    activeTimer->setInterval(2 * 1000); //5 seconds
+    activeTimer->setSingleShot(false);
+
+    // connect timer signal to slot
+    connect(activeTimer, SIGNAL(timeout()), this, SLOT(applyLightMode()));
+
+    // start timer - can be disabled through stop(). Useful if settings forces light/dark mode.
+    activeTimer->start();
+
 
     // TODO Check if a path was given as an argument
     //  If so, then directly load up a model window with that model
@@ -66,4 +77,13 @@ ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv),
     }
 
     modelWindows.push_back(std::make_shared<ModelWindow>(QString(argv[1])));
+}
+
+// live dark/light mode change
+void ModelRenderer::applyLightMode() {
+    if (isDark()) {
+        QApplication::setPalette(DarkPalette);
+    } else {
+        QApplication::setPalette(LightPalette);
+    }
 }
