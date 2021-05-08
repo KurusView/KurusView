@@ -30,14 +30,20 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
 
     // Now need to create a VTK render window and link it to the QtVTK widget
     vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
-    ui->qvtkWidget->SetRenderWindow(
-            renderWindow);            // note that vtkWidget is the name I gave to my QtVTKOpenGLWidget in Qt creator
+
+    // note that vtkWidget is the name I gave to my QtVTKOpenGLWidget in Qt creator
+    ui->qvtkWidget->SetRenderWindow(renderWindow);
+
+
+
+    // viewFrame is the parent class of qvtkWidget
+    ui->viewFrame->setStyleSheet("*{border-width: 3 ;border-style:solid;border-color: #ff0000;}");
 
     //TODO: User input of filepath for both .mod and .stl and have logic to decide between each
 
     // Create a mapper that will hold the object's geometry in a format suitable for rendering
     mapper = vtkSmartPointer<vtkDataSetMapper>::New();
-//    mapper->SetInputConnection(currentModel.getVTKModel()->GetOutputPort());
+
     mapper->SetInputData(dynamic_cast<vtkDataSet *>(currentModel.getVTKModel()->GetOutputDataObject(0)));
 
     // Create an actor that is used to set the object's properties for rendering and place it in the window
@@ -49,7 +55,8 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
 
     // Create a renderer, and render window
     vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
-    //vtkSmartPointer<vtkRenderWindow> renderWindow = vtkSmartPointer<vtkRenderWindow>::New();		// ###### We've already created the renderWindow this time ######
+
+    //vtkSmartPointer<vtkRenderWindow> renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
     ui->qvtkWidget->GetRenderWindow()->AddRenderer(renderer); // ### ask the QtVTKOpenGLWidget for its renderWindow ###
 
     // Add the actor to the scene
@@ -65,7 +72,7 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     vtkSmartPointer<vtkLight> light = vtkSmartPointer<vtkLight>::New();
     light->SetLightTypeToSceneLight();
     light->SetPosition(5, 5, 15);
-//    light->SetPositional(true);
+    // light->SetPositional(true);
     light->SetConeAngle(80);
     light->SetFocalPoint(0, 0, 0);
     light->SetDiffuseColor(1, 1, 1);

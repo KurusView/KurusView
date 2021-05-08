@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1071</width>
-    <height>684</height>
+    <height>691</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,17 +21,7 @@
    <layout class="QHBoxLayout" name="horizontalLayout_4">
     <item>
      <layout class="QGridLayout" name="gridLayout_5">
-      <item row="0" column="0" rowspan="4">
-       <widget class="QVTKOpenGLWidget" name="qvtkWidget" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>600</width>
-          <height>400</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
+      <item row="1" column="0">
        <layout class="QGridLayout" name="gridLayout_4">
         <item row="0" column="5">
          <widget class="QGroupBox" name="structureGroupBox">
@@ -324,6 +314,34 @@
          </widget>
         </item>
        </layout>
+      </item>
+      <item row="0" column="0">
+       <widget class="QWidget" name="viewFrame" native="true">
+        <layout class="QGridLayout" name="gridLayout_3">
+         <property name="leftMargin">
+          <number>3</number>
+         </property>
+         <property name="topMargin">
+          <number>3</number>
+         </property>
+         <property name="rightMargin">
+          <number>3</number>
+         </property>
+         <property name="bottomMargin">
+          <number>3</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QVTKOpenGLWidget" name="qvtkWidget" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>600</width>
+             <height>400</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </item>
      </layout>
     </item>
