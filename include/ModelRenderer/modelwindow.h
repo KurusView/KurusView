@@ -25,7 +25,7 @@ public:
      * @param parent
      * @see Model | Model
      */
-    explicit ModelWindow(const QString& filePath, QWidget *parent = nullptr);
+    explicit ModelWindow(const QString &filePath, QWidget *parent = nullptr);
 
     ~ModelWindow() override;
 
@@ -37,6 +37,9 @@ private:
     Model currentModel;
 
 public slots:
+
+    void handleBackgroundColor();
+    void handleModelColor();
 };
 
 

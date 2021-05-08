@@ -286,6 +286,9 @@
              </item>
              <item row="0" column="3">
               <widget class="QPushButton" name="backgroundColourPushButton">
+               <property name="styleSheet">
+                <string notr="true">background-color:  silver; border:none;</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -304,6 +307,9 @@
              </item>
              <item row="0" column="3">
               <widget class="QPushButton" name="modelColourPushButton">
+               <property name="styleSheet">
+                <string notr="true">background-color:  silver; border:none;</string>
+               </property>
                <property name="text">
                 <string/>
                </property>

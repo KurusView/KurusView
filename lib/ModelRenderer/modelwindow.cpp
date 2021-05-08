@@ -17,6 +17,7 @@
 #include <QVTKOpenGLWidget.h>
 
 #include <QFileDialog>
+#include <QColorDialog>
 
 #include "modelwindow.h"
 #include "ui_modelwindow.h"
@@ -33,8 +34,6 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
 
     // note that vtkWidget is the name I gave to my QtVTKOpenGLWidget in Qt creator
     ui->qvtkWidget->SetRenderWindow(renderWindow);
-
-
 
     // viewFrame is the parent class of qvtkWidget
     ui->viewFrame->setStyleSheet("*{border-width: 3 ;border-style:solid;border-color: #ff0000;}");
@@ -82,8 +81,52 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     renderer->AddLight(light);
 
     show();
+
+    connect(ui->backgroundColourPushButton, &QPushButton::released, this, &ModelWindow::handleBackgroundColor);
+    connect(ui->modelColourPushButton, &QPushButton::released, this, &ModelWindow::handleModelColor);
 }
 
 ModelWindow::~ModelWindow() {
     delete ui;
+}
+
+void ModelWindow::handleBackgroundColor() {
+    // qvtkWidget would be the active view in ViewFrame
+
+    QColor color = QColorDialog::getColor(Qt::yellow, this);
+    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
+
+    if (color.isValid()) {
+        ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->SetBackground(
+                color.redF(), color.greenF(), color.blueF()
+        );
+
+        // update button color
+        ui->backgroundColourPushButton->setStyleSheet("background-color: " + color.name() + "; border:none;");
+    }
+
+    // refresh view
+    ui->qvtkWidget->GetRenderWindow()->Render();
+}
+
+void ModelWindow::handleModelColor() {
+
+    // qvtkWidget would be the active view in ViewFrame
+
+    QColor color = QColorDialog::getColor(Qt::yellow, this);
+    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
+
+    if (color.isValid()) {
+        vtkActorCollection *actors = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
+
+        // support multiple actors
+        auto *actor = (vtkActor *) actors->GetItemAsObject(0);
+        actor->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+
+        // update button color
+        ui->modelColourPushButton->setStyleSheet("background-color: " + color.name() + "; border:none;");
+    }
+
+    // refresh view
+    ui->qvtkWidget->GetRenderWindow()->Render();
 }
