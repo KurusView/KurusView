@@ -103,7 +103,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QListView" name="listView"/>
+    <widget class="QListView" name="recentListView"/>
    </item>
   </layout>
  </widget>
