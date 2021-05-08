@@ -30,7 +30,15 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     ui->setupUi(this);
 
     // Camera View Button Slots
-    connect(ui->resetCameraViewPushButton, &QPushButton::released, this, &ModelWindow::handleResetViewButton);
+    connect(ui->resetCameraViewPushButton, &QPushButton::released, this, &ModelWindow::handleChangePerspective);
+    connect(ui->xPlaneViewPushButton, &QPushButton::released, this, &ModelWindow::handleChangePerspective);
+    connect(ui->xNegPlaneViewPushButton, &QPushButton::released, this, &ModelWindow::handleChangePerspective);
+    connect(ui->yPlaneViewPushButton, &QPushButton::released, this, &ModelWindow::handleChangePerspective);
+    connect(ui->yNegPlaneViewPushButton, &QPushButton::released, this, &ModelWindow::handleChangePerspective);
+    connect(ui->zPlaneViewPushButton, &QPushButton::released, this, &ModelWindow::handleChangePerspective);
+    connect(ui->zNegPlaneViewPushButton, &QPushButton::released, this, &ModelWindow::handleChangePerspective);
+    connect(ui->rotate15ViewPushButton, &QPushButton::released, this, &ModelWindow::handleChangePerspective);
+    connect(ui->rotate15NegViewPushButton, &QPushButton::released, this, &ModelWindow::handleChangePerspective);
 
     // Now need to create a VTK render window and link it to the QtVTK widget
     vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
@@ -92,27 +100,70 @@ ModelWindow::~ModelWindow() {
     delete ui;
 }
 
-void ModelWindow::handleResetViewButton() {
+void ModelWindow::handleChangePerspective() {
+    // Check which button called this slot
+    QObject *senderObj = sender();
+
     // Store pointer to the renderer, as it will be used multiple times
     vtkRenderer *qVTKRenderer = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer();
 
-    // Resets the camera to point to the center of the actors and moves it so all actors can be seen
-    qVTKRenderer->ResetCamera();
-    
-    // Calculate the distance from the focal point
-    double *focalPoint = qVTKRenderer->GetActiveCamera()->GetFocalPoint();
-    double *position = qVTKRenderer->GetActiveCamera()->GetPosition();
-    double distance = std::sqrt(std::pow(position[0] - focalPoint[0], 2)
-                                + std::pow(position[1] - focalPoint[1], 2)
-                                + std::pow(position[2] - focalPoint[2], 2));
+    // Rotation does not require resetting the camera, so first check if rotation was requested
+    if (senderObj == ui->rotate15ViewPushButton) {
+        // Rotate 15 degrees to the right
+        qVTKRenderer->GetActiveCamera()->Azimuth(15);
+    } else if (senderObj == ui->rotate15NegViewPushButton) {
+        // Rotate 15 degrees to the left
+        qVTKRenderer->GetActiveCamera()->Azimuth(-15);
+    } else {
+        // Resets the camera to point to the center of the actors and moves it so all actors can be seen
+        qVTKRenderer->ResetCamera();
 
-    // Set position and view to initial values based on focal point and distance
-    qVTKRenderer->GetActiveCamera()->SetPosition(focalPoint[0], focalPoint[1], focalPoint[2] + distance);
-    qVTKRenderer->GetActiveCamera()->SetViewUp(0.0, 1.0, 0.0);
+        // Calculate the distance from the focal point
+        double *focalPoint = qVTKRenderer->GetActiveCamera()->GetFocalPoint();
+        double *position = qVTKRenderer->GetActiveCamera()->GetPosition();
+        double distance = std::sqrt(std::pow(position[0] - focalPoint[0], 2)
+                                    + std::pow(position[1] - focalPoint[1], 2)
+                                    + std::pow(position[2] - focalPoint[2], 2));
 
-    // Resets the camera clipping range based on the bounds of the visible actors
-    qVTKRenderer->ResetCameraClippingRange();
+        if (senderObj == ui->resetCameraViewPushButton) {
+            // Set position and view to initial values based on focal point and distance
+            qVTKRenderer->GetActiveCamera()->SetPosition(focalPoint[0], focalPoint[1], focalPoint[2] + distance);
+            qVTKRenderer->GetActiveCamera()->SetViewUp(0.0, 1.0, 0.0);
+        } else if (senderObj == ui->xPlaneViewPushButton) {
+            // Move in the positive X direction
+            qVTKRenderer->GetActiveCamera()->SetPosition(focalPoint[0] + distance, focalPoint[1], focalPoint[2]);
+            // Set Up to +Z Axis
+            qVTKRenderer->GetActiveCamera()->SetViewUp(0.0, 0.0, 1.0);
+        } else if (senderObj == ui->xNegPlaneViewPushButton) {
+            // Move in the negative X direction
+            qVTKRenderer->GetActiveCamera()->SetPosition(focalPoint[0] - distance, focalPoint[1], focalPoint[2]);
+            // Set Up to +Z Axis
+            qVTKRenderer->GetActiveCamera()->SetViewUp(0.0, 0.0, 1.0);
+        } else if (senderObj == ui->yPlaneViewPushButton) {
+            // Move in the positive Y direction
+            qVTKRenderer->GetActiveCamera()->SetPosition(focalPoint[0], focalPoint[1] + distance, focalPoint[2]);
+            // Set Up to +Z Axis
+            qVTKRenderer->GetActiveCamera()->SetViewUp(0.0, 0.0, 1.0);
+        } else if (senderObj == ui->yNegPlaneViewPushButton) {
+            // Move in the negative Y direction
+            qVTKRenderer->GetActiveCamera()->SetPosition(focalPoint[0], focalPoint[1] - distance, focalPoint[2]);
+            // Set Up to +Z Axis
+            qVTKRenderer->GetActiveCamera()->SetViewUp(0.0, 0.0, 1.0);
+        } else if (senderObj == ui->zPlaneViewPushButton) {
+            // Move in the positive Z direction
+            qVTKRenderer->GetActiveCamera()->SetPosition(focalPoint[0], focalPoint[1], focalPoint[2] + distance);
+            // Set Up to +X Axis
+            qVTKRenderer->GetActiveCamera()->SetViewUp(1.0, 0.0, 0.0);
+        } else if (senderObj == ui->zNegPlaneViewPushButton) {
+            // Move in the negative Z direction
+            qVTKRenderer->GetActiveCamera()->SetPosition(focalPoint[0], focalPoint[1], focalPoint[2] - distance);
+            // Set Up to +X Axis
+            qVTKRenderer->GetActiveCamera()->SetViewUp(1.0, 0.0, 0.0);
+        }
 
+        // Resets the camera clipping range based on the bounds of the visible actors
+        qVTKRenderer->ResetCameraClippingRange();
+    }
     // Re-render the model
     ui->qvtkWidget->GetRenderWindow()->Render();
 }

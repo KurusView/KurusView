@@ -37,7 +37,7 @@ private:
     Model currentModel;
 
 public slots:
-    void handleResetViewButton();
+    void handleChangePerspective();
 };
 
 
