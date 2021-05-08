@@ -40,13 +40,20 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     connect(ui->rotate15ViewPushButton, &QPushButton::released, this, &ModelWindow::handleChangePerspective);
     connect(ui->rotate15NegViewPushButton, &QPushButton::released, this, &ModelWindow::handleChangePerspective);
 
+    // Filter Button Slots
+    connect(ui->clipPushButton, &QPushButton::released, this, &ModelWindow::updateFilters);
+    connect(ui->shrinkPushButton, &QPushButton::released, this, &ModelWindow::updateFilters);
+    connect(ui->resetFiltersPushButton, &QPushButton::released, this, &ModelWindow::updateFilters);
+
     // Now need to create a VTK render window and link it to the QtVTK widget
     vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
 
     // note that vtkWidget is the name I gave to my QtVTKOpenGLWidget in Qt creator
     ui->qvtkWidget->SetRenderWindow(renderWindow);
 
-
+    // Initialize filters
+    clipFilter = vtkSmartPointer<vtkClipDataSet>::New();
+    shrinkFilter = vtkSmartPointer<vtkShrinkFilter>::New();
 
     // viewFrame is the parent class of qvtkWidget
     ui->viewFrame->setStyleSheet("*{border-width: 3 ;border-style:solid;border-color: #ff0000;}");
@@ -93,11 +100,89 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     light->SetIntensity(0.5);
     renderer->AddLight(light);
 
+    // Rebuild pipeline Source -> Filters -> Mapper
+    buildChain();
+    // Re-render
+    ui->qvtkWidget->GetRenderWindow()->Render();
+
     show();
 }
 
 ModelWindow::~ModelWindow() {
     delete ui;
+}
+
+void ModelWindow::updateFilters() {
+    // Check which button called this slot
+    QObject *senderObj = sender();
+
+    if (senderObj == ui->clipPushButton){
+        toggleClipFilter(ui->clipPushButton->isChecked());
+    } else if(senderObj == ui->shrinkPushButton){
+        toggleShrinkFilter(ui->shrinkPushButton->isChecked());
+    } else if (senderObj == ui->resetFiltersPushButton) {
+        ui->clipPushButton->setChecked(false);
+        ui->shrinkPushButton->setChecked(false);
+        toggleClipFilter(false);
+        toggleShrinkFilter(false);
+    }
+
+    // Rebuild pipeline Source -> Filters -> Mapper
+    buildChain();
+    // Re-render
+    ui->qvtkWidget->GetRenderWindow()->Render();
+}
+
+void ModelWindow::buildChain() {
+    // Store the source object, as it's used multiple times
+    vtkDataSet *source = dynamic_cast<vtkDataSet *>(currentModel.getVTKModel()->GetOutputDataObject(0));
+    // If no filters are applied
+    if (filters.empty()) {
+        // Source -> Mapper
+        mapper->SetInputData(source);
+        return;
+    }
+    // Otherwise Source -> Filter 0
+    filters[0]->SetInputDataObject(source);
+    filters[0]->Update();
+    if (filters.size() == 1) {
+        // Otherwise Filter 0 -> Mapper
+        mapper->SetInputData(dynamic_cast<vtkDataSet *>(filters[0]->GetOutputDataObject(0)));
+        return;
+    }
+
+    // Otherwise Filter 0 -> Filter 1
+    filters[1]->SetInputDataObject(dynamic_cast<vtkDataSet *>(filters[0]->GetOutputDataObject(0)));
+    filters[1]->Update();
+    // Otherwise Filter 1 -> Mapper
+    mapper->SetInputData(dynamic_cast<vtkDataSet *>(filters[1]->GetOutputDataObject(0)));
+}
+
+void ModelWindow::toggleShrinkFilter(bool enable){
+    if (enable) {
+        // TODO: Dialog Box asking for shrink value
+        // Shrinks to 50%
+        shrinkFilter->SetShrinkFactor(0.5);
+        // Insert at the end of the filter list
+        filters.emplace_back(shrinkFilter);
+    } else if (std::find(filters.begin(), filters.end(), shrinkFilter) != filters.end()) {
+        // Remove the shrink filter from the filter list
+        filters.erase(std::find(filters.begin(), filters.end(), shrinkFilter));
+    }
+}
+
+void ModelWindow::toggleClipFilter(bool enable) {
+    if (enable) {
+        vtkSmartPointer<vtkPlane> planeLeft = vtkSmartPointer<vtkPlane>::New();
+        planeLeft->SetOrigin(0.0, 0.0, 0.0);
+        planeLeft->SetNormal(-1.0, 0.0, 0.0);
+        clipFilter->SetClipFunction(planeLeft.Get());
+        // Insert at the end of the filter list
+        filters.emplace_back(clipFilter);
+    } else if (std::find(filters.begin(), filters.end(), clipFilter) != filters.end()){
+        // Remove the shrink filter from the filter list
+        filters.erase(std::find(filters.begin(), filters.end(), clipFilter));
+    }
 }
 
 void ModelWindow::handleChangePerspective() {

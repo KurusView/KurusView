@@ -3,8 +3,11 @@
 
 #include <QMainWindow>
 
+#include <vtkAlgorithm.h>
 #include <vtkDataSetMapper.h>
 #include <vtkSmartPointer.h>
+#include <vtkClipDataSet.h>
+#include <vtkShrinkFilter.h>
 
 #include "Model.h"
 
@@ -31,13 +34,24 @@ public:
 
 private:
     Ui::ModelWindow *ui;
-    vtkSmartPointer<vtkDataSetMapper> mapper;
     // TODO Store file path in Model.h instead
     QString currentModelFilePath;
     Model currentModel;
 
+    vtkSmartPointer<vtkDataSetMapper> mapper;
+    std::vector<vtkSmartPointer<vtkAlgorithm>> filters;
+    vtkSmartPointer<vtkClipDataSet> clipFilter;
+    vtkSmartPointer<vtkShrinkFilter> shrinkFilter;
+
+    void buildChain();
+
+    void toggleShrinkFilter(bool enable);
+
+    void toggleClipFilter(bool enable);
+
 public slots:
     void handleChangePerspective();
+    void updateFilters();
 };
 
 
