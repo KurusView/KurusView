@@ -130,3 +130,23 @@ void ModelWindow::handleModelColor() {
     // refresh view
     ui->qvtkWidget->GetRenderWindow()->Render();
 }
+
+void ModelWindow::handleResetColor() {
+    
+    //reset buttons
+    ui->modelColourPushButton->setStyleSheet("background-color: silver; border:none;");
+    ui->backgroundColourPushButton->setStyleSheet("background-color: silver; border:none;");
+
+    // reset background
+    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
+    ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->SetBackground(
+            colors->GetColor3d("Silver").GetData());
+
+    // reset model
+    auto *actors = (vtkActor *) ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
+            0);
+    actors->GetProperty()->SetColor(colors->GetColor3d("Red").GetData());
+
+    // refresh view
+    ui->qvtkWidget->GetRenderWindow()->Render();
+}

@@ -39,7 +39,9 @@ private:
 public slots:
 
     void handleBackgroundColor();
+
     void handleModelColor();
+
 };
 
 
