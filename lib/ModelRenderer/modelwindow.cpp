@@ -18,12 +18,13 @@
 
 #include <QFileDialog>
 
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "../../include/ModelRenderer/mainwindow.h"
+#include "modelwindow.h"
+#include "ui_modelwindow.h"
 
-
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
+ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow(parent), ui(new Ui::ModelWindow),
+                                                                     currentModel(filePath.toStdString()),
+                                                                     currentModelFilePath(filePath) {
+    //TODO: Make sure the model is properly initialized before loading the window
     // standard call to setup Qt UI (same as previously)
     ui->setupUi(this);
 
@@ -32,13 +33,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->qvtkWidget->SetRenderWindow(
             renderWindow);            // note that vtkWidget is the name I gave to my QtVTKOpenGLWidget in Qt creator
 
-    // Create model instance from an input model
-    std::shared_ptr<Model> vtkModel = std::make_shared<Model>("models/ExampleModel3.mod");
     //TODO: User input of filepath for both .mod and .stl and have logic to decide between each
 
     // Create a mapper that will hold the object's geometry in a format suitable for rendering
     mapper = vtkSmartPointer<vtkDataSetMapper>::New();
-    mapper->SetInputData(vtkModel->getVTKModel());
+    mapper->SetInputData(currentModel.getVTKModel());
 
     // Create an actor that is used to set the object's properties for rendering and place it in the window
     vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
@@ -73,8 +72,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     light->SetSpecularColor(1, 1, 1);
     light->SetIntensity(0.5);
     renderer->AddLight(light);
+
+    show();
 }
 
-MainWindow::~MainWindow() {
+ModelWindow::~ModelWindow() {
     delete ui;
 }
