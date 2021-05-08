@@ -82,8 +82,16 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
 
     show();
 
+    // colour group
     connect(ui->backgroundColourPushButton, &QPushButton::released, this, &ModelWindow::handleBackgroundColor);
     connect(ui->modelColourPushButton, &QPushButton::released, this, &ModelWindow::handleModelColor);
+    connect(ui->resetColoursPushButton, &QPushButton::released, this, &ModelWindow::handleResetColor);
+
+    // lightning group
+    connect(ui->lightIntensitySlider, &QSlider::sliderMoved, this, &ModelWindow::handleLightIntensitySlider);
+    connect(ui->lightOpacitySlider, &QSlider::sliderMoved, this, &ModelWindow::handleLightOpacitySlider);
+    connect(ui->lightSpecularitySlider, &QSlider::sliderMoved, this, &ModelWindow::handleLightSpecularitySlider);
+    connect(ui->resetLightingPushButton, &QPushButton::released, this, &ModelWindow::handleResetLighting);
 }
 
 ModelWindow::~ModelWindow() {
@@ -132,7 +140,7 @@ void ModelWindow::handleModelColor() {
 }
 
 void ModelWindow::handleResetColor() {
-    
+
     //reset buttons
     ui->modelColourPushButton->setStyleSheet("background-color: silver; border:none;");
     ui->backgroundColourPushButton->setStyleSheet("background-color: silver; border:none;");
@@ -150,3 +158,42 @@ void ModelWindow::handleResetColor() {
     // refresh view
     ui->qvtkWidget->GetRenderWindow()->Render();
 }
+
+
+void ModelWindow::handleResetLighting() {
+
+}
+
+void ModelWindow::handleLightIntensitySlider(int position) {
+
+    // get light sources
+    vtkSmartPointer<vtkLightCollection> col = vtkSmartPointer<vtkLightCollection>::New();
+    vtkSmartPointer<vtkLight> light = vtkSmartPointer<vtkLight>::New();
+    col = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetLights();
+
+    int lightSourceCount = col->GetNumberOfItems();
+
+    // sanity check
+    if (lightSourceCount < 1) {
+        return;
+    }
+
+    // update light intensity of all sources
+    for (int i = 0; i < lightSourceCount; i++) {
+        light = (vtkLight *) col->GetItemAsObject(i);
+        light->SetIntensity((double) ui->lightIntensitySlider->sliderPosition() / 100.0f);
+    }
+
+    // refresh
+    ui->qvtkWidget->GetRenderWindow()->Render();
+}
+
+
+void ModelWindow::handleLightOpacitySlider(int position) {
+
+}
+
+void ModelWindow::handleLightSpecularitySlider(int position) {
+
+}
+

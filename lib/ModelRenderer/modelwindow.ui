@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1071</width>
-    <height>691</height>
+    <height>681</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -203,7 +203,7 @@
           </property>
           <layout class="QGridLayout" name="gridLayout_2">
            <item row="2" column="0" colspan="3">
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="resetLightingPushButton">
              <property name="text">
               <string>Reset Lighting</string>
              </property>

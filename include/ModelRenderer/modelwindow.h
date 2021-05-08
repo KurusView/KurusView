@@ -42,6 +42,15 @@ public slots:
 
     void handleModelColor();
 
+    void handleResetColor();
+
+    void handleResetLighting();
+
+    void handleLightIntensitySlider(int position);
+
+    void handleLightOpacitySlider(int position);
+
+    void handleLightSpecularitySlider(int position);
 };
 
 
