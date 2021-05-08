@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>678</width>
-    <height>723</height>
+    <width>1071</width>
+    <height>681</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,15 +20,362 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_4">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QVTKOpenGLWidget" name="qvtkWidget" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>600</width>
-          <height>400</height>
-         </size>
-        </property>
+     <layout class="QGridLayout" name="gridLayout_5">
+      <item row="1" column="0">
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="5">
+         <widget class="QGroupBox" name="structureGroupBox">
+          <property name="title">
+           <string>Structure</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QRadioButton" name="normalStructRadioButton">
+             <property name="text">
+              <string>Normal</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="wireframeStructRadioButton">
+             <property name="text">
+              <string>Wireframe</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="pointsStructRadioButton">
+             <property name="text">
+              <string>Points</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="gridLinesCheckBox">
+             <property name="text">
+              <string>Gridlines</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="filtersGroupBox">
+          <property name="title">
+           <string>Filters</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QPushButton" name="shrinkPushButton">
+             <property name="text">
+              <string>Shrink</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="clipPushButton">
+             <property name="text">
+              <string>Clip</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="resetFiltersPushButton">
+             <property name="text">
+              <string>Reset Filters</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1" colspan="2">
+         <widget class="QGroupBox" name="cameraViewGroupBox">
+          <property name="title">
+           <string>Camera View</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="3" column="1">
+            <widget class="QPushButton" name="rotate15ViewPushButton">
+             <property name="text">
+              <string>+15°</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="yPlaneViewPushButton">
+             <property name="text">
+              <string>Y Plane</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="yNegPlaneViewPushButton">
+             <property name="text">
+              <string>-Y Plane</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QPushButton" name="zNegPlaneViewPushButton">
+             <property name="text">
+              <string>-Z Plane</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QPushButton" name="zPlaneViewPushButton">
+             <property name="text">
+              <string>Z Plane</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QPushButton" name="rotate15NegViewPushButton">
+             <property name="text">
+              <string>-15°</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="xNegPlaneViewPushButton">
+             <property name="text">
+              <string>-X Plane</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QPushButton" name="xPlaneViewPushButton">
+             <property name="text">
+              <string>X Plane</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0" colspan="2">
+            <widget class="QPushButton" name="resetCameraViewPushButton">
+             <property name="text">
+              <string>Reset Camera View</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="12" colspan="2">
+         <widget class="QGroupBox" name="statisticsGroupBox">
+          <property name="title">
+           <string>Model Statistics</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <widget class="QPushButton" name="measurementButton">
+             <property name="text">
+              <string>Measurement</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="6" colspan="6">
+         <widget class="QGroupBox" name="lightingGroupBox">
+          <property name="title">
+           <string>Lighting</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="2" column="0" colspan="3">
+            <widget class="QPushButton" name="resetLightingPushButton">
+             <property name="text">
+              <string>Reset Lighting</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <layout class="QVBoxLayout" name="opacityLayout">
+             <item>
+              <widget class="QLabel" name="lightOpacityLabel">
+               <property name="text">
+                <string>Opacity</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSlider" name="lightOpacitySlider">
+               <property name="maximum">
+                <number>100</number>
+               </property>
+               <property name="sliderPosition">
+                <number>100</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="2">
+            <layout class="QVBoxLayout" name="specularityLayout">
+             <item>
+              <widget class="QLabel" name="lightSpecularityLabel">
+               <property name="text">
+                <string>Specularity</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSlider" name="lightSpecularitySlider">
+               <property name="maximum">
+                <number>100</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="0" column="0" colspan="3">
+            <layout class="QVBoxLayout" name="lightIntensityLayout">
+             <item>
+              <widget class="QLabel" name="lightIntensityLabel">
+               <property name="text">
+                <string>Intensity</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSlider" name="lightIntensitySlider">
+               <property name="maximum">
+                <number>100</number>
+               </property>
+               <property name="sliderPosition">
+                <number>50</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="3" colspan="2">
+         <widget class="QGroupBox" name="coloursGroupBox">
+          <property name="title">
+           <string>Colours</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <layout class="QGridLayout" name="backgroundColourGrid">
+             <item row="0" column="0" colspan="3">
+              <widget class="QLabel" name="backgroundColourLabel">
+               <property name="text">
+                <string>Background</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="3">
+              <widget class="QPushButton" name="backgroundColourPushButton">
+               <property name="styleSheet">
+                <string notr="true">background-color:  silver; border:none;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QGridLayout" name="modelColourGrid">
+             <item row="0" column="0" colspan="3">
+              <widget class="QLabel" name="modelColourLabel">
+               <property name="text">
+                <string>Model</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="3">
+              <widget class="QPushButton" name="modelColourPushButton">
+               <property name="styleSheet">
+                <string notr="true">background-color:  silver; border:none;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QPushButton" name="resetColoursPushButton">
+             <property name="text">
+              <string>Reset Colours</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="0">
+       <widget class="QWidget" name="viewFrame" native="true">
+        <layout class="QGridLayout" name="gridLayout_3">
+         <property name="leftMargin">
+          <number>3</number>
+         </property>
+         <property name="topMargin">
+          <number>3</number>
+         </property>
+         <property name="rightMargin">
+          <number>3</number>
+         </property>
+         <property name="bottomMargin">
+          <number>3</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QVTKOpenGLWidget" name="qvtkWidget" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>600</width>
+             <height>400</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>
@@ -40,7 +387,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>678</width>
+     <width>1071</width>
      <height>21</height>
     </rect>
    </property>
@@ -52,17 +399,18 @@
      <property name="title">
       <string>Recent Views</string>
      </property>
-     <addaction name="actionOpen_Some_Files"/>
+     <addaction name="emptyRecentsIndicator"/>
     </widget>
-    <addaction name="actionFileOpen"/>
+    <addaction name="actionOpenView"/>
     <addaction name="menuRecent_Files"/>
-    <addaction name="actionFileSave"/>
+    <addaction name="actionSaveView"/>
     <addaction name="actionSettings"/>
+    <addaction name="actionCloseView"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <widget class="QToolBar" name="toolBar">
+  <widget class="QToolBar" name="fileToolBar">
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
@@ -72,23 +420,12 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionFileOpen"/>
-   <addaction name="actionFileSave"/>
+   <addaction name="actionOpenView"/>
+   <addaction name="actionSaveView"/>
    <addaction name="actionHelp"/>
    <addaction name="actionPrint"/>
   </widget>
-  <widget class="QToolBar" name="toolBar_2">
-   <property name="windowTitle">
-    <string>toolBar_2</string>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
-  <action name="actionFileOpen">
+  <action name="actionOpenView">
    <property name="icon">
     <iconset resource="../../Icons/icons.qrc">
      <normaloff>:/Icons/fileopen.png</normaloff>:/Icons/fileopen.png</iconset>
@@ -97,7 +434,7 @@
     <string>Open</string>
    </property>
   </action>
-  <action name="actionFileSave">
+  <action name="actionSaveView">
    <property name="icon">
     <iconset resource="../../Icons/icons.qrc">
      <normaloff>:/Icons/filesave.png</normaloff>:/Icons/filesave.png</iconset>
@@ -124,7 +461,7 @@
     <string>Print</string>
    </property>
   </action>
-  <action name="actionOpen_Some_Files">
+  <action name="emptyRecentsIndicator">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -135,6 +472,11 @@
   <action name="actionSettings">
    <property name="text">
     <string>Settings</string>
+   </property>
+  </action>
+  <action name="actionCloseView">
+   <property name="text">
+    <string>Close View</string>
    </property>
   </action>
  </widget>

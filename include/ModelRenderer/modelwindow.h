@@ -3,8 +3,11 @@
 
 #include <QMainWindow>
 
+#include <vtkAlgorithm.h>
 #include <vtkDataSetMapper.h>
 #include <vtkSmartPointer.h>
+#include <vtkClipDataSet.h>
+#include <vtkShrinkFilter.h>
 
 #include "Model.h"
 
@@ -25,18 +28,42 @@ public:
      * @param parent
      * @see Model | Model
      */
-    explicit ModelWindow(const QString& filePath, QWidget *parent = nullptr);
+    explicit ModelWindow(const QString &filePath, QWidget *parent = nullptr);
 
     ~ModelWindow() override;
 
 private:
     Ui::ModelWindow *ui;
-    vtkSmartPointer<vtkDataSetMapper> mapper;
     // TODO Store file path in Model.h instead
     QString currentModelFilePath;
     Model currentModel;
 
+    vtkSmartPointer<vtkDataSetMapper> mapper;
+    std::vector<vtkSmartPointer<vtkAlgorithm>> filters;
+    vtkSmartPointer<vtkClipDataSet> clipFilter;
+    vtkSmartPointer<vtkShrinkFilter> shrinkFilter;
+
+    void buildChain();
+
+    void toggleShrinkFilter(bool enable);
+
+    void toggleClipFilter(bool enable);
+
 public slots:
+
+    void handleBackgroundColor();
+
+    void handleModelColor();
+
+    void handleResetColor();
+
+    void handleResetLighting();
+
+    void handleLightIntensitySlider(int position);
+
+    void mux_handleLightActorSlider(int position);
+    void handleChangePerspective();
+    void updateFilters();
 };
 
 
