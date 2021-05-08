@@ -20,7 +20,7 @@ WelcomeWindow::~WelcomeWindow()
 }
 void WelcomeWindow::handleOpenButton() {
     // Open the file dialog.
-    inputFileName = QFileDialog::getOpenFileName(this, tr("Load a Kurus View or Model"), "save_models",
+    QString inputFileName = QFileDialog::getOpenFileName(this, tr("Load a Kurus View or Model"), "save_models",
                                                          tr("Model, View or STL (*.mod;*.kurus;*.stl)"));
 
     // If the file loaded is empty, or no file is loaded...
