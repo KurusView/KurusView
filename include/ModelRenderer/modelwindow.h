@@ -12,10 +12,19 @@ namespace Ui {
     class ModelWindow;
 }
 
+/**
+ * @brief Visualises a model in a user-friendly GUI
+ */
 class ModelWindow : public QMainWindow {
 Q_OBJECT
 
 public:
+    /**
+     * @brief Initialises a ModelWindow and loads a Model with the filePath.
+     * @param filePath
+     * @param parent
+     * @see Model | Model
+     */
     explicit ModelWindow(const QString& filePath, QWidget *parent = nullptr);
 
     ~ModelWindow() override;
