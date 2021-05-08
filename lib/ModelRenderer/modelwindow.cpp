@@ -88,9 +88,9 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     connect(ui->resetColoursPushButton, &QPushButton::released, this, &ModelWindow::handleResetColor);
 
     // lightning group
-    connect(ui->lightIntensitySlider, &QSlider::sliderMoved, this, &ModelWindow::handleLightIntensitySlider);
-    connect(ui->lightOpacitySlider, &QSlider::sliderMoved, this, &ModelWindow::handleLightOpacitySlider);
-    connect(ui->lightSpecularitySlider, &QSlider::sliderMoved, this, &ModelWindow::handleLightSpecularitySlider);
+    connect(ui->lightIntensitySlider, &QSlider::valueChanged, this, &ModelWindow::handleLightIntensitySlider);
+    connect(ui->lightOpacitySlider, &QSlider::valueChanged, this, &ModelWindow::handleLightOpacitySlider);
+    connect(ui->lightSpecularitySlider, &QSlider::valueChanged, this, &ModelWindow::handleLightSpecularitySlider);
     connect(ui->resetLightingPushButton, &QPushButton::released, this, &ModelWindow::handleResetLighting);
 }
 
@@ -181,7 +181,7 @@ void ModelWindow::handleLightIntensitySlider(int position) {
     // update light intensity of all sources
     for (int i = 0; i < lightSourceCount; i++) {
         light = (vtkLight *) col->GetItemAsObject(i);
-        light->SetIntensity((double) ui->lightIntensitySlider->sliderPosition() / 100.0f);
+        light->SetIntensity((double) position / 100.0f);
     }
 
     // refresh
@@ -191,6 +191,16 @@ void ModelWindow::handleLightIntensitySlider(int position) {
 
 void ModelWindow::handleLightOpacitySlider(int position) {
 
+    vtkActorCollection *actors = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
+
+    // update all actors (.mod might have multiple)
+    for (int i = 0; i < actors->GetNumberOfItems(); i++) {
+        auto actor = (vtkActor *) actors->GetItemAsObject(i);
+        actor->GetProperty()->SetOpacity((double) position / 100.0f);
+    }
+
+    // refresh
+    ui->qvtkWidget->GetRenderWindow()->Render();
 }
 
 void ModelWindow::handleLightSpecularitySlider(int position) {

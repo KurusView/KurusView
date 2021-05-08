@@ -220,6 +220,12 @@
              </item>
              <item>
               <widget class="QSlider" name="lightOpacitySlider">
+               <property name="maximum">
+                <number>100</number>
+               </property>
+               <property name="sliderPosition">
+                <number>100</number>
+               </property>
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -238,6 +244,9 @@
              </item>
              <item>
               <widget class="QSlider" name="lightSpecularitySlider">
+               <property name="maximum">
+                <number>100</number>
+               </property>
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -256,6 +265,12 @@
              </item>
              <item>
               <widget class="QSlider" name="lightIntensitySlider">
+               <property name="maximum">
+                <number>100</number>
+               </property>
+               <property name="sliderPosition">
+                <number>50</number>
+               </property>
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
