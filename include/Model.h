@@ -61,7 +61,7 @@ public:
     /**
      * @brief displayCells - Displays the number of cells and the type of each cell
      */
-    void displayCells();
+    unsigned long displayCells();
 
     /**
      * @brief calcCentre - Calculates the centre of the model
@@ -81,6 +81,12 @@ public:
     vtkSmartPointer<vtkAlgorithm> getVTKModel();
 
     void loadSTLModel(const std::string &filePath);
+
+    double calcVolume();
+
+    double calcWeight();
+
+    std::string fileType;
 };
 
 

@@ -80,6 +80,8 @@ public slots:
     void toggleGridlines(View *view, bool enable);
 
     void handleMeasurment();
+
+    void getStatistics();
 };
 
 

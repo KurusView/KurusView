@@ -276,7 +276,7 @@ void ModelWindow::handleChangePerspective() {
 
 void ModelWindow::viewActive(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
-        setActiveView((View * )(((QVTKOpenGLWidget *) sender())->parentWidget()));
+        setActiveView((View *) (((QVTKOpenGLWidget *) sender())->parentWidget()));
     }
 }
 
@@ -301,6 +301,9 @@ void ModelWindow::setActiveView(View *newActiveView) {
     ui->lightIntensitySlider->setValue(activeView->lightIntensity);
     ui->lightOpacitySlider->setValue(activeView->modelOpacity);
     ui->lightSpecularitySlider->setValue(activeView->lightSpecularity);
+
+    // Statistics
+    getStatistics();
 }
 
 void ModelWindow::updateStructure() {
@@ -453,6 +456,22 @@ void ModelWindow::addViewToFrame(View *view) {
     if (avc == 4) {
         ui->viewFrame->addWidget(views[2], 1, 0, 1, 1);
     }
+}
+
+void ModelWindow::getStatistics() {
+    activeView->numOfCells = activeView->model.displayCells();
+    activeView->centreOfGrav = activeView->model.calcCentre();
+    activeView->weight = activeView->model.calcWeight();
+    activeView->volume = activeView->model.calcVolume();
+    activeView->density = activeView->weight / activeView->volume;
+
+    ui->numOfCellsLabel->setText(QString::number(activeView->numOfCells));
+    ui->centreOfGravLabel->setText("X: " + QString::number(activeView->centreOfGrav.getX()) + " Y: " +
+                                   QString::number(activeView->centreOfGrav.getY()) + " Z: " +
+                                   QString::number(activeView->centreOfGrav.getZ()));
+    ui->weightLabel->setText(QString::number(activeView->weight));
+    ui->volumeLabel->setText(QString::number(activeView->volume));
+    ui->densityLabel->setText(QString::number(activeView->density));
 }
 
 

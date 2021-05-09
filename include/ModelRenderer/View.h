@@ -49,6 +49,11 @@ public:
     void setModelColor(const QColor &color);
 
     void setBackgroundColor(const QColor &color);
+    double density, volume, weight;
+
+    unsigned long numOfCells;
+
+    MVector centreOfGrav;
 
     void setLightIntensity(int value);
 

@@ -18,6 +18,8 @@ Model::Model(const std::string &filePath) {
 
     std::string fileExtension = filePath.substr(filePath.find_last_of('.') + 1);
 
+    this->fileType = fileExtension;
+
     if (fileExtension == "stl") {
         loadSTLModel(filePath);
     } else if (fileExtension == "mod") {
@@ -180,12 +182,13 @@ void Model::displayVertexCount() {
     std::cout << "Number of Vertices: " << vectors.size() << std::endl;
 }
 
-void Model::displayCells() {
+unsigned long Model::displayCells() {
 //    MCell::getCount(); // For global count
     std::cout << "Number of Cells: " << cells.size() << std::endl;
     for (const auto &cell:cells) {
         std::cout << "Cell " << cell->getID() << ": " << cell->getType()[1] << std::endl;
     }
+    return cells.size();
 }
 
 MVector Model::calcCentre() {
@@ -254,4 +257,22 @@ void Model::loadSTLModel(const std::string &filePath) {
     STLModel->Update();
     vtkModel = STLModel;
 }
+
+double Model::calcVolume() {
+    double totalVolume = 0.0;
+    for (auto &cell : cells) {
+        totalVolume += cell->getVolume();
+    }
+    return totalVolume;
+}
+
+double Model::calcWeight() {
+    double totalWeight = 0.0;
+    for (auto &cell : cells) {
+        totalWeight += cell->getWeight();
+    }
+    return totalWeight;
+}
+
+
 
