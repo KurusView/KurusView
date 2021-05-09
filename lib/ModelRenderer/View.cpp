@@ -28,7 +28,7 @@ View::View(const QString &borderColor, const QString &filePath, QWidget *parent)
     verticalLayout = new QVBoxLayout(this);
 
     qVTKWidget = new QVTKOpenGLWidget(parent);
-    qVTKWidget->setMinimumSize(QSize(600, 400));
+    qVTKWidget->setMinimumSize(QSize(300, 200)); // TODO make this dynamic
 
 //    setLayout(verticalLayout);
     verticalLayout->addWidget(qVTKWidget);
