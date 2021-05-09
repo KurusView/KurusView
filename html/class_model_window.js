@@ -9,5 +9,6 @@ var class_model_window =
     [ "handleResetColor", "class_model_window.html#a4c9eefb90446f87941efa952e6b29900", null ],
     [ "handleResetLighting", "class_model_window.html#a2e42c0dabaa52b19487e8bf58b337397", null ],
     [ "mux_handleLightActorSlider", "class_model_window.html#a56afb845e27afd543a4a0a1f9bcebc57", null ],
-    [ "updateFilters", "class_model_window.html#a274d01769538d149595a5cce505c07b5", null ]
+    [ "updateFilters", "class_model_window.html#a274d01769538d149595a5cce505c07b5", null ],
+    [ "updateStructure", "class_model_window.html#a22662895af406e3889535120c7bb748b", null ]
 ];
