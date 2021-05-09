@@ -32,6 +32,8 @@ public:
 
     ~ModelWindow() override;
 
+    void gridlinesInit();
+
 private:
     Ui::ModelWindow *ui;
     // TODO Store file path in Model.h instead
@@ -68,6 +70,10 @@ public slots:
     void updateFilters();
 
     void updateStructure();
+
+    void handleGridlines();
+
+    void toggleGridlines(bool enable);
 };
 
 
