@@ -15,7 +15,8 @@
 #include <vtkAlgorithm.h>
 #include <vtkCallbackCommand.h>
 #include <vtkPlane.h>
-#include <ModelRenderer/View.h>
+#include <vtkLight.h>
+#include <vtkLightCollection.h>
 
 #include "View.h"
 
@@ -165,4 +166,61 @@ void View::setBackgroundColor(const QColor &color) {
     );
 
     backgroundColour = color.name();
+}
+
+void View::setLightIntensity(int value){
+    if (value < 0 || value > 100)
+        return;
+
+    // get light sources
+    vtkSmartPointer<vtkLightCollection> col = vtkSmartPointer<vtkLightCollection>::New();
+    vtkSmartPointer<vtkLight> light = vtkSmartPointer<vtkLight>::New();
+
+    col = qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetLights();
+
+    int lightSourceCount = col->GetNumberOfItems();
+
+    // sanity check
+    if (lightSourceCount < 1) {
+        return;
+    }
+
+    // update light intensity of all sources
+    for (int i = 0; i < lightSourceCount; i++) {
+        light = (vtkLight *) col->GetItemAsObject(i);
+        light->SetIntensity((double) value / 100.0f);
+    }
+
+    lightIntensity = value;
+}
+
+void View::setLightSpecularity(int value){
+    if (value < 0 || value > 100)
+        return;
+
+    // Store pointer to all actors
+    vtkActorCollection *actors = qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
+
+    // update all actors (.mod might have multiple)
+    for (int i = 0; i < actors->GetNumberOfItems(); i++) {
+        auto actor = (vtkActor *) actors->GetItemAsObject(i);
+        actor->GetProperty()->SetSpecular((double) value / 100.0f);
+    }
+
+    lightSpecularity = value;
+}
+
+void View::setModelOpacity(int value){
+    if (value < 0 || value > 100)
+        return;
+
+    vtkActorCollection *actors = qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
+
+    // update all actors (.mod might have multiple)
+    for (int i = 0; i < actors->GetNumberOfItems(); i++) {
+        auto actor = (vtkActor *) actors->GetItemAsObject(i);
+        actor->GetProperty()->SetOpacity((double) value / 100.0f);
+    }
+
+    modelOpacity = value;
 }

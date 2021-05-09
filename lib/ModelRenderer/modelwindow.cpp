@@ -166,25 +166,8 @@ void ModelWindow::handleResetLighting() {
 }
 
 void ModelWindow::handleLightIntensitySlider(int position) {
-
-    // get light sources
-    vtkSmartPointer<vtkLightCollection> col = vtkSmartPointer<vtkLightCollection>::New();
-    vtkSmartPointer<vtkLight> light = vtkSmartPointer<vtkLight>::New();
-    col = activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetLights();
-
-    int lightSourceCount = col->GetNumberOfItems();
-
-    // sanity check
-    if (lightSourceCount < 1) {
-        return;
-    }
-
-    // update light intensity of all sources
-    for (int i = 0; i < lightSourceCount; i++) {
-        light = (vtkLight *) col->GetItemAsObject(i);
-        light->SetIntensity((double) position / 100.0f);
-    }
-
+    // Set the light intensity
+    activeView->setLightIntensity(position);
     // refresh
     activeView->qVTKWidget->GetRenderWindow()->Render();
 }
@@ -193,18 +176,10 @@ void ModelWindow::mux_handleLightActorSlider(int position) {
     // find who raised the signal
     QObject *emitter = sender();
 
-    vtkActorCollection *actors = activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
-
-    // update all actors (.mod might have multiple)
-    for (int i = 0; i < actors->GetNumberOfItems(); i++) {
-        auto actor = (vtkActor *) actors->GetItemAsObject(i);
-
-        if (emitter == ui->lightSpecularitySlider) {
-            actor->GetProperty()->SetSpecular((double) position / 100.0f);
-        } else { // opacity
-            actor->GetProperty()->SetOpacity((double) position / 100.0f);
-        }
-    }
+    if (emitter == ui->lightSpecularitySlider)
+        activeView->setLightSpecularity(position);
+    else // opacity
+        activeView->setModelOpacity(position);
 
     // refresh
     activeView->qVTKWidget->GetRenderWindow()->Render();
@@ -315,10 +290,17 @@ void ModelWindow::setActiveView(View *newActiveView) {
         }
     }
     // Change button and slider states to match view state
+
+    // Colours
     ui->backgroundColourPushButton->setStyleSheet(
             "background-color: " + activeView->backgroundColour + "; border:none;");
     ui->modelColourPushButton->setStyleSheet(
             "background-color: " + activeView->modelColor + "; border:none;");
+
+    // Light
+    ui->lightIntensitySlider->setValue(activeView->lightIntensity);
+    ui->lightOpacitySlider->setValue(activeView->modelOpacity);
+    ui->lightSpecularitySlider->setValue(activeView->lightSpecularity);
 }
 
 void ModelWindow::updateStructure() {

@@ -28,7 +28,7 @@ public:
     vtkSmartPointer<vtkClipDataSet> clipFilter;
     vtkSmartPointer<vtkShrinkFilter> shrinkFilter;
 
-    int lightIntensity, lightOpacity, lightSpecularity;
+    int lightIntensity, lightSpecularity, modelOpacity;
 
     QString backgroundColour, modelColor;
 
@@ -49,6 +49,12 @@ public:
     void setModelColor(const QColor &color);
 
     void setBackgroundColor(const QColor &color);
+
+    void setLightIntensity(int value);
+
+    void setLightSpecularity(int value);
+
+    void setModelOpacity(int value);
 
 private:
 
