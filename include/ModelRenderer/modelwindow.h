@@ -32,6 +32,8 @@ public:
 
     ~ModelWindow() override;
 
+    void gridlinesInit();
+
 private:
     Ui::ModelWindow *ui;
     // TODO Store file path in Model.h instead
@@ -62,8 +64,16 @@ public slots:
     void handleLightIntensitySlider(int position);
 
     void mux_handleLightActorSlider(int position);
+
     void handleChangePerspective();
+
     void updateFilters();
+
+    void updateStructure();
+
+    void handleGridlines();
+
+    void toggleGridlines(bool enable);
 };
 
 

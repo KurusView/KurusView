@@ -26,6 +26,15 @@
 
 #include "modelwindow.h"
 #include "ui_modelwindow.h"
+#include <vtkCubeAxesActor.h>
+#include <vtkOrientationMarkerWidget.h>
+
+#include <vtkActorCollection.h>
+#include <vtkColor.h>
+#include <vtkCubeAxesActor.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkTextProperty.h>
 
 ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow(parent), ui(new Ui::ModelWindow),
                                                                      currentModel(filePath.toStdString()),
@@ -49,6 +58,12 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     connect(ui->clipPushButton, &QPushButton::released, this, &ModelWindow::updateFilters);
     connect(ui->shrinkPushButton, &QPushButton::released, this, &ModelWindow::updateFilters);
     connect(ui->resetFiltersPushButton, &QPushButton::released, this, &ModelWindow::updateFilters);
+
+    // Structure Button Slots
+    connect(ui->wireframeStructRadioButton, &QRadioButton::toggled, this, &ModelWindow::updateStructure);
+    connect(ui->pointsStructRadioButton, &QRadioButton::toggled, this, &ModelWindow::updateStructure);
+    connect(ui->normalStructRadioButton, &QRadioButton::toggled, this, &ModelWindow::updateStructure);
+    connect(ui->gridLinesCheckBox, &QCheckBox::stateChanged, this, &ModelWindow::handleGridlines);
 
     // Now need to create a VTK render window and link it to the QtVTK widget
     vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
@@ -93,17 +108,19 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     renderer->GetActiveCamera()->Elevation(30);
     renderer->ResetCameraClippingRange();
 
-    vtkSmartPointer<vtkLight> light = vtkSmartPointer<vtkLight>::New();
-    light->SetLightTypeToSceneLight();
-    light->SetPosition(5, 5, 15);
-    // light->SetPositional(true);
-    light->SetConeAngle(80);
-    light->SetFocalPoint(0, 0, 0);
-    light->SetDiffuseColor(1, 1, 1);
-    light->SetAmbientColor(1, 1, 1);
-    light->SetSpecularColor(1, 1, 1);
-    light->SetIntensity(0.5);
-    renderer->AddLight(light);
+//    vtkSmartPointer<vtkLight> light = vtkSmartPointer<vtkLight>::New();
+//    light->SetLightTypeToSceneLight();
+//    light->SetPosition(5, 5, 15);
+//    // light->SetPositional(true);
+//    light->SetConeAngle(80);
+//    light->SetFocalPoint(0, 0, 0);
+//    light->SetDiffuseColor(1, 1, 1);
+//    light->SetAmbientColor(1, 1, 1);
+//    light->SetSpecularColor(1, 1, 1);
+//    light->SetIntensity(0.5);
+//    renderer->AddLight(light);
+
+
 
     // Source: https://www.programmersought.com/article/75456501356/
     vtkDistanceWidget *distanceWidget = vtkDistanceWidget::New();
@@ -131,6 +148,8 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     connect(ui->lightOpacitySlider, &QSlider::valueChanged, this, &ModelWindow::mux_handleLightActorSlider);
     connect(ui->lightSpecularitySlider, &QSlider::valueChanged, this, &ModelWindow::mux_handleLightActorSlider);
     connect(ui->resetLightingPushButton, &QPushButton::released, this, &ModelWindow::handleResetLighting);
+
+    gridlinesInit();
 }
 
 ModelWindow::~ModelWindow() {
@@ -256,9 +275,9 @@ void ModelWindow::updateFilters() {
     // Check which button called this slot
     QObject *senderObj = sender();
 
-    if (senderObj == ui->clipPushButton){
+    if (senderObj == ui->clipPushButton) {
         toggleClipFilter(ui->clipPushButton->isChecked());
-    } else if(senderObj == ui->shrinkPushButton){
+    } else if (senderObj == ui->shrinkPushButton) {
         toggleShrinkFilter(ui->shrinkPushButton->isChecked());
     } else if (senderObj == ui->resetFiltersPushButton) {
         ui->clipPushButton->setChecked(false);
@@ -298,7 +317,7 @@ void ModelWindow::buildChain() {
     mapper->SetInputData(dynamic_cast<vtkDataSet *>(filters[1]->GetOutputDataObject(0)));
 }
 
-void ModelWindow::toggleShrinkFilter(bool enable){
+void ModelWindow::toggleShrinkFilter(bool enable) {
     if (enable) {
         // TODO: Dialog Box asking for shrink value
         // Shrinks to 50%
@@ -319,7 +338,7 @@ void ModelWindow::toggleClipFilter(bool enable) {
         clipFilter->SetClipFunction(planeLeft.Get());
         // Insert at the end of the filter list
         filters.emplace_back(clipFilter);
-    } else if (std::find(filters.begin(), filters.end(), clipFilter) != filters.end()){
+    } else if (std::find(filters.begin(), filters.end(), clipFilter) != filters.end()) {
         // Remove the shrink filter from the filter list
         filters.erase(std::find(filters.begin(), filters.end(), clipFilter));
     }
@@ -392,3 +411,98 @@ void ModelWindow::handleChangePerspective() {
     // Re-render the model
     ui->qvtkWidget->GetRenderWindow()->Render();
 }
+
+void ModelWindow::updateStructure() {
+    vtkActorCollection *actors = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
+    auto *actor = (vtkActor *) actors->GetItemAsObject(0);
+    if (ui->wireframeStructRadioButton->isChecked()) {
+        actor->GetProperty()->SetRepresentationToWireframe();
+    } else if (ui->normalStructRadioButton->isChecked()) {
+        actor->GetProperty()->SetRepresentationToSurface();
+    } else if (ui->pointsStructRadioButton->isChecked()) {
+        actor->GetProperty()->SetRepresentationToPoints();
+    }
+    ui->qvtkWidget->GetRenderWindow()->Render();
+}
+
+void ModelWindow::handleGridlines() {
+    toggleGridlines(ui->gridLinesCheckBox->isChecked());
+}
+
+void ModelWindow::toggleGridlines(bool enable) {
+
+    vtkCubeAxesActor *cubeAxesActor = (vtkCubeAxesActor *) (ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor());
+
+    if (enable) {
+        cubeAxesActor->DrawXGridlinesOn();
+        cubeAxesActor->DrawYGridlinesOn();
+        cubeAxesActor->DrawZGridlinesOn();
+
+        cubeAxesActor->XAxisLabelVisibilityOn();
+        cubeAxesActor->XAxisTickVisibilityOn();
+        cubeAxesActor->XAxisVisibilityOn();
+
+        cubeAxesActor->YAxisLabelVisibilityOn();
+        cubeAxesActor->YAxisTickVisibilityOn();
+        cubeAxesActor->YAxisVisibilityOn();
+
+        cubeAxesActor->ZAxisLabelVisibilityOn();
+        cubeAxesActor->ZAxisTickVisibilityOn();
+        cubeAxesActor->ZAxisVisibilityOn();
+
+    } else {
+        cubeAxesActor->DrawXGridlinesOff();
+        cubeAxesActor->DrawYGridlinesOff();
+        cubeAxesActor->DrawZGridlinesOff();
+
+        cubeAxesActor->XAxisLabelVisibilityOff();
+        cubeAxesActor->XAxisTickVisibilityOff();
+        cubeAxesActor->XAxisVisibilityOff();
+
+        cubeAxesActor->YAxisLabelVisibilityOff();
+        cubeAxesActor->YAxisTickVisibilityOff();
+        cubeAxesActor->YAxisVisibilityOff();
+
+        cubeAxesActor->ZAxisLabelVisibilityOff();
+        cubeAxesActor->ZAxisTickVisibilityOff();
+        cubeAxesActor->ZAxisVisibilityOff();
+    }
+    ui->qvtkWidget->GetRenderWindow()->Render();
+}
+
+void ModelWindow::gridlinesInit() {
+    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
+    vtkColor3d axis1Color = colors->GetColor3d("Salmon");
+    vtkColor3d axis2Color = colors->GetColor3d("PaleGreen");
+    vtkColor3d axis3Color = colors->GetColor3d("LightSkyBlue");
+
+    vtkNew<vtkCubeAxesActor> cubeAxesActor;
+
+    cubeAxesActor->SetUseTextActor3D(1);
+    cubeAxesActor->SetBounds(
+            ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor()->GetBounds());
+    cubeAxesActor->SetCamera(
+            ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera());
+    cubeAxesActor->GetTitleTextProperty(0)->SetColor(axis1Color.GetData());
+    cubeAxesActor->GetTitleTextProperty(0)->SetFontSize(48);
+    cubeAxesActor->GetLabelTextProperty(0)->SetColor(axis1Color.GetData());
+
+    cubeAxesActor->GetTitleTextProperty(1)->SetColor(axis2Color.GetData());
+    cubeAxesActor->GetLabelTextProperty(1)->SetColor(axis2Color.GetData());
+
+    cubeAxesActor->GetTitleTextProperty(2)->SetColor(axis3Color.GetData());
+    cubeAxesActor->GetLabelTextProperty(2)->SetColor(axis3Color.GetData());
+
+    cubeAxesActor->SetGridLineLocation(cubeAxesActor->VTK_GRID_LINES_FURTHEST);
+    cubeAxesActor->SetFlyModeToStaticEdges();
+
+    cubeAxesActor->XAxisMinorTickVisibilityOff();
+    cubeAxesActor->YAxisMinorTickVisibilityOff();
+    cubeAxesActor->ZAxisMinorTickVisibilityOff();
+
+    ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->AddActor(cubeAxesActor);
+
+    toggleGridlines(false);
+}
+
+
