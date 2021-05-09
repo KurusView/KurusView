@@ -202,6 +202,9 @@ Resolving user defined refere/home/travis/build/KurusView/2020_GROUP_21/include/
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:82: warning: Member getStatistics() (slot) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:41: warning: Member gridlinesInit(View *view) (function) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:43: warning: Member addViewToFrame(View *view) (function) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:32: warning: argument 'filePath' of command @param is not found in the argument list of ModelWindow::ModelWindow(std::vector< QString > &filePaths, QWidget *parent=nullptr)
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:37: warning: The following parameters of ModelWindow::ModelWindow(std::vector< QString > &filePaths, QWidget *parent=nullptr) are not documented:
+  parameter 'filePaths'
 /home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:137: warning: Member operator[](int index) const  (function) of class MVector is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:139: warning: Member operator==(const MVector &v) const  (function) of class MVector is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:141: warning: Member operator!=(const MVector &v) const  (function) of class MVector is not documented.
