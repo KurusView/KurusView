@@ -34,7 +34,7 @@ public:
      * @param parent
      * @see Model | Model
      */
-    explicit ModelWindow(const QString &filePath, QWidget *parent = nullptr);
+    explicit ModelWindow(std::vector<QString> &filePaths, QWidget *parent = nullptr);
 
     ~ModelWindow() override;
 

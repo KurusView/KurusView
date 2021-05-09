@@ -89,7 +89,11 @@ ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv),
         return;
     }
 
-    modelWindows.push_back(std::make_shared<ModelWindow>(QString(argv[1])));
+    std::vector<QString> filePaths;
+    for (int i = 1; i < argc; ++i) {
+        filePaths.emplace_back(argv[i]);
+    }
+    modelWindows.push_back(std::make_shared<ModelWindow>(filePaths));
 }
 
 // live dark/light mode change

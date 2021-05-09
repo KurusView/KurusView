@@ -45,8 +45,8 @@
 #include <vtkCenterOfMass.h>
 
 
-ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow(parent), ui(new Ui::ModelWindow),
-                                                                     currentModelFilePath(filePath) {
+ModelWindow::ModelWindow(std::vector<QString> &filePaths, QWidget *parent) : QMainWindow(parent),
+                                                                             ui(new Ui::ModelWindow) {
     //TODO: Make sure the model is properly initialized before loading the window
     // standard call to setup Qt UI (same as previously)
     ui->setupUi(this);
@@ -91,10 +91,10 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     //Measurement button
     connect(ui->measurementButton, &QPushButton::released, this, &ModelWindow::handleMeasurment);
 
-    addViewToFrame(new View("red", "models/airbus_a400m.stl", parent));
-    addViewToFrame(new View("blue", "models/a-10-thunderbolt-mk2.stl", parent));
-    addViewToFrame(new View("cyan", "models/ExampleModel2.mod", parent));
-    addViewToFrame(new View("magenta", "models/ExampleModel3.mod", parent));
+    QString borderColors[4] = {"red", "blue", "cyan", "magenta"};
+    for (int i = 0; i < filePaths.size() && i < 4; ++i) {
+        addViewToFrame(new View(borderColors[i], filePaths[i], parent));
+    }
 
     for (auto &view : views) {
         setActiveView(view);
@@ -283,7 +283,7 @@ void ModelWindow::handleChangePerspective() {
 
 void ModelWindow::viewActive(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
-        setActiveView((View *) (((QVTKOpenGLWidget *) sender())->parentWidget()));
+        setActiveView((View * )(((QVTKOpenGLWidget *) sender())->parentWidget()));
     }
 }
 
@@ -416,11 +416,11 @@ void ModelWindow::addViewToFrame(View *view) {
     // Store previous views.
     views.push_back(view);
 
-    // fiting matrix
+    // fitting matrix
     static unsigned short int fm[4][4] = {
-            {0, 0, 2, 1},   /*  row, column, rowSpan, columnSpan of first inserted */
-            {0, 1, 2, 1},   /*  row, column, rowSpan, columnSpan of second inserted */
-            {1, 0, 1, 2},   /*  row, column, rowSpan, columnSpan of third inserted */
+            {0, 0, 1, 1},   /*  row, column, rowSpan, columnSpan of first inserted */
+            {0, 1, 1, 1},   /*  row, column, rowSpan, columnSpan of second inserted */
+            {0, 1, 2, 1},   /*  row, column, rowSpan, columnSpan of third inserted */
             {1, 1, 1, 1},   /*  row, column, rowSpan, columnSpan of fourth inserted */
     };
 
@@ -433,14 +433,11 @@ void ModelWindow::addViewToFrame(View *view) {
     // be called again on the same widget to achieve the same affect, because re-adding a widget to the same layout
     // always implicitly removes it first.
 
-    if (avc == 3) {
-        ui->viewFrame->addWidget(views[0], 0, 0, 1, 1);
-        ui->viewFrame->addWidget(views[1], 0, 1, 1, 1);
-    }
+    if (avc == 3)
+        ui->viewFrame->addWidget(views[1], 1, 0, 1, 1);
 
-    if (avc == 4) {
-        ui->viewFrame->addWidget(views[2], 1, 0, 1, 1);
-    }
+    if (avc == 4)
+        ui->viewFrame->addWidget(views[2], 0, 1, 1, 1);
 }
 
 void ModelWindow::getStatistics() {
