@@ -8,6 +8,7 @@
 #include "MVector.h"
 #include <vtkSmartPointer.h>
 #include <vtkAlgorithm.h>
+#include <vtkSTLReader.h>
 
 /**
  * @brief Model - This object is responsible for reading and writing model entities to VTK style data files
@@ -22,6 +23,7 @@ private:
     std::vector<std::shared_ptr<Material>> materials;
     /** @brief vtkModel - Unstructured grid containing all the cells of the model */
     vtkSmartPointer<vtkAlgorithm> vtkModel;
+
 
 public:
     /**
@@ -87,6 +89,8 @@ public:
     double calcWeight();
 
     std::string fileType;
+
+    vtkSmartPointer<vtkSTLReader> STLModel;
 };
 
 

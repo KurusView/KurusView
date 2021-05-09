@@ -252,7 +252,7 @@ vtkSmartPointer<vtkAlgorithm> Model::getVTKModel() {
 }
 
 void Model::loadSTLModel(const std::string &filePath) {
-    vtkSmartPointer<vtkSTLReader> STLModel = vtkSmartPointer<vtkSTLReader>::New();
+    STLModel = vtkSmartPointer<vtkSTLReader>::New();
     STLModel->SetFileName(filePath.c_str());
     STLModel->Update();
     vtkModel = STLModel;

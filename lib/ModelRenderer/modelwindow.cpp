@@ -1,4 +1,5 @@
 #include "Model.h"
+#include "MVector.h"
 #include <vtkActor.h>
 #include <vtkProperty.h>
 #include <vtkCamera.h>
@@ -39,6 +40,9 @@
 #include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkTextProperty.h>
+#include <vtkTriangleFilter.h>
+#include <vtkMassProperties.h>
+#include <vtkCenterOfMass.h>
 
 
 ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow(parent), ui(new Ui::ModelWindow),
@@ -440,19 +444,54 @@ void ModelWindow::addViewToFrame(View *view) {
 }
 
 void ModelWindow::getStatistics() {
-    activeView->numOfCells = activeView->model.displayCells();
-    activeView->centreOfGrav = activeView->model.calcCentre();
-    activeView->weight = activeView->model.calcWeight();
-    activeView->volume = activeView->model.calcVolume();
-    activeView->density = activeView->weight / activeView->volume;
+    if (activeView->model.fileType == "mod") {
+        activeView->numOfCells = activeView->model.displayCells();
+        activeView->centreOfGrav = activeView->model.calcCentre();
+        activeView->weight = activeView->model.calcWeight();
+        activeView->volume = activeView->model.calcVolume();
+        activeView->density = activeView->weight / activeView->volume;
 
-    ui->numOfCellsLabel->setText(QString::number(activeView->numOfCells));
-    ui->centreOfGravLabel->setText("X: " + QString::number(activeView->centreOfGrav.getX()) + "\nY: " +
-                                   QString::number(activeView->centreOfGrav.getY()) + "\nZ: " +
-                                   QString::number(activeView->centreOfGrav.getZ()));
-    ui->weightLabel->setText(QString::number(activeView->weight));
-    ui->volumeLabel->setText(QString::number(activeView->volume));
-    ui->densityLabel->setText(QString::number(activeView->density));
+        ui->numOfCellsLabel->setText(QString::number(activeView->numOfCells));
+        ui->centreOfGravLabel->setText("X: " + QString::number(activeView->centreOfGrav.getX()) + "\nY: " +
+                                       QString::number(activeView->centreOfGrav.getY()) + "\nZ: " +
+                                       QString::number(activeView->centreOfGrav.getZ()));
+        ui->weightLabel->setText(QString::number(activeView->weight));
+        ui->volumeLabel->setText(QString::number(activeView->volume));
+        ui->densityLabel->setText(QString::number(activeView->density));
+    } else if (activeView->model.fileType == "stl") {
+        vtkSmartPointer<vtkTriangleFilter> triFilter = vtkSmartPointer<vtkTriangleFilter>::New();
+        triFilter->SetInputData(activeView->model.STLModel->GetOutput());
+        triFilter->Update();
+
+        vtkSmartPointer<vtkMassProperties> massProp = vtkSmartPointer<vtkMassProperties>::New();
+        massProp->SetInputData(triFilter->GetOutput());
+        double volume = massProp->GetVolume();
+
+        double center[3];
+        vtkSmartPointer<vtkCenterOfMass> centreOfMass = vtkSmartPointer<vtkCenterOfMass>::New();
+        centreOfMass->SetInputData(triFilter->GetOutput());
+        centreOfMass->GetCenter(center);
+        centreOfMass->Update();
+        MVector centreOfGrav(center[0], center[1], center[2]);
+
+
+        unsigned long numOfCells = activeView->model.STLModel->GetOutputDataObject(0)->GetNumberOfElements(
+                vtkDataObject::CELL);
+
+        activeView->volume = volume;
+        activeView->centreOfGrav = centreOfGrav;
+        activeView->numOfCells = numOfCells;
+
+        ui->volumeLabel->setText(QString::number(activeView->volume));
+        ui->centreOfGravLabel->setText("X: " + QString::number(activeView->centreOfGrav.getX()) + "\nY: " +
+                                       QString::number(activeView->centreOfGrav.getY()) + "\nZ: " +
+                                       QString::number(activeView->centreOfGrav.getZ()));
+        ui->numOfCellsLabel->setText(QString::number(activeView->numOfCells));
+        ui->weightLabel->setText("-");
+        ui->densityLabel->setText("-");
+
+
+    }
 }
 
 
