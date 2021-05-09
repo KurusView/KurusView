@@ -9,6 +9,7 @@ namespace Ui {
     class WelcomeWindow;
 }
 class QFrame;
+
 class WelcomeWindow : public QMainWindow {
 Q_OBJECT
 
@@ -26,9 +27,11 @@ private:
     QStringListModel *model;
     const int maxFileNr;
     QSettings settings;
-    QImage *img = new QImage("../../Icons/fileopen.png");
+    QImage *img = new QImage(":/Icons/kurusview.png");
     QPixmap p = QPixmap::fromImage(*img);
-    QFrame *CreateNewRow(int number, QString title, QString subtitle, QString mouseReleaseValue, int generalFontSize=18);
+
+    QFrame *
+    CreateNewRow(int number, QString title, QString subtitle, QString mouseReleaseValue, int generalFontSize = 18);
 
 
 public slots:

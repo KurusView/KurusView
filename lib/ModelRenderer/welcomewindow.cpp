@@ -13,57 +13,35 @@ WelcomeWindow::WelcomeWindow(QWidget *parent) :
         ui(new Ui::WelcomeWindow),
         maxFileNr(10),
         settings(QDir::currentPath() + "/kurusview.ini", QSettings::IniFormat) {
+
     ui->setupUi(this);
-
-//    std::vector<QFrame*> row;
-////    int numberOfFiles = recentFilePaths.size();
-//    for (int i = 0; i <recentFilePaths.size(); i++){
-//        row.push_back(CreateNewRow((i+1), "First row", recentFilePaths[i], "row_1"));
-//        mainLayout->addWidget(row[i], i, 0);
-//    }
-
 
     settings.sync();
     recentFilePaths = settings.value("recentFiles").value<QStringList>();
 
-
-
-    QGridLayout *mainLayout = new QGridLayout();
+    auto *mainLayout = new QGridLayout();
 
     // reserve 25
     mainLayout->setRowStretch(25, 25);
 
+    // populate recents list
     size_t row = 0;
     for (auto &recent : recentFilePaths) {
-        QFrame *entry = CreateNewRow(row +1, "file name", recent, "row_1");
+        QFileInfo fi(recent);
+
+        QFrame *entry = CreateNewRow(row + 1, fi.fileName(), fi.filePath(), "row_1");
 
         mainLayout->addWidget(entry, row, 0);
 
         row++;
     }
 
-    //QFrame *row1 = CreateNewRow(1, "First row", "First subtitle row", "row_1");
-    //QFrame *row2 = CreateNewRow(2, "Second row", "Second subtitle row", "row_2");
-
-    // All rows no stretch
-    // Not sure about the magic numbers, but it works..
-//    mainLayout->addWidget(row1, 0, 0);
-//    mainLayout->addWidget(row2, 1, 0);
-
-
-//    model = new QStringListModel(this);
-//
-//    ui->recentListView->setModel(model);
-
     // Connect the signal to the
     connect(ui->openPushButton, &QPushButton::released, this, &WelcomeWindow::handleOpenButton);
     connect(ui->aboutPushButton, &QPushButton::released, this, &WelcomeWindow::handleAboutButton);
     // Connect a double click for the listView.
-//    connect(ui->recentListView, SIGNAL(QAbstractItemV), this, &WelcomWindow::);
+    //connect(ui->recentListView, SIGNAL(QAbstractItemV), this, &WelcomWindow::);
 
-//    settings.sync();
-//    recentFilePaths = settings.value("recentFiles").value<QStringList>();
-//    model->setStringList(recentFilePaths);
     ui->frame->setLayout(mainLayout);
 }
 
@@ -94,46 +72,50 @@ void WelcomeWindow::addToRecentFiles(QString &inputFileName) {
 
     // Remove the file just opened from the list - so there won't be any duplicates in the
     recentFilePaths.removeAll(currFile);
-    recentFileNames. removeAll(inputFileName);
+    recentFileNames.removeAll(inputFileName);
     // Add the file just opened to the front of the list
     recentFilePaths.prepend(currFile);
     recentFilePaths.prepend(inputFileName);
     // Remove last the last files in the list, if the list is greater than the maximum number of files.
-    while (recentFilePaths.size() > maxFileNr){
+    while (recentFilePaths.size() > maxFileNr) {
         recentFilePaths.removeLast();
         recentFileNames.removeLast();
     }
-
 
     settings.setValue("recentFiles", recentFilePaths);
     settings.sync();
 }
 
-QFrame* WelcomeWindow::CreateNewRow(int number, QString title, QString subtitle, QString mouseReleaseValue, int generalFontSize)
-{
-    QString styleFrame = QString("*:hover {background: #F6F6F6;}");
+// https://stackoverflow.com/a/61043869
+QFrame *WelcomeWindow::CreateNewRow(int number, QString title, QString subtitle, QString mouseReleaseValue,
+                                    int generalFontSize) {
+    QString styleFrame = QString("*:hover {background: GhostWhite;}");
     QString styleNumber = QString("font-size: %1px; color: #8B8D8F;").arg(qRound(generalFontSize * 0.7));
-    QString styleTitle = QString("font-size: %1px; color: #5CAA15;").arg(generalFontSize);
+    QString styleTitle = QString("font-size: %1px; color: RosyBrown;").arg(generalFontSize);
     QString styleSubtitle = QString("font-size: %1px; color: #8B8D8F;").arg(qRound(generalFontSize * 0.7));
 
-    QFrame *frame = new QFrame();
+    auto *frame = new QFrame();
     frame->setStyleSheet(styleFrame);
     frame->setCursor(Qt::PointingHandCursor);
     frame->installEventFilter(this);
     frame->setProperty("mouseReleaseValue", mouseReleaseValue);
 
-    QLabel *imgDisplayLabel = new QLabel("");
-    imgDisplayLabel->setPixmap(p.scaled(generalFontSize, generalFontSize, Qt::KeepAspectRatio));
+    auto *imgDisplayLabel = new QLabel("");
+    imgDisplayLabel->setPixmap(p.scaled(generalFontSize * 2.5, generalFontSize * 2.5, Qt::KeepAspectRatio));
     imgDisplayLabel->adjustSize();
     imgDisplayLabel->setContentsMargins(5, 0, 10, 0);
 
-    QGridLayout *layout= new QGridLayout(frame);
+    auto *layout = new QGridLayout(frame);
     // All rows no stretch
-    layout->setColumnStretch(25, 25);
+    layout->setColumnStretch(10, 10);
+    layout->setHorizontalSpacing(0);
+    layout->setSpacing(0);
+    layout->setVerticalSpacing(0);
+    //layout->setMargin(0);
 
-    QLabel *labelNumber = new QLabel(QString::number(number));
-    QLabel *labelTitle = new QLabel(title);
-    QLabel *labelSubtitle = new QLabel(subtitle);
+    auto *labelNumber = new QLabel(QString::number(number));
+    auto *labelTitle = new QLabel(title);
+    auto *labelSubtitle = new QLabel(subtitle);
 
     labelNumber->setStyleSheet(styleNumber);
     labelTitle->setStyleSheet(styleTitle);
@@ -147,10 +129,9 @@ QFrame* WelcomeWindow::CreateNewRow(int number, QString title, QString subtitle,
     return frame;
 }
 
-bool WelcomeWindow::eventFilter(QObject *obj, QEvent *event)
-{
+bool WelcomeWindow::eventFilter(QObject *obj, QEvent *event) {
     if (event->type() == QEvent::MouseButtonRelease) {
-        QMouseEvent* mouseEvent = static_cast<QMouseEvent*> (event);
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent *> (event);
         if (mouseEvent->button() == Qt::LeftButton) {
             QString prop = obj->property("mouseReleaseValue").toString();
             QMessageBox msgBox;
