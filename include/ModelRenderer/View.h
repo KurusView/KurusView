@@ -34,11 +34,25 @@ public:
 
     View(const QString &borderColor, const QString &filePath, QWidget *parent = nullptr);
 
+    virtual ~View();
+
     void buildChain();
 
     void toggleShrinkFilter(bool enable);
 
     void toggleClipFilter(bool enable);
+
+    // return instance count
+    static double getCount();
+
+
+private:
+
+    /**
+     *  @brief holds count of view windows
+     *  @internal used to set fitting format and limit the number of views to 4
+     */
+    static unsigned short int ViewInstanceCount;
 };
 
 

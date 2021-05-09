@@ -17,8 +17,16 @@
 
 #include "View.h"
 
+
+// set default instance count
+unsigned short int View::ViewInstanceCount = 0;
+
 View::View(const QString &borderColor, const QString &filePath, QWidget *parent) : QWidget(parent),
                                                                                    model(filePath.toStdString()) {
+
+    //increment instance count
+    ViewInstanceCount++;
+
     this->borderColor = borderColor;
     // Setup layout
 //    setFrameShape(QFrame::StyledPanel);
@@ -117,4 +125,13 @@ void View::toggleClipFilter(bool enable) {
         // Remove the shrink filter from the filter list
         filters.erase(std::find(filters.begin(), filters.end(), clipFilter));
     }
+}
+
+View::~View() {
+    //decrement instance count
+    ViewInstanceCount++;
+}
+
+double View::getCount() {
+    return View::ViewInstanceCount;
 }

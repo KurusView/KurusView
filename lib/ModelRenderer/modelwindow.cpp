@@ -102,6 +102,8 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
 
     setActiveView(views[0]);
 
+    std::cout << View::getCount();
+
     show();
 }
 
