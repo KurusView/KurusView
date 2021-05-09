@@ -19,6 +19,9 @@
 
 #include <QFileDialog>
 #include <QColorDialog>
+#include <vtkNew.h>
+#include <vtkAxesActor.h>
+#include <vtkOrientationMarkerWidget.h>
 
 #include "modelwindow.h"
 #include "ui_modelwindow.h"
@@ -46,78 +49,59 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     connect(ui->shrinkPushButton, &QPushButton::released, this, &ModelWindow::updateFilters);
     connect(ui->resetFiltersPushButton, &QPushButton::released, this, &ModelWindow::updateFilters);
 
-    // Now need to create a VTK render window and link it to the QtVTK widget
-    vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
-
-    // note that vtkWidget is the name I gave to my QtVTKOpenGLWidget in Qt creator
-    ui->qvtkWidget->SetRenderWindow(renderWindow);
-
-    // Initialize filters
-    clipFilter = vtkSmartPointer<vtkClipDataSet>::New();
-    shrinkFilter = vtkSmartPointer<vtkShrinkFilter>::New();
-
-    // viewFrame is the parent class of qvtkWidget
-    ui->viewFrame->setStyleSheet("*{border-width: 3 ;border-style:solid;border-color: #ff0000;}");
-
-    //TODO: User input of filepath for both .mod and .stl and have logic to decide between each
-
-    // Create a mapper that will hold the object's geometry in a format suitable for rendering
-    mapper = vtkSmartPointer<vtkDataSetMapper>::New();
-
-    mapper->SetInputData(dynamic_cast<vtkDataSet *>(currentModel.getVTKModel()->GetOutputDataObject(0)));
-
-    // Create an actor that is used to set the object's properties for rendering and place it in the window
-    vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
-    actor->SetMapper(mapper);
-
-    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
-    actor->GetProperty()->SetColor(colors->GetColor3d("Red").GetData());
-
-    // Create a renderer, and render window
-    vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
-
-    //vtkSmartPointer<vtkRenderWindow> renderWindow = vtkSmartPointer<vtkRenderWindow>::New();
-    ui->qvtkWidget->GetRenderWindow()->AddRenderer(renderer); // ### ask the QtVTKOpenGLWidget for its renderWindow ###
-
-    // Add the actor to the scene
-    renderer->AddActor(actor);
-    renderer->SetBackground(colors->GetColor3d("Silver").GetData());
-
-    // Setup the renderers's camera
-    renderer->ResetCamera();
-    renderer->GetActiveCamera()->Azimuth(30);
-    renderer->GetActiveCamera()->Elevation(30);
-    renderer->ResetCameraClippingRange();
-
-    vtkSmartPointer<vtkLight> light = vtkSmartPointer<vtkLight>::New();
-    light->SetLightTypeToSceneLight();
-    light->SetPosition(5, 5, 15);
-    // light->SetPositional(true);
-    light->SetConeAngle(80);
-    light->SetFocalPoint(0, 0, 0);
-    light->SetDiffuseColor(1, 1, 1);
-    light->SetAmbientColor(1, 1, 1);
-    light->SetSpecularColor(1, 1, 1);
-    light->SetIntensity(0.5);
-    renderer->AddLight(light);
-
-    // Rebuild pipeline Source -> Filters -> Mapper
-    buildChain();
-    // Re-render
-    ui->qvtkWidget->GetRenderWindow()->Render();
-
-    show();
-
-    // colour group
+    // Colour group slots
     connect(ui->backgroundColourPushButton, &QPushButton::released, this, &ModelWindow::handleBackgroundColor);
     connect(ui->modelColourPushButton, &QPushButton::released, this, &ModelWindow::handleModelColor);
     connect(ui->resetColoursPushButton, &QPushButton::released, this, &ModelWindow::handleResetColor);
 
-    // lightning group
+    // Lighting group slots
     connect(ui->lightIntensitySlider, &QSlider::valueChanged, this, &ModelWindow::handleLightIntensitySlider);
     connect(ui->lightOpacitySlider, &QSlider::valueChanged, this, &ModelWindow::mux_handleLightActorSlider);
     connect(ui->lightSpecularitySlider, &QSlider::valueChanged, this, &ModelWindow::mux_handleLightActorSlider);
     connect(ui->resetLightingPushButton, &QPushButton::released, this, &ModelWindow::handleResetLighting);
+
+    // Now need to create a VTK render window and link it to the QtVTK widget
+    vtkNew<vtkGenericOpenGLRenderWindow> renderWindow; //  why not vtkRenderWindow
+
+    ui->qvtkWidget->SetRenderWindow(renderWindow);
+
+    // Define viewport ranges.
+    double xmins[4] = {0, .5, 0, .5};
+    double xmaxs[4] = {0.5, 1, 0.5, 1};
+    double ymins[4] = {0, 0, .5, .5};
+    double ymaxs[4] = {0.5, 0.5, 1, 1};
+    // Have some fun with colors.
+    vtkNew<vtkNamedColors> colors;
+    std::vector<std::string> renBkg{"AliceBlue", "GhostWhite", "WhiteSmoke", "Seashell"};
+    std::vector<std::string> actorColor{"Bisque", "RosyBrown", "Goldenrod", "Chocolate"};
+
+    for (unsigned i = 0; i < 4; i++) {
+        vtkNew<vtkRenderer> renderer;
+
+        renderWindow->AddRenderer(renderer);
+        renderer->SetViewport(xmins[i], ymins[i], xmaxs[i], ymaxs[i]);
+
+        // Create a mapper and actor.
+        vtkSmartPointer<vtkDataSetMapper> _mapper = vtkSmartPointer<vtkDataSetMapper>::New();
+
+        _mapper->SetInputData(dynamic_cast<vtkDataSet *>(currentModel.getVTKModel()->GetOutputDataObject(0)));
+        vtkNew<vtkActor> actor;
+        actor->SetMapper(_mapper);
+        actor->GetProperty()->SetColor(colors->GetColor3d(actorColor[i]).GetData());
+
+        renderer->AddActor(actor);
+        renderer->SetBackground(colors->GetColor3d(renBkg[i]).GetData());
+
+        renderer->ResetCamera();
+    }
+
+    //renderWindow->Render();
+    //renderWindow->SetWindowName("MultipleViewPorts");
+    //renderWindow->SetSize(600, 600);
+
+    ui->qvtkWidget->GetRenderWindow()->Render();
+
+    show();
 }
 
 ModelWindow::~ModelWindow() {
@@ -243,9 +227,9 @@ void ModelWindow::updateFilters() {
     // Check which button called this slot
     QObject *senderObj = sender();
 
-    if (senderObj == ui->clipPushButton){
+    if (senderObj == ui->clipPushButton) {
         toggleClipFilter(ui->clipPushButton->isChecked());
-    } else if(senderObj == ui->shrinkPushButton){
+    } else if (senderObj == ui->shrinkPushButton) {
         toggleShrinkFilter(ui->shrinkPushButton->isChecked());
     } else if (senderObj == ui->resetFiltersPushButton) {
         ui->clipPushButton->setChecked(false);
@@ -285,7 +269,7 @@ void ModelWindow::buildChain() {
     mapper->SetInputData(dynamic_cast<vtkDataSet *>(filters[1]->GetOutputDataObject(0)));
 }
 
-void ModelWindow::toggleShrinkFilter(bool enable){
+void ModelWindow::toggleShrinkFilter(bool enable) {
     if (enable) {
         // TODO: Dialog Box asking for shrink value
         // Shrinks to 50%
@@ -306,7 +290,7 @@ void ModelWindow::toggleClipFilter(bool enable) {
         clipFilter->SetClipFunction(planeLeft.Get());
         // Insert at the end of the filter list
         filters.emplace_back(clipFilter);
-    } else if (std::find(filters.begin(), filters.end(), clipFilter) != filters.end()){
+    } else if (std::find(filters.begin(), filters.end(), clipFilter) != filters.end()) {
         // Remove the shrink filter from the filter list
         filters.erase(std::find(filters.begin(), filters.end(), clipFilter));
     }
