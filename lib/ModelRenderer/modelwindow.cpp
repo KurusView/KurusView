@@ -335,7 +335,7 @@ void ModelWindow::setActiveView(View *newActiveView) {
 
 
 void ModelWindow::updateStructure() {
-    vtkActorCollection *actors = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
+    vtkActorCollection *actors = activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
     auto *actor = (vtkActor *) actors->GetItemAsObject(0);
     if (ui->wireframeStructRadioButton->isChecked()) {
         actor->GetProperty()->SetRepresentationToWireframe();
@@ -344,7 +344,7 @@ void ModelWindow::updateStructure() {
     } else if (ui->pointsStructRadioButton->isChecked()) {
         actor->GetProperty()->SetRepresentationToPoints();
     }
-    ui->qvtkWidget->GetRenderWindow()->Render();
+    activeView->qVTKWidget->GetRenderWindow()->Render();
 }
 
 void ModelWindow::handleGridlines() {
@@ -353,7 +353,7 @@ void ModelWindow::handleGridlines() {
 
 void ModelWindow::toggleGridlines(bool enable) {
 
-    vtkCubeAxesActor *cubeAxesActor = (vtkCubeAxesActor *) (ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor());
+    vtkCubeAxesActor *cubeAxesActor = (vtkCubeAxesActor *) (activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor());
 
     if (enable) {
         cubeAxesActor->DrawXGridlinesOn();
@@ -389,7 +389,7 @@ void ModelWindow::toggleGridlines(bool enable) {
         cubeAxesActor->ZAxisTickVisibilityOff();
         cubeAxesActor->ZAxisVisibilityOff();
     }
-    ui->qvtkWidget->GetRenderWindow()->Render();
+    activeView->qVTKWidget->GetRenderWindow()->Render();
 }
 
 void ModelWindow::gridlinesInit() {
@@ -402,9 +402,9 @@ void ModelWindow::gridlinesInit() {
 
     cubeAxesActor->SetUseTextActor3D(1);
     cubeAxesActor->SetBounds(
-            ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor()->GetBounds());
+            activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor()->GetBounds());
     cubeAxesActor->SetCamera(
-            ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera());
+            activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera());
     cubeAxesActor->GetTitleTextProperty(0)->SetColor(axis1Color.GetData());
     cubeAxesActor->GetTitleTextProperty(0)->SetFontSize(48);
     cubeAxesActor->GetLabelTextProperty(0)->SetColor(axis1Color.GetData());
@@ -422,7 +422,7 @@ void ModelWindow::gridlinesInit() {
     cubeAxesActor->YAxisMinorTickVisibilityOff();
     cubeAxesActor->ZAxisMinorTickVisibilityOff();
 
-    ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->AddActor(cubeAxesActor);
+    activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->AddActor(cubeAxesActor);
 
     toggleGridlines(false);
 }
@@ -431,7 +431,7 @@ void ModelWindow::handleMeasurment() {
     if (ui->measurementButton->isChecked()) {
         ui->lightOpacitySlider->setValue(25);
         distanceWidget = vtkDistanceWidget::New();
-        distanceWidget->SetInteractor(ui->qvtkWidget->GetRenderWindow()->GetInteractor());
+        distanceWidget->SetInteractor(activeView->qVTKWidget->GetRenderWindow()->GetInteractor());
         vtkSmartPointer<vtkDistanceRepresentation3D> representation = vtkDistanceRepresentation3D::New();
         distanceWidget->SetRepresentation(representation);
         distanceWidget->SetPriority(0.9);
