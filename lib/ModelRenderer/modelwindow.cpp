@@ -46,6 +46,12 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     connect(ui->shrinkPushButton, &QPushButton::released, this, &ModelWindow::updateFilters);
     connect(ui->resetFiltersPushButton, &QPushButton::released, this, &ModelWindow::updateFilters);
 
+    // Structure Button Slots
+    connect(ui->wireframeStructRadioButton, &QRadioButton::toggled, this, &ModelWindow::updateStructure);
+    connect(ui->pointsStructRadioButton, &QRadioButton::toggled, this, &ModelWindow::updateStructure);
+    connect(ui->normalStructRadioButton, &QRadioButton::toggled, this, &ModelWindow::updateStructure);
+
+
     // Now need to create a VTK render window and link it to the QtVTK widget
     vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
 
@@ -243,9 +249,9 @@ void ModelWindow::updateFilters() {
     // Check which button called this slot
     QObject *senderObj = sender();
 
-    if (senderObj == ui->clipPushButton){
+    if (senderObj == ui->clipPushButton) {
         toggleClipFilter(ui->clipPushButton->isChecked());
-    } else if(senderObj == ui->shrinkPushButton){
+    } else if (senderObj == ui->shrinkPushButton) {
         toggleShrinkFilter(ui->shrinkPushButton->isChecked());
     } else if (senderObj == ui->resetFiltersPushButton) {
         ui->clipPushButton->setChecked(false);
@@ -285,7 +291,7 @@ void ModelWindow::buildChain() {
     mapper->SetInputData(dynamic_cast<vtkDataSet *>(filters[1]->GetOutputDataObject(0)));
 }
 
-void ModelWindow::toggleShrinkFilter(bool enable){
+void ModelWindow::toggleShrinkFilter(bool enable) {
     if (enable) {
         // TODO: Dialog Box asking for shrink value
         // Shrinks to 50%
@@ -306,7 +312,7 @@ void ModelWindow::toggleClipFilter(bool enable) {
         clipFilter->SetClipFunction(planeLeft.Get());
         // Insert at the end of the filter list
         filters.emplace_back(clipFilter);
-    } else if (std::find(filters.begin(), filters.end(), clipFilter) != filters.end()){
+    } else if (std::find(filters.begin(), filters.end(), clipFilter) != filters.end()) {
         // Remove the shrink filter from the filter list
         filters.erase(std::find(filters.begin(), filters.end(), clipFilter));
     }
@@ -379,3 +385,16 @@ void ModelWindow::handleChangePerspective() {
     // Re-render the model
     ui->qvtkWidget->GetRenderWindow()->Render();
 }
+
+void ModelWindow::updateStructure() {
+    if (ui->wireframeStructRadioButton->isChecked()) {
+        ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor()->GetProperty()->SetRepresentationToWireframe();
+    } else if (ui->normalStructRadioButton->isChecked()) {
+        ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor()->GetProperty()->SetRepresentationToSurface();
+    } else if (ui->pointsStructRadioButton->isChecked()) {
+        ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor()->GetProperty()->SetRepresentationToPoints();
+    }
+    ui->qvtkWidget->GetRenderWindow()->Render();
+}
+
+

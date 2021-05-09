@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1071</width>
-    <height>681</height>
+    <height>691</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,8 +34,14 @@
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
             <widget class="QRadioButton" name="normalStructRadioButton">
+             <property name="whatsThis">
+              <string extracomment="Displays the surface of the model"/>
+             </property>
              <property name="text">
               <string>Normal</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
              </property>
             </widget>
            </item>

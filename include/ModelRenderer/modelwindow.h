@@ -62,8 +62,12 @@ public slots:
     void handleLightIntensitySlider(int position);
 
     void mux_handleLightActorSlider(int position);
+
     void handleChangePerspective();
+
     void updateFilters();
+
+    void updateStructure();
 };
 
 
