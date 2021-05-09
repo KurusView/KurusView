@@ -18,6 +18,10 @@
 #include <math.h>
 
 #include <QFileDialog>
+#include <vtkPointHandleRepresentation3D.h>
+#include <vtkDistanceRepresentation3D.h>
+#include <vtkDistanceWidget.h>
+#include <QVTKWidget.h>
 #include <QColorDialog>
 #include <QApplication>
 #include <QScreen>
@@ -26,6 +30,15 @@
 #include "View.h"
 #include "modelwindow.h"
 #include "ui_modelwindow.h"
+#include <vtkCubeAxesActor.h>
+#include <vtkOrientationMarkerWidget.h>
+
+#include <vtkActorCollection.h>
+#include <vtkColor.h>
+#include <vtkCubeAxesActor.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkTextProperty.h>
 
 ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow(parent), ui(new Ui::ModelWindow),
                                                                      currentModelFilePath(filePath) {
@@ -59,11 +72,20 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     connect(ui->modelColourPushButton, &QPushButton::released, this, &ModelWindow::handleModelColor);
     connect(ui->resetColoursPushButton, &QPushButton::released, this, &ModelWindow::handleResetColor);
 
+    // Structure Button Slots
+    connect(ui->wireframeStructRadioButton, &QRadioButton::toggled, this, &ModelWindow::updateStructure);
+    connect(ui->pointsStructRadioButton, &QRadioButton::toggled, this, &ModelWindow::updateStructure);
+    connect(ui->normalStructRadioButton, &QRadioButton::toggled, this, &ModelWindow::updateStructure);
+    connect(ui->gridLinesCheckBox, &QCheckBox::stateChanged, this, &ModelWindow::handleGridlines);
+
     // Lighting group slots
     connect(ui->lightIntensitySlider, &QSlider::valueChanged, this, &ModelWindow::handleLightIntensitySlider);
     connect(ui->lightOpacitySlider, &QSlider::valueChanged, this, &ModelWindow::mux_handleLightActorSlider);
     connect(ui->lightSpecularitySlider, &QSlider::valueChanged, this, &ModelWindow::mux_handleLightActorSlider);
     connect(ui->resetLightingPushButton, &QPushButton::released, this, &ModelWindow::handleResetLighting);
+
+    //Measurement button
+    connect(ui->measurementButton, &QPushButton::released, this, &ModelWindow::handleMeasurment);
 
     views.push_back(new View("#ff0000", "models/airbus_a400m.stl", parent));
     views.push_back(new View("#00ff00", "models/a-10-thunderbolt-mk2.stl", parent));
@@ -80,6 +102,8 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     setActiveView(views[0]);
 
     show();
+
+    gridlinesInit();
 }
 
 ModelWindow::~ModelWindow() {
@@ -308,3 +332,116 @@ void ModelWindow::setActiveView(View *newActiveView) {
         }
     }
 }
+
+
+void ModelWindow::updateStructure() {
+    vtkActorCollection *actors = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
+    auto *actor = (vtkActor *) actors->GetItemAsObject(0);
+    if (ui->wireframeStructRadioButton->isChecked()) {
+        actor->GetProperty()->SetRepresentationToWireframe();
+    } else if (ui->normalStructRadioButton->isChecked()) {
+        actor->GetProperty()->SetRepresentationToSurface();
+    } else if (ui->pointsStructRadioButton->isChecked()) {
+        actor->GetProperty()->SetRepresentationToPoints();
+    }
+    ui->qvtkWidget->GetRenderWindow()->Render();
+}
+
+void ModelWindow::handleGridlines() {
+    toggleGridlines(ui->gridLinesCheckBox->isChecked());
+}
+
+void ModelWindow::toggleGridlines(bool enable) {
+
+    vtkCubeAxesActor *cubeAxesActor = (vtkCubeAxesActor *) (ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor());
+
+    if (enable) {
+        cubeAxesActor->DrawXGridlinesOn();
+        cubeAxesActor->DrawYGridlinesOn();
+        cubeAxesActor->DrawZGridlinesOn();
+
+        cubeAxesActor->XAxisLabelVisibilityOn();
+        cubeAxesActor->XAxisTickVisibilityOn();
+        cubeAxesActor->XAxisVisibilityOn();
+
+        cubeAxesActor->YAxisLabelVisibilityOn();
+        cubeAxesActor->YAxisTickVisibilityOn();
+        cubeAxesActor->YAxisVisibilityOn();
+
+        cubeAxesActor->ZAxisLabelVisibilityOn();
+        cubeAxesActor->ZAxisTickVisibilityOn();
+        cubeAxesActor->ZAxisVisibilityOn();
+
+    } else {
+        cubeAxesActor->DrawXGridlinesOff();
+        cubeAxesActor->DrawYGridlinesOff();
+        cubeAxesActor->DrawZGridlinesOff();
+
+        cubeAxesActor->XAxisLabelVisibilityOff();
+        cubeAxesActor->XAxisTickVisibilityOff();
+        cubeAxesActor->XAxisVisibilityOff();
+
+        cubeAxesActor->YAxisLabelVisibilityOff();
+        cubeAxesActor->YAxisTickVisibilityOff();
+        cubeAxesActor->YAxisVisibilityOff();
+
+        cubeAxesActor->ZAxisLabelVisibilityOff();
+        cubeAxesActor->ZAxisTickVisibilityOff();
+        cubeAxesActor->ZAxisVisibilityOff();
+    }
+    ui->qvtkWidget->GetRenderWindow()->Render();
+}
+
+void ModelWindow::gridlinesInit() {
+    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
+    vtkColor3d axis1Color = colors->GetColor3d("Salmon");
+    vtkColor3d axis2Color = colors->GetColor3d("PaleGreen");
+    vtkColor3d axis3Color = colors->GetColor3d("LightSkyBlue");
+
+    vtkNew<vtkCubeAxesActor> cubeAxesActor;
+
+    cubeAxesActor->SetUseTextActor3D(1);
+    cubeAxesActor->SetBounds(
+            ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor()->GetBounds());
+    cubeAxesActor->SetCamera(
+            ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera());
+    cubeAxesActor->GetTitleTextProperty(0)->SetColor(axis1Color.GetData());
+    cubeAxesActor->GetTitleTextProperty(0)->SetFontSize(48);
+    cubeAxesActor->GetLabelTextProperty(0)->SetColor(axis1Color.GetData());
+
+    cubeAxesActor->GetTitleTextProperty(1)->SetColor(axis2Color.GetData());
+    cubeAxesActor->GetLabelTextProperty(1)->SetColor(axis2Color.GetData());
+
+    cubeAxesActor->GetTitleTextProperty(2)->SetColor(axis3Color.GetData());
+    cubeAxesActor->GetLabelTextProperty(2)->SetColor(axis3Color.GetData());
+
+    cubeAxesActor->SetGridLineLocation(cubeAxesActor->VTK_GRID_LINES_FURTHEST);
+    cubeAxesActor->SetFlyModeToStaticEdges();
+
+    cubeAxesActor->XAxisMinorTickVisibilityOff();
+    cubeAxesActor->YAxisMinorTickVisibilityOff();
+    cubeAxesActor->ZAxisMinorTickVisibilityOff();
+
+    ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->AddActor(cubeAxesActor);
+
+    toggleGridlines(false);
+}
+
+void ModelWindow::handleMeasurment() {
+    if (ui->measurementButton->isChecked()) {
+        ui->lightOpacitySlider->setValue(25);
+        distanceWidget = vtkDistanceWidget::New();
+        distanceWidget->SetInteractor(ui->qvtkWidget->GetRenderWindow()->GetInteractor());
+        vtkSmartPointer<vtkDistanceRepresentation3D> representation = vtkDistanceRepresentation3D::New();
+        distanceWidget->SetRepresentation(representation);
+        distanceWidget->SetPriority(0.9);
+        dynamic_cast<vtkDistanceRepresentation *> (distanceWidget->GetRepresentation())->SetLabelFormat("%-#6.2f mm");
+        distanceWidget->ManagesCursorOn();
+        distanceWidget->On();
+    } else {
+        ui->lightOpacitySlider->setValue(100);
+        distanceWidget->Off();
+    }
+}
+
+

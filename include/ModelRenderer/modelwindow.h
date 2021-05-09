@@ -12,6 +12,7 @@
 #include <vtkSmartPointer.h>
 #include <vtkClipDataSet.h>
 #include <vtkShrinkFilter.h>
+#include <vtkDistanceWidget.h>
 
 #include "Model.h"
 #include "View.h"
@@ -37,6 +38,8 @@ public:
 
     ~ModelWindow() override;
 
+    void gridlinesInit();
+
 private:
     Ui::ModelWindow *ui;
     std::vector<View *> views;
@@ -45,6 +48,7 @@ private:
     QString currentModelFilePath;
 
     void setActiveView(View *newActiveView);
+    vtkSmartPointer<vtkDistanceWidget> distanceWidget;
 
 public slots:
 
@@ -66,6 +70,13 @@ public slots:
 
     void updateFilters();
 
+    void updateStructure();
+
+    void handleGridlines();
+
+    void toggleGridlines(bool enable);
+
+    void handleMeasurment();
 };
 
 
