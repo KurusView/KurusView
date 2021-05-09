@@ -22,7 +22,11 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_6">
       <item>
-       <layout class="QGridLayout" name="viewFrame"/>
+       <layout class="QGridLayout" name="viewFrame">
+        <property name="spacing">
+         <number>6</number>
+        </property>
+       </layout>
       </item>
       <item>
        <widget class="QWidget" name="bottomMenu" native="true">

@@ -30,18 +30,18 @@ View::View(const QString &borderColor, const QString &filePath, QWidget *parent)
     ViewInstanceCount++;
 
     this->borderColor = borderColor;
-    // Setup layout
-//    setFrameShape(QFrame::StyledPanel);
-//    setFrameShadow(QFrame::Raised);
-    setStyleSheet("background-color: " + this->borderColor);
+
+    setStyleSheet("*{padding: 0; border-width: 3 ;border-style:solid;border-color: dark" + this->borderColor + ";}");
+
 
     verticalLayout = new QVBoxLayout(this);
 
     qVTKWidget = new QVTKOpenGLWidget(parent);
     qVTKWidget->setMinimumSize(QSize(300, 200)); // TODO make this dynamic
 
-//    setLayout(verticalLayout);
     verticalLayout->addWidget(qVTKWidget);
+
+    verticalLayout->setMargin(6);
 
     // Now need to create a VTK render window and link it to the QtVTK widget
     vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;

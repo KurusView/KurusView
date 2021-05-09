@@ -87,10 +87,10 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     //Measurement button
     connect(ui->measurementButton, &QPushButton::released, this, &ModelWindow::handleMeasurment);
 
-    addViewToFrame(new View("#ff0000", "models/airbus_a400m.stl", parent));
-    addViewToFrame(new View("#00ff00", "models/a-10-thunderbolt-mk2.stl", parent));
-    addViewToFrame(new View("#ff00ff", "models/ExampleModel2.mod", parent));
-    addViewToFrame(new View("#0000ff", "models/ExampleModel3.mod", parent));
+    addViewToFrame(new View("red", "models/airbus_a400m.stl", parent));
+    addViewToFrame(new View("blue", "models/a-10-thunderbolt-mk2.stl", parent));
+    addViewToFrame(new View("cyan", "models/ExampleModel2.mod", parent));
+    addViewToFrame(new View("magenta", "models/ExampleModel3.mod", parent));
 
     for (auto &view : views) {
         connect(view->qVTKWidget, &QVTKOpenGLWidget::mouseEvent, this, &ModelWindow::viewActive);
@@ -284,9 +284,12 @@ void ModelWindow::setActiveView(View *newActiveView) {
     activeView = newActiveView;
     for (auto &view : views) {
         if (view == newActiveView) {
-            view->setStyleSheet("background-color: #ffffff");
+            view->setStyleSheet(
+                    "*{padding: 0; border-width: 3 ;border-style:solid;border-color: " + view->borderColor + ";}");
         } else {
-            view->setStyleSheet("background-color: " + view->borderColor);
+            view->setStyleSheet(
+                    "*{padding: 0; border-width: 3 ;border-style:solid;border-color: dark" + view->borderColor + ";}");
+
         }
     }
     // Change button and slider states to match view state
