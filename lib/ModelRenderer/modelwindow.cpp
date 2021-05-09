@@ -314,6 +314,11 @@ void ModelWindow::setActiveView(View *newActiveView) {
             view->setStyleSheet("background-color: " + view->borderColor);
         }
     }
+    // Change button and slider states to match view state
+    ui->backgroundColourPushButton->setStyleSheet(
+            "background-color: " + activeView->backgroundColour + "; border:none;");
+    ui->modelColourPushButton->setStyleSheet(
+            "background-color: " + activeView->modelColor + "; border:none;");
 }
 
 void ModelWindow::updateStructure() {
