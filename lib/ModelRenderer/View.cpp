@@ -41,7 +41,7 @@ View::View(const QString &borderColor, const QString &filePath, QWidget *parent)
 
     vtkSmartPointer<vtkAlgorithm> modelAlgo = model.getVTKModel();
     vtkDataObject *dataObj = modelAlgo->GetOutputDataObject(0);
-    vtkDataSet *datSet = (vtkDataSet *) (dataObj);
+    auto *datSet = (vtkDataSet *) (dataObj);
 
     // Initialize filters
     clipFilter = vtkSmartPointer<vtkClipDataSet>::New();

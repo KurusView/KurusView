@@ -95,9 +95,9 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     ui->viewFrame->addWidget(views[1], 0, 1, 2, 1);
     ui->viewFrame->addWidget(views[2], 1, 0, 1, 1);
 
-    for (int i = 0; i < views.size(); ++i) {
-        connect(views[i]->qVTKWidget, &QVTKOpenGLWidget::mouseEvent, this, &ModelWindow::viewActive);
-        gridlinesInit(views[i]);
+    for (auto & view : views) {
+        connect(view->qVTKWidget, &QVTKOpenGLWidget::mouseEvent, this, &ModelWindow::viewActive);
+        gridlinesInit(view);
     }
 
     setActiveView(views[0]);
@@ -106,8 +106,8 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
 }
 
 ModelWindow::~ModelWindow() {
-    for (int i = 0; i < views.size(); ++i) {
-        delete views[i];
+    for (auto & view : views) {
+        delete view;
     }
     delete ui;
 }
@@ -323,11 +323,11 @@ void ModelWindow::viewActive(QMouseEvent *event) {
 
 void ModelWindow::setActiveView(View *newActiveView) {
     activeView = newActiveView;
-    for (int i = 0; i < views.size(); ++i) {
-        if (views[i] == newActiveView) {
-            views[i]->setStyleSheet("background-color: #ffffff");
+    for (auto & view : views) {
+        if (view == newActiveView) {
+            view->setStyleSheet("background-color: #ffffff");
         } else {
-            views[i]->setStyleSheet("background-color: " + views[i]->borderColor);
+            view->setStyleSheet("background-color: " + view->borderColor);
         }
     }
 }
