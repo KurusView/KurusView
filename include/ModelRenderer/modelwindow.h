@@ -77,8 +77,6 @@ public slots:
 
     void handleGridlines();
 
-    void toggleGridlines(View *view, bool enable);
-
     void handleMeasurment();
 
     void getStatistics();

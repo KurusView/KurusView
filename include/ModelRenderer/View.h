@@ -28,11 +28,11 @@ public:
     vtkSmartPointer<vtkClipDataSet> clipFilter;
     vtkSmartPointer<vtkShrinkFilter> shrinkFilter;
 
-    int lightIntensity, lightSpecularity, modelOpacity;
+    int lightIntensity, lightSpecularity, modelOpacity, structure;
 
     QString backgroundColour, modelColor;
 
-    bool isClipped, isShrunk;
+    bool isClipped, isShrunk, gridLinesEnabled;
 
     View(const QString &borderColor, const QString &filePath, QWidget *parent = nullptr);
 
@@ -64,6 +64,10 @@ public:
     void setModelOpacity(int value);
 
     void resetLighting();
+
+    void toggleGridLines(bool enable);
+
+    void setStructure(int selectedStructure);
 
 private:
 

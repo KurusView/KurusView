@@ -306,6 +306,20 @@ void ModelWindow::setActiveView(View *newActiveView) {
     ui->modelColourPushButton->setStyleSheet(
             "background-color: " + activeView->modelColor + "; border:none;");
 
+    // Structure
+    switch (activeView->structure) {
+        case 0:
+            ui->normalStructRadioButton->click();
+            break;
+        case 1:
+            ui->wireframeStructRadioButton->click();
+            break;
+        case 2:
+            ui->pointsStructRadioButton->click();
+            break;
+    }
+    ui->gridLinesCheckBox->setChecked(activeView->gridLinesEnabled);
+
     // Light
     ui->lightIntensitySlider->setValue(activeView->lightIntensity);
     ui->lightOpacitySlider->setValue(activeView->modelOpacity);
@@ -316,61 +330,19 @@ void ModelWindow::setActiveView(View *newActiveView) {
 }
 
 void ModelWindow::updateStructure() {
-    vtkActorCollection *actors = activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
-    auto *actor = (vtkActor *) actors->GetItemAsObject(0);
-    if (ui->wireframeStructRadioButton->isChecked()) {
-        actor->GetProperty()->SetRepresentationToWireframe();
-    } else if (ui->normalStructRadioButton->isChecked()) {
-        actor->GetProperty()->SetRepresentationToSurface();
+
+    if (ui->normalStructRadioButton->isChecked()) {
+        activeView->setStructure(0);
+    } else if (ui->wireframeStructRadioButton->isChecked()) {
+        activeView->setStructure(1);
     } else if (ui->pointsStructRadioButton->isChecked()) {
-        actor->GetProperty()->SetRepresentationToPoints();
+        activeView->setStructure(2);
     }
     activeView->qVTKWidget->GetRenderWindow()->Render();
 }
 
 void ModelWindow::handleGridlines() {
-    toggleGridlines(activeView, ui->gridLinesCheckBox->isChecked());
-}
-
-void ModelWindow::toggleGridlines(View *view, bool enable) {
-
-    auto *cubeAxesActor = (vtkCubeAxesActor *) (view->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor());
-
-    if (enable) {
-        cubeAxesActor->DrawXGridlinesOn();
-        cubeAxesActor->DrawYGridlinesOn();
-        cubeAxesActor->DrawZGridlinesOn();
-
-        cubeAxesActor->XAxisLabelVisibilityOn();
-        cubeAxesActor->XAxisTickVisibilityOn();
-        cubeAxesActor->XAxisVisibilityOn();
-
-        cubeAxesActor->YAxisLabelVisibilityOn();
-        cubeAxesActor->YAxisTickVisibilityOn();
-        cubeAxesActor->YAxisVisibilityOn();
-
-        cubeAxesActor->ZAxisLabelVisibilityOn();
-        cubeAxesActor->ZAxisTickVisibilityOn();
-        cubeAxesActor->ZAxisVisibilityOn();
-
-    } else {
-        cubeAxesActor->DrawXGridlinesOff();
-        cubeAxesActor->DrawYGridlinesOff();
-        cubeAxesActor->DrawZGridlinesOff();
-
-        cubeAxesActor->XAxisLabelVisibilityOff();
-        cubeAxesActor->XAxisTickVisibilityOff();
-        cubeAxesActor->XAxisVisibilityOff();
-
-        cubeAxesActor->YAxisLabelVisibilityOff();
-        cubeAxesActor->YAxisTickVisibilityOff();
-        cubeAxesActor->YAxisVisibilityOff();
-
-        cubeAxesActor->ZAxisLabelVisibilityOff();
-        cubeAxesActor->ZAxisTickVisibilityOff();
-        cubeAxesActor->ZAxisVisibilityOff();
-    }
-    view->qVTKWidget->GetRenderWindow()->Render();
+    activeView->toggleGridLines(ui->gridLinesCheckBox->isChecked());
 }
 
 void ModelWindow::gridlinesInit(View *view) {
@@ -405,7 +377,7 @@ void ModelWindow::gridlinesInit(View *view) {
 
     view->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->AddActor(cubeAxesActor);
 
-    toggleGridlines(view, false);
+    view->toggleGridLines(false);
 }
 
 void ModelWindow::handleMeasurment() {

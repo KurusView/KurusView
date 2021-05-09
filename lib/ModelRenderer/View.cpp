@@ -17,6 +17,7 @@
 #include <vtkPlane.h>
 #include <vtkLight.h>
 #include <vtkLightCollection.h>
+#include <vtkCubeAxesActor.h>
 
 #include "View.h"
 
@@ -77,6 +78,10 @@ View::View(const QString &borderColor, const QString &filePath, QWidget *parent)
     // Colours
     setModelColor(QColor("Green"));
     setBackgroundColor(QColor("Silver"));
+
+    // Structure
+    structure = 0;
+    gridLinesEnabled = false;
 
     // Lighting
     resetLighting();
@@ -176,7 +181,7 @@ void View::setBackgroundColor(const QColor &color) {
     backgroundColour = color.name();
 }
 
-void View::setLightIntensity(int value){
+void View::setLightIntensity(int value) {
     if (value < 0 || value > 100)
         return;
 
@@ -202,7 +207,7 @@ void View::setLightIntensity(int value){
     lightIntensity = value;
 }
 
-void View::setLightSpecularity(int value){
+void View::setLightSpecularity(int value) {
     if (value < 0 || value > 100)
         return;
 
@@ -218,7 +223,7 @@ void View::setLightSpecularity(int value){
     lightSpecularity = value;
 }
 
-void View::setModelOpacity(int value){
+void View::setModelOpacity(int value) {
     if (value < 0 || value > 100)
         return;
 
@@ -233,8 +238,66 @@ void View::setModelOpacity(int value){
     modelOpacity = value;
 }
 
-void View::resetLighting(){
+void View::resetLighting() {
     setLightIntensity(75);
     setModelOpacity(100);
     setLightSpecularity(0);
+}
+
+void View::toggleGridLines(bool enable) {
+    auto *cubeAxesActor = (vtkCubeAxesActor *) (qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor());
+
+    if (enable) {
+        cubeAxesActor->DrawXGridlinesOn();
+        cubeAxesActor->DrawYGridlinesOn();
+        cubeAxesActor->DrawZGridlinesOn();
+
+        cubeAxesActor->XAxisLabelVisibilityOn();
+        cubeAxesActor->XAxisTickVisibilityOn();
+        cubeAxesActor->XAxisVisibilityOn();
+
+        cubeAxesActor->YAxisLabelVisibilityOn();
+        cubeAxesActor->YAxisTickVisibilityOn();
+        cubeAxesActor->YAxisVisibilityOn();
+
+        cubeAxesActor->ZAxisLabelVisibilityOn();
+        cubeAxesActor->ZAxisTickVisibilityOn();
+        cubeAxesActor->ZAxisVisibilityOn();
+    } else {
+        cubeAxesActor->DrawXGridlinesOff();
+        cubeAxesActor->DrawYGridlinesOff();
+        cubeAxesActor->DrawZGridlinesOff();
+
+        cubeAxesActor->XAxisLabelVisibilityOff();
+        cubeAxesActor->XAxisTickVisibilityOff();
+        cubeAxesActor->XAxisVisibilityOff();
+
+        cubeAxesActor->YAxisLabelVisibilityOff();
+        cubeAxesActor->YAxisTickVisibilityOff();
+        cubeAxesActor->YAxisVisibilityOff();
+
+        cubeAxesActor->ZAxisLabelVisibilityOff();
+        cubeAxesActor->ZAxisTickVisibilityOff();
+        cubeAxesActor->ZAxisVisibilityOff();
+    }
+
+    gridLinesEnabled = enable;
+    qVTKWidget->GetRenderWindow()->Render();
+}
+
+void View::setStructure(int selectedStructure){
+    vtkActorCollection *actors = qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
+    auto *actor = (vtkActor *) actors->GetItemAsObject(0);
+    switch (selectedStructure) {
+        case 0:
+            actor->GetProperty()->SetRepresentationToSurface();
+            break;
+        case 1:
+            actor->GetProperty()->SetRepresentationToWireframe();
+            break;
+        case 2:
+            actor->GetProperty()->SetRepresentationToPoints();
+            break;
+    }
+    structure = selectedStructure;
 }
