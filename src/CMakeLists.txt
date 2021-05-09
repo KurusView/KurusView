@@ -20,7 +20,7 @@ set(APP_ICON_RESOURCE_WINDOWS ../Icons/kurusview.rc)
 
 # Same as previously: define the executable and it's sources.
 file(GLOB_RECURSE EXE_SOURCES "*.cpp")
-add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${EXE_SOURCES} ${INC_SOURCES} ../Icons/icons.qrc ${APP_ICON_RESOURCE_WINDOWS})
+add_executable(${PROJECT_NAME} MACOSX_BUNDLE WIN32 ${EXE_SOURCES} ${INC_SOURCES} ../Icons/icons.qrc ${APP_ICON_RESOURCE_WINDOWS})
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${INC_DIRS})
 
