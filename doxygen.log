@@ -187,15 +187,18 @@ Generating code for file /home/travis/build/KurusView/2020_GROUP_21/inclu/home/t
 /home/travis/build/KurusView/2020_GROUP_21/include/MCell.h:71: warning: Found unknown command `\TODO'
 /home/travis/build/KurusView/2020_GROUP_21/include/Model.h:83: warning: Member loadSTLModel(const std::string &filePath) (function) of class Model is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer.h:25: warning: Member applyLightMode() (slot) of class ModelRenderer is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:54: warning: Member handleBackgroundColor() (slot) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:56: warning: Member handleModelColor() (slot) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:58: warning: Member handleResetColor() (slot) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:60: warning: Member handleResetLighting() (slot) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:62: warning: Member handleLightIntensitySlider(int position) (slot) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:64: warning: Member mux_handleLightActorSlider(int position) (slot) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:66: warning: Member handleChangePerspective() (slot) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:68: warning: Member updateFilters() (slot) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:70: warning: Member updateStructure() (slot) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:56: warning: Member handleBackgroundColor() (slot) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:58: warning: Member handleModelColor() (slot) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:60: warning: Member handleResetColor() (slot) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:62: warning: Member handleResetLighting() (slot) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:64: warning: Member handleLightIntensitySlider(int position) (slot) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:66: warning: Member mux_handleLightActorSlider(int position) (slot) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:68: warning: Member handleChangePerspective() (slot) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:70: warning: Member updateFilters() (slot) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:72: warning: Member updateStructure() (slot) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:74: warning: Member handleGridlines() (slot) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:76: warning: Member toggleGridlines(bool enable) (slot) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:35: warning: Member gridlinesInit() (function) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:137: warning: Member operator[](int index) const  (function) of class MVector is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:139: warning: Member operator==(const MVector &v) const  (function) of class MVector is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:141: warning: Member operator!=(const MVector &v) const  (function) of class MVector is not documented.
@@ -256,5 +259,5 @@ Generating file member index...
 Generating example index...
 finalizing index lists...
 writing tag file...
-lookup cache used 181/65536 hits=1147 misses=199
+lookup cache used 184/65536 hits=1165 misses=202
 finished...
