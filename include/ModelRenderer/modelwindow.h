@@ -2,6 +2,10 @@
 #define KURUSVIEW_MODELWINDOW_H
 
 #include <QMainWindow>
+#include <QMouseEvent>
+
+#include <memory>
+#include <vector>
 
 #include <vtkAlgorithm.h>
 #include <vtkDataSetMapper.h>
@@ -10,6 +14,7 @@
 #include <vtkShrinkFilter.h>
 
 #include "Model.h"
+#include "View.h"
 
 namespace Ui {
     class ModelWindow;
@@ -34,22 +39,16 @@ public:
 
 private:
     Ui::ModelWindow *ui;
+    std::vector<View *> views;
+    View *activeView;
     // TODO Store file path in Model.h instead
     QString currentModelFilePath;
-    Model currentModel;
 
-    vtkSmartPointer<vtkDataSetMapper> mapper;
-    std::vector<vtkSmartPointer<vtkAlgorithm>> filters;
-    vtkSmartPointer<vtkClipDataSet> clipFilter;
-    vtkSmartPointer<vtkShrinkFilter> shrinkFilter;
-
-    void buildChain();
-
-    void toggleShrinkFilter(bool enable);
-
-    void toggleClipFilter(bool enable);
+    void setActiveView(View *newActiveView);
 
 public slots:
+
+    void viewActive(QMouseEvent *event);
 
     void handleBackgroundColor();
 
@@ -66,6 +65,7 @@ public slots:
     void handleChangePerspective();
 
     void updateFilters();
+
 };
 
 

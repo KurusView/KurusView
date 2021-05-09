@@ -19,19 +19,24 @@
 
 #include <QFileDialog>
 #include <QColorDialog>
-#include <vtkNew.h>
-#include <vtkAxesActor.h>
+#include <QApplication>
+#include <QScreen>
 #include <vtkOrientationMarkerWidget.h>
 
+#include "View.h"
 #include "modelwindow.h"
 #include "ui_modelwindow.h"
 
 ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow(parent), ui(new Ui::ModelWindow),
-                                                                     currentModel(filePath.toStdString()),
                                                                      currentModelFilePath(filePath) {
     //TODO: Make sure the model is properly initialized before loading the window
     // standard call to setup Qt UI (same as previously)
     ui->setupUi(this);
+
+    // Get Primary Screen Height
+    int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
+
+    ui->bottomMenu->setMaximumHeight(screenHeight / 6);
 
     // Camera View Button Slots
     connect(ui->resetCameraViewPushButton, &QPushButton::released, this, &ModelWindow::handleChangePerspective);
@@ -60,51 +65,27 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     connect(ui->lightSpecularitySlider, &QSlider::valueChanged, this, &ModelWindow::mux_handleLightActorSlider);
     connect(ui->resetLightingPushButton, &QPushButton::released, this, &ModelWindow::handleResetLighting);
 
-    // Now need to create a VTK render window and link it to the QtVTK widget
-    vtkNew<vtkGenericOpenGLRenderWindow> renderWindow; //  why not vtkRenderWindow
+    views.push_back(new View("#ff0000", "models/airbus_a400m.stl", parent));
+    views.push_back(new View("#00ff00", "models/a-10-thunderbolt-mk2.stl", parent));
+    views.push_back(new View("#ff00ff", "models/ExampleModel2.mod", parent));
 
-    ui->qvtkWidget->SetRenderWindow(renderWindow);
+    ui->viewFrame->addWidget(views[0], 0, 0, 1, 1);
+    ui->viewFrame->addWidget(views[1], 0, 1, 2, 1);
+    ui->viewFrame->addWidget(views[2], 1, 0, 1, 1);
 
-    // Define viewport ranges.
-    double xmins[4] = {0, .5, 0, .5};
-    double xmaxs[4] = {0.5, 1, 0.5, 1};
-    double ymins[4] = {0, 0, .5, .5};
-    double ymaxs[4] = {0.5, 0.5, 1, 1};
-    // Have some fun with colors.
-    vtkNew<vtkNamedColors> colors;
-    std::vector<std::string> renBkg{"AliceBlue", "GhostWhite", "WhiteSmoke", "Seashell"};
-    std::vector<std::string> actorColor{"Bisque", "RosyBrown", "Goldenrod", "Chocolate"};
-
-    for (unsigned i = 0; i < 4; i++) {
-        vtkNew<vtkRenderer> renderer;
-
-        renderWindow->AddRenderer(renderer);
-        renderer->SetViewport(xmins[i], ymins[i], xmaxs[i], ymaxs[i]);
-
-        // Create a mapper and actor.
-        vtkSmartPointer<vtkDataSetMapper> _mapper = vtkSmartPointer<vtkDataSetMapper>::New();
-
-        _mapper->SetInputData(dynamic_cast<vtkDataSet *>(currentModel.getVTKModel()->GetOutputDataObject(0)));
-        vtkNew<vtkActor> actor;
-        actor->SetMapper(_mapper);
-        actor->GetProperty()->SetColor(colors->GetColor3d(actorColor[i]).GetData());
-
-        renderer->AddActor(actor);
-        renderer->SetBackground(colors->GetColor3d(renBkg[i]).GetData());
-
-        renderer->ResetCamera();
+    for (int i = 0; i < views.size(); ++i) {
+        connect(views[i]->qVTKWidget, &QVTKOpenGLWidget::mouseEvent, this, &ModelWindow::viewActive);
     }
 
-    //renderWindow->Render();
-    //renderWindow->SetWindowName("MultipleViewPorts");
-    //renderWindow->SetSize(600, 600);
-
-    ui->qvtkWidget->GetRenderWindow()->Render();
+    setActiveView(views[0]);
 
     show();
 }
 
 ModelWindow::~ModelWindow() {
+    for (int i = 0; i < views.size(); ++i) {
+        delete views[i];
+    }
     delete ui;
 }
 
@@ -115,7 +96,7 @@ void ModelWindow::handleBackgroundColor() {
     vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
 
     if (color.isValid()) {
-        ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->SetBackground(
+        activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->SetBackground(
                 color.redF(), color.greenF(), color.blueF()
         );
 
@@ -124,7 +105,7 @@ void ModelWindow::handleBackgroundColor() {
     }
 
     // refresh view
-    ui->qvtkWidget->GetRenderWindow()->Render();
+    activeView->qVTKWidget->GetRenderWindow()->Render();
 }
 
 void ModelWindow::handleModelColor() {
@@ -135,7 +116,7 @@ void ModelWindow::handleModelColor() {
     vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
 
     if (color.isValid()) {
-        vtkActorCollection *actors = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
+        vtkActorCollection *actors = activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
 
         // support multiple actors
         auto *actor = (vtkActor *) actors->GetItemAsObject(0);
@@ -146,7 +127,7 @@ void ModelWindow::handleModelColor() {
     }
 
     // refresh view
-    ui->qvtkWidget->GetRenderWindow()->Render();
+    activeView->qVTKWidget->GetRenderWindow()->Render();
 }
 
 void ModelWindow::handleResetColor() {
@@ -157,18 +138,17 @@ void ModelWindow::handleResetColor() {
 
     // reset background
     vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
-    ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->SetBackground(
+    activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->SetBackground(
             colors->GetColor3d("Silver").GetData());
 
     // reset model
-    auto *actors = (vtkActor *) ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
+    auto *actors = (vtkActor *) activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
             0);
     actors->GetProperty()->SetColor(colors->GetColor3d("Red").GetData());
 
     // refresh view
-    ui->qvtkWidget->GetRenderWindow()->Render();
+    activeView->qVTKWidget->GetRenderWindow()->Render();
 }
-
 
 void ModelWindow::handleResetLighting() {
     ui->lightIntensitySlider->setValue(50);
@@ -181,7 +161,7 @@ void ModelWindow::handleLightIntensitySlider(int position) {
     // get light sources
     vtkSmartPointer<vtkLightCollection> col = vtkSmartPointer<vtkLightCollection>::New();
     vtkSmartPointer<vtkLight> light = vtkSmartPointer<vtkLight>::New();
-    col = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetLights();
+    col = activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetLights();
 
     int lightSourceCount = col->GetNumberOfItems();
 
@@ -197,7 +177,7 @@ void ModelWindow::handleLightIntensitySlider(int position) {
     }
 
     // refresh
-    ui->qvtkWidget->GetRenderWindow()->Render();
+    activeView->qVTKWidget->GetRenderWindow()->Render();
 }
 
 
@@ -205,7 +185,7 @@ void ModelWindow::mux_handleLightActorSlider(int position) {
     // find who raised the signal
     QObject *emitter = sender();
 
-    vtkActorCollection *actors = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
+    vtkActorCollection *actors = activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
 
     // update all actors (.mod might have multiple)
     for (int i = 0; i < actors->GetNumberOfItems(); i++) {
@@ -219,7 +199,7 @@ void ModelWindow::mux_handleLightActorSlider(int position) {
     }
 
     // refresh
-    ui->qvtkWidget->GetRenderWindow()->Render();
+    activeView->qVTKWidget->GetRenderWindow()->Render();
 }
 
 
@@ -228,72 +208,20 @@ void ModelWindow::updateFilters() {
     QObject *senderObj = sender();
 
     if (senderObj == ui->clipPushButton) {
-        toggleClipFilter(ui->clipPushButton->isChecked());
+        activeView->toggleClipFilter(ui->clipPushButton->isChecked());
     } else if (senderObj == ui->shrinkPushButton) {
-        toggleShrinkFilter(ui->shrinkPushButton->isChecked());
+        activeView->toggleShrinkFilter(ui->shrinkPushButton->isChecked());
     } else if (senderObj == ui->resetFiltersPushButton) {
         ui->clipPushButton->setChecked(false);
         ui->shrinkPushButton->setChecked(false);
-        toggleClipFilter(false);
-        toggleShrinkFilter(false);
+        activeView->toggleClipFilter(false);
+        activeView->toggleShrinkFilter(false);
     }
 
     // Rebuild pipeline Source -> Filters -> Mapper
-    buildChain();
+    activeView->buildChain();
     // Re-render
-    ui->qvtkWidget->GetRenderWindow()->Render();
-}
-
-void ModelWindow::buildChain() {
-    // Store the source object, as it's used multiple times
-    vtkDataSet *source = dynamic_cast<vtkDataSet *>(currentModel.getVTKModel()->GetOutputDataObject(0));
-    // If no filters are applied
-    if (filters.empty()) {
-        // Source -> Mapper
-        mapper->SetInputData(source);
-        return;
-    }
-    // Otherwise Source -> Filter 0
-    filters[0]->SetInputDataObject(source);
-    filters[0]->Update();
-    if (filters.size() == 1) {
-        // Otherwise Filter 0 -> Mapper
-        mapper->SetInputData(dynamic_cast<vtkDataSet *>(filters[0]->GetOutputDataObject(0)));
-        return;
-    }
-
-    // Otherwise Filter 0 -> Filter 1
-    filters[1]->SetInputDataObject(dynamic_cast<vtkDataSet *>(filters[0]->GetOutputDataObject(0)));
-    filters[1]->Update();
-    // Otherwise Filter 1 -> Mapper
-    mapper->SetInputData(dynamic_cast<vtkDataSet *>(filters[1]->GetOutputDataObject(0)));
-}
-
-void ModelWindow::toggleShrinkFilter(bool enable) {
-    if (enable) {
-        // TODO: Dialog Box asking for shrink value
-        // Shrinks to 50%
-        shrinkFilter->SetShrinkFactor(0.5);
-        // Insert at the end of the filter list
-        filters.emplace_back(shrinkFilter);
-    } else if (std::find(filters.begin(), filters.end(), shrinkFilter) != filters.end()) {
-        // Remove the shrink filter from the filter list
-        filters.erase(std::find(filters.begin(), filters.end(), shrinkFilter));
-    }
-}
-
-void ModelWindow::toggleClipFilter(bool enable) {
-    if (enable) {
-        vtkSmartPointer<vtkPlane> planeLeft = vtkSmartPointer<vtkPlane>::New();
-        planeLeft->SetOrigin(0.0, 0.0, 0.0);
-        planeLeft->SetNormal(-1.0, 0.0, 0.0);
-        clipFilter->SetClipFunction(planeLeft.Get());
-        // Insert at the end of the filter list
-        filters.emplace_back(clipFilter);
-    } else if (std::find(filters.begin(), filters.end(), clipFilter) != filters.end()) {
-        // Remove the shrink filter from the filter list
-        filters.erase(std::find(filters.begin(), filters.end(), clipFilter));
-    }
+    activeView->qVTKWidget->GetRenderWindow()->Render();
 }
 
 void ModelWindow::handleChangePerspective() {
@@ -301,7 +229,7 @@ void ModelWindow::handleChangePerspective() {
     QObject *senderObj = sender();
 
     // Store pointer to the renderer, as it will be used multiple times
-    vtkRenderer *qVTKRenderer = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer();
+    vtkRenderer *qVTKRenderer = activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer();
 
     // Rotation does not require resetting the camera, so first check if rotation was requested
     if (senderObj == ui->rotate15ViewPushButton) {
@@ -361,5 +289,22 @@ void ModelWindow::handleChangePerspective() {
         qVTKRenderer->ResetCameraClippingRange();
     }
     // Re-render the model
-    ui->qvtkWidget->GetRenderWindow()->Render();
+    activeView->qVTKWidget->GetRenderWindow()->Render();
+}
+
+void ModelWindow::viewActive(QMouseEvent *event) {
+    if (event->button() == Qt::LeftButton) {
+        setActiveView((View * )(((QVTKOpenGLWidget *) sender())->parentWidget()));
+    }
+}
+
+void ModelWindow::setActiveView(View *newActiveView) {
+    activeView = newActiveView;
+    for (int i = 0; i < views.size(); ++i) {
+        if (views[i] == newActiveView) {
+            views[i]->setStyleSheet("background-color: #ffffff");
+        } else {
+            views[i]->setStyleSheet("background-color: " + views[i]->borderColor);
+        }
+    }
 }
