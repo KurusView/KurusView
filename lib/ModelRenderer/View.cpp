@@ -70,6 +70,9 @@ View::View(const QString &borderColor, const QString &filePath, QWidget *parent)
     renderer->AddActor(actor);
 
     // Set all parameters
+    // Filters
+    toggleClipFilter(false);
+    toggleShrinkFilter(false);
 
     // Colours
     setModelColor(QColor("Green"));
@@ -118,6 +121,7 @@ void View::toggleShrinkFilter(bool enable) {
         // Remove the shrink filter from the filter list
         filters.erase(std::find(filters.begin(), filters.end(), shrinkFilter));
     }
+    isShrunk = enable;
 }
 
 void View::toggleClipFilter(bool enable) {
@@ -132,6 +136,7 @@ void View::toggleClipFilter(bool enable) {
         // Remove the shrink filter from the filter list
         filters.erase(std::find(filters.begin(), filters.end(), clipFilter));
     }
+    isClipped = enable;
 }
 
 View::~View() {

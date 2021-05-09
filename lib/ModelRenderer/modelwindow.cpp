@@ -296,6 +296,9 @@ void ModelWindow::setActiveView(View *newActiveView) {
         }
     }
     // Change button and slider states to match view state
+    // Filters
+    ui->clipPushButton->setChecked(activeView->isClipped);
+    ui->shrinkPushButton->setChecked(activeView->isShrunk);
 
     // Colours
     ui->backgroundColourPushButton->setStyleSheet(
