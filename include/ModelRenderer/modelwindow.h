@@ -8,6 +8,7 @@
 #include <vtkSmartPointer.h>
 #include <vtkClipDataSet.h>
 #include <vtkShrinkFilter.h>
+#include <vtkDistanceWidget.h>
 
 #include "Model.h"
 
@@ -45,6 +46,8 @@ private:
     vtkSmartPointer<vtkClipDataSet> clipFilter;
     vtkSmartPointer<vtkShrinkFilter> shrinkFilter;
 
+    vtkSmartPointer<vtkDistanceWidget> distanceWidget;
+
     void buildChain();
 
     void toggleShrinkFilter(bool enable);
@@ -74,6 +77,8 @@ public slots:
     void handleGridlines();
 
     void toggleGridlines(bool enable);
+
+    void handleMeasurment();
 };
 
 

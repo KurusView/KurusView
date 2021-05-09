@@ -65,6 +65,9 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     connect(ui->normalStructRadioButton, &QRadioButton::toggled, this, &ModelWindow::updateStructure);
     connect(ui->gridLinesCheckBox, &QCheckBox::stateChanged, this, &ModelWindow::handleGridlines);
 
+    //Measurement button
+    connect(ui->measurementButton, &QPushButton::released, this, &ModelWindow::handleMeasurment);
+
     // Now need to create a VTK render window and link it to the QtVTK widget
     vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
 
@@ -120,17 +123,6 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
 //    light->SetIntensity(0.5);
 //    renderer->AddLight(light);
 
-
-
-    // Source: https://www.programmersought.com/article/75456501356/
-    vtkDistanceWidget *distanceWidget = vtkDistanceWidget::New();
-    distanceWidget->SetInteractor(ui->qvtkWidget->GetRenderWindow()->GetInteractor());
-    vtkDistanceRepresentation3D *representation = vtkDistanceRepresentation3D::New();
-    distanceWidget->SetRepresentation(representation);
-    distanceWidget->SetPriority(0.9);
-    dynamic_cast<vtkDistanceRepresentation *> (distanceWidget->GetRepresentation())->SetLabelFormat("%-#6.2f mm");
-    distanceWidget->ManagesCursorOn();
-    distanceWidget->On();
     // Rebuild pipeline Source -> Filters -> Mapper
     buildChain();
     // Re-render
@@ -503,6 +495,23 @@ void ModelWindow::gridlinesInit() {
     ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->AddActor(cubeAxesActor);
 
     toggleGridlines(false);
+}
+
+void ModelWindow::handleMeasurment() {
+    if (ui->measurementButton->isChecked()) {
+        ui->lightOpacitySlider->setValue(25);
+        distanceWidget = vtkDistanceWidget::New();
+        distanceWidget->SetInteractor(ui->qvtkWidget->GetRenderWindow()->GetInteractor());
+        vtkSmartPointer<vtkDistanceRepresentation3D> representation = vtkDistanceRepresentation3D::New();
+        distanceWidget->SetRepresentation(representation);
+        distanceWidget->SetPriority(0.9);
+        dynamic_cast<vtkDistanceRepresentation *> (distanceWidget->GetRepresentation())->SetLabelFormat("%-#6.2f mm");
+        distanceWidget->ManagesCursorOn();
+        distanceWidget->On();
+    } else {
+        ui->lightOpacitySlider->setValue(100);
+        distanceWidget->Off();
+    }
 }
 
 
