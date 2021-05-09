@@ -89,7 +89,7 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     connect(ui->resetLightingPushButton, &QPushButton::released, this, &ModelWindow::handleResetLighting);
 
     //Measurement button
-    connect(ui->measurementButton, &QPushButton::released, this, &ModelWindow::handleMeasurment);
+    connect(ui->measurementButton, &QPushButton::released, this, &ModelWindow::handleMeasurement);
 
     addViewToFrame(new View("red", "models/airbus_a400m.stl", parent));
     addViewToFrame(new View("blue", "models/a-10-thunderbolt-mk2.stl", parent));
@@ -331,6 +331,7 @@ void ModelWindow::setActiveView(View *newActiveView) {
 
     // Statistics
     getStatistics();
+    ui->measurementButton->setChecked(activeView->measurementEnabled);
 }
 
 void ModelWindow::updateStructure() {
@@ -384,20 +385,12 @@ void ModelWindow::gridlinesInit(View *view) {
     view->toggleGridLines(false);
 }
 
-void ModelWindow::handleMeasurment() {
+void ModelWindow::handleMeasurement() {
+    activeView->toggleMeasurement(ui->measurementButton->isChecked());
     if (ui->measurementButton->isChecked()) {
         ui->lightOpacitySlider->setValue(25);
-        distanceWidget = vtkDistanceWidget::New();
-        distanceWidget->SetInteractor(activeView->qVTKWidget->GetRenderWindow()->GetInteractor());
-        vtkSmartPointer<vtkDistanceRepresentation3D> representation = vtkDistanceRepresentation3D::New();
-        distanceWidget->SetRepresentation(representation);
-        distanceWidget->SetPriority(0.9);
-        dynamic_cast<vtkDistanceRepresentation *> (distanceWidget->GetRepresentation())->SetLabelFormat("%-#6.2f mm");
-        distanceWidget->ManagesCursorOn();
-        distanceWidget->On();
     } else {
         ui->lightOpacitySlider->setValue(100);
-        distanceWidget->Off();
     }
 }
 

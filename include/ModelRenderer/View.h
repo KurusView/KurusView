@@ -11,6 +11,7 @@
 #include <vtkDataSetMapper.h>
 #include <vtkClipDataSet.h>
 #include <vtkShrinkFilter.h>
+#include <vtkDistanceWidget.h>
 
 #include "Model.h"
 
@@ -32,7 +33,7 @@ public:
 
     QString backgroundColour, modelColor;
 
-    bool isClipped, isShrunk, gridLinesEnabled;
+    bool isClipped, isShrunk, gridLinesEnabled, measurementEnabled;
 
     View(const QString &borderColor, const QString &filePath, QWidget *parent = nullptr);
 
@@ -57,6 +58,8 @@ public:
 
     MVector centreOfGrav;
 
+    vtkSmartPointer<vtkDistanceWidget> distanceWidget;
+
     void setLightIntensity(int value);
 
     void setLightSpecularity(int value);
@@ -67,7 +70,10 @@ public:
 
     void toggleGridLines(bool enable);
 
+    void toggleMeasurement(bool enable);
+
     void setStructure(int selectedStructure);
+
 
 private:
 

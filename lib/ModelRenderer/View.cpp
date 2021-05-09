@@ -18,6 +18,7 @@
 #include <vtkLight.h>
 #include <vtkLightCollection.h>
 #include <vtkCubeAxesActor.h>
+#include <vtkDistanceRepresentation3D.h>
 
 #include "View.h"
 
@@ -85,6 +86,9 @@ View::View(const QString &borderColor, const QString &filePath, QWidget *parent)
 
     // Lighting
     resetLighting();
+
+    // Measurement
+    measurementEnabled = false;
 
     qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->ResetCamera();
     qVTKWidget->GetRenderWindow()->Render();
@@ -285,7 +289,24 @@ void View::toggleGridLines(bool enable) {
     qVTKWidget->GetRenderWindow()->Render();
 }
 
-void View::setStructure(int selectedStructure){
+void View::toggleMeasurement(bool enable) {
+    if (enable) {
+        distanceWidget = vtkDistanceWidget::New();
+        distanceWidget->SetInteractor(qVTKWidget->GetRenderWindow()->GetInteractor());
+        vtkSmartPointer<vtkDistanceRepresentation3D> representation = vtkDistanceRepresentation3D::New();
+        distanceWidget->SetRepresentation(representation);
+        distanceWidget->SetPriority(0.9);
+        dynamic_cast<vtkDistanceRepresentation *> (distanceWidget->GetRepresentation())->SetLabelFormat(
+                "%-#6.2f mm");
+        distanceWidget->ManagesCursorOn();
+        distanceWidget->On();
+    } else {
+        distanceWidget->Off();
+    }
+    measurementEnabled = enable;
+}
+
+void View::setStructure(int selectedStructure) {
     vtkActorCollection *actors = qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
     auto *actor = (vtkActor *) actors->GetItemAsObject(0);
     switch (selectedStructure) {

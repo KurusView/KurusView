@@ -51,7 +51,6 @@ private:
 
     void setActiveView(View *newActiveView);
 
-    vtkSmartPointer<vtkDistanceWidget> distanceWidget;
 
 public slots:
 
@@ -77,7 +76,7 @@ public slots:
 
     void handleGridlines();
 
-    void handleMeasurment();
+    void handleMeasurement();
 
     void getStatistics();
 };
