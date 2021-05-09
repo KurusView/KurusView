@@ -93,8 +93,10 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     addViewToFrame(new View("magenta", "models/ExampleModel3.mod", parent));
 
     for (auto &view : views) {
+        setActiveView(view);
         connect(view->qVTKWidget, &QVTKOpenGLWidget::mouseEvent, this, &ModelWindow::viewActive);
         gridlinesInit(view);
+        handleResetLighting();
     }
 
     setActiveView(views[0]);
@@ -160,9 +162,10 @@ void ModelWindow::handleResetColor() {
 }
 
 void ModelWindow::handleResetLighting() {
-    ui->lightIntensitySlider->setValue(50);
-    ui->lightOpacitySlider->setValue(100);
-    ui->lightSpecularitySlider->setValue(0);
+    activeView->resetLighting();
+    ui->lightIntensitySlider->setValue(activeView->lightIntensity);
+    ui->lightOpacitySlider->setValue(activeView->modelOpacity);
+    ui->lightSpecularitySlider->setValue(activeView->lightSpecularity);
 }
 
 void ModelWindow::handleLightIntensitySlider(int position) {

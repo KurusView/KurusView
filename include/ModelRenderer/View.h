@@ -32,6 +32,7 @@ public:
 
     QString backgroundColour, modelColor;
 
+    bool isClipped, isShrunk;
 
     View(const QString &borderColor, const QString &filePath, QWidget *parent = nullptr);
 
@@ -49,6 +50,7 @@ public:
     void setModelColor(const QColor &color);
 
     void setBackgroundColor(const QColor &color);
+
     double density, volume, weight;
 
     unsigned long numOfCells;
@@ -60,6 +62,8 @@ public:
     void setLightSpecularity(int value);
 
     void setModelOpacity(int value);
+
+    void resetLighting();
 
 private:
 

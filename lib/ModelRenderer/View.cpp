@@ -75,6 +75,9 @@ View::View(const QString &borderColor, const QString &filePath, QWidget *parent)
     setModelColor(QColor("Green"));
     setBackgroundColor(QColor("Silver"));
 
+    // Lighting
+    resetLighting();
+
     qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->ResetCamera();
     qVTKWidget->GetRenderWindow()->Render();
 }
@@ -223,4 +226,10 @@ void View::setModelOpacity(int value){
     }
 
     modelOpacity = value;
+}
+
+void View::resetLighting(){
+    setLightIntensity(75);
+    setModelOpacity(100);
+    setLightSpecularity(0);
 }
