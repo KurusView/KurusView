@@ -49,7 +49,7 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     // Get Primary Screen Height
     int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
 
-    ui->bottomMenu->setMaximumHeight(screenHeight / 6);
+    ui->bottomMenu->setMaximumHeight(screenHeight / 5);
 
     // Camera View Button Slots
     connect(ui->resetCameraViewPushButton, &QPushButton::released, this, &ModelWindow::handleChangePerspective);
@@ -469,8 +469,8 @@ void ModelWindow::getStatistics() {
     activeView->density = activeView->weight / activeView->volume;
 
     ui->numOfCellsLabel->setText(QString::number(activeView->numOfCells));
-    ui->centreOfGravLabel->setText("X: " + QString::number(activeView->centreOfGrav.getX()) + " Y: " +
-                                   QString::number(activeView->centreOfGrav.getY()) + " Z: " +
+    ui->centreOfGravLabel->setText("X: " + QString::number(activeView->centreOfGrav.getX()) + "\nY: " +
+                                   QString::number(activeView->centreOfGrav.getY()) + "\nZ: " +
                                    QString::number(activeView->centreOfGrav.getZ()));
     ui->weightLabel->setText(QString::number(activeView->weight));
     ui->volumeLabel->setText(QString::number(activeView->volume));
