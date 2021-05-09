@@ -1,5 +1,6 @@
 #include <QWidget>
 #include <QVBoxLayout>
+#include <QString>
 
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
@@ -14,9 +15,9 @@
 #include <vtkAlgorithm.h>
 #include <vtkCallbackCommand.h>
 #include <vtkPlane.h>
+#include <ModelRenderer/View.h>
 
 #include "View.h"
-
 
 // set default instance count
 unsigned short int View::ViewInstanceCount = 0;
@@ -45,8 +46,6 @@ View::View(const QString &borderColor, const QString &filePath, QWidget *parent)
     vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
     qVTKWidget->SetRenderWindow(renderWindow);
 
-    vtkNew<vtkNamedColors> colors;
-
     vtkSmartPointer<vtkAlgorithm> modelAlgo = model.getVTKModel();
     vtkDataObject *dataObj = modelAlgo->GetOutputDataObject(0);
     auto *datSet = (vtkDataSet *) (dataObj);
@@ -61,7 +60,6 @@ View::View(const QString &borderColor, const QString &filePath, QWidget *parent)
     mapper->SetInputData(datSet);
     vtkNew<vtkActor> actor;
     actor->SetMapper(mapper);
-    actor->GetProperty()->SetColor(colors->GetColor3d("Green").GetData());
 
     // Create a renderer, and render window
     vtkSmartPointer<vtkRenderer> renderer = vtkSmartPointer<vtkRenderer>::New();
@@ -69,7 +67,12 @@ View::View(const QString &borderColor, const QString &filePath, QWidget *parent)
     qVTKWidget->GetRenderWindow()->AddRenderer(renderer);
 
     renderer->AddActor(actor);
-    renderer->SetBackground(colors->GetColor3d("Silver").GetData());
+
+    // Set all parameters
+
+    // Colours
+    setModelColor(QColor("Green"));
+    setBackgroundColor(QColor("Silver"));
 
     qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->ResetCamera();
     qVTKWidget->GetRenderWindow()->Render();
@@ -134,4 +137,32 @@ View::~View() {
 
 unsigned short int View::getCount() {
     return View::ViewInstanceCount;
+}
+
+void View::setModelColor(const QColor &color) {
+    if (!color.isValid())
+        return;
+
+    // Get Actor
+    vtkActorCollection *actors = qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
+    auto *actor = (vtkActor *) actors->GetItemAsObject(0);
+
+    // Set the Color of the actor
+    actor->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+
+    // Store the color locally
+    modelColor = color.name();
+}
+
+void View::setBackgroundColor(const QColor &color) {
+    if (!color.isValid())
+        return;
+
+    // Get Actor
+    qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->SetBackground(color.redF(),
+                                                                                     color.greenF(),
+                                                                                     color.blueF()
+    );
+
+    backgroundColour = color.name();
 }

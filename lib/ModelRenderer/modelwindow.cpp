@@ -46,7 +46,6 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     //TODO: Make sure the model is properly initialized before loading the window
     // standard call to setup Qt UI (same as previously)
     ui->setupUi(this);
-
     // Get Primary Screen Height
     int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
 
@@ -93,7 +92,7 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     addViewToFrame(new View("#ff00ff", "models/ExampleModel2.mod", parent));
     addViewToFrame(new View("#0000ff", "models/ExampleModel3.mod", parent));
 
-    for (auto & view : views) {
+    for (auto &view : views) {
         connect(view->qVTKWidget, &QVTKOpenGLWidget::mouseEvent, this, &ModelWindow::viewActive);
         gridlinesInit(view);
     }
@@ -106,49 +105,36 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
 }
 
 ModelWindow::~ModelWindow() {
-    for (auto & view : views) {
+    for (auto &view : views) {
         delete view;
     }
     delete ui;
 }
 
 void ModelWindow::handleBackgroundColor() {
-    // qvtkWidget would be the active view in ViewFrame
-
     QColor color = QColorDialog::getColor(Qt::yellow, this);
-    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
 
-    if (color.isValid()) {
-        activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->SetBackground(
-                color.redF(), color.greenF(), color.blueF()
-        );
+    if (!color.isValid())
+        return;
 
-        // update button color
-        ui->backgroundColourPushButton->setStyleSheet("background-color: " + color.name() + "; border:none;");
-    }
+    activeView->setBackgroundColor(color);
+
+    // update button color
+    ui->backgroundColourPushButton->setStyleSheet("background-color: " + color.name() + "; border:none;");
+    activeView->backgroundColour = color.name();
 
     // refresh view
     activeView->qVTKWidget->GetRenderWindow()->Render();
 }
 
 void ModelWindow::handleModelColor() {
-
-    // qvtkWidget would be the active view in ViewFrame
-
     QColor color = QColorDialog::getColor(Qt::yellow, this);
-    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
 
-    if (color.isValid()) {
-        vtkActorCollection *actors = activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
-
-        // support multiple actors
-        auto *actor = (vtkActor *) actors->GetItemAsObject(0);
-        actor->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-
-        // update button color
-        ui->modelColourPushButton->setStyleSheet("background-color: " + color.name() + "; border:none;");
-    }
-
+    if (!color.isValid())
+        return;
+    activeView->setModelColor(color);
+    // update button color
+    ui->modelColourPushButton->setStyleSheet("background-color: " + color.name() + "; border:none;");
     // refresh view
     activeView->qVTKWidget->GetRenderWindow()->Render();
 }
@@ -203,7 +189,6 @@ void ModelWindow::handleLightIntensitySlider(int position) {
     activeView->qVTKWidget->GetRenderWindow()->Render();
 }
 
-
 void ModelWindow::mux_handleLightActorSlider(int position) {
     // find who raised the signal
     QObject *emitter = sender();
@@ -224,7 +209,6 @@ void ModelWindow::mux_handleLightActorSlider(int position) {
     // refresh
     activeView->qVTKWidget->GetRenderWindow()->Render();
 }
-
 
 void ModelWindow::updateFilters() {
     // Check which button called this slot
@@ -323,7 +307,7 @@ void ModelWindow::viewActive(QMouseEvent *event) {
 
 void ModelWindow::setActiveView(View *newActiveView) {
     activeView = newActiveView;
-    for (auto & view : views) {
+    for (auto &view : views) {
         if (view == newActiveView) {
             view->setStyleSheet("background-color: #ffffff");
         } else {
@@ -331,7 +315,6 @@ void ModelWindow::setActiveView(View *newActiveView) {
         }
     }
 }
-
 
 void ModelWindow::updateStructure() {
     vtkActorCollection *actors = activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
@@ -400,8 +383,10 @@ void ModelWindow::gridlinesInit(View *view) {
     vtkNew<vtkCubeAxesActor> cubeAxesActor;
 
     cubeAxesActor->SetUseTextActor3D(1);
-    cubeAxesActor->SetBounds(view->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor()->GetBounds());
-    cubeAxesActor->SetCamera(view->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera());
+    cubeAxesActor->SetBounds(
+            view->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor()->GetBounds());
+    cubeAxesActor->SetCamera(
+            view->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera());
     cubeAxesActor->GetTitleTextProperty(0)->SetColor(axis1Color.GetData());
     cubeAxesActor->GetTitleTextProperty(0)->SetFontSize(48);
     cubeAxesActor->GetLabelTextProperty(0)->SetColor(axis1Color.GetData());

@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QFrame>
+#include <QColor>
 
 #include <QVTKOpenGLWidget.h>
 #include <vtkSmartPointer.h>
@@ -29,7 +30,7 @@ public:
 
     int lightIntensity, lightOpacity, lightSpecularity;
 
-    QColor backgroundColor, modelColor;
+    QString backgroundColour, modelColor;
 
 
     View(const QString &borderColor, const QString &filePath, QWidget *parent = nullptr);
@@ -45,6 +46,9 @@ public:
     // return instance count
     static unsigned short int getCount();
 
+    void setModelColor(const QColor &color);
+
+    void setBackgroundColor(const QColor &color);
 
 private:
 
