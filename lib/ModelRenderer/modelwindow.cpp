@@ -97,13 +97,12 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
 
     for (int i = 0; i < views.size(); ++i) {
         connect(views[i]->qVTKWidget, &QVTKOpenGLWidget::mouseEvent, this, &ModelWindow::viewActive);
+        gridlinesInit(views[i]);
     }
 
     setActiveView(views[0]);
 
     show();
-
-    gridlinesInit();
 }
 
 ModelWindow::~ModelWindow() {
@@ -348,12 +347,12 @@ void ModelWindow::updateStructure() {
 }
 
 void ModelWindow::handleGridlines() {
-    toggleGridlines(ui->gridLinesCheckBox->isChecked());
+    toggleGridlines(activeView, ui->gridLinesCheckBox->isChecked());
 }
 
-void ModelWindow::toggleGridlines(bool enable) {
+void ModelWindow::toggleGridlines(View *view, bool enable) {
 
-    vtkCubeAxesActor *cubeAxesActor = (vtkCubeAxesActor *) (activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor());
+    auto *cubeAxesActor = (vtkCubeAxesActor *) (view->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor());
 
     if (enable) {
         cubeAxesActor->DrawXGridlinesOn();
@@ -389,10 +388,10 @@ void ModelWindow::toggleGridlines(bool enable) {
         cubeAxesActor->ZAxisTickVisibilityOff();
         cubeAxesActor->ZAxisVisibilityOff();
     }
-    activeView->qVTKWidget->GetRenderWindow()->Render();
+    view->qVTKWidget->GetRenderWindow()->Render();
 }
 
-void ModelWindow::gridlinesInit() {
+void ModelWindow::gridlinesInit(View *view) {
     vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
     vtkColor3d axis1Color = colors->GetColor3d("Salmon");
     vtkColor3d axis2Color = colors->GetColor3d("PaleGreen");
@@ -401,10 +400,8 @@ void ModelWindow::gridlinesInit() {
     vtkNew<vtkCubeAxesActor> cubeAxesActor;
 
     cubeAxesActor->SetUseTextActor3D(1);
-    cubeAxesActor->SetBounds(
-            activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor()->GetBounds());
-    cubeAxesActor->SetCamera(
-            activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera());
+    cubeAxesActor->SetBounds(view->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor()->GetBounds());
+    cubeAxesActor->SetCamera(view->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera());
     cubeAxesActor->GetTitleTextProperty(0)->SetColor(axis1Color.GetData());
     cubeAxesActor->GetTitleTextProperty(0)->SetFontSize(48);
     cubeAxesActor->GetLabelTextProperty(0)->SetColor(axis1Color.GetData());
@@ -422,9 +419,9 @@ void ModelWindow::gridlinesInit() {
     cubeAxesActor->YAxisMinorTickVisibilityOff();
     cubeAxesActor->ZAxisMinorTickVisibilityOff();
 
-    activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->AddActor(cubeAxesActor);
+    view->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->AddActor(cubeAxesActor);
 
-    toggleGridlines(false);
+    toggleGridlines(view, false);
 }
 
 void ModelWindow::handleMeasurment() {

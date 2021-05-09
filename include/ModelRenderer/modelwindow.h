@@ -38,7 +38,7 @@ public:
 
     ~ModelWindow() override;
 
-    void gridlinesInit();
+    void gridlinesInit(View *view);
 
 private:
     Ui::ModelWindow *ui;
@@ -74,7 +74,7 @@ public slots:
 
     void handleGridlines();
 
-    void toggleGridlines(bool enable);
+    void toggleGridlines(View *view, bool enable);
 
     void handleMeasurment();
 };
