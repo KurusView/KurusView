@@ -40,6 +40,7 @@
 #include <vtkPolyDataMapper.h>
 #include <vtkTextProperty.h>
 
+
 ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow(parent), ui(new Ui::ModelWindow),
                                                                      currentModelFilePath(filePath) {
     //TODO: Make sure the model is properly initialized before loading the window
@@ -87,13 +88,10 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     //Measurement button
     connect(ui->measurementButton, &QPushButton::released, this, &ModelWindow::handleMeasurment);
 
-    views.push_back(new View("#ff0000", "models/airbus_a400m.stl", parent));
-    views.push_back(new View("#00ff00", "models/a-10-thunderbolt-mk2.stl", parent));
-    views.push_back(new View("#ff00ff", "models/ExampleModel2.mod", parent));
-
-    ui->viewFrame->addWidget(views[0], 0, 0, 1, 1);
-    ui->viewFrame->addWidget(views[1], 0, 1, 2, 1);
-    ui->viewFrame->addWidget(views[2], 1, 0, 1, 1);
+    addViewToFrame(new View("#ff0000", "models/airbus_a400m.stl", parent));
+    addViewToFrame(new View("#00ff00", "models/a-10-thunderbolt-mk2.stl", parent));
+    addViewToFrame(new View("#ff00ff", "models/ExampleModel2.mod", parent));
+    addViewToFrame(new View("#0000ff", "models/ExampleModel3.mod", parent));
 
     for (auto & view : views) {
         connect(view->qVTKWidget, &QVTKOpenGLWidget::mouseEvent, this, &ModelWindow::viewActive);
@@ -440,6 +438,48 @@ void ModelWindow::handleMeasurment() {
     } else {
         ui->lightOpacitySlider->setValue(100);
         distanceWidget->Off();
+    }
+}
+
+void ModelWindow::addViewToFrame(View *view) {
+
+    // active view count
+    unsigned short int avc = View::getCount();
+    std::cout << avc << std::endl;
+
+    // max 4 views allowed
+    if (avc > 4) {
+        delete view;
+        return;
+    }
+
+    // Store previous views.
+    views.push_back(view);
+
+    // fiting matrix
+    static unsigned short int fm[4][4] = {
+            {0, 0, 2, 1},   /*  row, column, rowSpan, columnSpan of first inserted */
+            {0, 1, 2, 1},   /*  row, column, rowSpan, columnSpan of second inserted */
+            {1, 0, 1, 2},   /*  row, column, rowSpan, columnSpan of third inserted */
+            {1, 1, 1, 1},   /*  row, column, rowSpan, columnSpan of fourth inserted */
+    };
+
+
+    ui->viewFrame->addWidget(view, fm[avc - 1][0], fm[avc - 1][1], fm[avc - 1][2], fm[avc - 1][3]);
+
+    // refit previous:
+    //
+    // There is no method for resetting the row/column-span after a widget has been added. However, addWidget can
+    // be called again on the same widget to achieve the same affect, because re-adding a widget to the same layout
+    // always implicitly removes it first.
+
+    if (avc == 3) {
+        ui->viewFrame->addWidget(views[0], 0, 0, 1, 1);
+        ui->viewFrame->addWidget(views[1], 0, 1, 1, 1);
+    }
+
+    if (avc == 4) {
+        ui->viewFrame->addWidget(views[2], 1, 0, 1, 1);
     }
 }
 

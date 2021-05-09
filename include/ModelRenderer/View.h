@@ -43,7 +43,7 @@ public:
     void toggleClipFilter(bool enable);
 
     // return instance count
-    static double getCount();
+    static unsigned short int getCount();
 
 
 private:

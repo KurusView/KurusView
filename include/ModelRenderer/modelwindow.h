@@ -40,6 +40,8 @@ public:
 
     void gridlinesInit(View *view);
 
+    void addViewToFrame(View *view);
+
 private:
     Ui::ModelWindow *ui;
     std::vector<View *> views;
@@ -48,6 +50,7 @@ private:
     QString currentModelFilePath;
 
     void setActiveView(View *newActiveView);
+
     vtkSmartPointer<vtkDistanceWidget> distanceWidget;
 
 public slots:

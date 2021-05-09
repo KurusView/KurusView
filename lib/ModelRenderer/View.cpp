@@ -132,6 +132,6 @@ View::~View() {
     ViewInstanceCount++;
 }
 
-double View::getCount() {
+unsigned short int View::getCount() {
     return View::ViewInstanceCount;
 }
