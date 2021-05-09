@@ -110,6 +110,7 @@ $(document).ready(function(){initNavTree('class_model.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="class_model-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Model Class Reference</div>  </div>
@@ -144,10 +145,10 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#abea7440824f0c1cd58e523f08c486ca6">displayVertexCount</a> ()</td></tr>
 <tr class="memdesc:abea7440824f0c1cd58e523f08c486ca6"><td class="mdescLeft">&#160;</td><td class="mdescRight">displayVertexCount - Calculates the number of vertices and displays them <br /></td></tr>
 <tr class="separator:abea7440824f0c1cd58e523f08c486ca6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadf1269e558e3581fe58fe47ad9b65e7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aadf1269e558e3581fe58fe47ad9b65e7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#aadf1269e558e3581fe58fe47ad9b65e7">displayCells</a> ()</td></tr>
-<tr class="memdesc:aadf1269e558e3581fe58fe47ad9b65e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">displayCells - Displays the number of cells and the type of each cell <br /></td></tr>
-<tr class="separator:aadf1269e558e3581fe58fe47ad9b65e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5aa50dfa14fa39b3503698ddcfcb2e3f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5aa50dfa14fa39b3503698ddcfcb2e3f"></a>
+unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a5aa50dfa14fa39b3503698ddcfcb2e3f">displayCells</a> ()</td></tr>
+<tr class="memdesc:a5aa50dfa14fa39b3503698ddcfcb2e3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">displayCells - Displays the number of cells and the type of each cell <br /></td></tr>
+<tr class="separator:a5aa50dfa14fa39b3503698ddcfcb2e3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a684fce1b8bf9d129bd03d6375a2a7c7f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_m_vector.html">MVector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a684fce1b8bf9d129bd03d6375a2a7c7f">calcCentre</a> ()</td></tr>
 <tr class="memdesc:a684fce1b8bf9d129bd03d6375a2a7c7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">calcCentre - Calculates the centre of the model  <a href="#a684fce1b8bf9d129bd03d6375a2a7c7f">More...</a><br /></td></tr>
 <tr class="separator:a684fce1b8bf9d129bd03d6375a2a7c7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,6 +162,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a707d660adfc089994e11c158172d42d2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a707d660adfc089994e11c158172d42d2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>loadSTLModel</b> (const std::string &amp;filePath)</td></tr>
 <tr class="separator:a707d660adfc089994e11c158172d42d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22299e47342aafc34e76f07fc8e020f4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a22299e47342aafc34e76f07fc8e020f4"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>calcVolume</b> ()</td></tr>
+<tr class="separator:a22299e47342aafc34e76f07fc8e020f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1928e138c778f47c5582592aec0b421"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab1928e138c778f47c5582592aec0b421"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>calcWeight</b> ()</td></tr>
+<tr class="separator:ab1928e138c778f47c5582592aec0b421"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aa15b2ec7d6de70be3b744bc477f4402c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa15b2ec7d6de70be3b744bc477f4402c"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>fileType</b></td></tr>
+<tr class="separator:aa15b2ec7d6de70be3b744bc477f4402c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd0a65b6917deee4c3d32731bfc61915"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afd0a65b6917deee4c3d32731bfc61915"></a>
+vtkSmartPointer&lt; vtkSTLReader &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>STLModel</b></td></tr>
+<tr class="separator:afd0a65b6917deee4c3d32731bfc61915"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="class_model.html" title="Model - This object is responsible for reading and writing model entities to VTK style data files...">Model</a> - This object is responsible for reading and writing model entities to VTK style data files. </p>

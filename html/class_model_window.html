@@ -132,6 +132,9 @@ Inheritance diagram for ModelWindow:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-slots"></a>
 Public Slots</h2></td></tr>
+<tr class="memitem:a2e1ce42f7783febdf37b75c5cd6b7747"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2e1ce42f7783febdf37b75c5cd6b7747"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>viewActive</b> (QMouseEvent *event)</td></tr>
+<tr class="separator:a2e1ce42f7783febdf37b75c5cd6b7747"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adfe2628591eb1f94d52a12f4d30444e0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adfe2628591eb1f94d52a12f4d30444e0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>handleBackgroundColor</b> ()</td></tr>
 <tr class="separator:adfe2628591eb1f94d52a12f4d30444e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -162,21 +165,24 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>updateStructure</b> (
 <tr class="memitem:a0be0aad8e3a69aad988419dbd013b983"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0be0aad8e3a69aad988419dbd013b983"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>handleGridlines</b> ()</td></tr>
 <tr class="separator:a0be0aad8e3a69aad988419dbd013b983"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae303729d7b06c5ec12e5cd07d7218559"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae303729d7b06c5ec12e5cd07d7218559"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>toggleGridlines</b> (bool enable)</td></tr>
-<tr class="separator:ae303729d7b06c5ec12e5cd07d7218559"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa51fce8213854adb9f3ceee482096843"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa51fce8213854adb9f3ceee482096843"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>handleMeasurment</b> ()</td></tr>
 <tr class="separator:aa51fce8213854adb9f3ceee482096843"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c3b43ce1241a4a14f6cbfc66451013d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0c3b43ce1241a4a14f6cbfc66451013d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>getStatistics</b> ()</td></tr>
+<tr class="separator:a0c3b43ce1241a4a14f6cbfc66451013d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a1319e984ea119dd39c2d4a53348550a4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_window.html#a1319e984ea119dd39c2d4a53348550a4">ModelWindow</a> (const QString &amp;filePath, QWidget *parent=nullptr)</td></tr>
 <tr class="memdesc:a1319e984ea119dd39c2d4a53348550a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialises a <a class="el" href="class_model_window.html" title="Visualises a model in a user-friendly GUI. ">ModelWindow</a> and loads a <a class="el" href="class_model.html" title="Model - This object is responsible for reading and writing model entities to VTK style data files...">Model</a> with the filePath.  <a href="#a1319e984ea119dd39c2d4a53348550a4">More...</a><br /></td></tr>
 <tr class="separator:a1319e984ea119dd39c2d4a53348550a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6747b53911f566036be4b1376e9bd92c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6747b53911f566036be4b1376e9bd92c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>gridlinesInit</b> ()</td></tr>
-<tr class="separator:a6747b53911f566036be4b1376e9bd92c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36fe0ab172ed6d990ff0770e53709ca2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a36fe0ab172ed6d990ff0770e53709ca2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>gridlinesInit</b> (<a class="el" href="class_view.html">View</a> *view)</td></tr>
+<tr class="separator:a36fe0ab172ed6d990ff0770e53709ca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56ba88f30017ae63fe501ba4193f02ae"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a56ba88f30017ae63fe501ba4193f02ae"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addViewToFrame</b> (<a class="el" href="class_view.html">View</a> *view)</td></tr>
+<tr class="separator:a56ba88f30017ae63fe501ba4193f02ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Visualises a model in a user-friendly GUI. </p>

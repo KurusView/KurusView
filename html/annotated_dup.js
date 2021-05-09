@@ -10,5 +10,6 @@ var annotated_dup =
     [ "MPyramid", "class_m_pyramid.html", "class_m_pyramid" ],
     [ "MTetrahedron", "class_m_tetrahedron.html", "class_m_tetrahedron" ],
     [ "MVector", "class_m_vector.html", "class_m_vector" ],
+    [ "View", "class_view.html", "class_view" ],
     [ "WelcomeWindow", "class_welcome_window.html", "class_welcome_window" ]
 ];
