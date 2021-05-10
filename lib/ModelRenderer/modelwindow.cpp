@@ -96,7 +96,7 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
     createActionsAndConnections();
 
     connect(ui->menuRecent_Files, &QMenu::aboutToShow, this, &ModelWindow::updateRecentActionList);
-    
+
     show();
 
     // Camera View Button Slots
@@ -143,7 +143,7 @@ ModelWindow::~ModelWindow() {
 }
 
 void ModelWindow::handleBackgroundColor() {
-    QColor color = QColorDialog::getColor(Qt::yellow, this);
+    QColor color = QColorDialog::getColor(QColor(activeView->backgroundColour), this);
 
     if (!color.isValid())
         return;
@@ -159,7 +159,7 @@ void ModelWindow::handleBackgroundColor() {
 }
 
 void ModelWindow::handleModelColor() {
-    QColor color = QColorDialog::getColor(Qt::yellow, this);
+    QColor color = QColorDialog::getColor(QColor(activeView->modelColour), this);
 
     if (!color.isValid())
         return;

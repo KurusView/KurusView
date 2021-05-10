@@ -60,6 +60,9 @@
          </item>
          <item>
           <widget class="QLabel" name="displayPathLabel">
+           <property name="styleSheet">
+            <string notr="true">QLabel { color: #636363; }</string>
+           </property>
            <property name="text">
             <string>a/b/c/d</string>
            </property>
@@ -142,7 +145,17 @@
         </spacer>
        </item>
        <item>
-        <widget class="QSpinBox" name="modelsPerWindowSpin"/>
+        <widget class="QSpinBox" name="modelsPerWindowSpin">
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>4</number>
+         </property>
+         <property name="value">
+          <number>4</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -169,7 +182,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="alwaysOpenCheck">
+        <widget class="QCheckBox" name="alwaysOpenOnNewWindowCheck">
          <property name="text">
           <string/>
          </property>
@@ -200,7 +213,14 @@
         </spacer>
        </item>
        <item>
-        <widget class="QSpinBox" name="displayRecentsSpin"/>
+        <widget class="QSpinBox" name="displayRecentsSpin">
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="value">
+          <number>20</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
