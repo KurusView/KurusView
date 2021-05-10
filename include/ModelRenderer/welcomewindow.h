@@ -6,6 +6,7 @@
 #include <QSettings>
 #include <QObject.h>
 #include <QPoint.h>
+#include <QtWidgets/QGridLayout>
 
 namespace Ui {
     class WelcomeWindow;
@@ -25,19 +26,23 @@ public:
 private:
     Ui::WelcomeWindow *ui;
     QStringList recentFilePaths;
-    QStringList recentFileNames;
-    QStringListModel *model;
+
+    QGridLayout * mainLayout;
+
     const int maxFileNr;
+
     QSettings settings;
+
     QImage *img = new QImage(":/Icons/kurusview.png");
     QPixmap p = QPixmap::fromImage(*img);
-
     QFrame *
     CreateNewRow(int number, QString title, QString subtitle, QString mouseReleaseValue, int generalFontSize = 18);
 
     void populateRecents();
 
     void showContextMenu(const QPoint &pos);
+
+    void loadModel(const QString& path);
 
 
 public slots:

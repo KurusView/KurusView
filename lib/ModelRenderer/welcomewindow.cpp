@@ -9,6 +9,7 @@
 #include <QMessageBox>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QMenu>
+#include <QtAlgorithms>
 #include <iostream>
 
 WelcomeWindow::WelcomeWindow(QWidget *parent) :
@@ -43,7 +44,14 @@ void WelcomeWindow::handleOpenButton() {
         return;
     }
 
+    // update recents for next time
     addToRecentFiles(inputFileName);
+
+    // uneecessary as this window is inmediatly closed. helps with debugging
+    populateRecents();
+
+    // open model
+    loadModel(inputFileName);
 }
 
 void WelcomeWindow::handleAboutButton() {
@@ -56,14 +64,13 @@ void WelcomeWindow::addToRecentFiles(QString &inputFileName) {
 
     // Remove the file just opened from the list - so there won't be any duplicates in the
     recentFilePaths.removeAll(currFile);
-    //recentFileNames.removeAll(inputFileName);
+
     // Add the file just opened to the front of the list
     recentFilePaths.prepend(currFile);
-    recentFilePaths.prepend(inputFileName);
+
     // Remove last the last files in the list, if the list is greater than the maximum number of files.
     while (recentFilePaths.size() > maxFileNr) {
         recentFilePaths.removeLast();
-        //recentFileNames.removeLast();
     }
 
     settings.setValue("recentFiles", recentFilePaths);
@@ -82,7 +89,11 @@ QFrame *WelcomeWindow::CreateNewRow(int number, QString title, QString subtitle,
     frame->setStyleSheet(styleFrame);
     frame->setCursor(Qt::PointingHandCursor);
     frame->installEventFilter(this);
+
+    // make variables conveniently accessible to external event handlers
     frame->setProperty("mouseReleaseValue", mouseReleaseValue);
+    frame->setProperty("FILEPATH", subtitle);
+
 
     auto *imgDisplayLabel = new QLabel("");
     imgDisplayLabel->setPixmap(p.scaled(generalFontSize * 2.5, generalFontSize * 2.5, Qt::KeepAspectRatio));
@@ -101,7 +112,7 @@ QFrame *WelcomeWindow::CreateNewRow(int number, QString title, QString subtitle,
     auto *labelTitle = new QLabel(title);
     auto *labelSubtitle = new QLabel(subtitle);
 
-    // set object name so it can be found by removeEntryFromRecents
+    // set object name so it can be found by removeEntryFromRecents and openModel
     labelSubtitle->setObjectName("FILEPATH");
 
     labelNumber->setStyleSheet(styleNumber);
@@ -124,10 +135,15 @@ bool WelcomeWindow::eventFilter(QObject *obj, QEvent *event) {
     if (event->type() == QEvent::MouseButtonRelease) {
         auto *mouseEvent = static_cast<QMouseEvent *> (event);
         if (mouseEvent->button() == Qt::LeftButton) {
-            QString prop = obj->property("mouseReleaseValue").toString();
-            QMessageBox msgBox;
-            msgBox.setText(QString("You have clicked an object with mouseReleaseValue: %1.").arg(prop));
-            msgBox.exec();
+            QString modelPath = obj->property("FILEPATH").toString();
+
+            // open model
+            loadModel(modelPath);
+
+//            QMessageBox msgBox;
+//            msgBox.setText(QString("You have clicked an object with mouseReleaseValue: %1.").arg(prop));
+//            msgBox.exec();
+
             return true;
         }
     }
@@ -140,6 +156,7 @@ void WelcomeWindow::removeEntryFromRecents() {
     // vodoo to find the QLabel of the QFrame where the contextmenu was requested
     auto *pathLabel = (QLabel *) sender()->parent()->findChild<QLabel *>("FILEPATH");
 
+    // debug
     std::cout << pathLabel->text().toStdString() << std::endl;
 
     // remove the filepath from recents list
@@ -157,7 +174,19 @@ void WelcomeWindow::populateRecents() {
     settings.sync();
     recentFilePaths = settings.value("recentFiles").value<QStringList>();
 
-    auto *mainLayout = new QGridLayout();
+
+    // Update layout: Cant set a layout on a widget that already has a layout, see https://forum.qt.io/topic/14898/howto-change-layout-of-a-widget/7
+    if (ui->frame->layout()) {
+
+        // need to delete the layout
+        delete mainLayout;
+
+        // and all the children of the frame - https://stackoverflow.com/questions/2990283/qt-change-qwidget-layout
+        qDeleteAll(ui->frame->children());
+    }
+
+
+    mainLayout = new QGridLayout();
 
     // reserve 25
     mainLayout->setRowStretch(25, 25);
@@ -192,4 +221,9 @@ void WelcomeWindow::showContextMenu(const QPoint &pos) {
 
     // show context menu
     contextMenu.exec(QCursor::pos());
+}
+
+
+void WelcomeWindow::loadModel(const QString &path) {
+    std::cout << path.toStdString() << std::endl;
 }
