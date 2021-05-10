@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['welcomewindow',['WelcomeWindow',['../class_welcome_window.html',1,'']]]
+  ['view',['View',['../class_view.html',1,'']]]
 ];

@@ -12,6 +12,9 @@ var hierarchy =
     [ "QApplication", null, [
       [ "ModelRenderer", "class_model_renderer.html", null ]
     ] ],
+    [ "QDialog", null, [
+      [ "Dialog", "class_dialog.html", null ]
+    ] ],
     [ "QMainWindow", null, [
       [ "ModelWindow", "class_model_window.html", null ],
       [ "WelcomeWindow", "class_welcome_window.html", null ]
