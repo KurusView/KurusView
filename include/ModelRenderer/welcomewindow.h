@@ -56,6 +56,8 @@ public slots:
 
     void copyEntryToClipboard();
 
+    void loadEntryAsModel();
+
 signals:
 
     void fileSelected(const QStringList &filePaths);
