@@ -62,8 +62,20 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
     ui->setupUi(this);
     // Get Primary Screen Height
     int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
+    int screenWidth = QGuiApplication::primaryScreen()->geometry().width();
 
-    ui->bottomMenu->setMaximumHeight(screenHeight / 5);
+    ui->bottomMenu->setMaximumHeight(screenHeight / 6);
+    ui->statisticsGroupBox->setMinimumWidth(screenWidth / 6);
+
+    int statisticsBoxWidth = ui->statisticsGroupBox->width();
+
+    ui->centreOfGravLabel->setMinimumWidth(statisticsBoxWidth / 1.7);
+    ui->densityLabel->setMinimumWidth(statisticsBoxWidth / 1.7);
+    ui->weightLabel->setMinimumWidth(statisticsBoxWidth / 1.7);
+    ui->numOfCellsLabel->setMinimumWidth(statisticsBoxWidth / 1.7);
+    ui->volumeLabel->setMinimumWidth(statisticsBoxWidth / 1.7);
+
+    std::cout << ui->centreOfGravLabel->width() << std::endl;
 
     // Camera View Button Slots
     connect(ui->resetCameraViewPushButton, &QPushButton::released, this, &ModelWindow::handleChangePerspective);
@@ -393,6 +405,8 @@ void ModelWindow::setActiveView(View *newActiveView) {
 
     // Statistics
     getStatistics();
+
+    std::cout << ui->statisticsGroupBox->width() << std::endl;
 }
 
 void ModelWindow::updateStructure() {
@@ -478,10 +492,15 @@ void ModelWindow::getStatistics() {
         activeView->volume = activeView->model->calcVolume();
         activeView->density = activeView->weight / activeView->volume;
 
+        QString x = QString::number(activeView->centreOfGrav.getX(), 'g', 3);
+        QString y = QString::number(activeView->centreOfGrav.getY(), 'g', 3);
+        QString z = QString::number(activeView->centreOfGrav.getZ(), 'g', 3);
+
+
         ui->numOfCellsLabel->setText(QString::number(activeView->numOfCells));
-        ui->centreOfGravLabel->setText("X: " + QString::number(activeView->centreOfGrav.getX()) + "\nY: " +
-                                       QString::number(activeView->centreOfGrav.getY()) + "\nZ: " +
-                                       QString::number(activeView->centreOfGrav.getZ()));
+        ui->centreOfGravLabel->setText(
+                "X: " + QString::number(x.toDouble()) + " Y: " + QString::number(y.toDouble()) + " Z: " +
+                QString::number(z.toDouble()));
         ui->weightLabel->setText(QString::number(activeView->weight));
         ui->volumeLabel->setText(QString::number(activeView->volume));
         ui->densityLabel->setText(QString::number(activeView->density));
@@ -501,6 +520,10 @@ void ModelWindow::getStatistics() {
         centreOfMass->Update();
         MVector centreOfGrav(center[0], center[1], center[2]);
 
+        QString x = QString::number(centreOfGrav.getX(), 'g', 3);
+        QString y = QString::number(centreOfGrav.getY(), 'g', 3);
+        QString z = QString::number(centreOfGrav.getZ(), 'g', 3);
+
 
         unsigned long numOfCells = activeView->model->STLModel->GetOutputDataObject(0)->GetNumberOfElements(
                 vtkDataObject::CELL);
@@ -510,9 +533,9 @@ void ModelWindow::getStatistics() {
         activeView->numOfCells = numOfCells;
 
         ui->volumeLabel->setText(QString::number(activeView->volume));
-        ui->centreOfGravLabel->setText("X: " + QString::number(activeView->centreOfGrav.getX()) + "\nY: " +
-                                       QString::number(activeView->centreOfGrav.getY()) + "\nZ: " +
-                                       QString::number(activeView->centreOfGrav.getZ()));
+        ui->centreOfGravLabel->setText(
+                "X: " + QString::number(x.toDouble()) + " Y: " + QString::number(y.toDouble()) + " Z: " +
+                QString::number(z.toDouble()));
         ui->numOfCellsLabel->setText(QString::number(activeView->numOfCells));
         ui->weightLabel->setText("-");
         ui->densityLabel->setText("-");
