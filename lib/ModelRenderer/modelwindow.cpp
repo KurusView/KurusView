@@ -416,10 +416,11 @@ void ModelWindow::addViewToFrame(View *view) {
 
     // active view count
     unsigned short int avc = View::getCount();
-    std::cout << avc << std::endl;
+    size_t index = views.size();
+    std::cout << "Total Views: " << avc << ", Views in Current Window: " << index << std::endl;
 
-    // max 4 views allowed
-    if (avc > 4) {
+    // max 4 views allowed PER WINDOW
+    if (views.size() > 4) {
         delete view;
         return;
     }
@@ -436,7 +437,7 @@ void ModelWindow::addViewToFrame(View *view) {
     };
 
 
-    ui->viewFrame->addWidget(view, fm[avc - 1][0], fm[avc - 1][1], fm[avc - 1][2], fm[avc - 1][3]);
+    ui->viewFrame->addWidget(view, fm[index][0], fm[index][1], fm[index][2], fm[index][3]);
 
     // refit previous:
     //
@@ -444,16 +445,16 @@ void ModelWindow::addViewToFrame(View *view) {
     // be called again on the same widget to achieve the same affect, because re-adding a widget to the same layout
     // always implicitly removes it first.
 
-    if (avc == 3)
+    if (index + 1 == 3)
         ui->viewFrame->addWidget(views[1], 1, 0, 1, 1);
 
-    if (avc == 4)
+    if (index + 1 == 4)
         ui->viewFrame->addWidget(views[2], 0, 1, 1, 1);
 }
 
 void ModelWindow::getStatistics() {
     if (activeView->model.fileType == "mod") {
-        activeView->numOfCells = activeView->model.displayCells();
+        activeView->numOfCells = activeView->model.getCellCount();
         activeView->centreOfGrav = activeView->model.calcCentre();
         activeView->weight = activeView->model.calcWeight();
         activeView->volume = activeView->model.calcVolume();
@@ -553,7 +554,9 @@ void ModelWindow::openRecent() {
             emit openNewModelWindow(paths);
         } else {
             addViewToFrame(new View(path));
+            setActiveView(views[views.size() - 1]);
         }
+        adjustForCurrentFile(path);
     }
 }
 

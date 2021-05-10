@@ -61,9 +61,9 @@ public:
     void displayVertexCount();
 
     /**
-     * @brief displayCells - Displays the number of cells and the type of each cell
+     * @brief getCellCount - Displays the number of cells and the type of each cell
      */
-    unsigned long displayCells();
+    size_t getCellCount();
 
     /**
      * @brief calcCentre - Calculates the centre of the model

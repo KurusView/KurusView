@@ -149,6 +149,7 @@ bool WelcomeWindow::eventFilter(QObject *obj, QEvent *event) {
 
             QStringList modelPathList;
             modelPathList << modelPath;
+            addToRecentFiles(modelPathList);
             // open model
             loadModel(modelPathList);
 

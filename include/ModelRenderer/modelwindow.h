@@ -67,7 +67,7 @@ public:
 
 signals:
 
-    void openNewModelWindow(QStringList &filePaths);
+    void openNewModelWindow(const QStringList &filePaths);
 
 private:
     Ui::ModelWindow *ui;

@@ -95,7 +95,7 @@ ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv),
     for (int i = 1; i < argc; ++i) {
         filePaths.append(argv[i]);
     }
-    modelWindows.push_back(std::make_shared<ModelWindow>(filePaths));
+    openFile(filePaths);
 }
 
 // live dark/light mode change
@@ -108,6 +108,11 @@ void ModelRenderer::applyLightMode() {
 }
 
 void ModelRenderer::openFile(const QStringList &filePaths){
-    modelWindows.push_back(std::make_shared<ModelWindow>(filePaths));
+    for (int i = 0; i < filePaths.length(); i+=4) {
+        QStringList subList = filePaths.mid(i,4);
+        std::shared_ptr<ModelWindow> modelWindow = std::make_shared<ModelWindow>(subList);
+        modelWindows.emplace_back(modelWindow);
+        connect(modelWindow.get(), &ModelWindow::openNewModelWindow, this, &ModelRenderer::openFile);
+    }
     welcomeWindow.close();
 }
