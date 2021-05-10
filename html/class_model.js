@@ -13,6 +13,7 @@ var class_model =
     [ "loadModel", "class_model.html#a1b24f12f7610a5ebfa8e61c322e3952b", null ],
     [ "loadSTLModel", "class_model.html#a707d660adfc089994e11c158172d42d2", null ],
     [ "saveModel", "class_model.html#a41873a62770f294e288f78f908d8868d", null ],
+    [ "filePath", "class_model.html#a5ae916d3f65f0ac8cf29f7963e3debe6", null ],
     [ "fileType", "class_model.html#aa15b2ec7d6de70be3b744bc477f4402c", null ],
     [ "STLModel", "class_model.html#afd0a65b6917deee4c3d32731bfc61915", null ]
 ];

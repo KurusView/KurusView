@@ -74,7 +74,7 @@ Preprocessing /home/travis/build/KurusView/2020_GROUP_21/include/Utils/dark_mode
 Parsing file /home/travis/build/KurusView//home/travis/build/KurusView/2020_GROUP_21/include/Matrix.h:16: warning: Compound Matrix is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/dialog.h:11: warning: Compound Dialog is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/Material.h:8: warning: Compound Material is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:18: warning: Compound View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:19: warning: Compound View is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:17: warning: Compound WelcomeWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:19: warning: Compound MVector is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/lib/MVector.cpp:29: warning: no matching class member found for 
@@ -176,11 +176,12 @@ Build/home/travis/build/KurusView/2020_GROUP_21/include/MCell.h:158: warning: Fo
 /home/travis/build/KurusView/2020_GROUP_21/include/MCell.h:252: warning: Found unknown command `\TODO'
 /home/travis/build/KurusView/2020_GROUP_21/include/MCell.h:158: warning: Found unknown command `\TODO'
 /home/travis/build/KurusView/2020_GROUP_21/include/MCell.h:71: warning: Found unknown command `\TODO'
-/home/travis/build/KurusView/2020_GROUP_21/include/Model.h:85: warning: Member loadSTLModel(const std::string &filePath) (function) of class Model is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/Model.h:87: warning: Member calcVolume() (function) of class Model is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/Model.h:89: warning: Member calcWeight() (function) of class Model is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/Model.h:91: warning: Member fileType (variable) of class Model is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/Model.h:93: warning: Member STLModel (variable) of class Model is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/Model.h:86: warning: Member loadSTLModel(const std::string &filePath) (function) of class Model is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/Model.h:88: warning: Member calcVolume() (function) of class Model is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/Model.h:90: warning: Member calcWeight() (function) of class Model is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/Model.h:92: warning: Member fileType (variable) of class Model is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/Model.h:94: warning: Member filePath (variable) of class Model is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/Model.h:96: warning: Member STLModel (variable) of class Model is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer.h:26: warning: Member openFile(const QStringList &filePaths) (slot) of class ModelRenderer is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer.h:28: warning: Member applyLightMode() (slot) of class ModelRenderer is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:94: warning: Member viewActive(QMouseEvent *event) (slot) of class ModelWindow is not documented.
@@ -196,60 +197,63 @@ Build/home/travis/build/KurusView/2020_GROUP_21/include/MCell.h:158: warning: Fo
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:114: warning: Member handleGridlines() (slot) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:116: warning: Member handleMeasurment() (slot) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:118: warning: Member getStatistics() (slot) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:68: warning: Member openNewModelWindow(const QStringList &filePaths) (signal) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:45: warning: Member gridlinesInit(View *view) (function) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:47: warning: Member addViewToFrame(View *view) (function) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:58: warning: Member createActionsAndConnections() (function) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:60: warning: Member adjustForCurrentFile(const QString &filePath) (function) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:62: warning: Member updateRecentActionList() (function) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:49: warning: Member fileMenu (variable) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:50: warning: Member recentFilesMenu (variable) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:52: warning: Member openAction (variable) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:53: warning: Member recentFileActionList (variable) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:54: warning: Member maxFileNr (variable) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:56: warning: Member currentFilePath (variable) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:64: warning: Member settings (variable) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:66: warning: Member openNewModelWindow(const QStringList &filePaths) (signal) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:45: warning: Member addViewToFrame(View *view) (function) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:56: warning: Member createActionsAndConnections() (function) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:58: warning: Member adjustForCurrentFile(const QString &filePath) (function) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:60: warning: Member updateRecentActionList() (function) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:47: warning: Member fileMenu (variable) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:48: warning: Member recentFilesMenu (variable) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:50: warning: Member openAction (variable) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:51: warning: Member recentFileActionList (variable) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:52: warning: Member maxFileNr (variable) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:54: warning: Member currentFilePath (variable) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:62: warning: Member settings (variable) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:36: warning: argument 'filePath' of command @param is not found in the argument list of ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent=nullptr)
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:41: warning: The following parameters of ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent=nullptr) are not documented:
   parameter 'filePaths'
 /home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:137: warning: Member operator[](int index) const  (function) of class MVector is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:139: warning: Member operator==(const MVector &v) const  (function) of class MVector is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:141: warning: Member operator!=(const MVector &v) const  (function) of class MVector is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:37: warning: Member View(const QString &filePath, QWidget *parent=nullptr) (function) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:41: warning: Member buildChain() (function) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:43: warning: Member toggleShrinkFilter(bool enable) (function) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:45: warning: Member toggleClipFilter(bool enable) (function) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:50: warning: Member setModelColor(const QColor &color) (function) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:52: warning: Member setBackgroundColor(const QColor &color) (function) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:60: warning: Member setLightIntensity(int value) (function) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:62: warning: Member setLightSpecularity(int value) (function) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:64: warning: Member setModelOpacity(int value) (function) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:66: warning: Member resetLighting() (function) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:68: warning: Member toggleGridLines(bool enable) (function) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:70: warning: Member setStructure(int selectedStructure) (function) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:48: warning: Member getCount() (function) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:20: warning: Member borderColor (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:22: warning: Member verticalLayout (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:24: warning: Member qVTKWidget (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:25: warning: Member model (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:26: warning: Member mapper (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:27: warning: Member filters (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:28: warning: Member clipFilter (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:29: warning: Member shrinkFilter (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:31: warning: Member lightIntensity (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:31: warning: Member lightSpecularity (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:31: warning: Member modelOpacity (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:31: warning: Member structure (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:33: warning: Member backgroundColour (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:33: warning: Member modelColor (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:35: warning: Member isClipped (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:35: warning: Member isShrunk (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:35: warning: Member gridLinesEnabled (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:54: warning: Member density (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:54: warning: Member volume (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:54: warning: Member weight (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:56: warning: Member numOfCells (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:58: warning: Member centreOfGrav (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:38: warning: Member View(const QString &filePath, QWidget *parent=nullptr) (function) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:42: warning: Member buildChain() (function) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:44: warning: Member toggleShrinkFilter(bool enable) (function) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:46: warning: Member toggleClipFilter(bool enable) (function) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:51: warning: Member setModelColor(const QColor &color) (function) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:53: warning: Member setBackgroundColor(const QColor &color) (function) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:61: warning: Member setLightIntensity(int value) (function) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:63: warning: Member setLightSpecularity(int value) (function) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:65: warning: Member setModelOpacity(int value) (function) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:67: warning: Member resetLighting() (function) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:69: warning: Member toggleGridLines(bool enable) (function) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:71: warning: Member setStructure(int selectedStructure) (function) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:77: warning: Member save() (function) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:79: warning: Member saveAs() (function) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:49: warning: Member getCount() (function) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:21: warning: Member borderColor (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:23: warning: Member verticalLayout (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:25: warning: Member qVTKWidget (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:26: warning: Member model (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:27: warning: Member mapper (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:28: warning: Member filters (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:29: warning: Member clipFilter (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:30: warning: Member shrinkFilter (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:32: warning: Member lightIntensity (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:32: warning: Member lightSpecularity (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:32: warning: Member modelOpacity (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:32: warning: Member structure (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:34: warning: Member backgroundColour (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:34: warning: Member modelColour (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:36: warning: Member isClipped (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:36: warning: Member isShrunk (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:36: warning: Member gridLinesEnabled (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:55: warning: Member density (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:55: warning: Member volume (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:55: warning: Member weight (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:57: warning: Member numOfCells (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:59: warning: Member centreOfGrav (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:73: warning: Member filePath (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:75: warning: Member viewSettings (variable) of class View is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:54: warning: Member handleOpenButton() (slot) of class WelcomeWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:56: warning: Member handleAboutButton() (slot) of class WelcomeWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:58: warning: Member removeEntryFromRecents() (slot) of class WelcomeWindow is not documented.
@@ -336,5 +340,5 @@ Generating file member index...
 Generating example index...
 finalizing index lists...
 writing tag file...
-lookup cache used 267/65536 hits=1541 misses=286
+lookup cache used 274/65536 hits=1566 misses=293
 finished...

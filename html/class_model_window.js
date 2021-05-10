@@ -6,7 +6,6 @@ var class_model_window =
     [ "adjustForCurrentFile", "class_model_window.html#a88003b171249ee548458366c7b9cb8d7", null ],
     [ "createActionsAndConnections", "class_model_window.html#acef8c210a66d3669894b68656a1bb79c", null ],
     [ "getStatistics", "class_model_window.html#a0c3b43ce1241a4a14f6cbfc66451013d", null ],
-    [ "gridlinesInit", "class_model_window.html#a36fe0ab172ed6d990ff0770e53709ca2", null ],
     [ "handleBackgroundColor", "class_model_window.html#adfe2628591eb1f94d52a12f4d30444e0", null ],
     [ "handleChangePerspective", "class_model_window.html#a347aaf495ab87259cf021097ccd7e486", null ],
     [ "handleGridlines", "class_model_window.html#a0be0aad8e3a69aad988419dbd013b983", null ],

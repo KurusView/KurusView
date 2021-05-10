@@ -164,6 +164,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>toggleGridLines</b> (
 <tr class="memitem:aa4c521340838ec7bb113ec4ce7730037"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa4c521340838ec7bb113ec4ce7730037"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setStructure</b> (int selectedStructure)</td></tr>
 <tr class="separator:aa4c521340838ec7bb113ec4ce7730037"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2cb33a313c314d30b11e3e8484f87fc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa2cb33a313c314d30b11e3e8484f87fc"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>save</b> ()</td></tr>
+<tr class="separator:aa2cb33a313c314d30b11e3e8484f87fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f092e6bd0a005f69bbd02eddae7112c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9f092e6bd0a005f69bbd02eddae7112c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>saveAs</b> ()</td></tr>
+<tr class="separator:a9f092e6bd0a005f69bbd02eddae7112c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -182,9 +188,9 @@ QVBoxLayout *&#160;</td><td class="memItemRight" valign="bottom"><b>verticalLayo
 <tr class="memitem:a509ec6c90fb87719eddf1510837b44ea"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a509ec6c90fb87719eddf1510837b44ea"></a>
 QVTKOpenGLWidget *&#160;</td><td class="memItemRight" valign="bottom"><b>qVTKWidget</b></td></tr>
 <tr class="separator:a509ec6c90fb87719eddf1510837b44ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7f461a95f0d30e95f0478c64c33b268"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab7f461a95f0d30e95f0478c64c33b268"></a>
-<a class="el" href="class_model.html">Model</a>&#160;</td><td class="memItemRight" valign="bottom"><b>model</b></td></tr>
-<tr class="separator:ab7f461a95f0d30e95f0478c64c33b268"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f48a90dcffb7a4900be089159286ee6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7f48a90dcffb7a4900be089159286ee6"></a>
+std::shared_ptr&lt; <a class="el" href="class_model.html">Model</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>model</b></td></tr>
+<tr class="separator:a7f48a90dcffb7a4900be089159286ee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a591d27de6f260c9d3d4fdf8e2e7c3901"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a591d27de6f260c9d3d4fdf8e2e7c3901"></a>
 vtkSmartPointer&lt; vtkDataSetMapper &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mapper</b></td></tr>
 <tr class="separator:a591d27de6f260c9d3d4fdf8e2e7c3901"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -212,9 +218,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>structure</b></td></tr
 <tr class="memitem:aaf311c2b0d7b46542e3a359ecd6f3e72"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaf311c2b0d7b46542e3a359ecd6f3e72"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>backgroundColour</b></td></tr>
 <tr class="separator:aaf311c2b0d7b46542e3a359ecd6f3e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb9952e84423cdb7542652e1073b0038"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeb9952e84423cdb7542652e1073b0038"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>modelColor</b></td></tr>
-<tr class="separator:aeb9952e84423cdb7542652e1073b0038"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46c77fff9d0ec069a71c2e08df9c8eed"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a46c77fff9d0ec069a71c2e08df9c8eed"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>modelColour</b></td></tr>
+<tr class="separator:a46c77fff9d0ec069a71c2e08df9c8eed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac17229de27db362f034e61d336d5d626"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac17229de27db362f034e61d336d5d626"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>isClipped</b></td></tr>
 <tr class="separator:ac17229de27db362f034e61d336d5d626"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -239,6 +245,12 @@ unsigned long&#160;</td><td class="memItemRight" valign="bottom"><b>numOfCells</
 <tr class="memitem:acd9da9e8042062065ebd30915a0c5fc9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acd9da9e8042062065ebd30915a0c5fc9"></a>
 <a class="el" href="class_m_vector.html">MVector</a>&#160;</td><td class="memItemRight" valign="bottom"><b>centreOfGrav</b></td></tr>
 <tr class="separator:acd9da9e8042062065ebd30915a0c5fc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fe54d89b54f802d6c581d3cff5433c2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5fe54d89b54f802d6c581d3cff5433c2"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>filePath</b></td></tr>
+<tr class="separator:a5fe54d89b54f802d6c581d3cff5433c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81993b11e678e5434c43bcdbf23f4949"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a81993b11e678e5434c43bcdbf23f4949"></a>
+std::shared_ptr&lt; QSettings &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>viewSettings</b></td></tr>
+<tr class="separator:a81993b11e678e5434c43bcdbf23f4949"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/<a class="el" href="_view_8h_source.html">View.h</a></li>
