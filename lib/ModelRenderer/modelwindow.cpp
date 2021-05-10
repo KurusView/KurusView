@@ -61,6 +61,9 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
     //TODO: Make sure the model is properly initialized before loading the window
     // standard call to setup Qt UI (same as previously)
     ui->setupUi(this);
+
+    this->setWindowTitle("KurusView: Model Viewer");
+
     // Get Primary Screen Height
     int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
     int screenWidth = QGuiApplication::primaryScreen()->geometry().width();
@@ -77,6 +80,24 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
     ui->volumeLabel->setMinimumWidth(statisticsBoxWidth / 1.7);
 
     std::cout << ui->centreOfGravLabel->width() << std::endl;
+
+    for (int i = 0; i < filePaths.size() && i < 4; ++i) {
+        addViewToFrame(new View(filePaths[i], parent));
+    }
+
+    for (auto &view : views) {
+        setActiveView(view);
+    }
+
+    setActiveView(views[0]);
+
+    std::cout << View::getCount();
+
+    createActionsAndConnections();
+
+    connect(ui->menuRecent_Files, &QMenu::aboutToShow, this, &ModelWindow::updateRecentActionList);
+    
+    show();
 
     // Camera View Button Slots
     connect(ui->resetCameraViewPushButton, &QPushButton::released, this, &ModelWindow::handleChangePerspective);
@@ -115,25 +136,6 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
     //Measurement button
     connect(ui->measurementButton, &QPushButton::released, this, &ModelWindow::handleMeasurement);
 
-
-    for (int i = 0; i < filePaths.size() && i < 4; ++i) {
-        addViewToFrame(new View(filePaths[i], parent));
-    }
-
-    for (auto &view : views) {
-        setActiveView(view);
-    }
-
-    setActiveView(views[0]);
-
-    std::cout << View::getCount();
-
-    createActionsAndConnections();
-
-    connect(ui->menuRecent_Files, &QMenu::aboutToShow, this, &ModelWindow::updateRecentActionList);
-
-
-    show();
 }
 
 ModelWindow::~ModelWindow() {
@@ -355,7 +357,7 @@ void ModelWindow::handleChangePerspective() {
 
 void ModelWindow::viewActive(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
-        setActiveView((View * )(((QVTKOpenGLWidget *) sender())->parentWidget()));
+        setActiveView((View *) (((QVTKOpenGLWidget *) sender())->parentWidget()));
     }
 }
 
