@@ -506,7 +506,7 @@ void ModelWindow::getStatistics() {
 
 void ModelWindow::updateRecentActionList() {
     settings.sync();
-    QStringList recentFilePaths =
+    recentFilePaths =
             settings.value("recentFiles").toStringList();
 
     auto itEnd = 0u;
@@ -531,7 +531,7 @@ void ModelWindow::adjustForCurrentFile(const QString &filePath) {
     setWindowFilePath(currentFilePath);
 
     settings.sync();
-    QStringList recentFilePaths =
+    recentFilePaths =
             settings.value("recentFiles").value<QStringList>();
     recentFilePaths.removeAll(filePath);
     recentFilePaths.prepend(filePath);
