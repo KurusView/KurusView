@@ -9,6 +9,7 @@ var class_model_window =
     [ "handleBackgroundColor", "class_model_window.html#adfe2628591eb1f94d52a12f4d30444e0", null ],
     [ "handleChangePerspective", "class_model_window.html#a347aaf495ab87259cf021097ccd7e486", null ],
     [ "handleGridlines", "class_model_window.html#a0be0aad8e3a69aad988419dbd013b983", null ],
+    [ "handleHelpButton", "class_model_window.html#aad8fe920e15038408939bfdcebb4a262", null ],
     [ "handleLightIntensitySlider", "class_model_window.html#a8d2a92772f793db843b5b0f9b4efb4db", null ],
     [ "handleMeasurment", "class_model_window.html#aa51fce8213854adb9f3ceee482096843", null ],
     [ "handleModelBackFaceColor", "class_model_window.html#a0333c99a3a5fe49f82e7ee7ed74c29e9", null ],
