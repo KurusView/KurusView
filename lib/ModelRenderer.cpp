@@ -83,6 +83,8 @@ ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv),
     //  Otherwise, show the welcome window, which will then load the
     //  model window based on user selection
 
+    connect(&welcomeWindow, &WelcomeWindow::fileSelected, this, &ModelRenderer::openFile);
+
     // If path is not given as argument, load up welcomeWindow
     if (argc == 1) {
         welcomeWindow.show();
@@ -103,4 +105,12 @@ void ModelRenderer::applyLightMode() {
     } else {
         QApplication::setPalette(LightPalette);
     }
+}
+
+void ModelRenderer::openFile(const QString &filePath){
+    std::vector<QString> filePaths;
+    filePaths.emplace_back(filePath);
+    modelWindows.push_back(std::make_shared<ModelWindow>(filePaths));
+    welcomeWindow.close();
+    std::cout << "Opening File: " << filePath.toStdString() << std::endl;
 }

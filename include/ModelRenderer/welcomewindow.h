@@ -27,7 +27,7 @@ private:
     Ui::WelcomeWindow *ui;
     QStringList recentFilePaths;
 
-    QGridLayout * mainLayout;
+    QGridLayout *mainLayout;
 
     const int maxFileNr;
 
@@ -35,6 +35,7 @@ private:
 
     QImage *img = new QImage(":/Icons/kurusview.png");
     QPixmap p = QPixmap::fromImage(*img);
+
     QFrame *
     CreateNewRow(int number, QString title, QString subtitle, QString mouseReleaseValue, int generalFontSize = 18);
 
@@ -42,7 +43,7 @@ private:
 
     void showContextMenu(const QPoint &pos);
 
-    void loadModel(const QString& path);
+    void loadModel(const QString &path);
 
 
 public slots:
@@ -52,6 +53,10 @@ public slots:
     void handleAboutButton();
 
     void removeEntryFromRecents();
+
+signals:
+
+    void fileSelected(const QString &filePath);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;

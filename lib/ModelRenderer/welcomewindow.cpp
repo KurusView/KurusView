@@ -237,5 +237,6 @@ void WelcomeWindow::showContextMenu(const QPoint &pos) {
 
 
 void WelcomeWindow::loadModel(const QString &path) {
+    emit fileSelected(path);
     std::cout << path.toStdString() << std::endl;
 }
