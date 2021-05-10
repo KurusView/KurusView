@@ -161,7 +161,7 @@ void ModelWindow::handleModelColor() {
 
 void ModelWindow::handleModelBackFaceColor() {
     // request color
-    QColor color = QColorDialog::getColor(QColor(activeView->modelColor), this);
+    QColor color = QColorDialog::getColor(QColor(activeView->modelColour), this);
 
     // sanity check
     if (!color.isValid())
@@ -169,8 +169,8 @@ void ModelWindow::handleModelBackFaceColor() {
 
     // hack around QT bug(?): backface color is not updated if model colour is same as backface. Set the the model
     // colour to something else and back. Colour is offset by a small amount so the change is invisible.
-    QColor currentModelColour = QColor(activeView->modelColor);
-    QColor offByOne = QColor(activeView->modelColor);
+    QColor currentModelColour = QColor(activeView->modelColour);
+    QColor offByOne = QColor(activeView->modelColour);
     offByOne.setRedF(offByOne.redF() + 0.1);
     activeView->setModelColor(offByOne);
     activeView->setModelColor(currentModelColour);
