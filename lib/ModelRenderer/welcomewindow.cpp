@@ -11,16 +11,19 @@
 #include <QtWidgets/QMenu>
 #include <QtAlgorithms>
 #include <QClipboard>
+#include <QScrollBar>
 
 #include <iostream>
 
 WelcomeWindow::WelcomeWindow(QWidget *parent) :
         QMainWindow(parent),
         ui(new Ui::WelcomeWindow),
-        maxFileNr(10),
+        maxFileNr(25),
         settings(QDir::currentPath() + "/kurusview.ini", QSettings::IniFormat) {
 
     ui->setupUi(this);
+
+    xFrame = new QFrame();
 
     populateRecents();
 
@@ -90,8 +93,7 @@ void WelcomeWindow::addToRecentFiles(QStringList &inputFileNames) {
 }
 
 // https://stackoverflow.com/a/61043869
-QFrame *WelcomeWindow::CreateNewRow(int number, QString title, QString subtitle, QString mouseReleaseValue,
-                                    int generalFontSize) {
+QFrame *WelcomeWindow::CreateNewRow(int number, QString title, QString subtitle, int generalFontSize) {
     QString styleFrame = QString("*:hover {background: GhostWhite;}");
     QString styleNumber = QString("font-size: %1px; color: #8B8D8F;").arg(qRound(generalFontSize * 0.7));
     QString styleTitle = QString("font-size: %1px; color: RosyBrown;").arg(generalFontSize);
@@ -103,7 +105,6 @@ QFrame *WelcomeWindow::CreateNewRow(int number, QString title, QString subtitle,
     frame->installEventFilter(this);
 
     // make variables conveniently accessible to external event handlers
-    frame->setProperty("mouseReleaseValue", mouseReleaseValue);
     frame->setProperty("FILEPATH", subtitle);
 
 
@@ -191,7 +192,8 @@ void WelcomeWindow::populateRecents() {
 
 
     // Update layout: Cant set a layout on a widget that already has a layout, see https://forum.qt.io/topic/14898/howto-change-layout-of-a-widget/7
-    if (ui->frame->layout()) {
+    if (xFrame->layout()) {
+
         QLayoutItem *item;
         while ((item = mainLayout->takeAt(0)) != 0)
             if (item->widget()) {
@@ -214,7 +216,7 @@ void WelcomeWindow::populateRecents() {
     for (auto &recent : recentFilePaths) {
         QFileInfo fi(recent);
 
-        QFrame *entry = CreateNewRow(row + 1, fi.fileName(), fi.filePath(), "row_1");
+        QFrame *entry = CreateNewRow(row + 1, fi.fileName(), fi.filePath());
 
         mainLayout->addWidget(entry, row, 0);
 
@@ -222,7 +224,21 @@ void WelcomeWindow::populateRecents() {
     }
 
     // update frame
-    ui->frame->setLayout(mainLayout);
+    //ui->frame->setLayout(mainLayout);
+
+    xFrame->setLayout(mainLayout);
+
+//    auto *imageLabel = new QLabel;
+//    imageLabel->setPixmap(p);
+
+    ui->scrollArea->setWidget(xFrame);
+
+    // disable and hide horizontal scrollbars (need to be disabled for touchscreens)
+    ui->scrollArea->horizontalScrollBar()->setEnabled(false);
+    ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    // fit frame horizontally and some extra padding
+    ui->scrollArea->setMinimumWidth(xFrame->width() + 10);
 }
 
 void WelcomeWindow::showContextMenu(const QPoint &pos) {
@@ -250,7 +266,7 @@ void WelcomeWindow::showContextMenu(const QPoint &pos) {
 
 
 void WelcomeWindow::loadModel(const QStringList &paths) {
-    emit fileSelected(paths);
+    //emit fileSelected(paths);
 }
 
 void WelcomeWindow::copyEntryToClipboard() {

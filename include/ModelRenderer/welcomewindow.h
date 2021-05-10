@@ -6,7 +6,8 @@
 #include <QSettings>
 #include <QObject.h>
 #include <QPoint.h>
-#include <QtWidgets/QGridLayout>
+#include <QGridLayout>
+#include <QScrollArea>
 
 namespace Ui {
     class WelcomeWindow;
@@ -27,7 +28,9 @@ private:
     Ui::WelcomeWindow *ui;
     QStringList recentFilePaths;
 
+    QScrollArea *scrollAreaX;
     QGridLayout *mainLayout;
+    QFrame *xFrame;
 
     const int maxFileNr;
 
@@ -37,7 +40,7 @@ private:
     QPixmap p = QPixmap::fromImage(*img);
 
     QFrame *
-    CreateNewRow(int number, QString title, QString subtitle, QString mouseReleaseValue, int generalFontSize = 18);
+    CreateNewRow(int number, QString title, QString subtitle, int generalFontSize = 18);
 
     void populateRecents();
 
