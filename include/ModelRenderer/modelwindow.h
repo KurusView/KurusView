@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMouseEvent>
 #include <QStringList>
+#include <QList>
 
 #include <memory>
 #include <vector>
@@ -14,6 +15,8 @@
 #include <vtkClipDataSet.h>
 #include <vtkShrinkFilter.h>
 #include <vtkDistanceWidget.h>
+#include <QLabel>
+#include <QSettings>
 
 #include "Model.h"
 #include "View.h"
@@ -43,6 +46,29 @@ public:
 
     void addViewToFrame(View *view);
 
+    QMenu *fileMenu;
+    QMenu *recentFilesMenu;
+
+    QAction *openAction;
+    QList<QAction *> recentFileActionList;
+    const int maxFileNr;
+
+    QString currentFilePath;
+
+    void createActionsAndConnections();
+
+    void createMenus();
+
+    void adjustForCurrentFile(const QString &filePath);
+
+    void updateRecentActionList();
+
+    QSettings settings;
+
+signals:
+
+    void openNewModelWindow(QStringList &filePaths);
+
 private:
     Ui::ModelWindow *ui;
     std::vector<View *> views;
@@ -53,6 +79,12 @@ private:
     void setActiveView(View *newActiveView);
 
     vtkSmartPointer<vtkDistanceWidget> distanceWidget;
+
+private slots:
+
+    void openRecent();
+
+//    void open();
 
 public slots:
 

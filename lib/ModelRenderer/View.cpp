@@ -24,13 +24,13 @@
 // set default instance count
 unsigned short int View::ViewInstanceCount = 0;
 
-View::View(const QString &borderColor, const QString &filePath, QWidget *parent) : QWidget(parent),
-                                                                                   model(filePath.toStdString()) {
+View::View(const QString &filePath, QWidget *parent) : QWidget(parent),
+                                                       model(filePath.toStdString()) {
 
     //increment instance count
     ViewInstanceCount++;
 
-    this->borderColor = borderColor;
+    this->borderColor = borderColors[getCount() % 4];
 
     setStyleSheet("*{padding: 0; border-width: 3 ;border-style:solid;border-color: dark" + this->borderColor + ";}");
 
@@ -285,7 +285,7 @@ void View::toggleGridLines(bool enable) {
     qVTKWidget->GetRenderWindow()->Render();
 }
 
-void View::setStructure(int selectedStructure){
+void View::setStructure(int selectedStructure) {
     vtkActorCollection *actors = qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
     auto *actor = (vtkActor *) actors->GetItemAsObject(0);
     switch (selectedStructure) {

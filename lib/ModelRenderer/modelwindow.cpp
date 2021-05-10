@@ -25,7 +25,10 @@
 #include <QVTKWidget.h>
 #include <QColorDialog>
 #include <QApplication>
+#include <QWidget>
 #include <QScreen>
+#include <QSettings>
+
 #include <vtkOrientationMarkerWidget.h>
 
 #include "View.h"
@@ -46,7 +49,11 @@
 
 
 ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainWindow(parent),
-                                                                             ui(new Ui::ModelWindow) {
+                                                                          ui(new Ui::ModelWindow),
+                                                                          maxFileNr(4),
+                                                                          settings(QDir::currentPath() +
+                                                                                   "/kurusview.ini",
+                                                                                   QSettings::IniFormat) {
     //TODO: Make sure the model is properly initialized before loading the window
     // standard call to setup Qt UI (same as previously)
     ui->setupUi(this);
@@ -91,9 +98,8 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
     //Measurement button
     connect(ui->measurementButton, &QPushButton::released, this, &ModelWindow::handleMeasurment);
 
-    QString borderColors[4] = {"red", "blue", "cyan", "magenta"};
     for (int i = 0; i < filePaths.size() && i < 4; ++i) {
-        addViewToFrame(new View(borderColors[i], filePaths[i], parent));
+        addViewToFrame(new View(filePaths[i], parent));
     }
 
     for (auto &view : views) {
@@ -106,6 +112,11 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
     setActiveView(views[0]);
 
     std::cout << View::getCount();
+
+    createActionsAndConnections();
+
+    connect(ui->menuRecent_Files, &QMenu::aboutToShow, this, &ModelWindow::updateRecentActionList);
+
 
     show();
 }
@@ -283,7 +294,7 @@ void ModelWindow::handleChangePerspective() {
 
 void ModelWindow::viewActive(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
-        setActiveView((View * )(((QVTKOpenGLWidget *) sender())->parentWidget()));
+        setActiveView((View *) (((QVTKOpenGLWidget *) sender())->parentWidget()));
     }
 }
 
@@ -491,4 +502,80 @@ void ModelWindow::getStatistics() {
     }
 }
 
+void ModelWindow::updateRecentActionList() {
+    settings.sync();
+    QStringList recentFilePaths =
+            settings.value("recentFiles").toStringList();
+
+    auto itEnd = 0u;
+    if (recentFilePaths.size() <= maxFileNr)
+        itEnd = recentFilePaths.size();
+    else
+        itEnd = maxFileNr;
+
+    for (auto i = 0u; i < itEnd; ++i) {
+        QString strippedName = QFileInfo(recentFilePaths.at(i)).fileName();
+        recentFileActionList.at(i)->setText(strippedName);
+        recentFileActionList.at(i)->setData(recentFilePaths.at(i));
+        recentFileActionList.at(i)->setVisible(true);
+    }
+
+    for (auto i = itEnd; i < maxFileNr; ++i)
+        recentFileActionList.at(i)->setVisible(false);
+}
+
+void ModelWindow::adjustForCurrentFile(const QString &filePath) {
+    currentFilePath = filePath;
+    setWindowFilePath(currentFilePath);
+
+    settings.sync();
+    QStringList recentFilePaths =
+            settings.value("recentFiles").value<QStringList>();
+    recentFilePaths.removeAll(filePath);
+    recentFilePaths.prepend(filePath);
+    while (recentFilePaths.size() > maxFileNr)
+        recentFilePaths.removeLast();
+    settings.setValue("recentFiles", recentFilePaths);
+    settings.sync();
+    // see note
+    updateRecentActionList();
+}
+
+
+void ModelWindow::openRecent() {
+    QAction *action = qobject_cast<QAction *>(sender());
+    if (action) {
+        QString path = action->data().value<QString>();
+        if (views.size() >= 4) {
+            QStringList paths;
+            paths.append(path);
+            std::cout << paths[0].toStdString();
+            emit openNewModelWindow(paths);
+        } else {
+            addViewToFrame(new View(path));
+        }
+    }
+}
+
+void ModelWindow::createActionsAndConnections() {
+    for (auto i = 0; i < maxFileNr; ++i) {
+        QAction *recentFileAction = new QAction(this);
+        recentFileAction->setVisible(false);
+        connect(recentFileAction, &QAction::triggered, this, &ModelWindow::openRecent);
+        recentFileActionList.append(recentFileAction);
+    }
+    recentFilesMenu = ui->menuRecent_Files;
+    for (auto i = 0; i < maxFileNr; ++i)
+        recentFilesMenu->addAction(recentFileActionList.at(i));
+
+    updateRecentActionList();
+}
+
+void ModelWindow::createMenus() {
+//    fileMenu = menuBar()->addMenu(tr("&File"));
+//    fileMenu->addAction(openAction);
+//
+//    recentFilesMenu = fileMenu->addMenu(tr("Recent Views"));
+
+}
 

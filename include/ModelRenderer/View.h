@@ -34,7 +34,7 @@ public:
 
     bool isClipped, isShrunk, gridLinesEnabled;
 
-    View(const QString &borderColor, const QString &filePath, QWidget *parent = nullptr);
+    View(const QString &filePath, QWidget *parent = nullptr);
 
     virtual ~View();
 
@@ -76,6 +76,8 @@ private:
      *  @internal used to set fitting format and limit the number of views to 4
      */
     static unsigned short int ViewInstanceCount;
+
+    QString borderColors[4] = {"red", "blue", "cyan", "magenta"};
 };
 
 
