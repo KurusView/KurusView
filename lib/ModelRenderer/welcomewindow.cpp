@@ -1,6 +1,7 @@
 #include <QFileDialog>
 #include "welcomewindow.h"
 #include "ui_welcomewindow.h"
+#include "settingsdialog.h"
 #include <QDesktopServices>
 #include <QtCore>
 #include <QLabel>
@@ -12,6 +13,7 @@
 #include <QtAlgorithms>
 #include <QClipboard>
 #include <QScrollBar>
+
 
 #include <iostream>
 
@@ -34,9 +36,8 @@ WelcomeWindow::WelcomeWindow(QWidget *parent) :
     // Connect the signal to the slot
     connect(ui->openPushButton, &QPushButton::released, this, &WelcomeWindow::handleOpenButton);
     connect(ui->aboutPushButton, &QPushButton::released, this, &WelcomeWindow::handleAboutButton);
+    connect(ui->settingsPushButton, &QPushButton::released, this, &WelcomeWindow::handleSettingsButton);
 
-    // Connect a double click for the listView.
-    //connect(ui->recentListView, SIGNAL(QAbstractItemV), this, &WelcomWindow::);
 }
 
 WelcomeWindow::~WelcomeWindow() {
@@ -288,4 +289,10 @@ void WelcomeWindow::loadEntryAsModel() {
 
     // load the entry
     loadModel((QStringList) pathLabel);
+}
+
+void WelcomeWindow::handleSettingsButton() {
+    settingsDialog settings;
+
+    settings.exec();
 }
