@@ -7,7 +7,9 @@
 #include "Material.h"
 #include "MVector.h"
 #include <vtkSmartPointer.h>
-#include <vtkUnstructuredGrid.h>
+#include <vtkAlgorithm.h>
+#include <vtkSTLReader.h>
+#include <QString>
 
 /**
  * @brief Model - This object is responsible for reading and writing model entities to VTK style data files
@@ -21,7 +23,8 @@ private:
     /** @brief materials - List of all the materials in the model */
     std::vector<std::shared_ptr<Material>> materials;
     /** @brief vtkModel - Unstructured grid containing all the cells of the model */
-    vtkSmartPointer<vtkUnstructuredGrid> vtkModel;
+    vtkSmartPointer<vtkAlgorithm> vtkModel;
+
 
 public:
     /**
@@ -59,9 +62,9 @@ public:
     void displayVertexCount();
 
     /**
-     * @brief displayCells - Displays the number of cells and the type of each cell
+     * @brief getCellCount - Displays the number of cells and the type of each cell
      */
-    void displayCells();
+    size_t getCellCount();
 
     /**
      * @brief calcCentre - Calculates the centre of the model
@@ -78,7 +81,19 @@ public:
      * @brief getVTKModel - Gets the private built vtk model
      * @return - vtkUnstructuredGrid containing the model
      */
-    vtkSmartPointer<vtkUnstructuredGrid> getVTKModel();
+    vtkSmartPointer<vtkAlgorithm> getVTKModel();
+
+    void loadSTLModel(const std::string &filePath);
+
+    double calcVolume();
+
+    double calcWeight();
+
+    std::string fileType;
+
+    QString filePath;
+
+    vtkSmartPointer<vtkSTLReader> STLModel;
 };
 
 

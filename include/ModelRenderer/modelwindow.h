@@ -2,11 +2,25 @@
 #define KURUSVIEW_MODELWINDOW_H
 
 #include <QMainWindow>
+#include <QMouseEvent>
+#include <QStringList>
+#include <QList>
 
+#include <memory>
+#include <vector>
+
+#include <vtkAlgorithm.h>
 #include <vtkDataSetMapper.h>
 #include <vtkSmartPointer.h>
+#include <vtkClipDataSet.h>
+#include <vtkShrinkFilter.h>
+#include <vtkDistanceWidget.h>
+#include <QLabel>
+#include <QSettings>
+#include <vtkColor.h>
 
 #include "Model.h"
+#include "View.h"
 
 namespace Ui {
     class ModelWindow;
@@ -25,18 +39,86 @@ public:
      * @param parent
      * @see Model | Model
      */
-    explicit ModelWindow(const QString& filePath, QWidget *parent = nullptr);
+    explicit ModelWindow(const QStringList &filePaths, QWidget *parent = nullptr);
 
     ~ModelWindow() override;
 
+    void addViewToFrame(View *view);
+
+    QMenu *fileMenu;
+    QMenu *recentFilesMenu;
+
+    QAction *openAction;
+    QList<QAction *> recentFileActionList;
+    const int maxFileNr;
+
+    QString currentFilePath;
+
+    void createActionsAndConnections();
+
+    void adjustForCurrentFile(const QString &filePath);
+
+    void updateRecentActionList();
+
+    QSettings settings;
+
+signals:
+
+    void openNewModelWindow(const QStringList &filePaths);
+
 private:
     Ui::ModelWindow *ui;
-    vtkSmartPointer<vtkDataSetMapper> mapper;
+    std::vector<View *> views;
+    View *activeView;
     // TODO Store file path in Model.h instead
     QString currentModelFilePath;
-    Model currentModel;
+
+    void setActiveView(View *newActiveView);
+
+    vtkSmartPointer<vtkDistanceWidget> distanceWidget;
+
+    QStringList recentFilePaths;
+
+    void loadFile(const QStringList &filePaths);
+
+
+private slots:
+
+    void openRecent();
+
+    void open();
+
+//    void save();
 
 public slots:
+
+    void viewActive(QMouseEvent *event);
+
+    void handleBackgroundColor();
+
+    void handleModelColor();
+
+    void handleModelBackFaceColor();
+
+    void handleResetColor();
+
+    void handleResetLighting();
+
+    void handleLightIntensitySlider(int position);
+
+    void mux_handleLightActorSlider(int position);
+
+    void handleChangePerspective();
+
+    void updateFilters();
+
+    void updateStructure();
+
+    void handleGridlines();
+
+    void handleMeasurment();
+
+    void getStatistics();
 };
 
 

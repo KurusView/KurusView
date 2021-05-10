@@ -9,11 +9,24 @@
 #include <vtkHexahedron.h>
 #include <vtkTetra.h>
 #include <vtkPyramid.h>
+#include <vtkUnstructuredGrid.h>
+#include <vtkUnstructuredGridReader.h>
+#include <vtkSTLReader.h>
 
 Model::Model(const std::string &filePath) {
     std::cout << "Creating new model from file" << std::endl;
-    loadModel(filePath);
-    buildVTKModel();
+
+    std::string fileExtension = filePath.substr(filePath.find_last_of('.') + 1);
+
+    this->fileType = fileExtension;
+    this->filePath = QString::fromStdString(filePath);
+
+    if (fileExtension == "stl") {
+        loadSTLModel(filePath);
+    } else if (fileExtension == "mod") {
+        loadModel(filePath);
+        buildVTKModel();
+    }
 }
 
 void Model::loadModel(const std::string &filePath) {
@@ -74,7 +87,7 @@ void Model::loadModel(const std::string &filePath) {
                 // Insert a shared pointer to a new MVector into the provided index
                 vectors.insert(vectors.begin() + std::stoul(tokens[1]),
                                MVector(std::stod(tokens[2]), std::stod(tokens[3]),
-                                       std::stod(tokens[4]), std::stoul(tokens[1])));
+                                       std::stod(tokens[4]), std::stol(tokens[1])));
             } else if (line[0] == 'c') {
                 // This line is a cell line formatted as follows:
                 // 0      1            2                3                 4               5         ...
@@ -170,12 +183,9 @@ void Model::displayVertexCount() {
     std::cout << "Number of Vertices: " << vectors.size() << std::endl;
 }
 
-void Model::displayCells() {
+size_t Model::getCellCount() {
 //    MCell::getCount(); // For global count
-    std::cout << "Number of Cells: " << cells.size() << std::endl;
-    for (const auto &cell:cells) {
-        std::cout << "Cell " << cell->getID() << ": " << cell->getType()[1] << std::endl;
-    }
+    return cells.size();
 }
 
 MVector Model::calcCentre() {
@@ -192,8 +202,6 @@ MVector Model::calcCentre() {
 }
 
 void Model::buildVTKModel() {
-    vtkModel = vtkSmartPointer<vtkUnstructuredGrid>::New();
-
     vtkNew<vtkPoints> points;
     // Store all points from the model vector list
     for (auto &vector : vectors) {
@@ -231,9 +239,37 @@ void Model::buildVTKModel() {
     // Unstructured grid has a global list of vectors (points)
     // which it uses to construct the cells using indices
     uGrid->SetPoints(points);
-    vtkModel = uGrid;
+    vtkSmartPointer<vtkUnstructuredGridReader> uGridReader = vtkSmartPointer<vtkUnstructuredGridReader>::New();
+    uGridReader->SetOutput(uGrid);
+    vtkModel = uGridReader;
 }
 
-vtkSmartPointer<vtkUnstructuredGrid> Model::getVTKModel() {
+vtkSmartPointer<vtkAlgorithm> Model::getVTKModel() {
     return vtkModel;
 }
+
+void Model::loadSTLModel(const std::string &filePath) {
+    STLModel = vtkSmartPointer<vtkSTLReader>::New();
+    STLModel->SetFileName(filePath.c_str());
+    STLModel->Update();
+    vtkModel = STLModel;
+}
+
+double Model::calcVolume() {
+    double totalVolume = 0.0;
+    for (auto &cell : cells) {
+        totalVolume += cell->getVolume();
+    }
+    return totalVolume;
+}
+
+double Model::calcWeight() {
+    double totalWeight = 0.0;
+    for (auto &cell : cells) {
+        totalWeight += cell->getWeight();
+    }
+    return totalWeight;
+}
+
+
+
