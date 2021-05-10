@@ -186,7 +186,8 @@ Resolving user defined refere/home/travis/build/KurusView/2020_GROUP_21/include/
 /home/travis/build/KurusView/2020_GROUP_21/include/Model.h:89: warning: Member calcWeight() (function) of class Model is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/Model.h:91: warning: Member fileType (variable) of class Model is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/Model.h:93: warning: Member STLModel (variable) of class Model is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer.h:25: warning: Member applyLightMode() (slot) of class ModelRenderer is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer.h:25: warning: Member openFile(const QString &filePath) (slot) of class ModelRenderer is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer.h:27: warning: Member applyLightMode() (slot) of class ModelRenderer is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:58: warning: Member viewActive(QMouseEvent *event) (slot) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:60: warning: Member handleBackgroundColor() (slot) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:62: warning: Member handleModelColor() (slot) of class ModelWindow is not documented.
@@ -243,12 +244,13 @@ Resolving user defined refere/home/travis/build/KurusView/2020_GROUP_21/include/
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:54: warning: Member weight (variable) of class View is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:56: warning: Member numOfCells (variable) of class View is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:58: warning: Member centreOfGrav (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:50: warning: Member handleOpenButton() (slot) of class WelcomeWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:52: warning: Member handleAboutButton() (slot) of class WelcomeWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:54: warning: Member removeEntryFromRecents() (slot) of class WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:51: warning: Member handleOpenButton() (slot) of class WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:53: warning: Member handleAboutButton() (slot) of class WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:55: warning: Member removeEntryFromRecents() (slot) of class WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:59: warning: Member fileSelected(const QString &filePath) (signal) of class WelcomeWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:20: warning: Member WelcomeWindow(QWidget *parent=nullptr) (function) of class WelcomeWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:22: warning: Member addToRecentFiles(QString &inputFileName) (function) of class WelcomeWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:57: warning: Member eventFilter(QObject *obj, QEvent *event) override (function) of class WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:62: warning: Member eventFilter(QObject *obj, QEvent *event) override (function) of class WelcomeWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/README.md:48: warning: End of list marker found without any preceding list items
 nces...
 Finding anchors and sections in the documentation...
@@ -313,5 +315,5 @@ Generating file member index...
 Generating example index...
 finalizing index lists...
 writing tag file...
-lookup cache used 237/65536 hits=1396 misses=256
+lookup cache used 239/65536 hits=1405 misses=258
 finished...
