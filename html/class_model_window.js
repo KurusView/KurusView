@@ -1,6 +1,6 @@
 var class_model_window =
 [
-    [ "ModelWindow", "class_model_window.html#a6c984b8576cfc4bc2ade995298471429", null ],
+    [ "ModelWindow", "class_model_window.html#a7d0bc65177144fae19eeb079a506636e", null ],
     [ "~ModelWindow", "class_model_window.html#a0921e8764c58766b4a9bf8023e9f035e", null ],
     [ "addViewToFrame", "class_model_window.html#a56ba88f30017ae63fe501ba4193f02ae", null ],
     [ "getStatistics", "class_model_window.html#a0c3b43ce1241a4a14f6cbfc66451013d", null ],
