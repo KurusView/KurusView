@@ -11,6 +11,7 @@ var class_model_window =
     [ "handleGridlines", "class_model_window.html#a0be0aad8e3a69aad988419dbd013b983", null ],
     [ "handleLightIntensitySlider", "class_model_window.html#a8d2a92772f793db843b5b0f9b4efb4db", null ],
     [ "handleMeasurment", "class_model_window.html#aa51fce8213854adb9f3ceee482096843", null ],
+    [ "handleModelBackFaceColor", "class_model_window.html#a0333c99a3a5fe49f82e7ee7ed74c29e9", null ],
     [ "handleModelColor", "class_model_window.html#acc1f27a271177a4449ee2c5f042b41b3", null ],
     [ "handleResetColor", "class_model_window.html#a4c9eefb90446f87941efa952e6b29900", null ],
     [ "handleResetLighting", "class_model_window.html#a2e42c0dabaa52b19487e8bf58b337397", null ],
