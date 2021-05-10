@@ -22,12 +22,14 @@ WelcomeWindow::WelcomeWindow(QWidget *parent) :
         settings(QDir::currentPath() + "/kurusview.ini", QSettings::IniFormat) {
 
     ui->setupUi(this);
+    img = new QImage(":/Icons/kurusview.png");
+    p = QPixmap::fromImage(*img);
 
     xFrame = new QFrame();
 
     populateRecents();
 
-    // Connect the signal to the
+    // Connect the signal to the slot
     connect(ui->openPushButton, &QPushButton::released, this, &WelcomeWindow::handleOpenButton);
     connect(ui->aboutPushButton, &QPushButton::released, this, &WelcomeWindow::handleAboutButton);
 
