@@ -424,12 +424,13 @@ void ModelWindow::handleGridlines() {
     activeView->toggleGridLines(ui->gridLinesCheckBox->isChecked());
 }
 
-void ModelWindow::handleMeasurment() {
+void ModelWindow::handleMeasurement() {
     if (ui->measurementButton->isChecked()) {
         ui->lightOpacitySlider->setValue(25);
     } else {
         ui->lightOpacitySlider->setValue(100);
     }
+    activeView->toggleMeasurement(ui->measurementButton->isChecked());
 }
 
 void ModelWindow::addViewToFrame(View *view) {
