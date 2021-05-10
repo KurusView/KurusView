@@ -89,8 +89,11 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
 
     gridlinesInit();
 
-
     // Set all parameters
+
+    // Fix bug: light intensity needs to be initialized manually first
+    lightIntensity = viewSettings->value("lightIntensity", 70).value<int>();
+
     // Filters
     toggleClipFilter(viewSettings->value("isClipped", false).value<bool>());
     toggleShrinkFilter(viewSettings->value("isShrunk", false).value<bool>());
@@ -374,7 +377,7 @@ void View::saveAs() {
                                                                          "save_models").value<QString>(),
                                                     tr("Kurus View (*.kurus)"));
 
-    if(savePath.isEmpty()) {
+    if (savePath.isEmpty()) {
         return;
     }
     this->filePath = savePath;
