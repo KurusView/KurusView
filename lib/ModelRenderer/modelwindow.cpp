@@ -30,6 +30,7 @@
 #include <QWidget>
 #include <QScreen>
 #include <QSettings>
+#include <QDesktopServices>
 
 #include <vtkOrientationMarkerWidget.h>
 
@@ -601,6 +602,8 @@ void ModelWindow::createActionsAndConnections() {
     connect(ui->actionOpenView, &QAction::triggered, this, &ModelWindow::open);
     connect(ui->actionSaveView, &QAction::triggered, activeView, &View::save);
     connect(ui->actionCloseView, &QAction::triggered, this, &ModelWindow::closeView);
+    connect(ui->actionHelp, &QAction::triggered, this, &ModelWindow::handleHelpButton);
+
 
     for (auto i = 0; i < maxFileNr; ++i) {
         QAction *recentFileAction = new QAction(this);
@@ -664,4 +667,8 @@ void ModelWindow::closeView() {
         close();
     }
     resetViewLayout();
+}
+
+void ModelWindow::handleHelpButton() {
+    QDesktopServices::openUrl(QUrl("https://github.com/KurusView/2020_GROUP_21", QUrl::TolerantMode));
 }

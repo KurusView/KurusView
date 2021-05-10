@@ -121,6 +121,8 @@ public slots:
     void handleMeasurment();
 
     void getStatistics();
+
+    void handleHelpButton();
 };
 
 
