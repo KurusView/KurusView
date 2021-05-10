@@ -110,7 +110,9 @@ $(document).ready(function(){initNavTree('class_model_window.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-slots">Public Slots</a> &#124;
+<a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="class_model_window-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ModelWindow Class Reference</div>  </div>
@@ -172,6 +174,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>handleMeasurment</b> 
 void&#160;</td><td class="memItemRight" valign="bottom"><b>getStatistics</b> ()</td></tr>
 <tr class="separator:a0c3b43ce1241a4a14f6cbfc66451013d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
+Signals</h2></td></tr>
+<tr class="memitem:a35b1a5062c6313309fd5122f3aadadfe"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a35b1a5062c6313309fd5122f3aadadfe"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>openNewModelWindow</b> (QStringList &amp;filePaths)</td></tr>
+<tr class="separator:a35b1a5062c6313309fd5122f3aadadfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a7d0bc65177144fae19eeb079a506636e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_window.html#a7d0bc65177144fae19eeb079a506636e">ModelWindow</a> (const QStringList &amp;filePaths, QWidget *parent=nullptr)</td></tr>
@@ -183,6 +191,42 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>gridlinesInit</b> (<a
 <tr class="memitem:a56ba88f30017ae63fe501ba4193f02ae"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a56ba88f30017ae63fe501ba4193f02ae"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addViewToFrame</b> (<a class="el" href="class_view.html">View</a> *view)</td></tr>
 <tr class="separator:a56ba88f30017ae63fe501ba4193f02ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acef8c210a66d3669894b68656a1bb79c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acef8c210a66d3669894b68656a1bb79c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>createActionsAndConnections</b> ()</td></tr>
+<tr class="separator:acef8c210a66d3669894b68656a1bb79c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae50cd6cd11605147dac146c344dfaca5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae50cd6cd11605147dac146c344dfaca5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>createMenus</b> ()</td></tr>
+<tr class="separator:ae50cd6cd11605147dac146c344dfaca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88003b171249ee548458366c7b9cb8d7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a88003b171249ee548458366c7b9cb8d7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>adjustForCurrentFile</b> (const QString &amp;filePath)</td></tr>
+<tr class="separator:a88003b171249ee548458366c7b9cb8d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46205a58cd996e60ada24ff826a6ec16"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a46205a58cd996e60ada24ff826a6ec16"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>updateRecentActionList</b> ()</td></tr>
+<tr class="separator:a46205a58cd996e60ada24ff826a6ec16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:acd2632b85970e848d440bd7cbb688ba5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acd2632b85970e848d440bd7cbb688ba5"></a>
+QMenu *&#160;</td><td class="memItemRight" valign="bottom"><b>fileMenu</b></td></tr>
+<tr class="separator:acd2632b85970e848d440bd7cbb688ba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5a9485a3a2c9427fa6a1f65d568cfa3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab5a9485a3a2c9427fa6a1f65d568cfa3"></a>
+QMenu *&#160;</td><td class="memItemRight" valign="bottom"><b>recentFilesMenu</b></td></tr>
+<tr class="separator:ab5a9485a3a2c9427fa6a1f65d568cfa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d33ca91be58f9df0fed25f04e52c1c7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7d33ca91be58f9df0fed25f04e52c1c7"></a>
+QAction *&#160;</td><td class="memItemRight" valign="bottom"><b>openAction</b></td></tr>
+<tr class="separator:a7d33ca91be58f9df0fed25f04e52c1c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6db600556aef07f797d16928d4d9d71"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac6db600556aef07f797d16928d4d9d71"></a>
+QList&lt; QAction * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>recentFileActionList</b></td></tr>
+<tr class="separator:ac6db600556aef07f797d16928d4d9d71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af52f00dda31e74ca66870abec8917487"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af52f00dda31e74ca66870abec8917487"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>maxFileNr</b></td></tr>
+<tr class="separator:af52f00dda31e74ca66870abec8917487"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3e0dc62aab07ce4b784c4964f8724fc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa3e0dc62aab07ce4b784c4964f8724fc"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>currentFilePath</b></td></tr>
+<tr class="separator:aa3e0dc62aab07ce4b784c4964f8724fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb5ae36e13f5bb36af11b24543c72b7e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeb5ae36e13f5bb36af11b24543c72b7e"></a>
+QSettings&#160;</td><td class="memItemRight" valign="bottom"><b>settings</b></td></tr>
+<tr class="separator:aeb5ae36e13f5bb36af11b24543c72b7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Visualises a model in a user-friendly GUI. </p>
