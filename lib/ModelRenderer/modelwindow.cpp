@@ -17,6 +17,7 @@
 #include <vtkCubeSource.h>
 #include <QVTKOpenGLWidget.h>
 #include <math.h>
+#include "welcomewindow.h"
 
 #include <QFileDialog>
 #include <vtkPointHandleRepresentation3D.h>
@@ -561,6 +562,9 @@ void ModelWindow::openRecent() {
 }
 
 void ModelWindow::createActionsAndConnections() {
+    ui->actionOpenView->setShortcuts(QKeySequence::Open);
+    connect(ui->actionOpenView, &QAction::triggered, this, &ModelWindow::open);
+
     for (auto i = 0; i < maxFileNr; ++i) {
         QAction *recentFileAction = new QAction(this);
         recentFileAction->setVisible(false);
@@ -574,11 +578,47 @@ void ModelWindow::createActionsAndConnections() {
     updateRecentActionList();
 }
 
-void ModelWindow::createMenus() {
-//    fileMenu = menuBar()->addMenu(tr("&File"));
-//    fileMenu->addAction(openAction);
-//
-//    recentFilesMenu = fileMenu->addMenu(tr("Recent Views"));
+void ModelWindow::open() {
+    QStringList inputFileNames = QFileDialog::getOpenFileNames(this, tr("Load a Kurus View or Model"),
+                                                               settings.value("lastOpenDirectory",
+                                                                              "save_models").value<QString>(),
+                                                               tr("Model, View or STL (*.mod;*.kurus;*.stl)"));
+    if (inputFileNames.isEmpty()) {
+        return;
+    }
 
+    // Update lastOpenDirectory in settings and sync
+    settings.setValue("lastOpenDirectory", QFileInfo(inputFileNames.at(0)).absoluteDir().absolutePath());
+    settings.sync();
+
+    // update recents for next time
+    for (auto currFile: inputFileNames) {
+        setWindowFilePath(currFile);
+
+        // Remove the file just opened from the list - so there won't be any duplicates in the
+        recentFilePaths.removeAll(currFile);
+
+        // Add the file just opened to the front of the list
+        recentFilePaths.prepend(currFile);
+    }
+
+    // Remove last the last files in the list, if the list is greater than the maximum number of files.
+    while (recentFilePaths.size() > maxFileNr) {
+        recentFilePaths.removeLast();
+    }
+
+    settings.setValue("recentFiles", recentFilePaths);
+    settings.sync();
+
+    if (inputFileNames.size() + views.size() > 4) {
+        emit openNewModelWindow(inputFileNames);
+    } else {
+        for (int i = 0; i < inputFileNames.size(); ++i) {
+            setWindowFilePath(inputFileNames[i]);
+            addViewToFrame(new View(inputFileNames[i]));
+            setActiveView(views[views.size() - 1]);
+        }
+    }
 }
+
 

@@ -57,8 +57,6 @@ public:
 
     void createActionsAndConnections();
 
-    void createMenus();
-
     void adjustForCurrentFile(const QString &filePath);
 
     void updateRecentActionList();
@@ -80,11 +78,14 @@ private:
 
     vtkSmartPointer<vtkDistanceWidget> distanceWidget;
 
+    QStringList recentFilePaths;
+
+
 private slots:
 
     void openRecent();
 
-//    void open();
+    void open();
 
 public slots:
 
