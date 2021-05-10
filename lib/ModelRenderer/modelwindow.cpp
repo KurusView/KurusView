@@ -109,7 +109,6 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
 
     for (auto &view : views) {
         setActiveView(view);
-        connect(view->qVTKWidget, &QVTKOpenGLWidget::mouseEvent, this, &ModelWindow::viewActive);
     }
 
     setActiveView(views[0]);
@@ -467,6 +466,8 @@ void ModelWindow::addViewToFrame(View *view) {
 
     if (index + 1 == 4)
         ui->viewFrame->addWidget(views[2], 0, 1, 1, 1);
+
+    connect(view->qVTKWidget, &QVTKOpenGLWidget::mouseEvent, this, &ModelWindow::viewActive);
 }
 
 void ModelWindow::getStatistics() {
