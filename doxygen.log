@@ -74,7 +74,7 @@ Preprocessing /home/travis/build/KurusView/2020_GROUP_21/lib/Cells/MHexahedron.c
 Parsing file /home/travis/build/KurusView/202/home/travis/build/KurusView/2020_GROUP_21/include/Matrix.h:16: warning: Compound Matrix is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/Material.h:8: warning: Compound Material is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:18: warning: Compound View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:13: warning: Compound WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:15: warning: Compound WelcomeWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:19: warning: Compound MVector is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/lib/MVector.cpp:29: warning: no matching class member found for 
   MVector::MVector(double x, double y, double z, long id)
@@ -243,11 +243,12 @@ Resolving user defined refere/home/travis/build/KurusView/2020_GROUP_21/include/
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:54: warning: Member weight (variable) of class View is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:56: warning: Member numOfCells (variable) of class View is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:58: warning: Member centreOfGrav (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:39: warning: Member handleOpenButton() (slot) of class WelcomeWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:41: warning: Member handleAboutButton() (slot) of class WelcomeWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:17: warning: Member WelcomeWindow(QWidget *parent=nullptr) (function) of class WelcomeWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:19: warning: Member addToRecentFiles(QString &inputFileName) (function) of class WelcomeWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:44: warning: Member eventFilter(QObject *obj, QEvent *event) override (function) of class WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:45: warning: Member handleOpenButton() (slot) of class WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:47: warning: Member handleAboutButton() (slot) of class WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:49: warning: Member removeEntryFromRecents() (slot) of class WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:19: warning: Member WelcomeWindow(QWidget *parent=nullptr) (function) of class WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:21: warning: Member addToRecentFiles(QString &inputFileName) (function) of class WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:52: warning: Member eventFilter(QObject *obj, QEvent *event) override (function) of class WelcomeWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/README.md:48: warning: End of list marker found without any preceding list items
 nces...
 Finding anchors and sections in the documentation...
@@ -312,5 +313,5 @@ Generating file member index...
 Generating example index...
 finalizing index lists...
 writing tag file...
-lookup cache used 234/65536 hits=1376 misses=253
+lookup cache used 237/65536 hits=1394 misses=256
 finished...

@@ -199,6 +199,7 @@ var NAVTREEINDEX0 =
 "class_welcome_window.html#a6faa13607aacf9dbb2fff495144dd989":[3,0,11,2],
 "class_welcome_window.html#a7a3e2e0f8890a94a985b7969f2ed102d":[3,0,11,0],
 "class_welcome_window.html#ac81cf522736bdceab78127dd62f6dc2f":[3,0,11,3],
+"class_welcome_window.html#af6474706e21f5301800f916bad14ee5f":[3,0,11,6],
 "classes.html":[3,1],
 "dark__mode__detect_8h_source.html":[4,0,0,2,0],
 "dir_1ac8995046f5d69bd22d51310bd60508.html":[4,0,0,0],
