@@ -10,6 +10,8 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QMenu>
 #include <QtAlgorithms>
+#include <QClipboard>
+
 #include <iostream>
 
 WelcomeWindow::WelcomeWindow(QWidget *parent) :
@@ -229,11 +231,15 @@ void WelcomeWindow::showContextMenu(const QPoint &pos) {
     QMenu contextMenu(tr("Context menu"), (QFrame *) sender());
 
     // add actions TODO open, properties?
-    QAction action_del("Remove Data Point", (QFrame *) sender());
+    QAction action_del("Remove from recents", (QFrame *) sender());
+    QAction action_cpy("Copy path", (QFrame *) sender());
+
     contextMenu.addAction(&action_del);
+    contextMenu.addAction(&action_cpy);
 
     // connect action_del signal to removeEntryFromRecents
     connect(&action_del, SIGNAL(triggered()), this, SLOT(removeEntryFromRecents()));
+    connect(&action_cpy, SIGNAL(triggered()), this, SLOT(copyEntryToClipboard()));
 
     // show context menu
     contextMenu.exec(QCursor::pos());
@@ -242,4 +248,13 @@ void WelcomeWindow::showContextMenu(const QPoint &pos) {
 
 void WelcomeWindow::loadModel(const QStringList &paths) {
     emit fileSelected(paths);
+}
+
+void WelcomeWindow::copyEntryToClipboard() {
+    // find the text of the QLabel of the QFrame where the contextmenu was requested
+    QString pathLabel = sender()->parent()->findChild<QLabel *>("FILEPATH")->text();
+
+    // paste it to clipboard
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    clipboard->setText(pathLabel);
 }

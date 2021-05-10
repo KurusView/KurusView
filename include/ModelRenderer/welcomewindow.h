@@ -54,6 +54,8 @@ public slots:
 
     void removeEntryFromRecents();
 
+    void copyEntryToClipboard();
+
 signals:
 
     void fileSelected(const QStringList &filePaths);
