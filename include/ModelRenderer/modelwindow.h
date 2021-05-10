@@ -80,6 +80,8 @@ private:
 
     QStringList recentFilePaths;
 
+    void loadFile(const QStringList &filePaths);
+
 
 private slots:
 

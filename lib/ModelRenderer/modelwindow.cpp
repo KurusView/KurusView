@@ -544,28 +544,12 @@ void ModelWindow::adjustForCurrentFile(const QString &filePath) {
     updateRecentActionList();
 }
 
-
 void ModelWindow::openRecent() {
     QAction *action = qobject_cast<QAction *>(sender());
-    if (action) {
-        Dialog *dialog = new Dialog(this);
-        dialog->setModal(true);
-
-        QString path = action->data().value<QString>();
-        bool newWindow = true;
-        if (views.size() < 4)
-            newWindow = dialog->exec();
-
-        if(newWindow) {
-            QStringList paths;
-            paths.append(path);
-            std::cout << paths[0].toStdString();
-            emit openNewModelWindow(paths);
-        } else {
-            addViewToFrame(new View(path));
-            setActiveView(views[views.size() - 1]);
-        }
-        adjustForCurrentFile(path);
+    if (action){
+        QStringList fileList;
+        fileList.append(action->data().value<QString>());
+        loadFile(fileList);
     }
 }
 
@@ -587,6 +571,7 @@ void ModelWindow::createActionsAndConnections() {
 }
 
 void ModelWindow::open() {
+    settings.sync();
     QStringList inputFileNames = QFileDialog::getOpenFileNames(this, tr("Load a Kurus View or Model"),
                                                                settings.value("lastOpenDirectory",
                                                                               "save_models").value<QString>(),
@@ -599,34 +584,25 @@ void ModelWindow::open() {
     settings.setValue("lastOpenDirectory", QFileInfo(inputFileNames.at(0)).absoluteDir().absolutePath());
     settings.sync();
 
-    // update recents for next time
-    for (auto currFile: inputFileNames) {
-        setWindowFilePath(currFile);
-
-        // Remove the file just opened from the list - so there won't be any duplicates in the
-        recentFilePaths.removeAll(currFile);
-
-        // Add the file just opened to the front of the list
-        recentFilePaths.prepend(currFile);
-    }
-
-    // Remove last the last files in the list, if the list is greater than the maximum number of files.
-    while (recentFilePaths.size() > maxFileNr) {
-        recentFilePaths.removeLast();
-    }
-
-    settings.setValue("recentFiles", recentFilePaths);
-    settings.sync();
-
-    if (inputFileNames.size() + views.size() > 4) {
-        emit openNewModelWindow(inputFileNames);
-    } else {
-        for (int i = 0; i < inputFileNames.size(); ++i) {
-            setWindowFilePath(inputFileNames[i]);
-            addViewToFrame(new View(inputFileNames[i]));
-            setActiveView(views[views.size() - 1]);
-        }
-    }
+    loadFile(inputFileNames);
 }
 
+void ModelWindow::loadFile(const QStringList &filePaths){
+    bool newWindow = true;
 
+    if (views.size() + filePaths.size() <= 4) {
+        Dialog *dialog = new Dialog(this);
+        dialog->setModal(true);
+        newWindow = dialog->exec();
+    }
+
+    if(newWindow)
+        emit openNewModelWindow(filePaths);
+    else {
+        for (int i = 0; i < filePaths.size(); ++i)
+            addViewToFrame(new View(filePaths[i]));
+        setActiveView(views[views.size() - 1]);
+    }
+    for (int i = 0; i < filePaths.size(); ++i)
+        adjustForCurrentFile(filePaths[i]);
+}
