@@ -199,7 +199,7 @@ void View::setBackgroundColor(const QColor &color) {
     if (!color.isValid())
         return;
 
-    // Get Actor
+    // Get renderer
     qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->SetBackground(color.redF(),
                                                                                      color.greenF(),
                                                                                      color.blueF()

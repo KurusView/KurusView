@@ -25,6 +25,8 @@ WelcomeWindow::WelcomeWindow(QWidget *parent) :
     img = new QImage(":/Icons/kurusview.png");
     p = QPixmap::fromImage(*img);
 
+    this->setWindowTitle("Welcome to KurusView");
+
     xFrame = new QFrame();
 
     populateRecents();
@@ -268,7 +270,7 @@ void WelcomeWindow::showContextMenu(const QPoint &pos) {
 
 
 void WelcomeWindow::loadModel(const QStringList &paths) {
-    //emit fileSelected(paths);
+    emit fileSelected(paths);
 }
 
 void WelcomeWindow::copyEntryToClipboard() {

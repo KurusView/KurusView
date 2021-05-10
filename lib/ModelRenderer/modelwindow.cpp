@@ -16,6 +16,7 @@
 #include <vtkDataSetMapper.h>
 #include <vtkCubeSource.h>
 #include <QVTKOpenGLWidget.h>
+#include <vtkCuller.h>
 #include <math.h>
 #include "welcomewindow.h"
 
@@ -83,6 +84,7 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
     // Colour group slots
     connect(ui->backgroundColourPushButton, &QPushButton::released, this, &ModelWindow::handleBackgroundColor);
     connect(ui->modelColourPushButton, &QPushButton::released, this, &ModelWindow::handleModelColor);
+    connect(ui->modelBackFaceColourPushButton, &QPushButton::released, this, &ModelWindow::handleModelBackFaceColor);
     connect(ui->resetColoursPushButton, &QPushButton::released, this, &ModelWindow::handleResetColor);
 
     // Structure Button Slots
@@ -157,10 +159,52 @@ void ModelWindow::handleModelColor() {
     activeView->qVTKWidget->GetRenderWindow()->Render();
 }
 
+void ModelWindow::handleModelBackFaceColor() {
+    // request color
+    QColor color = QColorDialog::getColor(QColor(activeView->modelColor), this);
+
+    // sanity check
+    if (!color.isValid())
+        return;
+
+    // hack around QT bug(?): backface color is not updated if model colour is same as backface. Set the the model
+    // colour to something else and back. Colour is offset by a small amount so the change is invisible.
+    QColor currentModelColour = QColor(activeView->modelColor);
+    QColor offByOne = QColor(activeView->modelColor);
+    offByOne.setRedF(offByOne.redF() + 0.1);
+    activeView->setModelColor(offByOne);
+    activeView->setModelColor(currentModelColour);
+
+    // get actor
+    auto *actor = (vtkActor *) activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
+            0);
+
+
+    // QReal is a double
+    vtkColor3d vtkcolor(color.redF(), color.greenF(), color.blueF());
+
+    // set backface color (from docs: as the side effect of setting the ambient diffuse and specular colors as well.
+    // This is basically a quick overall color setting method).
+    vtkNew<vtkProperty> backFace;
+    //backFaces->SetDiffuseColor(vtkcolor.GetData());
+    backFace->SetDiffuseColor(color.redF(), color.greenF(), color.blueF());
+
+    // apply color to actor
+    actor->SetBackfaceProperty(backFace);
+
+    // update button color
+    ui->modelBackFaceColourPushButton->setStyleSheet("background-color: " + color.name() + "; border:none;");
+
+    // refresh view
+    activeView->qVTKWidget->GetRenderWindow()->Render();
+
+}
+
 void ModelWindow::handleResetColor() {
 
     //reset buttons
     ui->modelColourPushButton->setStyleSheet("background-color: silver; border:none;");
+    ui->modelBackFaceColourPushButton->setStyleSheet("background-color: silver; border:none;");
     ui->backgroundColourPushButton->setStyleSheet("background-color: silver; border:none;");
 
     // reset background
@@ -168,10 +212,17 @@ void ModelWindow::handleResetColor() {
     activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->SetBackground(
             colors->GetColor3d("Silver").GetData());
 
-    // reset model
-    auto *actors = (vtkActor *) activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
+    // get actor
+    auto *actor = (vtkActor *) activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
             0);
-    actors->GetProperty()->SetColor(colors->GetColor3d("Red").GetData());
+
+    // reset model
+    actor->GetProperty()->SetColor(colors->GetColor3d("Red").GetData());
+
+    // reset model backface
+    vtkNew<vtkProperty> backFace;
+    backFace->SetDiffuseColor(colors->GetColor3d("Silver").GetData());
+    actor->SetBackfaceProperty(backFace);
 
     // refresh view
     activeView->qVTKWidget->GetRenderWindow()->Render();
@@ -571,3 +622,4 @@ void ModelWindow::loadFile(const QStringList &filePaths) {
     for (int i = 0; i < filePaths.size(); ++i)
         adjustForCurrentFile(filePaths[i]);
 }
+

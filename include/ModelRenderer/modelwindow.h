@@ -17,6 +17,7 @@
 #include <vtkDistanceWidget.h>
 #include <QLabel>
 #include <QSettings>
+#include <vtkColor.h>
 
 #include "Model.h"
 #include "View.h"
@@ -96,6 +97,8 @@ public slots:
     void handleBackgroundColor();
 
     void handleModelColor();
+
+    void handleModelBackFaceColor();
 
     void handleResetColor();
 
