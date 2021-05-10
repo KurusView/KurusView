@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rotationmatrix',['RotationMatrix',['../_matrix_8h.html#a500d8d8a1cabfbadfb38ca824c09e251',1,'Matrix.cpp']]]
+  ['news',['NEWS',['../md__home_travis_build_KurusView_2020_GROUP_21_NEWS.html',1,'']]]
 ];

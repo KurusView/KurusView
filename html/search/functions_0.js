@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['buildvtkmodel',['buildVTKModel',['../class_model.html#ae60d4ec4d96b666015d645c76cb81abc',1,'Model']]]
+  ['addtorecentfiles',['addToRecentFiles',['../class_welcome_window.html#a291ff8588743fb2db5c7525f2af28502',1,'WelcomeWindow']]]
 ];

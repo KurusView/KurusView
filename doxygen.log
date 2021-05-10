@@ -75,7 +75,7 @@ Parsing file /home/travis/build/KurusView//home/travis/build/KurusView/2020_GROU
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/dialog.h:11: warning: Compound Dialog is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/Material.h:8: warning: Compound Material is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:19: warning: Compound View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:17: warning: Compound WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:20: warning: Compound WelcomeWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:19: warning: Compound MVector is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/lib/MVector.cpp:29: warning: no matching class member found for 
   MVector::MVector(double x, double y, double z, long id)
@@ -254,15 +254,11 @@ Build/home/travis/build/KurusView/2020_GROUP_21/include/MCell.h:158: warning: Fo
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:59: warning: Member centreOfGrav (variable) of class View is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:73: warning: Member filePath (variable) of class View is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:75: warning: Member viewSettings (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:54: warning: Member handleOpenButton() (slot) of class WelcomeWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:56: warning: Member handleAboutButton() (slot) of class WelcomeWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:58: warning: Member removeEntryFromRecents() (slot) of class WelcomeWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:60: warning: Member copyEntryToClipboard() (slot) of class WelcomeWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:62: warning: Member loadEntryAsModel() (slot) of class WelcomeWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:66: warning: Member fileSelected(const QStringList &filePaths) (signal) of class WelcomeWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:21: warning: Member WelcomeWindow(QWidget *parent=nullptr) (function) of class WelcomeWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:23: warning: Member addToRecentFiles(QStringList &inputFileNames) (function) of class WelcomeWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:69: warning: Member eventFilter(QObject *obj, QEvent *event) override (function) of class WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:111: warning: Member fileSelected(const QStringList &filePaths) (signal) of class WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:25: warning: Member WelcomeWindow(QWidget *parent=nullptr) (function) of class WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:114: warning: Member eventFilter(QObject *obj, QEvent *event) override (function) of class WelcomeWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:90: warning: Found unknown command `\breif'
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:85: warning: Found unknown command `\breif'
 /home/travis/build/KurusView/2020_GROUP_21/README.md:48: warning: End of list marker found without any preceding list items
 ing full member lists recursively...
 Adding members to member groups.
@@ -340,5 +336,5 @@ Generating file member index...
 Generating example index...
 finalizing index lists...
 writing tag file...
-lookup cache used 274/65536 hits=1566 misses=293
+lookup cache used 277/65536 hits=1576 misses=296
 finished...

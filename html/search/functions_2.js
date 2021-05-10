@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['determinant',['determinant',['../class_matrix.html#ab411fb4806bde851e7869ee7935c5820',1,'Matrix']]],
-  ['displayvertexcount',['displayVertexCount',['../class_model.html#abea7440824f0c1cd58e523f08c486ca6',1,'Model']]],
-  ['dotproduct',['dotProduct',['../_m_vector_8h.html#a1f28ae85dafa8b5696152b187185a23b',1,'MVector.cpp']]]
+  ['calccentre',['calcCentre',['../class_model.html#a684fce1b8bf9d129bd03d6375a2a7c7f',1,'Model']]],
+  ['calccentreofgrav',['calcCentreOfGrav',['../class_m_cell.html#aaafeea0e5385a57631ea6b49124137f2',1,'MCell']]],
+  ['calcvolume',['calcVolume',['../class_m_cell.html#abef50e732986f28c2a740925e63359a7',1,'MCell']]],
+  ['calcweight',['calcWeight',['../class_m_cell.html#a5279d7c510ffb1db9402dcf5fd62a1af',1,'MCell']]],
+  ['copyentrytoclipboard',['copyEntryToClipboard',['../class_welcome_window.html#a8aff3661e9f490cf54119a0ee4300b69',1,'WelcomeWindow']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['team_20members_20and_20roles',['Team Members and Roles',['../md__home_travis_build_KurusView_2020_GROUP_21_TEAM.html',1,'']]],
-  ['transpose',['transpose',['../class_matrix.html#aa753de1a2ed37c8eb934e06823fee179',1,'Matrix']]]
+  ['removeentryfromrecents',['removeEntryFromRecents',['../class_welcome_window.html#af6474706e21f5301800f916bad14ee5f',1,'WelcomeWindow']]],
+  ['rotationmatrix',['RotationMatrix',['../_matrix_8h.html#a500d8d8a1cabfbadfb38ca824c09e251',1,'Matrix.cpp']]]
 ];

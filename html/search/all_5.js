@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['loadmodel',['loadModel',['../class_model.html#a1b24f12f7610a5ebfa8e61c322e3952b',1,'Model']]]
+  ['handleaboutbutton',['handleAboutButton',['../class_welcome_window.html#a35d5fdd96f2592b991c142d1fc3e0d02',1,'WelcomeWindow']]],
+  ['handleopenbutton',['handleOpenButton',['../class_welcome_window.html#a6df5805ce1c6d7bd0d59a71ed13a0a4b',1,'WelcomeWindow']]]
 ];

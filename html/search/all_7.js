@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['news',['NEWS',['../md__home_travis_build_KurusView_2020_GROUP_21_NEWS.html',1,'']]]
+  ['loadentryasmodel',['loadEntryAsModel',['../class_welcome_window.html#af23266873203e07d137931e546d36171',1,'WelcomeWindow']]],
+  ['loadmodel',['loadModel',['../class_model.html#a1b24f12f7610a5ebfa8e61c322e3952b',1,'Model']]]
 ];
