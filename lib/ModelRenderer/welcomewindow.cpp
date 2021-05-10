@@ -35,14 +35,23 @@ WelcomeWindow::~WelcomeWindow() {
 }
 
 void WelcomeWindow::handleOpenButton() {
-    // Open the file dialog.
-    QString inputFileName = QFileDialog::getOpenFileName(this, tr("Load a Kurus View or Model"), "save_models",
+    // Sync to make sure we have most recent lastOpenDirectory
+    settings.sync();
+    
+    // Open the file dialog in the last directory, defaulting to save_models
+    QString inputFileName = QFileDialog::getOpenFileName(this, tr("Load a Kurus View or Model"),
+                                                         settings.value("lastOpenDirectory",
+                                                                        "save_models").value<QString>(),
                                                          tr("Model, View or STL (*.mod;*.kurus;*.stl)"));
 
     // If the file loaded is empty, or no file is loaded...
     if (inputFileName.isEmpty()) {
         return;
     }
+
+    // Update lastOpenDirectory in settings and sync
+    settings.setValue("lastOpenDirectory", QFileInfo(inputFileName).absoluteDir().absolutePath());
+    settings.sync();
 
     // update recents for next time
     addToRecentFiles(inputFileName);
@@ -178,7 +187,7 @@ void WelcomeWindow::populateRecents() {
     // Update layout: Cant set a layout on a widget that already has a layout, see https://forum.qt.io/topic/14898/howto-change-layout-of-a-widget/7
     if (ui->frame->layout()) {
         QLayoutItem *item;
-        while((item = mainLayout->takeAt(0)) != 0)
+        while ((item = mainLayout->takeAt(0)) != 0)
             if (item->widget()) {
                 item->widget()->setParent(NULL);
                 delete item;
