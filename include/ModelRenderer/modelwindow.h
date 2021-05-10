@@ -81,6 +81,8 @@ private:
 
     void loadFile(const QStringList &filePaths);
 
+    void resetViewLayout();
+
 
 private slots:
 
@@ -88,7 +90,7 @@ private slots:
 
     void open();
 
-//    void save();
+    void closeView();
 
 public slots:
 

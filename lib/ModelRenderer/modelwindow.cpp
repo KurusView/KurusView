@@ -136,9 +136,6 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
 }
 
 ModelWindow::~ModelWindow() {
-    for (auto &view : views) {
-        delete view;
-    }
     delete ui;
 }
 
@@ -357,7 +354,7 @@ void ModelWindow::handleChangePerspective() {
 
 void ModelWindow::viewActive(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
-        setActiveView((View *) (((QVTKOpenGLWidget *) sender())->parentWidget()));
+        setActiveView((View * )(((QVTKOpenGLWidget *) sender())->parentWidget()));
     }
 }
 
@@ -458,7 +455,13 @@ void ModelWindow::addViewToFrame(View *view) {
     // Store previous views.
     views.push_back(view);
 
-    // fitting matrix
+    resetViewLayout();
+
+    connect(view->qVTKWidget, &QVTKOpenGLWidget::mouseEvent, this, &ModelWindow::viewActive);
+}
+
+void ModelWindow::resetViewLayout() {
+// fitting matrix
     static unsigned short int fm[4][4] = {
             {0, 0, 1, 1},   /*  row, column, rowSpan, columnSpan of first inserted */
             {0, 1, 1, 1},   /*  row, column, rowSpan, columnSpan of second inserted */
@@ -466,22 +469,23 @@ void ModelWindow::addViewToFrame(View *view) {
             {1, 1, 1, 1},   /*  row, column, rowSpan, columnSpan of fourth inserted */
     };
 
+    for (int i = 0; i < views.size(); ++i) {
+        ui->viewFrame->addWidget(views[i], fm[i][0], fm[i][1], fm[i][2], fm[i][3]);
+        // refit previous:
+        //
+        // There is no method for resetting the row/column-span after a widget has been added. However, addWidget can
+        // be called again on the same widget to achieve the same affect, because re-adding a widget to the same layout
+        // always implicitly removes it first.
 
-    ui->viewFrame->addWidget(view, fm[index][0], fm[index][1], fm[index][2], fm[index][3]);
+        if (i + 1 == 3)
+            ui->viewFrame->addWidget(views[1], 1, 0, 1, 1);
 
-    // refit previous:
-    //
-    // There is no method for resetting the row/column-span after a widget has been added. However, addWidget can
-    // be called again on the same widget to achieve the same affect, because re-adding a widget to the same layout
-    // always implicitly removes it first.
+        if (i + 1 == 4)
+            ui->viewFrame->addWidget(views[2], 0, 1, 1, 1);
 
-    if (index + 1 == 3)
-        ui->viewFrame->addWidget(views[1], 1, 0, 1, 1);
+    }
 
-    if (index + 1 == 4)
-        ui->viewFrame->addWidget(views[2], 0, 1, 1, 1);
 
-    connect(view->qVTKWidget, &QVTKOpenGLWidget::mouseEvent, this, &ModelWindow::viewActive);
 }
 
 void ModelWindow::getStatistics() {
@@ -596,6 +600,7 @@ void ModelWindow::createActionsAndConnections() {
     ui->actionOpenView->setShortcuts(QKeySequence::Open);
     connect(ui->actionOpenView, &QAction::triggered, this, &ModelWindow::open);
     connect(ui->actionSaveView, &QAction::triggered, activeView, &View::save);
+    connect(ui->actionCloseView, &QAction::triggered, this, &ModelWindow::closeView);
 
     for (auto i = 0; i < maxFileNr; ++i) {
         QAction *recentFileAction = new QAction(this);
@@ -647,3 +652,16 @@ void ModelWindow::loadFile(const QStringList &filePaths) {
         adjustForCurrentFile(filePaths[i]);
 }
 
+void ModelWindow::closeView() {
+    for (int i = 0; i < views.size(); ++i) {
+        if (views[i] == activeView) {
+            View *view = views[i];
+            views.erase(views.begin() + i);
+            delete view;
+        }
+    }
+    if (views.empty()) {
+        close();
+    }
+    resetViewLayout();
+}
