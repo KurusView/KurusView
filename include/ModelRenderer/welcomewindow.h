@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QStringListModel>
 #include <QSettings>
+#include <QObject.h>
+#include <QPoint.h>
 
 namespace Ui {
     class WelcomeWindow;
@@ -33,12 +35,18 @@ private:
     QFrame *
     CreateNewRow(int number, QString title, QString subtitle, QString mouseReleaseValue, int generalFontSize = 18);
 
+    void populateRecents();
+
+    void showContextMenu(const QPoint &pos);
+
 
 public slots:
 
     void handleOpenButton();
 
     void handleAboutButton();
+
+    void removeEntryFromRecents();
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;

@@ -7,6 +7,9 @@
 #include <QGridLayout>
 #include <QMouseEvent>
 #include <QMessageBox>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QMenu>
+#include <iostream>
 
 WelcomeWindow::WelcomeWindow(QWidget *parent) :
         QMainWindow(parent),
@@ -16,33 +19,14 @@ WelcomeWindow::WelcomeWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
-    settings.sync();
-    recentFilePaths = settings.value("recentFiles").value<QStringList>();
-
-    auto *mainLayout = new QGridLayout();
-
-    // reserve 25
-    mainLayout->setRowStretch(25, 25);
-
-    // populate recents list
-    size_t row = 0;
-    for (auto &recent : recentFilePaths) {
-        QFileInfo fi(recent);
-
-        QFrame *entry = CreateNewRow(row + 1, fi.fileName(), fi.filePath(), "row_1");
-
-        mainLayout->addWidget(entry, row, 0);
-
-        row++;
-    }
+    populateRecents();
 
     // Connect the signal to the
     connect(ui->openPushButton, &QPushButton::released, this, &WelcomeWindow::handleOpenButton);
     connect(ui->aboutPushButton, &QPushButton::released, this, &WelcomeWindow::handleAboutButton);
+
     // Connect a double click for the listView.
     //connect(ui->recentListView, SIGNAL(QAbstractItemV), this, &WelcomWindow::);
-
-    ui->frame->setLayout(mainLayout);
 }
 
 WelcomeWindow::~WelcomeWindow() {
@@ -72,14 +56,14 @@ void WelcomeWindow::addToRecentFiles(QString &inputFileName) {
 
     // Remove the file just opened from the list - so there won't be any duplicates in the
     recentFilePaths.removeAll(currFile);
-    recentFileNames.removeAll(inputFileName);
+    //recentFileNames.removeAll(inputFileName);
     // Add the file just opened to the front of the list
     recentFilePaths.prepend(currFile);
     recentFilePaths.prepend(inputFileName);
     // Remove last the last files in the list, if the list is greater than the maximum number of files.
     while (recentFilePaths.size() > maxFileNr) {
         recentFilePaths.removeLast();
-        recentFileNames.removeLast();
+        //recentFileNames.removeLast();
     }
 
     settings.setValue("recentFiles", recentFilePaths);
@@ -117,6 +101,9 @@ QFrame *WelcomeWindow::CreateNewRow(int number, QString title, QString subtitle,
     auto *labelTitle = new QLabel(title);
     auto *labelSubtitle = new QLabel(subtitle);
 
+    // set object name so it can be found by removeEntryFromRecents
+    labelSubtitle->setObjectName("FILEPATH");
+
     labelNumber->setStyleSheet(styleNumber);
     labelTitle->setStyleSheet(styleTitle);
     labelSubtitle->setStyleSheet(styleSubtitle);
@@ -126,12 +113,16 @@ QFrame *WelcomeWindow::CreateNewRow(int number, QString title, QString subtitle,
     layout->addWidget(labelTitle, 0, 2);
     layout->addWidget(labelSubtitle, 1, 2);
 
+    // make frame the sender of the customContextMenuRequested signal
+    frame->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(frame, &QFrame::customContextMenuRequested, this, &WelcomeWindow::showContextMenu);
+
     return frame;
 }
 
 bool WelcomeWindow::eventFilter(QObject *obj, QEvent *event) {
     if (event->type() == QEvent::MouseButtonRelease) {
-        QMouseEvent *mouseEvent = static_cast<QMouseEvent *> (event);
+        auto *mouseEvent = static_cast<QMouseEvent *> (event);
         if (mouseEvent->button() == Qt::LeftButton) {
             QString prop = obj->property("mouseReleaseValue").toString();
             QMessageBox msgBox;
@@ -142,4 +133,63 @@ bool WelcomeWindow::eventFilter(QObject *obj, QEvent *event) {
     }
     // standard event processing
     return QObject::eventFilter(obj, event);
+}
+
+void WelcomeWindow::removeEntryFromRecents() {
+
+    // vodoo to find the QLabel of the QFrame where the contextmenu was requested
+    auto *pathLabel = (QLabel *) sender()->parent()->findChild<QLabel *>("FILEPATH");
+
+    std::cout << pathLabel->text().toStdString() << std::endl;
+
+    // remove the filepath from recents list
+    recentFilePaths.removeAll(pathLabel->text());
+
+    // update storage with recents list
+    settings.setValue("recentFiles", recentFilePaths);
+    settings.sync();
+
+    // refresh ui list
+    populateRecents();
+}
+
+void WelcomeWindow::populateRecents() {
+    settings.sync();
+    recentFilePaths = settings.value("recentFiles").value<QStringList>();
+
+    auto *mainLayout = new QGridLayout();
+
+    // reserve 25
+    mainLayout->setRowStretch(25, 25);
+
+    // populate recents list
+    size_t row = 0;
+    for (auto &recent : recentFilePaths) {
+        QFileInfo fi(recent);
+
+        QFrame *entry = CreateNewRow(row + 1, fi.fileName(), fi.filePath(), "row_1");
+
+        mainLayout->addWidget(entry, row, 0);
+
+        row++;
+    }
+
+    // update frame
+    ui->frame->setLayout(mainLayout);
+}
+
+void WelcomeWindow::showContextMenu(const QPoint &pos) {
+
+    // configure context menu
+    QMenu contextMenu(tr("Context menu"), (QFrame *) sender());
+
+    // add actions TODO open, properties?
+    QAction action_del("Remove Data Point", (QFrame *) sender());
+    contextMenu.addAction(&action_del);
+
+    // connect action_del signal to removeEntryFromRecents
+    connect(&action_del, SIGNAL(triggered()), this, SLOT(removeEntryFromRecents()));
+
+    // show context menu
+    contextMenu.exec(QCursor::pos());
 }
