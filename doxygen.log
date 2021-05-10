@@ -201,7 +201,7 @@ Resolving user defined refere/home/travis/build/KurusView/2020_GROUP_21/include/
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:111: warning: Member handleGridlines() (slot) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:113: warning: Member handleMeasurment() (slot) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:115: warning: Member getStatistics() (slot) of class ModelWindow is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:70: warning: Member openNewModelWindow(QStringList &filePaths) (signal) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:70: warning: Member openNewModelWindow(const QStringList &filePaths) (signal) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:45: warning: Member gridlinesInit(View *view) (function) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:47: warning: Member addViewToFrame(View *view) (function) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:58: warning: Member createActionsAndConnections() (function) of class ModelWindow is not documented.

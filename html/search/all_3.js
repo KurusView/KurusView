@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['getcellcount',['getCellCount',['../class_model.html#a4bfc8814ba4bc5b04db76c59c4c9a43a',1,'Model']]],
   ['getcentreofgrav',['getCentreOfGrav',['../class_m_cell.html#ad3f809c04e1b1ad6d4b0cde3370128eb',1,'MCell']]],
   ['getcount',['getCount',['../class_m_cell.html#aeb4799060fa852694769ba92b08af991',1,'MCell']]],
   ['getid',['getID',['../class_m_cell.html#ae6308f30835ccfea1c9aa2e72ee8f868',1,'MCell::getID()'],['../class_m_vector.html#ad61e4de172de5f1236b912c82c3aa8a5',1,'MVector::getID()']]],

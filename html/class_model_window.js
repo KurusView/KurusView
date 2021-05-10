@@ -17,7 +17,7 @@ var class_model_window =
     [ "handleResetColor", "class_model_window.html#a4c9eefb90446f87941efa952e6b29900", null ],
     [ "handleResetLighting", "class_model_window.html#a2e42c0dabaa52b19487e8bf58b337397", null ],
     [ "mux_handleLightActorSlider", "class_model_window.html#a56afb845e27afd543a4a0a1f9bcebc57", null ],
-    [ "openNewModelWindow", "class_model_window.html#a35b1a5062c6313309fd5122f3aadadfe", null ],
+    [ "openNewModelWindow", "class_model_window.html#abd123a153ace6bed93425076f48f47e2", null ],
     [ "updateFilters", "class_model_window.html#a274d01769538d149595a5cce505c07b5", null ],
     [ "updateRecentActionList", "class_model_window.html#a46205a58cd996e60ada24ff826a6ec16", null ],
     [ "updateStructure", "class_model_window.html#a22662895af406e3889535120c7bb748b", null ],
