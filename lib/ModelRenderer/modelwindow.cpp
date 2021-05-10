@@ -100,6 +100,7 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
     //Measurement button
     connect(ui->measurementButton, &QPushButton::released, this, &ModelWindow::handleMeasurment);
 
+
     for (int i = 0; i < filePaths.size() && i < 4; ++i) {
         addViewToFrame(new View(filePaths[i], parent));
     }
@@ -107,8 +108,6 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
     for (auto &view : views) {
         setActiveView(view);
         connect(view->qVTKWidget, &QVTKOpenGLWidget::mouseEvent, this, &ModelWindow::viewActive);
-        gridlinesInit(view);
-        handleResetLighting();
     }
 
     setActiveView(views[0]);
@@ -296,7 +295,7 @@ void ModelWindow::handleChangePerspective() {
 
 void ModelWindow::viewActive(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
-        setActiveView((View * )(((QVTKOpenGLWidget *) sender())->parentWidget()));
+        setActiveView((View *) (((QVTKOpenGLWidget *) sender())->parentWidget()));
     }
 }
 
@@ -321,7 +320,7 @@ void ModelWindow::setActiveView(View *newActiveView) {
     ui->backgroundColourPushButton->setStyleSheet(
             "background-color: " + activeView->backgroundColour + "; border:none;");
     ui->modelColourPushButton->setStyleSheet(
-            "background-color: " + activeView->modelColor + "; border:none;");
+            "background-color: " + activeView->modelColour + "; border:none;");
 
     // Structure
     switch (activeView->structure) {
@@ -360,41 +359,6 @@ void ModelWindow::updateStructure() {
 
 void ModelWindow::handleGridlines() {
     activeView->toggleGridLines(ui->gridLinesCheckBox->isChecked());
-}
-
-void ModelWindow::gridlinesInit(View *view) {
-    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
-    vtkColor3d axis1Color = colors->GetColor3d("Salmon");
-    vtkColor3d axis2Color = colors->GetColor3d("PaleGreen");
-    vtkColor3d axis3Color = colors->GetColor3d("LightSkyBlue");
-
-    vtkNew<vtkCubeAxesActor> cubeAxesActor;
-
-    cubeAxesActor->SetUseTextActor3D(1);
-    cubeAxesActor->SetBounds(
-            view->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor()->GetBounds());
-    cubeAxesActor->SetCamera(
-            view->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera());
-    cubeAxesActor->GetTitleTextProperty(0)->SetColor(axis1Color.GetData());
-    cubeAxesActor->GetTitleTextProperty(0)->SetFontSize(48);
-    cubeAxesActor->GetLabelTextProperty(0)->SetColor(axis1Color.GetData());
-
-    cubeAxesActor->GetTitleTextProperty(1)->SetColor(axis2Color.GetData());
-    cubeAxesActor->GetLabelTextProperty(1)->SetColor(axis2Color.GetData());
-
-    cubeAxesActor->GetTitleTextProperty(2)->SetColor(axis3Color.GetData());
-    cubeAxesActor->GetLabelTextProperty(2)->SetColor(axis3Color.GetData());
-
-    cubeAxesActor->SetGridLineLocation(cubeAxesActor->VTK_GRID_LINES_FURTHEST);
-    cubeAxesActor->SetFlyModeToStaticEdges();
-
-    cubeAxesActor->XAxisMinorTickVisibilityOff();
-    cubeAxesActor->YAxisMinorTickVisibilityOff();
-    cubeAxesActor->ZAxisMinorTickVisibilityOff();
-
-    view->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->AddActor(cubeAxesActor);
-
-    view->toggleGridLines(false);
 }
 
 void ModelWindow::handleMeasurment() {
@@ -455,11 +419,11 @@ void ModelWindow::addViewToFrame(View *view) {
 }
 
 void ModelWindow::getStatistics() {
-    if (activeView->model.fileType == "mod") {
-        activeView->numOfCells = activeView->model.getCellCount();
-        activeView->centreOfGrav = activeView->model.calcCentre();
-        activeView->weight = activeView->model.calcWeight();
-        activeView->volume = activeView->model.calcVolume();
+    if (activeView->model->fileType == "mod") {
+        activeView->numOfCells = activeView->model->getCellCount();
+        activeView->centreOfGrav = activeView->model->calcCentre();
+        activeView->weight = activeView->model->calcWeight();
+        activeView->volume = activeView->model->calcVolume();
         activeView->density = activeView->weight / activeView->volume;
 
         ui->numOfCellsLabel->setText(QString::number(activeView->numOfCells));
@@ -469,9 +433,9 @@ void ModelWindow::getStatistics() {
         ui->weightLabel->setText(QString::number(activeView->weight));
         ui->volumeLabel->setText(QString::number(activeView->volume));
         ui->densityLabel->setText(QString::number(activeView->density));
-    } else if (activeView->model.fileType == "stl") {
+    } else if (activeView->model->fileType == "stl") {
         vtkSmartPointer<vtkTriangleFilter> triFilter = vtkSmartPointer<vtkTriangleFilter>::New();
-        triFilter->SetInputData(activeView->model.STLModel->GetOutput());
+        triFilter->SetInputData(activeView->model->STLModel->GetOutput());
         triFilter->Update();
 
         vtkSmartPointer<vtkMassProperties> massProp = vtkSmartPointer<vtkMassProperties>::New();
@@ -486,7 +450,7 @@ void ModelWindow::getStatistics() {
         MVector centreOfGrav(center[0], center[1], center[2]);
 
 
-        unsigned long numOfCells = activeView->model.STLModel->GetOutputDataObject(0)->GetNumberOfElements(
+        unsigned long numOfCells = activeView->model->STLModel->GetOutputDataObject(0)->GetNumberOfElements(
                 vtkDataObject::CELL);
 
         activeView->volume = volume;
@@ -546,7 +510,7 @@ void ModelWindow::adjustForCurrentFile(const QString &filePath) {
 
 void ModelWindow::openRecent() {
     QAction *action = qobject_cast<QAction *>(sender());
-    if (action){
+    if (action) {
         QStringList fileList;
         fileList.append(action->data().value<QString>());
         loadFile(fileList);
@@ -556,6 +520,7 @@ void ModelWindow::openRecent() {
 void ModelWindow::createActionsAndConnections() {
     ui->actionOpenView->setShortcuts(QKeySequence::Open);
     connect(ui->actionOpenView, &QAction::triggered, this, &ModelWindow::open);
+    connect(ui->actionSaveView, &QAction::triggered, activeView, &View::save);
 
     for (auto i = 0; i < maxFileNr; ++i) {
         QAction *recentFileAction = new QAction(this);
@@ -587,7 +552,7 @@ void ModelWindow::open() {
     loadFile(inputFileNames);
 }
 
-void ModelWindow::loadFile(const QStringList &filePaths){
+void ModelWindow::loadFile(const QStringList &filePaths) {
     bool newWindow = true;
 
     if (views.size() + filePaths.size() <= 4) {
@@ -596,8 +561,8 @@ void ModelWindow::loadFile(const QStringList &filePaths){
         newWindow = dialog->exec();
     }
 
-    if(newWindow)
-        emit openNewModelWindow(filePaths);
+    if (newWindow)
+            emit openNewModelWindow(filePaths);
     else {
         for (int i = 0; i < filePaths.size(); ++i)
             addViewToFrame(new View(filePaths[i]));

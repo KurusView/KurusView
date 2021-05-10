@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 #include <QFrame>
 #include <QColor>
+#include <QSettings>
 
 #include <QVTKOpenGLWidget.h>
 #include <vtkSmartPointer.h>
@@ -22,7 +23,7 @@ public:
     QVBoxLayout *verticalLayout;
 
     QVTKOpenGLWidget *qVTKWidget;
-    Model model;
+    std::shared_ptr<Model> model;
     vtkSmartPointer<vtkDataSetMapper> mapper;
     std::vector<vtkSmartPointer<vtkAlgorithm>> filters;
     vtkSmartPointer<vtkClipDataSet> clipFilter;
@@ -30,7 +31,7 @@ public:
 
     int lightIntensity, lightSpecularity, modelOpacity, structure;
 
-    QString backgroundColour, modelColor;
+    QString backgroundColour, modelColour;
 
     bool isClipped, isShrunk, gridLinesEnabled;
 
@@ -69,6 +70,14 @@ public:
 
     void setStructure(int selectedStructure);
 
+    QString filePath;
+
+    std::shared_ptr<QSettings> viewSettings;
+
+    void save();
+
+    void saveAs();
+
 private:
 
     /**
@@ -78,6 +87,11 @@ private:
     static unsigned short int ViewInstanceCount;
 
     QString borderColors[4] = {"red", "blue", "cyan", "magenta"};
+
+    void gridlinesInit();
+
+    void populateSettings();
+
 };
 
 

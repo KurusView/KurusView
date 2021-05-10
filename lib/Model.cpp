@@ -19,6 +19,7 @@ Model::Model(const std::string &filePath) {
     std::string fileExtension = filePath.substr(filePath.find_last_of('.') + 1);
 
     this->fileType = fileExtension;
+    this->filePath = QString::fromStdString(filePath);
 
     if (fileExtension == "stl") {
         loadSTLModel(filePath);

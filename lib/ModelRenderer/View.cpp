@@ -18,19 +18,36 @@
 #include <vtkLight.h>
 #include <vtkLightCollection.h>
 #include <vtkCubeAxesActor.h>
+#include <QFileDialog>
+#include <vtkTextProperty.h>
 
 #include "View.h"
 
 // set default instance count
 unsigned short int View::ViewInstanceCount = 0;
 
-View::View(const QString &filePath, QWidget *parent) : QWidget(parent),
-                                                       model(filePath.toStdString()) {
+View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
+
 
     //increment instance count
     ViewInstanceCount++;
 
     this->borderColor = borderColors[getCount() % 4];
+
+    std::string fileExtension = filePath.toStdString().substr(filePath.toStdString().find_last_of('.') + 1);
+
+    if (fileExtension == "kurus") {
+        viewSettings = std::make_shared<QSettings>(filePath, QSettings::IniFormat);
+        viewSettings->sync();
+        this->filePath = filePath;
+
+        QString modelFilePath = viewSettings->value("modelFilePath").value<QString>();
+        model = std::make_shared<Model>(modelFilePath.toStdString());
+    } else {
+        viewSettings = std::make_shared<QSettings>();
+        viewSettings->setValue("modelFilePath", filePath);
+        model = std::make_shared<Model>(filePath.toStdString());
+    }
 
     setStyleSheet("*{padding: 0; border-width: 3 ;border-style:solid;border-color: dark" + this->borderColor + ";}");
 
@@ -48,7 +65,7 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent),
     vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
     qVTKWidget->SetRenderWindow(renderWindow);
 
-    vtkSmartPointer<vtkAlgorithm> modelAlgo = model.getVTKModel();
+    vtkSmartPointer<vtkAlgorithm> modelAlgo = model->getVTKModel();
     vtkDataObject *dataObj = modelAlgo->GetOutputDataObject(0);
     auto *datSet = (vtkDataSet *) (dataObj);
 
@@ -70,29 +87,35 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent),
 
     renderer->AddActor(actor);
 
+    gridlinesInit();
+
+
     // Set all parameters
     // Filters
-    toggleClipFilter(false);
-    toggleShrinkFilter(false);
+    toggleClipFilter(viewSettings->value("isClipped", false).value<bool>());
+    toggleShrinkFilter(viewSettings->value("isShrunk", false).value<bool>());
 
     // Colours
-    setModelColor(QColor("Green"));
-    setBackgroundColor(QColor("Silver"));
+    setModelColor(viewSettings->value("modelColor", QColor("Green")).value<QColor>());
+    setBackgroundColor(viewSettings->value("backgroundColor", QColor("Silver")).value<QColor>());
 
     // Structure
-    structure = 0;
-    gridLinesEnabled = false;
+    setStructure(viewSettings->value("structure", 0).value<int>());
+    toggleGridLines(viewSettings->value("gridLinesEnabled", false).value<bool>());
 
     // Lighting
-    resetLighting();
+    setLightIntensity(viewSettings->value("lightIntensity", 70).value<int>());
+    setModelOpacity(viewSettings->value("modelOpacity", 100).value<int>());
+    setLightSpecularity(viewSettings->value("lightSpecularity", 0).value<int>());
 
+    buildChain();
     qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->ResetCamera();
     qVTKWidget->GetRenderWindow()->Render();
 }
 
 void View::buildChain() {
     // Store the source object, as it's used multiple times
-    vtkDataSet *source = dynamic_cast<vtkDataSet *>(model.getVTKModel()->GetOutputDataObject(0));
+    vtkDataSet *source = dynamic_cast<vtkDataSet *>(model->getVTKModel()->GetOutputDataObject(0));
     // If no filters are applied
     if (filters.empty()) {
         // Source -> Mapper
@@ -127,6 +150,8 @@ void View::toggleShrinkFilter(bool enable) {
         filters.erase(std::find(filters.begin(), filters.end(), shrinkFilter));
     }
     isShrunk = enable;
+
+    viewSettings->setValue("isShrunk", enable);
 }
 
 void View::toggleClipFilter(bool enable) {
@@ -142,6 +167,7 @@ void View::toggleClipFilter(bool enable) {
         filters.erase(std::find(filters.begin(), filters.end(), clipFilter));
     }
     isClipped = enable;
+    viewSettings->setValue("isClipped", enable);
 }
 
 View::~View() {
@@ -161,11 +187,12 @@ void View::setModelColor(const QColor &color) {
     vtkActorCollection *actors = qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
     auto *actor = (vtkActor *) actors->GetItemAsObject(0);
 
-    // Set the Color of the actor
+    // Set tviewSettings->value("gridLinesEnabled", false).value<bool>() Color of the actor
+    viewSettings->setValue("modelColor", color);
     actor->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
 
     // Store the color locally
-    modelColor = color.name();
+    modelColour = color.name();
 }
 
 void View::setBackgroundColor(const QColor &color) {
@@ -178,6 +205,7 @@ void View::setBackgroundColor(const QColor &color) {
                                                                                      color.blueF()
     );
 
+    viewSettings->setValue("background", color);
     backgroundColour = color.name();
 }
 
@@ -205,6 +233,7 @@ void View::setLightIntensity(int value) {
     }
 
     lightIntensity = value;
+    viewSettings->setValue("lightIntensity", value);
 }
 
 void View::setLightSpecularity(int value) {
@@ -221,6 +250,7 @@ void View::setLightSpecularity(int value) {
     }
 
     lightSpecularity = value;
+    viewSettings->setValue("lightSpecularity", value);
 }
 
 void View::setModelOpacity(int value) {
@@ -236,6 +266,7 @@ void View::setModelOpacity(int value) {
     }
 
     modelOpacity = value;
+    viewSettings->setValue("modelOpacity", value);
 }
 
 void View::resetLighting() {
@@ -282,6 +313,7 @@ void View::toggleGridLines(bool enable) {
     }
 
     gridLinesEnabled = enable;
+    viewSettings->setValue("gridLinesEnabled", gridLinesEnabled);
     qVTKWidget->GetRenderWindow()->Render();
 }
 
@@ -300,4 +332,91 @@ void View::setStructure(int selectedStructure) {
             break;
     }
     structure = selectedStructure;
+    viewSettings->setValue("structure", selectedStructure);
+}
+
+void View::populateSettings() {
+    // Set all parameters
+    // Model
+    viewSettings->setValue("modelFilePath", model->filePath);
+
+    // Filters
+    viewSettings->setValue("isClipped", isClipped);
+    viewSettings->setValue("isShrunk", isShrunk);
+
+    // Colours
+    viewSettings->setValue("modelColor", modelColour);
+    viewSettings->setValue("backgroundColor", backgroundColour);
+
+    // Structure
+    viewSettings->setValue("structure", structure);
+    viewSettings->setValue("gridLinesEnabled", gridLinesEnabled);
+
+    // Lighting
+    viewSettings->setValue("lightIntensity", lightIntensity);
+    viewSettings->setValue("modelOpacity", modelOpacity);
+    viewSettings->setValue("lightSpecularity", lightSpecularity);
+}
+
+void View::save() {
+    populateSettings();
+    if (filePath.isEmpty())
+        saveAs();
+    viewSettings->sync();
+}
+
+void View::saveAs() {
+    QSettings globalSettings(QDir::currentPath() + "/kurusview.ini", QSettings::IniFormat);
+    globalSettings.sync();
+
+    QString savePath = QFileDialog::getSaveFileName(this, tr("Save Kurus View"),
+                                                    globalSettings.value("lastOpenDirectory",
+                                                                         "save_models").value<QString>(),
+                                                    tr("Kurus View (*.kurus)"));
+
+    if(savePath.isEmpty()) {
+        return;
+    }
+    this->filePath = savePath;
+    std::cout << filePath.toStdString() << std::endl;
+    viewSettings = std::make_shared<QSettings>(savePath, QSettings::IniFormat);
+    save();
+
+    std::cout << globalSettings.status() << std::endl;
+    std::cout << viewSettings->status() << std::endl;
+}
+
+void View::gridlinesInit() {
+    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
+    vtkColor3d axis1Color = colors->GetColor3d("Salmon");
+    vtkColor3d axis2Color = colors->GetColor3d("PaleGreen");
+    vtkColor3d axis3Color = colors->GetColor3d("LightSkyBlue");
+
+    vtkNew<vtkCubeAxesActor> cubeAxesActor;
+
+    cubeAxesActor->SetUseTextActor3D(1);
+    cubeAxesActor->SetBounds(
+            qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor()->GetBounds());
+    cubeAxesActor->SetCamera(
+            qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera());
+    cubeAxesActor->GetTitleTextProperty(0)->SetColor(axis1Color.GetData());
+    cubeAxesActor->GetTitleTextProperty(0)->SetFontSize(48);
+    cubeAxesActor->GetLabelTextProperty(0)->SetColor(axis1Color.GetData());
+
+    cubeAxesActor->GetTitleTextProperty(1)->SetColor(axis2Color.GetData());
+    cubeAxesActor->GetLabelTextProperty(1)->SetColor(axis2Color.GetData());
+
+    cubeAxesActor->GetTitleTextProperty(2)->SetColor(axis3Color.GetData());
+    cubeAxesActor->GetLabelTextProperty(2)->SetColor(axis3Color.GetData());
+
+    cubeAxesActor->SetGridLineLocation(cubeAxesActor->VTK_GRID_LINES_FURTHEST);
+    cubeAxesActor->SetFlyModeToStaticEdges();
+
+    cubeAxesActor->XAxisMinorTickVisibilityOff();
+    cubeAxesActor->YAxisMinorTickVisibilityOff();
+    cubeAxesActor->ZAxisMinorTickVisibilityOff();
+
+    qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->AddActor(cubeAxesActor);
+
+    toggleGridLines(false);
 }

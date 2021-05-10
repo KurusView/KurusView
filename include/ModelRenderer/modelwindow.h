@@ -42,8 +42,6 @@ public:
 
     ~ModelWindow() override;
 
-    void gridlinesInit(View *view);
-
     void addViewToFrame(View *view);
 
     QMenu *fileMenu;
@@ -88,6 +86,8 @@ private slots:
     void openRecent();
 
     void open();
+
+//    void save();
 
 public slots:
 

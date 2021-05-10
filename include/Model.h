@@ -9,6 +9,7 @@
 #include <vtkSmartPointer.h>
 #include <vtkAlgorithm.h>
 #include <vtkSTLReader.h>
+#include <QString>
 
 /**
  * @brief Model - This object is responsible for reading and writing model entities to VTK style data files
@@ -89,6 +90,8 @@ public:
     double calcWeight();
 
     std::string fileType;
+
+    QString filePath;
 
     vtkSmartPointer<vtkSTLReader> STLModel;
 };
