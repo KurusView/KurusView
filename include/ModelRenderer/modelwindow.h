@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QMouseEvent>
+#include <QStringList>
+#include <QList>
 
 #include <memory>
 #include <vector>
@@ -13,6 +15,9 @@
 #include <vtkClipDataSet.h>
 #include <vtkShrinkFilter.h>
 #include <vtkDistanceWidget.h>
+#include <QLabel>
+#include <QSettings>
+#include <vtkColor.h>
 
 #include "Model.h"
 #include "View.h"
@@ -34,13 +39,32 @@ public:
      * @param parent
      * @see Model | Model
      */
-    explicit ModelWindow(const QString &filePath, QWidget *parent = nullptr);
+    explicit ModelWindow(const QStringList &filePaths, QWidget *parent = nullptr);
 
     ~ModelWindow() override;
 
-    void gridlinesInit(View *view);
-
     void addViewToFrame(View *view);
+
+    QMenu *fileMenu;
+    QMenu *recentFilesMenu;
+
+    QAction *openAction;
+    QList<QAction *> recentFileActionList;
+    const int maxFileNr;
+
+    QString currentFilePath;
+
+    void createActionsAndConnections();
+
+    void adjustForCurrentFile(const QString &filePath);
+
+    void updateRecentActionList();
+
+    QSettings settings;
+
+signals:
+
+    void openNewModelWindow(const QStringList &filePaths);
 
 private:
     Ui::ModelWindow *ui;
@@ -52,6 +76,21 @@ private:
     void setActiveView(View *newActiveView);
 
 
+    QStringList recentFilePaths;
+
+    void loadFile(const QStringList &filePaths);
+
+    void resetViewLayout();
+
+
+private slots:
+
+    void openRecent();
+
+    void open();
+
+    void closeView();
+
 public slots:
 
     void viewActive(QMouseEvent *event);
@@ -59,6 +98,8 @@ public slots:
     void handleBackgroundColor();
 
     void handleModelColor();
+
+    void handleModelBackFaceColor();
 
     void handleResetColor();
 
@@ -79,6 +120,8 @@ public slots:
     void handleMeasurement();
 
     void getStatistics();
+
+    void handleHelpButton();
 };
 
 

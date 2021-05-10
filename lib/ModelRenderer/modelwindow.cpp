@@ -16,7 +16,9 @@
 #include <vtkDataSetMapper.h>
 #include <vtkCubeSource.h>
 #include <QVTKOpenGLWidget.h>
+#include <vtkCuller.h>
 #include <math.h>
+#include "welcomewindow.h"
 
 #include <QFileDialog>
 #include <vtkPointHandleRepresentation3D.h>
@@ -25,12 +27,17 @@
 #include <QVTKWidget.h>
 #include <QColorDialog>
 #include <QApplication>
+#include <QWidget>
 #include <QScreen>
+#include <QSettings>
+#include <QDesktopServices>
+
 #include <vtkOrientationMarkerWidget.h>
 
 #include "View.h"
 #include "modelwindow.h"
 #include "ui_modelwindow.h"
+#include "dialog.h"
 #include <vtkCubeAxesActor.h>
 #include <vtkOrientationMarkerWidget.h>
 
@@ -45,15 +52,31 @@
 #include <vtkCenterOfMass.h>
 
 
-ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow(parent), ui(new Ui::ModelWindow),
-                                                                     currentModelFilePath(filePath) {
+ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainWindow(parent),
+                                                                          ui(new Ui::ModelWindow),
+                                                                          maxFileNr(4),
+                                                                          settings(QDir::currentPath() +
+                                                                                   "/kurusview.ini",
+                                                                                   QSettings::IniFormat) {
     //TODO: Make sure the model is properly initialized before loading the window
     // standard call to setup Qt UI (same as previously)
     ui->setupUi(this);
     // Get Primary Screen Height
     int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
+    int screenWidth = QGuiApplication::primaryScreen()->geometry().width();
 
-    ui->bottomMenu->setMaximumHeight(screenHeight / 5);
+    ui->bottomMenu->setMaximumHeight(screenHeight / 6);
+    ui->statisticsGroupBox->setMinimumWidth(screenWidth / 6);
+
+    int statisticsBoxWidth = ui->statisticsGroupBox->width();
+
+    ui->centreOfGravLabel->setMinimumWidth(statisticsBoxWidth / 1.7);
+    ui->densityLabel->setMinimumWidth(statisticsBoxWidth / 1.7);
+    ui->weightLabel->setMinimumWidth(statisticsBoxWidth / 1.7);
+    ui->numOfCellsLabel->setMinimumWidth(statisticsBoxWidth / 1.7);
+    ui->volumeLabel->setMinimumWidth(statisticsBoxWidth / 1.7);
+
+    std::cout << ui->centreOfGravLabel->width() << std::endl;
 
     // Camera View Button Slots
     connect(ui->resetCameraViewPushButton, &QPushButton::released, this, &ModelWindow::handleChangePerspective);
@@ -74,6 +97,7 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     // Colour group slots
     connect(ui->backgroundColourPushButton, &QPushButton::released, this, &ModelWindow::handleBackgroundColor);
     connect(ui->modelColourPushButton, &QPushButton::released, this, &ModelWindow::handleModelColor);
+    connect(ui->modelBackFaceColourPushButton, &QPushButton::released, this, &ModelWindow::handleModelBackFaceColor);
     connect(ui->resetColoursPushButton, &QPushButton::released, this, &ModelWindow::handleResetColor);
 
     // Structure Button Slots
@@ -91,29 +115,28 @@ ModelWindow::ModelWindow(const QString &filePath, QWidget *parent) : QMainWindow
     //Measurement button
     connect(ui->measurementButton, &QPushButton::released, this, &ModelWindow::handleMeasurement);
 
-    addViewToFrame(new View("red", "models/airbus_a400m.stl", parent));
-    addViewToFrame(new View("blue", "models/a-10-thunderbolt-mk2.stl", parent));
-    addViewToFrame(new View("cyan", "models/ExampleModel2.mod", parent));
-    addViewToFrame(new View("magenta", "models/ExampleModel3.mod", parent));
+
+    for (int i = 0; i < filePaths.size() && i < 4; ++i) {
+        addViewToFrame(new View(filePaths[i], parent));
+    }
 
     for (auto &view : views) {
         setActiveView(view);
-        connect(view->qVTKWidget, &QVTKOpenGLWidget::mouseEvent, this, &ModelWindow::viewActive);
-        gridlinesInit(view);
-        handleResetLighting();
     }
 
     setActiveView(views[0]);
 
     std::cout << View::getCount();
 
+    createActionsAndConnections();
+
+    connect(ui->menuRecent_Files, &QMenu::aboutToShow, this, &ModelWindow::updateRecentActionList);
+
+
     show();
 }
 
 ModelWindow::~ModelWindow() {
-    for (auto &view : views) {
-        delete view;
-    }
     delete ui;
 }
 
@@ -145,10 +168,52 @@ void ModelWindow::handleModelColor() {
     activeView->qVTKWidget->GetRenderWindow()->Render();
 }
 
+void ModelWindow::handleModelBackFaceColor() {
+    // request color
+    QColor color = QColorDialog::getColor(QColor(activeView->modelColour), this);
+
+    // sanity check
+    if (!color.isValid())
+        return;
+
+    // hack around QT bug(?): backface color is not updated if model colour is same as backface. Set the the model
+    // colour to something else and back. Colour is offset by a small amount so the change is invisible.
+    QColor currentModelColour = QColor(activeView->modelColour);
+    QColor offByOne = QColor(activeView->modelColour);
+    offByOne.setRedF(offByOne.redF() + 0.1);
+    activeView->setModelColor(offByOne);
+    activeView->setModelColor(currentModelColour);
+
+    // get actor
+    auto *actor = (vtkActor *) activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
+            0);
+
+
+    // QReal is a double
+    vtkColor3d vtkcolor(color.redF(), color.greenF(), color.blueF());
+
+    // set backface color (from docs: as the side effect of setting the ambient diffuse and specular colors as well.
+    // This is basically a quick overall color setting method).
+    vtkNew<vtkProperty> backFace;
+    //backFaces->SetDiffuseColor(vtkcolor.GetData());
+    backFace->SetDiffuseColor(color.redF(), color.greenF(), color.blueF());
+
+    // apply color to actor
+    actor->SetBackfaceProperty(backFace);
+
+    // update button color
+    ui->modelBackFaceColourPushButton->setStyleSheet("background-color: " + color.name() + "; border:none;");
+
+    // refresh view
+    activeView->qVTKWidget->GetRenderWindow()->Render();
+
+}
+
 void ModelWindow::handleResetColor() {
 
     //reset buttons
     ui->modelColourPushButton->setStyleSheet("background-color: silver; border:none;");
+    ui->modelBackFaceColourPushButton->setStyleSheet("background-color: silver; border:none;");
     ui->backgroundColourPushButton->setStyleSheet("background-color: silver; border:none;");
 
     // reset background
@@ -156,10 +221,17 @@ void ModelWindow::handleResetColor() {
     activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->SetBackground(
             colors->GetColor3d("Silver").GetData());
 
-    // reset model
-    auto *actors = (vtkActor *) activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
+    // get actor
+    auto *actor = (vtkActor *) activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
             0);
-    actors->GetProperty()->SetColor(colors->GetColor3d("Red").GetData());
+
+    // reset model
+    actor->GetProperty()->SetColor(colors->GetColor3d("Red").GetData());
+
+    // reset model backface
+    vtkNew<vtkProperty> backFace;
+    backFace->SetDiffuseColor(colors->GetColor3d("Silver").GetData());
+    actor->SetBackfaceProperty(backFace);
 
     // refresh view
     activeView->qVTKWidget->GetRenderWindow()->Render();
@@ -283,7 +355,7 @@ void ModelWindow::handleChangePerspective() {
 
 void ModelWindow::viewActive(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
-        setActiveView((View *) (((QVTKOpenGLWidget *) sender())->parentWidget()));
+        setActiveView((View * )(((QVTKOpenGLWidget *) sender())->parentWidget()));
     }
 }
 
@@ -308,7 +380,7 @@ void ModelWindow::setActiveView(View *newActiveView) {
     ui->backgroundColourPushButton->setStyleSheet(
             "background-color: " + activeView->backgroundColour + "; border:none;");
     ui->modelColourPushButton->setStyleSheet(
-            "background-color: " + activeView->modelColor + "; border:none;");
+            "background-color: " + activeView->modelColour + "; border:none;");
 
     // Structure
     switch (activeView->structure) {
@@ -332,6 +404,8 @@ void ModelWindow::setActiveView(View *newActiveView) {
     // Statistics
     getStatistics();
     ui->measurementButton->setChecked(activeView->measurementEnabled);
+
+    std::cout << ui->statisticsGroupBox->width() << std::endl;
 }
 
 void ModelWindow::updateStructure() {
@@ -350,43 +424,7 @@ void ModelWindow::handleGridlines() {
     activeView->toggleGridLines(ui->gridLinesCheckBox->isChecked());
 }
 
-void ModelWindow::gridlinesInit(View *view) {
-    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
-    vtkColor3d axis1Color = colors->GetColor3d("Salmon");
-    vtkColor3d axis2Color = colors->GetColor3d("PaleGreen");
-    vtkColor3d axis3Color = colors->GetColor3d("LightSkyBlue");
-
-    vtkNew<vtkCubeAxesActor> cubeAxesActor;
-
-    cubeAxesActor->SetUseTextActor3D(1);
-    cubeAxesActor->SetBounds(
-            view->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor()->GetBounds());
-    cubeAxesActor->SetCamera(
-            view->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera());
-    cubeAxesActor->GetTitleTextProperty(0)->SetColor(axis1Color.GetData());
-    cubeAxesActor->GetTitleTextProperty(0)->SetFontSize(48);
-    cubeAxesActor->GetLabelTextProperty(0)->SetColor(axis1Color.GetData());
-
-    cubeAxesActor->GetTitleTextProperty(1)->SetColor(axis2Color.GetData());
-    cubeAxesActor->GetLabelTextProperty(1)->SetColor(axis2Color.GetData());
-
-    cubeAxesActor->GetTitleTextProperty(2)->SetColor(axis3Color.GetData());
-    cubeAxesActor->GetLabelTextProperty(2)->SetColor(axis3Color.GetData());
-
-    cubeAxesActor->SetGridLineLocation(cubeAxesActor->VTK_GRID_LINES_FURTHEST);
-    cubeAxesActor->SetFlyModeToStaticEdges();
-
-    cubeAxesActor->XAxisMinorTickVisibilityOff();
-    cubeAxesActor->YAxisMinorTickVisibilityOff();
-    cubeAxesActor->ZAxisMinorTickVisibilityOff();
-
-    view->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->AddActor(cubeAxesActor);
-
-    view->toggleGridLines(false);
-}
-
-void ModelWindow::handleMeasurement() {
-    activeView->toggleMeasurement(ui->measurementButton->isChecked());
+void ModelWindow::handleMeasurment() {
     if (ui->measurementButton->isChecked()) {
         ui->lightOpacitySlider->setValue(25);
     } else {
@@ -398,10 +436,11 @@ void ModelWindow::addViewToFrame(View *view) {
 
     // active view count
     unsigned short int avc = View::getCount();
-    std::cout << avc << std::endl;
+    size_t index = views.size();
+    std::cout << "Total Views: " << avc << ", Views in Current Window: " << index << std::endl;
 
-    // max 4 views allowed
-    if (avc > 4) {
+    // max 4 views allowed PER WINDOW
+    if (views.size() > 4) {
         delete view;
         return;
     }
@@ -409,51 +448,62 @@ void ModelWindow::addViewToFrame(View *view) {
     // Store previous views.
     views.push_back(view);
 
-    // fiting matrix
+    resetViewLayout();
+
+    connect(view->qVTKWidget, &QVTKOpenGLWidget::mouseEvent, this, &ModelWindow::viewActive);
+}
+
+void ModelWindow::resetViewLayout() {
+// fitting matrix
     static unsigned short int fm[4][4] = {
-            {0, 0, 2, 1},   /*  row, column, rowSpan, columnSpan of first inserted */
-            {0, 1, 2, 1},   /*  row, column, rowSpan, columnSpan of second inserted */
-            {1, 0, 1, 2},   /*  row, column, rowSpan, columnSpan of third inserted */
+            {0, 0, 1, 1},   /*  row, column, rowSpan, columnSpan of first inserted */
+            {0, 1, 1, 1},   /*  row, column, rowSpan, columnSpan of second inserted */
+            {0, 1, 2, 1},   /*  row, column, rowSpan, columnSpan of third inserted */
             {1, 1, 1, 1},   /*  row, column, rowSpan, columnSpan of fourth inserted */
     };
 
+    for (int i = 0; i < views.size(); ++i) {
+        ui->viewFrame->addWidget(views[i], fm[i][0], fm[i][1], fm[i][2], fm[i][3]);
+        // refit previous:
+        //
+        // There is no method for resetting the row/column-span after a widget has been added. However, addWidget can
+        // be called again on the same widget to achieve the same affect, because re-adding a widget to the same layout
+        // always implicitly removes it first.
 
-    ui->viewFrame->addWidget(view, fm[avc - 1][0], fm[avc - 1][1], fm[avc - 1][2], fm[avc - 1][3]);
+        if (i + 1 == 3)
+            ui->viewFrame->addWidget(views[1], 1, 0, 1, 1);
 
-    // refit previous:
-    //
-    // There is no method for resetting the row/column-span after a widget has been added. However, addWidget can
-    // be called again on the same widget to achieve the same affect, because re-adding a widget to the same layout
-    // always implicitly removes it first.
+        if (i + 1 == 4)
+            ui->viewFrame->addWidget(views[2], 0, 1, 1, 1);
 
-    if (avc == 3) {
-        ui->viewFrame->addWidget(views[0], 0, 0, 1, 1);
-        ui->viewFrame->addWidget(views[1], 0, 1, 1, 1);
     }
 
-    if (avc == 4) {
-        ui->viewFrame->addWidget(views[2], 1, 0, 1, 1);
-    }
+
 }
 
 void ModelWindow::getStatistics() {
-    if (activeView->model.fileType == "mod") {
-        activeView->numOfCells = activeView->model.displayCells();
-        activeView->centreOfGrav = activeView->model.calcCentre();
-        activeView->weight = activeView->model.calcWeight();
-        activeView->volume = activeView->model.calcVolume();
+    if (activeView->model->fileType == "mod") {
+        activeView->numOfCells = activeView->model->getCellCount();
+        activeView->centreOfGrav = activeView->model->calcCentre();
+        activeView->weight = activeView->model->calcWeight();
+        activeView->volume = activeView->model->calcVolume();
         activeView->density = activeView->weight / activeView->volume;
 
+        QString x = QString::number(activeView->centreOfGrav.getX(), 'g', 3);
+        QString y = QString::number(activeView->centreOfGrav.getY(), 'g', 3);
+        QString z = QString::number(activeView->centreOfGrav.getZ(), 'g', 3);
+
+
         ui->numOfCellsLabel->setText(QString::number(activeView->numOfCells));
-        ui->centreOfGravLabel->setText("X: " + QString::number(activeView->centreOfGrav.getX()) + "\nY: " +
-                                       QString::number(activeView->centreOfGrav.getY()) + "\nZ: " +
-                                       QString::number(activeView->centreOfGrav.getZ()));
+        ui->centreOfGravLabel->setText(
+                "X: " + QString::number(x.toDouble()) + " Y: " + QString::number(y.toDouble()) + " Z: " +
+                QString::number(z.toDouble()));
         ui->weightLabel->setText(QString::number(activeView->weight));
         ui->volumeLabel->setText(QString::number(activeView->volume));
         ui->densityLabel->setText(QString::number(activeView->density));
-    } else if (activeView->model.fileType == "stl") {
+    } else if (activeView->model->fileType == "stl") {
         vtkSmartPointer<vtkTriangleFilter> triFilter = vtkSmartPointer<vtkTriangleFilter>::New();
-        triFilter->SetInputData(activeView->model.STLModel->GetOutput());
+        triFilter->SetInputData(activeView->model->STLModel->GetOutput());
         triFilter->Update();
 
         vtkSmartPointer<vtkMassProperties> massProp = vtkSmartPointer<vtkMassProperties>::New();
@@ -467,8 +517,12 @@ void ModelWindow::getStatistics() {
         centreOfMass->Update();
         MVector centreOfGrav(center[0], center[1], center[2]);
 
+        QString x = QString::number(centreOfGrav.getX(), 'g', 3);
+        QString y = QString::number(centreOfGrav.getY(), 'g', 3);
+        QString z = QString::number(centreOfGrav.getZ(), 'g', 3);
 
-        unsigned long numOfCells = activeView->model.STLModel->GetOutputDataObject(0)->GetNumberOfElements(
+
+        unsigned long numOfCells = activeView->model->STLModel->GetOutputDataObject(0)->GetNumberOfElements(
                 vtkDataObject::CELL);
 
         activeView->volume = volume;
@@ -476,9 +530,9 @@ void ModelWindow::getStatistics() {
         activeView->numOfCells = numOfCells;
 
         ui->volumeLabel->setText(QString::number(activeView->volume));
-        ui->centreOfGravLabel->setText("X: " + QString::number(activeView->centreOfGrav.getX()) + "\nY: " +
-                                       QString::number(activeView->centreOfGrav.getY()) + "\nZ: " +
-                                       QString::number(activeView->centreOfGrav.getZ()));
+        ui->centreOfGravLabel->setText(
+                "X: " + QString::number(x.toDouble()) + " Y: " + QString::number(y.toDouble()) + " Z: " +
+                QString::number(z.toDouble()));
         ui->numOfCellsLabel->setText(QString::number(activeView->numOfCells));
         ui->weightLabel->setText("-");
         ui->densityLabel->setText("-");
@@ -487,4 +541,126 @@ void ModelWindow::getStatistics() {
     }
 }
 
+void ModelWindow::updateRecentActionList() {
+    settings.sync();
+    recentFilePaths =
+            settings.value("recentFiles").toStringList();
 
+    auto itEnd = 0u;
+    if (recentFilePaths.size() <= maxFileNr)
+        itEnd = recentFilePaths.size();
+    else
+        itEnd = maxFileNr;
+
+    for (auto i = 0u; i < itEnd; ++i) {
+        QString strippedName = QFileInfo(recentFilePaths.at(i)).fileName();
+        recentFileActionList.at(i)->setText(strippedName);
+        recentFileActionList.at(i)->setData(recentFilePaths.at(i));
+        recentFileActionList.at(i)->setVisible(true);
+    }
+
+    for (auto i = itEnd; i < maxFileNr; ++i)
+        recentFileActionList.at(i)->setVisible(false);
+}
+
+void ModelWindow::adjustForCurrentFile(const QString &filePath) {
+    currentFilePath = filePath;
+    setWindowFilePath(currentFilePath);
+
+    settings.sync();
+    recentFilePaths =
+            settings.value("recentFiles").value<QStringList>();
+    recentFilePaths.removeAll(filePath);
+    recentFilePaths.prepend(filePath);
+    while (recentFilePaths.size() > maxFileNr)
+        recentFilePaths.removeLast();
+    settings.setValue("recentFiles", recentFilePaths);
+    settings.sync();
+    // see note
+    updateRecentActionList();
+}
+
+void ModelWindow::openRecent() {
+    QAction *action = qobject_cast<QAction *>(sender());
+    if (action) {
+        QStringList fileList;
+        fileList.append(action->data().value<QString>());
+        loadFile(fileList);
+    }
+}
+
+void ModelWindow::createActionsAndConnections() {
+    ui->actionOpenView->setShortcuts(QKeySequence::Open);
+    connect(ui->actionOpenView, &QAction::triggered, this, &ModelWindow::open);
+    connect(ui->actionSaveView, &QAction::triggered, activeView, &View::save);
+    connect(ui->actionCloseView, &QAction::triggered, this, &ModelWindow::closeView);
+    connect(ui->actionHelp, &QAction::triggered, this, &ModelWindow::handleHelpButton);
+
+
+    for (auto i = 0; i < maxFileNr; ++i) {
+        QAction *recentFileAction = new QAction(this);
+        recentFileAction->setVisible(false);
+        connect(recentFileAction, &QAction::triggered, this, &ModelWindow::openRecent);
+        recentFileActionList.append(recentFileAction);
+    }
+    recentFilesMenu = ui->menuRecent_Files;
+    for (auto i = 0; i < maxFileNr; ++i)
+        recentFilesMenu->addAction(recentFileActionList.at(i));
+
+    updateRecentActionList();
+}
+
+void ModelWindow::open() {
+    settings.sync();
+    QStringList inputFileNames = QFileDialog::getOpenFileNames(this, tr("Load a Kurus View or Model"),
+                                                               settings.value("lastOpenDirectory",
+                                                                              "save_models").value<QString>(),
+                                                               tr("Model, View or STL (*.mod;*.kurus;*.stl)"));
+    if (inputFileNames.isEmpty()) {
+        return;
+    }
+
+    // Update lastOpenDirectory in settings and sync
+    settings.setValue("lastOpenDirectory", QFileInfo(inputFileNames.at(0)).absoluteDir().absolutePath());
+    settings.sync();
+
+    loadFile(inputFileNames);
+}
+
+void ModelWindow::loadFile(const QStringList &filePaths) {
+    bool newWindow = true;
+
+    if (views.size() + filePaths.size() <= 4) {
+        Dialog *dialog = new Dialog(this);
+        dialog->setModal(true);
+        newWindow = dialog->exec();
+    }
+
+    if (newWindow)
+            emit openNewModelWindow(filePaths);
+    else {
+        for (int i = 0; i < filePaths.size(); ++i)
+            addViewToFrame(new View(filePaths[i]));
+        setActiveView(views[views.size() - 1]);
+    }
+    for (int i = 0; i < filePaths.size(); ++i)
+        adjustForCurrentFile(filePaths[i]);
+}
+
+void ModelWindow::closeView() {
+    for (int i = 0; i < views.size(); ++i) {
+        if (views[i] == activeView) {
+            View *view = views[i];
+            views.erase(views.begin() + i);
+            delete view;
+        }
+    }
+    if (views.empty()) {
+        close();
+    }
+    resetViewLayout();
+}
+
+void ModelWindow::handleHelpButton() {
+    QDesktopServices::openUrl(QUrl("https://github.com/KurusView/2020_GROUP_21", QUrl::TolerantMode));
+}

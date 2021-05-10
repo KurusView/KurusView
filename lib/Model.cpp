@@ -19,6 +19,7 @@ Model::Model(const std::string &filePath) {
     std::string fileExtension = filePath.substr(filePath.find_last_of('.') + 1);
 
     this->fileType = fileExtension;
+    this->filePath = QString::fromStdString(filePath);
 
     if (fileExtension == "stl") {
         loadSTLModel(filePath);
@@ -182,12 +183,8 @@ void Model::displayVertexCount() {
     std::cout << "Number of Vertices: " << vectors.size() << std::endl;
 }
 
-unsigned long Model::displayCells() {
+size_t Model::getCellCount() {
 //    MCell::getCount(); // For global count
-    std::cout << "Number of Cells: " << cells.size() << std::endl;
-    for (const auto &cell:cells) {
-        std::cout << "Cell " << cell->getID() << ": " << cell->getType()[1] << std::endl;
-    }
     return cells.size();
 }
 

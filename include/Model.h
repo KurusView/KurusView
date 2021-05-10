@@ -9,6 +9,7 @@
 #include <vtkSmartPointer.h>
 #include <vtkAlgorithm.h>
 #include <vtkSTLReader.h>
+#include <QString>
 
 /**
  * @brief Model - This object is responsible for reading and writing model entities to VTK style data files
@@ -61,9 +62,9 @@ public:
     void displayVertexCount();
 
     /**
-     * @brief displayCells - Displays the number of cells and the type of each cell
+     * @brief getCellCount - Displays the number of cells and the type of each cell
      */
-    unsigned long displayCells();
+    size_t getCellCount();
 
     /**
      * @brief calcCentre - Calculates the centre of the model
@@ -89,6 +90,8 @@ public:
     double calcWeight();
 
     std::string fileType;
+
+    QString filePath;
 
     vtkSmartPointer<vtkSTLReader> STLModel;
 };

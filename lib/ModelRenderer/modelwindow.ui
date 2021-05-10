@@ -36,6 +36,48 @@
            <property name="sizeConstraint">
             <enum>QLayout::SetMaximumSize</enum>
            </property>
+           <item row="0" column="0">
+            <widget class="QGroupBox" name="filtersGroupBox">
+             <property name="title">
+              <string>Filters</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="flat">
+              <bool>false</bool>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_3">
+              <item>
+               <widget class="QPushButton" name="shrinkPushButton">
+                <property name="text">
+                 <string>Shrink</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="clipPushButton">
+                <property name="text">
+                 <string>Clip</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="resetFiltersPushButton">
+                <property name="text">
+                 <string>Reset Filters</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
            <item row="0" column="5">
             <widget class="QGroupBox" name="structureGroupBox">
              <property name="title">
@@ -79,119 +121,90 @@
              </layout>
             </widget>
            </item>
-           <item row="0" column="0">
-            <widget class="QGroupBox" name="filtersGroupBox">
+           <item row="0" column="6" colspan="6">
+            <widget class="QGroupBox" name="lightingGroupBox">
              <property name="title">
-              <string>Filters</string>
+              <string>Lighting</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
              </property>
-             <property name="flat">
-              <bool>false</bool>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_3">
-              <item>
-               <widget class="QPushButton" name="shrinkPushButton">
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="2" column="0" colspan="3">
+               <widget class="QPushButton" name="resetLightingPushButton">
                 <property name="text">
-                 <string>Shrink</string>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="clipPushButton">
-                <property name="text">
-                 <string>Clip</string>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="resetFiltersPushButton">
-                <property name="text">
-                 <string>Reset Filters</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item row="0" column="1" colspan="2">
-            <widget class="QGroupBox" name="cameraViewGroupBox">
-             <property name="title">
-              <string>Camera View</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-             <layout class="QGridLayout" name="gridLayout">
-              <item row="3" column="1">
-               <widget class="QPushButton" name="rotate15ViewPushButton">
-                <property name="text">
-                 <string>+15°</string>
+                 <string>Reset Lighting</string>
                 </property>
                </widget>
               </item>
               <item row="1" column="0">
-               <widget class="QPushButton" name="yPlaneViewPushButton">
-                <property name="text">
-                 <string>Y Plane</string>
-                </property>
-               </widget>
+               <layout class="QVBoxLayout" name="opacityLayout">
+                <item>
+                 <widget class="QLabel" name="lightOpacityLabel">
+                  <property name="text">
+                   <string>Opacity</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSlider" name="lightOpacitySlider">
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="sliderPosition">
+                   <number>100</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
-              <item row="1" column="1">
-               <widget class="QPushButton" name="yNegPlaneViewPushButton">
-                <property name="text">
-                 <string>-Y Plane</string>
-                </property>
-               </widget>
+              <item row="1" column="2">
+               <layout class="QVBoxLayout" name="specularityLayout">
+                <item>
+                 <widget class="QLabel" name="lightSpecularityLabel">
+                  <property name="text">
+                   <string>Specularity</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSlider" name="lightSpecularitySlider">
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
-              <item row="2" column="1">
-               <widget class="QPushButton" name="zNegPlaneViewPushButton">
-                <property name="text">
-                 <string>-Z Plane</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QPushButton" name="zPlaneViewPushButton">
-                <property name="text">
-                 <string>Z Plane</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0">
-               <widget class="QPushButton" name="rotate15NegViewPushButton">
-                <property name="text">
-                 <string>-15°</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QPushButton" name="xNegPlaneViewPushButton">
-                <property name="text">
-                 <string>-X Plane</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QPushButton" name="xPlaneViewPushButton">
-                <property name="text">
-                 <string>X Plane</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="0" colspan="2">
-               <widget class="QPushButton" name="resetCameraViewPushButton">
-                <property name="text">
-                 <string>Reset Camera View</string>
-                </property>
-               </widget>
+              <item row="0" column="0" colspan="3">
+               <layout class="QVBoxLayout" name="lightIntensityLayout">
+                <item>
+                 <widget class="QLabel" name="lightIntensityLabel">
+                  <property name="text">
+                   <string>Intensity</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSlider" name="lightIntensitySlider">
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="sliderPosition">
+                   <number>50</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </widget>
@@ -288,90 +301,77 @@
              </layout>
             </widget>
            </item>
-           <item row="0" column="6" colspan="6">
-            <widget class="QGroupBox" name="lightingGroupBox">
+           <item row="0" column="1" colspan="2">
+            <widget class="QGroupBox" name="cameraViewGroupBox">
              <property name="title">
-              <string>Lighting</string>
+              <string>Camera View</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
              </property>
-             <layout class="QGridLayout" name="gridLayout_2">
-              <item row="2" column="0" colspan="3">
-               <widget class="QPushButton" name="resetLightingPushButton">
+             <layout class="QGridLayout" name="gridLayout">
+              <item row="3" column="1">
+               <widget class="QPushButton" name="rotate15ViewPushButton">
                 <property name="text">
-                 <string>Reset Lighting</string>
+                 <string>+15°</string>
                 </property>
                </widget>
               </item>
               <item row="1" column="0">
-               <layout class="QVBoxLayout" name="opacityLayout">
-                <item>
-                 <widget class="QLabel" name="lightOpacityLabel">
-                  <property name="text">
-                   <string>Opacity</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QSlider" name="lightOpacitySlider">
-                  <property name="maximum">
-                   <number>100</number>
-                  </property>
-                  <property name="sliderPosition">
-                   <number>100</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+               <widget class="QPushButton" name="yPlaneViewPushButton">
+                <property name="text">
+                 <string>Y Plane</string>
+                </property>
+               </widget>
               </item>
-              <item row="1" column="2">
-               <layout class="QVBoxLayout" name="specularityLayout">
-                <item>
-                 <widget class="QLabel" name="lightSpecularityLabel">
-                  <property name="text">
-                   <string>Specularity</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QSlider" name="lightSpecularitySlider">
-                  <property name="maximum">
-                   <number>100</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="yNegPlaneViewPushButton">
+                <property name="text">
+                 <string>-Y Plane</string>
+                </property>
+               </widget>
               </item>
-              <item row="0" column="0" colspan="3">
-               <layout class="QVBoxLayout" name="lightIntensityLayout">
-                <item>
-                 <widget class="QLabel" name="lightIntensityLabel">
-                  <property name="text">
-                   <string>Intensity</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QSlider" name="lightIntensitySlider">
-                  <property name="maximum">
-                   <number>100</number>
-                  </property>
-                  <property name="sliderPosition">
-                   <number>50</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+              <item row="2" column="1">
+               <widget class="QPushButton" name="zNegPlaneViewPushButton">
+                <property name="text">
+                 <string>-Z Plane</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QPushButton" name="zPlaneViewPushButton">
+                <property name="text">
+                 <string>Z Plane</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QPushButton" name="rotate15NegViewPushButton">
+                <property name="text">
+                 <string>-15°</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QPushButton" name="xNegPlaneViewPushButton">
+                <property name="text">
+                 <string>-X Plane</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QPushButton" name="xPlaneViewPushButton">
+                <property name="text">
+                 <string>X Plane</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0" colspan="2">
+               <widget class="QPushButton" name="resetCameraViewPushButton">
+                <property name="text">
+                 <string>Reset Camera View</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>
@@ -408,6 +408,16 @@
               </item>
               <item>
                <layout class="QGridLayout" name="modelColourGrid">
+                <item row="0" column="3">
+                 <widget class="QPushButton" name="modelColourPushButton">
+                  <property name="styleSheet">
+                   <string notr="true">background-color:  silver; border:none;</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
                 <item row="0" column="0" colspan="3">
                  <widget class="QLabel" name="modelColourLabel">
                   <property name="text">
@@ -415,8 +425,19 @@
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="3">
-                 <widget class="QPushButton" name="modelColourPushButton">
+               </layout>
+              </item>
+              <item>
+               <layout class="QGridLayout" name="modelBackFaceColourGrid" columnstretch="0,0,0,0" columnminimumwidth="0,0,0,0">
+                <item row="1" column="0" colspan="3">
+                 <widget class="QLabel" name="modelBackFaceColourLabel">
+                  <property name="text">
+                   <string>Back Face</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="3">
+                 <widget class="QPushButton" name="modelBackFaceColourPushButton">
                   <property name="styleSheet">
                    <string notr="true">background-color:  silver; border:none;</string>
                   </property>
@@ -487,7 +508,6 @@
    <addaction name="actionOpenView"/>
    <addaction name="actionSaveView"/>
    <addaction name="actionHelp"/>
-   <addaction name="actionPrint"/>
   </widget>
   <action name="actionOpenView">
    <property name="icon">
@@ -514,15 +534,6 @@
    </property>
    <property name="text">
     <string>Help</string>
-   </property>
-  </action>
-  <action name="actionPrint">
-   <property name="icon">
-    <iconset resource="../../Icons/icons.qrc">
-     <normaloff>:/Icons/print.png</normaloff>:/Icons/print.png</iconset>
-   </property>
-   <property name="text">
-    <string>Print</string>
    </property>
   </action>
   <action name="emptyRecentsIndicator">

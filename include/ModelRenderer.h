@@ -2,6 +2,8 @@
 #define INC_KURUSVIEW_MODELRENDERER_H
 
 #include <QApplication>
+#include <QString>
+#include <QStringList>
 #include <modelwindow.h>
 #include <welcomewindow.h>
 #include <vector>
@@ -21,6 +23,7 @@ public:
     ModelRenderer(int &argc, char **argv);
 
 public slots:
+    void openFile(const QStringList &filePaths);
 
     void applyLightMode();
 

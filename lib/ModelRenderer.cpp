@@ -83,13 +83,19 @@ ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv),
     //  Otherwise, show the welcome window, which will then load the
     //  model window based on user selection
 
+    connect(&welcomeWindow, &WelcomeWindow::fileSelected, this, &ModelRenderer::openFile);
+
     // If path is not given as argument, load up welcomeWindow
     if (argc == 1) {
         welcomeWindow.show();
         return;
     }
 
-    modelWindows.push_back(std::make_shared<ModelWindow>(QString(argv[1])));
+    QStringList filePaths;
+    for (int i = 1; i < argc; ++i) {
+        filePaths.append(argv[i]);
+    }
+    openFile(filePaths);
 }
 
 // live dark/light mode change
@@ -99,4 +105,14 @@ void ModelRenderer::applyLightMode() {
     } else {
         QApplication::setPalette(LightPalette);
     }
+}
+
+void ModelRenderer::openFile(const QStringList &filePaths){
+    for (int i = 0; i < filePaths.length(); i+=4) {
+        QStringList subList = filePaths.mid(i,4);
+        std::shared_ptr<ModelWindow> modelWindow = std::make_shared<ModelWindow>(subList);
+        modelWindows.emplace_back(modelWindow);
+        connect(modelWindow.get(), &ModelWindow::openNewModelWindow, this, &ModelRenderer::openFile);
+    }
+    welcomeWindow.close();
 }
