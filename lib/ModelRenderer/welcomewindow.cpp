@@ -37,45 +37,46 @@ WelcomeWindow::~WelcomeWindow() {
 void WelcomeWindow::handleOpenButton() {
     // Sync to make sure we have most recent lastOpenDirectory
     settings.sync();
-    
+
     // Open the file dialog in the last directory, defaulting to save_models
-    QString inputFileName = QFileDialog::getOpenFileName(this, tr("Load a Kurus View or Model"),
-                                                         settings.value("lastOpenDirectory",
-                                                                        "save_models").value<QString>(),
-                                                         tr("Model, View or STL (*.mod;*.kurus;*.stl)"));
+    QStringList inputFileNames = QFileDialog::getOpenFileNames(this, tr("Load a Kurus View or Model"),
+                                                               settings.value("lastOpenDirectory",
+                                                                              "save_models").value<QString>(),
+                                                               tr("Model, View or STL (*.mod;*.kurus;*.stl)"));
 
     // If the file loaded is empty, or no file is loaded...
-    if (inputFileName.isEmpty()) {
+    if (inputFileNames.isEmpty()) {
         return;
     }
 
     // Update lastOpenDirectory in settings and sync
-    settings.setValue("lastOpenDirectory", QFileInfo(inputFileName).absoluteDir().absolutePath());
+    settings.setValue("lastOpenDirectory", QFileInfo(inputFileNames.at(0)).absoluteDir().absolutePath());
     settings.sync();
 
     // update recents for next time
-    addToRecentFiles(inputFileName);
+    addToRecentFiles(inputFileNames);
 
     // uneecessary as this window is inmediatly closed. helps with debugging
     populateRecents();
 
     // open model
-    loadModel(inputFileName);
+    loadModel(inputFileNames);
 }
 
 void WelcomeWindow::handleAboutButton() {
     QDesktopServices::openUrl(QUrl("https://github.com/KurusView/2020_GROUP_21", QUrl::TolerantMode));
 }
 
-void WelcomeWindow::addToRecentFiles(QString &inputFileName) {
-    QString currFile = inputFileName;
-    setWindowFilePath(currFile);
+void WelcomeWindow::addToRecentFiles(QStringList &inputFileNames) {
+    for (auto currFile: inputFileNames) {
+        setWindowFilePath(currFile);
 
-    // Remove the file just opened from the list - so there won't be any duplicates in the
-    recentFilePaths.removeAll(currFile);
+        // Remove the file just opened from the list - so there won't be any duplicates in the
+        recentFilePaths.removeAll(currFile);
 
-    // Add the file just opened to the front of the list
-    recentFilePaths.prepend(currFile);
+        // Add the file just opened to the front of the list
+        recentFilePaths.prepend(currFile);
+    }
 
     // Remove last the last files in the list, if the list is greater than the maximum number of files.
     while (recentFilePaths.size() > maxFileNr) {
@@ -146,8 +147,10 @@ bool WelcomeWindow::eventFilter(QObject *obj, QEvent *event) {
         if (mouseEvent->button() == Qt::LeftButton) {
             QString modelPath = obj->property("FILEPATH").toString();
 
+            QStringList modelPathList;
+            modelPathList << modelPath;
             // open model
-            loadModel(modelPath);
+            loadModel(modelPathList);
 
 //            QMessageBox msgBox;
 //            msgBox.setText(QString("You have clicked an object with mouseReleaseValue: %1.").arg(prop));
@@ -236,7 +239,6 @@ void WelcomeWindow::showContextMenu(const QPoint &pos) {
 }
 
 
-void WelcomeWindow::loadModel(const QString &path) {
-    emit fileSelected(path);
-    std::cout << path.toStdString() << std::endl;
+void WelcomeWindow::loadModel(const QStringList &paths) {
+    emit fileSelected(paths);
 }

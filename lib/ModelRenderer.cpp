@@ -91,9 +91,9 @@ ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv),
         return;
     }
 
-    std::vector<QString> filePaths;
+    QStringList filePaths;
     for (int i = 1; i < argc; ++i) {
-        filePaths.emplace_back(argv[i]);
+        filePaths.append(argv[i]);
     }
     modelWindows.push_back(std::make_shared<ModelWindow>(filePaths));
 }
@@ -107,10 +107,7 @@ void ModelRenderer::applyLightMode() {
     }
 }
 
-void ModelRenderer::openFile(const QString &filePath){
-    std::vector<QString> filePaths;
-    filePaths.emplace_back(filePath);
+void ModelRenderer::openFile(const QStringList &filePaths){
     modelWindows.push_back(std::make_shared<ModelWindow>(filePaths));
     welcomeWindow.close();
-    std::cout << "Opening File: " << filePath.toStdString() << std::endl;
 }

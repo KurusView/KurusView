@@ -19,7 +19,7 @@ Q_OBJECT
 public:
     explicit WelcomeWindow(QWidget *parent = nullptr);
 
-    void addToRecentFiles(QString &inputFileName);
+    void addToRecentFiles(QStringList &inputFileNames);
 
     ~WelcomeWindow();
 
@@ -43,7 +43,7 @@ private:
 
     void showContextMenu(const QPoint &pos);
 
-    void loadModel(const QString &path);
+    void loadModel(const QStringList &paths);
 
 
 public slots:
@@ -56,7 +56,7 @@ public slots:
 
 signals:
 
-    void fileSelected(const QString &filePath);
+    void fileSelected(const QStringList &filePaths);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;

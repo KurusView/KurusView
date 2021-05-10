@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QMouseEvent>
+#include <QStringList>
 
 #include <memory>
 #include <vector>
@@ -34,7 +35,7 @@ public:
      * @param parent
      * @see Model | Model
      */
-    explicit ModelWindow(std::vector<QString> &filePaths, QWidget *parent = nullptr);
+    explicit ModelWindow(const QStringList &filePaths, QWidget *parent = nullptr);
 
     ~ModelWindow() override;
 

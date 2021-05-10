@@ -45,7 +45,7 @@
 #include <vtkCenterOfMass.h>
 
 
-ModelWindow::ModelWindow(std::vector<QString> &filePaths, QWidget *parent) : QMainWindow(parent),
+ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainWindow(parent),
                                                                              ui(new Ui::ModelWindow) {
     //TODO: Make sure the model is properly initialized before loading the window
     // standard call to setup Qt UI (same as previously)
