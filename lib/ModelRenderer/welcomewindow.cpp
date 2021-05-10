@@ -177,12 +177,15 @@ void WelcomeWindow::populateRecents() {
 
     // Update layout: Cant set a layout on a widget that already has a layout, see https://forum.qt.io/topic/14898/howto-change-layout-of-a-widget/7
     if (ui->frame->layout()) {
+        QLayoutItem *item;
+        while((item = mainLayout->takeAt(0)) != 0)
+            if (item->widget()) {
+                item->widget()->setParent(NULL);
+                delete item;
+            }
 
         // need to delete the layout
         delete mainLayout;
-
-        // and all the children of the frame - https://stackoverflow.com/questions/2990283/qt-change-qwidget-layout
-        qDeleteAll(ui->frame->children());
     }
 
 
