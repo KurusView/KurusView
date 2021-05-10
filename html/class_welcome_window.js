@@ -8,6 +8,7 @@ var class_welcome_window =
     [ "fileSelected", "class_welcome_window.html#a692091e3e07a53b8b929100648ce0573", null ],
     [ "handleAboutButton", "class_welcome_window.html#a35d5fdd96f2592b991c142d1fc3e0d02", null ],
     [ "handleOpenButton", "class_welcome_window.html#a6df5805ce1c6d7bd0d59a71ed13a0a4b", null ],
+    [ "handleSettingsButton", "class_welcome_window.html#a51295926bbc4ac0d9c843ce4d7e23560", null ],
     [ "loadEntryAsModel", "class_welcome_window.html#af23266873203e07d137931e546d36171", null ],
     [ "removeEntryFromRecents", "class_welcome_window.html#af6474706e21f5301800f916bad14ee5f", null ]
 ];
