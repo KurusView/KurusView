@@ -35,6 +35,7 @@
 #include "View.h"
 #include "modelwindow.h"
 #include "ui_modelwindow.h"
+#include "dialog.h"
 #include <vtkCubeAxesActor.h>
 #include <vtkOrientationMarkerWidget.h>
 
@@ -295,7 +296,7 @@ void ModelWindow::handleChangePerspective() {
 
 void ModelWindow::viewActive(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
-        setActiveView((View *) (((QVTKOpenGLWidget *) sender())->parentWidget()));
+        setActiveView((View * )(((QVTKOpenGLWidget *) sender())->parentWidget()));
     }
 }
 
@@ -547,8 +548,15 @@ void ModelWindow::adjustForCurrentFile(const QString &filePath) {
 void ModelWindow::openRecent() {
     QAction *action = qobject_cast<QAction *>(sender());
     if (action) {
+        Dialog *dialog = new Dialog(this);
+        dialog->setModal(true);
+
         QString path = action->data().value<QString>();
-        if (views.size() >= 4) {
+        bool newWindow = true;
+        if (views.size() < 4)
+            newWindow = dialog->exec();
+
+        if(newWindow) {
             QStringList paths;
             paths.append(path);
             std::cout << paths[0].toStdString();
