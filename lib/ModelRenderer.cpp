@@ -60,7 +60,7 @@ ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv),
 
 
     // configure PIT
-    auto *activeTimer = new QTimer(this);
+    activeTimer = new QTimer(this);
     activeTimer->setInterval(2 * 1000); //5 seconds
     activeTimer->setSingleShot(false);
 
@@ -115,4 +115,8 @@ void ModelRenderer::openFile(const QStringList &filePaths){
         connect(modelWindow.get(), &ModelWindow::openNewModelWindow, this, &ModelRenderer::openFile);
     }
     welcomeWindow.close();
+}
+
+ModelRenderer::~ModelRenderer() {
+    delete activeTimer;
 }
