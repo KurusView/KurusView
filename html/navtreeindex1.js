@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"hierarchy.html":[3,2],
 "index.html":[0],
 "index.html":[],
 "md__home_travis_build_KurusView_2020_GROUP_21_NEWS.html":[1],
