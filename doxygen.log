@@ -238,7 +238,7 @@ Generating docs for p/home/travis/build/KurusView/2020_GROUP_21/include/Utils/cl
 /home/travis/build/KurusView/2020_GROUP_21/include/Model.h:107: warning: Member STLModel (variable) of class Model is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer.h:28: warning: Member openFile(const QStringList &filePaths) (slot) of class ModelRenderer is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer.h:30: warning: Member applyLightMode() (slot) of class ModelRenderer is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:218: warning: Member handleSettingsButton() (slot) of class ModelWindow is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:216: warning: Member handleSettingsButton() (slot) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:55: warning: Member fileMenu (variable) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:56: warning: Member recentFilesMenu (variable) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:58: warning: Member openAction (variable) of class ModelWindow is not documented.
