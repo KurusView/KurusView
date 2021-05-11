@@ -23,6 +23,7 @@
 #include <vtkTextProperty.h>
 
 #include "View.h"
+#include "settingsdialog.h"
 
 // set default instance count
 unsigned short int View::ViewInstanceCount = 0;
@@ -485,4 +486,4 @@ void View::gridlinesInit() {
     qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->AddActor(cubeAxesActor);
 
     toggleGridLines(false);
-}}
+}

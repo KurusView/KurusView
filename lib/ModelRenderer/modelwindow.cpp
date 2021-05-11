@@ -51,10 +51,12 @@
 #include <vtkMassProperties.h>
 #include <vtkCenterOfMass.h>
 
+#include "settingsdialog.h"
 
 ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainWindow(parent),
                                                                           ui(new Ui::ModelWindow),
-                                                                          maxFileNr(4),
+                                                                          maxFileNr(
+                                                                                  10), // this one should probably be hardcoded to 10 or less
                                                                           settings(QDir::currentPath() +
                                                                                    "/kurusview.ini",
                                                                                    QSettings::IniFormat) {
@@ -220,21 +222,30 @@ void ModelWindow::handleResetColor() {
     ui->modelBackFaceColourPushButton->setStyleSheet("background-color: silver; border:none;");
     ui->backgroundColourPushButton->setStyleSheet("background-color: silver; border:none;");
 
+    // convert QT to vtk colours
+    QColor model_qt = settingsDialog::getDefault_modelColour();
+    QColor backFace_qt = settingsDialog::getDefault_modelBackFaceColour();
+    QColor background_qt = settingsDialog::getDefault_backgroundColour();
+
+    vtkColor3d model_vtk(model_qt.redF(), model_qt.greenF(), model_qt.blueF());
+    vtkColor3d backFace_vtk(backFace_qt.redF(), backFace_qt.greenF(), backFace_qt.blueF());
+    vtkColor3d background_vtk(background_qt.redF(), background_qt.greenF(), background_qt.blueF());
+
     // reset background
     vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
     activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->SetBackground(
-            colors->GetColor3d("Silver").GetData());
+            background_vtk.GetData());
 
     // get actor
     auto *actor = (vtkActor *) activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
             0);
 
     // reset model
-    actor->GetProperty()->SetColor(colors->GetColor3d("Red").GetData());
+    actor->GetProperty()->SetColor(model_vtk.GetData());
 
     // reset model backface
     vtkNew<vtkProperty> backFace;
-    backFace->SetDiffuseColor(colors->GetColor3d("Silver").GetData());
+    backFace->SetDiffuseColor(backFace_vtk.GetData());
     actor->SetBackfaceProperty(backFace);
 
     // refresh view
@@ -484,8 +495,6 @@ void ModelWindow::resetViewLayout() {
             ui->viewFrame->addWidget(views[2], 0, 1, 1, 1);
 
     }
-
-
 }
 
 void ModelWindow::getStatistics() {
