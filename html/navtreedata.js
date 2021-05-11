@@ -29,7 +29,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_m_cell_8h.html",
-"md__home_travis_build_KurusView_2020_GROUP_21_TEAM.html"
+"index.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
