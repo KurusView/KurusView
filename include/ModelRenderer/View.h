@@ -40,18 +40,44 @@ public:
 
     virtual ~View();
 
+    /**
+     * @brief buildChain -
+     */
     void buildChain();
 
+    /**
+     * @brief toggleShrinkFilter - Adds the clip filter to the back of the filter list if enabled and removes it from
+     * the list of filters
+     * @param enable - If the filter is activated by the user
+     */
     void toggleShrinkFilter(bool enable);
 
+    /**
+     * @brief toggleClipFilter - Adds the clip filter to the back of the filter list if enabled and removes it from
+     * the list of filters
+     * @param enable - If the filter is activated by the user
+     */
     void toggleClipFilter(bool enable);
 
     // return instance count
     static unsigned short int getCount();
 
+    /**
+     * @brief setModelColor - Sets the colour of the model
+     * @param color - The colour the model is set to
+     */
     void setModelColor(const QColor &color);
 
+    /**
+     * @brief setModelBackFaceColor - Sets the colour of the face of the model that is but by the clip filter
+     * @param color - The colour the back face of the model is set to
+     */
     void setModelBackFaceColor(const QColor &color);
+
+    /**
+     * @brief setBackgroundColor - Sets the background colour of the model
+     * @param color - The colour the model is set to
+     */
 
     void setBackgroundColor(const QColor &color);
 
@@ -61,28 +87,63 @@ public:
 
     MVector centreOfGrav;
 
+
     vtkSmartPointer<vtkDistanceWidget> distanceWidget;
 
+
+    /**
+     * @brief setLightIntensity - Sets the light intensity of the model
+     * @param value - The value of light intensity depending on the position of the slider
+     */
     void setLightIntensity(int value);
 
+    /**
+     * @brief setLightSpecularity - Set the specularity of the model
+     * @param value - The value of the specularity depending on the position of the slider
+     */
     void setLightSpecularity(int value);
 
+    /**
+     * @brief setModelOpacity - Sets the opacity of the model
+     * @param value - The value of opacity depending on the position of the slider
+     */
     void setModelOpacity(int value);
 
+    /**
+     * @brief resetLighting - Resets the light parameters
+     */
     void resetLighting();
 
+    /**
+     * @brief toggleGridLines - Toggles the appearence of gridlines on the model
+     * @param enable - Whether the checkbox is enabled or disabled
+     */
     void toggleGridLines(bool enable);
 
+    /**
+     * @brief toggleMeasurements - Toggles the ability to measure the distance between point on the model
+     * @param enable - If the measurement has been toggled on or off
+     */
     void toggleMeasurement(bool enable);
 
+    /**
+     * @brief setStructure -
+     * @param selectedStructure -
+     */
     void setStructure(int selectedStructure);
 
     QString filePath;
 
     std::shared_ptr<QSettings> viewSettings;
 
+    /**
+     * @breif save - Saves the model to the opened file
+     */
     void save();
 
+    /**
+     * @breif saveAs - Saves the current model to new file
+     */
     void saveAs();
 
 private:
@@ -95,8 +156,14 @@ private:
 
     QString borderColors[4] = {"red", "blue", "cyan", "magenta"};
 
+    /**
+     * @brief gridlinesInit - Initialises the gridlines
+     */
     void gridlinesInit();
 
+    /**
+     * @brief populateSettings - Sets all the parameters
+     */
     void populateSettings();
 
 };
