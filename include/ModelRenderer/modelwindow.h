@@ -201,7 +201,7 @@ public slots:
     /**
      * @brief handleMeasurment - Toggles if the measurement ruler is on
      */
-    void handleMeasurment();
+    void handleMeasurement();
 
 
     /**
