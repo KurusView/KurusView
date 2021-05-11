@@ -6,7 +6,7 @@ var searchData=
   ['handlegridlines',['handleGridlines',['../class_model_window.html#a0be0aad8e3a69aad988419dbd013b983',1,'ModelWindow']]],
   ['handlehelpbutton',['handleHelpButton',['../class_model_window.html#aad8fe920e15038408939bfdcebb4a262',1,'ModelWindow']]],
   ['handlelightintensityslider',['handleLightIntensitySlider',['../class_model_window.html#a8d2a92772f793db843b5b0f9b4efb4db',1,'ModelWindow']]],
-  ['handlemeasurment',['handleMeasurment',['../class_model_window.html#aa51fce8213854adb9f3ceee482096843',1,'ModelWindow']]],
+  ['handlemeasurement',['handleMeasurement',['../class_model_window.html#a8142b7408f6415f31620eb0e72a44539',1,'ModelWindow']]],
   ['handlemodelbackfacecolor',['handleModelBackFaceColor',['../class_model_window.html#a0333c99a3a5fe49f82e7ee7ed74c29e9',1,'ModelWindow']]],
   ['handlemodelcolor',['handleModelColor',['../class_model_window.html#acc1f27a271177a4449ee2c5f042b41b3',1,'ModelWindow']]],
   ['handleopenbutton',['handleOpenButton',['../class_welcome_window.html#a6df5805ce1c6d7bd0d59a71ed13a0a4b',1,'WelcomeWindow']]],
