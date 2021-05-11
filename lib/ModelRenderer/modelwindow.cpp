@@ -218,9 +218,15 @@ void ModelWindow::handleModelBackFaceColor() {
 void ModelWindow::handleResetColor() {
 
     //reset buttons
-    ui->modelColourPushButton->setStyleSheet("background-color: silver; border:none;");
-    ui->modelBackFaceColourPushButton->setStyleSheet("background-color: silver; border:none;");
-    ui->backgroundColourPushButton->setStyleSheet("background-color: silver; border:none;");
+    ui->modelColourPushButton->setStyleSheet(
+            "background-color: " + settingsDialog::getDefault_modelColour().name() + "; border:none;"
+    );
+    ui->modelBackFaceColourPushButton->setStyleSheet(
+            "background-color: " + settingsDialog::getDefault_modelBackFaceColour().name() + "; border:none;"
+    );
+    ui->backgroundColourPushButton->setStyleSheet(
+            "background-color: " + settingsDialog::getDefault_backgroundColour().name() + "; border:none;"
+    );
 
     // convert QT to vtk colours
     QColor model_qt = settingsDialog::getDefault_modelColour();
@@ -230,6 +236,11 @@ void ModelWindow::handleResetColor() {
     vtkColor3d model_vtk(model_qt.redF(), model_qt.greenF(), model_qt.blueF());
     vtkColor3d backFace_vtk(backFace_qt.redF(), backFace_qt.greenF(), backFace_qt.blueF());
     vtkColor3d background_vtk(background_qt.redF(), background_qt.greenF(), background_qt.blueF());
+
+    // reset active view references
+    activeView->modelColour = model_qt.name();
+    activeView->modelBackFaceColor = backFace_qt.name();
+    activeView->backgroundColour = background_qt.name();
 
     // reset background
     vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
