@@ -271,5 +271,25 @@ double Model::calcWeight() {
     return totalWeight;
 }
 
+std::vector<std::shared_ptr<Material>> Model::getMaterials() {
+    return this->materials;
+}
+
+std::vector<MVector> Model::getVectors() {
+    return vectors;
+}
+
+std::vector<std::shared_ptr<MCell>> Model::getCells() {
+    return cells;
+}
+
+size_t Model::getMaterialCount() {
+    return materials.size();
+}
+
+size_t Model::getVectorCount() {
+    return vectors.size();
+}
+
 
 

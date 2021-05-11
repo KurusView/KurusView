@@ -94,6 +94,16 @@ public:
     QString filePath;
 
     vtkSmartPointer<vtkSTLReader> STLModel;
+
+    std::vector<std::shared_ptr<Material>> getMaterials();
+
+    std::vector<MVector> getVectors();
+
+    std::vector<std::shared_ptr<MCell>> getCells();
+
+    size_t getVectorCount();
+
+    size_t getMaterialCount();
 };
 
 
