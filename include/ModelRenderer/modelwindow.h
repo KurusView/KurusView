@@ -145,13 +145,11 @@ public slots:
     void handleBackgroundColor();
 
     /**
-     * @brief handleModelColor - When the model colour button is pressed it launches a colour picker to change the
-     * colour of the model
+     * @brief handleModelColor - Sets the model colour
      */
     void handleModelColor();
     /**
-     * @brief handleModelBackFaceColor - When the back face colour button is pressed it launches a colour picker to
-     * change the colour of the face that is cut by the clip filter.
+     * @brief handleModelBackFaceColor - Sets the colour of the model's backface
      */
     void handleModelBackFaceColor();
 
