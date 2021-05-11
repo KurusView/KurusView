@@ -345,9 +345,12 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_9">
        <item>
-        <widget class="QLabel" name="label_9">
+        <widget class="clickableQLabel" name="label_9">
          <property name="toolTip">
           <string extracomment="Coming soon..."/>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel { border-bottom-width: 1px; border-bottom-style: solid; border-radius: 0px; border-bottom-color: #2a82da; color : #2a82da; }</string>
          </property>
          <property name="text">
           <string>Use advanced clipping</string>
@@ -387,6 +390,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>clickableQLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">clickableqlabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
