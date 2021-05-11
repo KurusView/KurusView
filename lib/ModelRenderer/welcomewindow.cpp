@@ -37,7 +37,6 @@ WelcomeWindow::WelcomeWindow(QWidget *parent) :
     connect(ui->openPushButton, &QPushButton::released, this, &WelcomeWindow::handleOpenButton);
     connect(ui->aboutPushButton, &QPushButton::released, this, &WelcomeWindow::handleAboutButton);
     connect(ui->settingsPushButton, &QPushButton::released, this, &WelcomeWindow::handleSettingsButton);
-
 }
 
 WelcomeWindow::~WelcomeWindow() {
@@ -244,6 +243,7 @@ void WelcomeWindow::populateRecents() {
 
     // fit frame horizontally and some extra padding
     ui->scrollArea->setMinimumWidth(xFrame->width() + 10);
+    ui->scrollArea->setMinimumHeight(xFrame->width() / 2);
 }
 
 void WelcomeWindow::showContextMenu(const QPoint &pos) {
