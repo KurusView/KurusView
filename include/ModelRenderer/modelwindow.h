@@ -34,15 +34,22 @@ Q_OBJECT
 
 public:
     /**
-     * @brief Initialises a ModelWindow and loads a Model with the filePath.
-     * @param filePath
+     * @brief ModelWindow - Initialises a ModelWindow and loads a Model with the filePath.
+     * @param filePath - The path to the file selected
      * @param parent
      * @see Model | Model
      */
     explicit ModelWindow(const QStringList &filePaths, QWidget *parent = nullptr);
 
+    /**
+     * @brief
+     */
     ~ModelWindow() override;
 
+    /**
+     * @brief addViewToFrame -
+     * @param view
+     */
     void addViewToFrame(View *view);
 
     QMenu *fileMenu;
@@ -54,16 +61,28 @@ public:
 
     QString currentFilePath;
 
+    /**
+     * @brief createActionsAndConnections -
+     */
     void createActionsAndConnections();
-
+    /**
+     * @brief adjustForCurrentFile - Updates the list of recently opened file paths
+     * @param filePath - The path to the file most recently loaded
+     */
     void adjustForCurrentFile(const QString &filePath);
 
+    /**
+     * @brief updateRecentActionList -
+     */
     void updateRecentActionList();
 
     QSettings settings;
 
 signals:
-
+    /**
+     * @brief openNewModelWindow - Opens a new window with selected model
+     * @param filePaths - The path of the file selected
+     */
     void openNewModelWindow(const QStringList &filePaths);
 
 private:
@@ -73,54 +92,127 @@ private:
     // TODO Store file path in Model.h instead
     QString currentModelFilePath;
 
+    /**
+     * @brief setActiveView -
+     * @param newActiveView -
+     */
     void setActiveView(View *newActiveView);
 
 
     QStringList recentFilePaths;
 
+    /**
+     * @breif loadFile -
+     * @param filePaths -
+     */
     void loadFile(const QStringList &filePaths);
 
+    /**
+     * @brief resetViewLayout -
+     */
     void resetViewLayout();
 
 
 private slots:
 
+    /**
+     * @brief openRecent - Opens the recent file is selected
+     */
     void openRecent();
 
+    /**
+     * @breif open - Opens selected file
+     */
     void open();
 
+    /**
+     * @breif closeView -
+     */
     void closeView();
 
 public slots:
 
+    /**
+     * @brief viewActive -
+     * @param event -
+     */
     void viewActive(QMouseEvent *event);
 
+    /**
+     * @brief handleBackgroundColor - When the background colour button is pressed it launches a colour picker to
+     * change the colour of the background
+     */
     void handleBackgroundColor();
 
+    /**
+     * @brief handleModelColor - When the model colour button is pressed it launches a colour picker to change the
+     * colour of the model
+     */
     void handleModelColor();
-
+    /**
+     * @brief handleModelBackFaceColor - When the back face colour button is pressed it launches a colour picker to
+     * change the colour of the face that is cut by the clip filter.
+     */
     void handleModelBackFaceColor();
 
+    /**
+     * @brief handleResetColor - Resets colours to the defaults that are set in the settings.
+     */
     void handleResetColor();
 
+    /**
+     * @brief handleResetLighting - Resets lighting to the original settings
+     */
     void handleResetLighting();
 
+    /**
+     * @brief handleLightIntensitySlider - Changes the light intensity according to the position to the slider
+     * @param position - The position of the slider along the bar
+     */
     void handleLightIntensitySlider(int position);
 
+    /**
+     * @brief mux_handleLightActorSlider - Changes the opacity and specularity of the model depending on their position
+     * on the sliders.
+     * @param position - The position of the slider along the bar
+     */
     void mux_handleLightActorSlider(int position);
 
+    /**
+     * @brief handleChangePerspective -
+     */
     void handleChangePerspective();
 
+    /**
+     * @brief updateFilters - Applies the filters and updates them continuously
+     */
     void updateFilters();
 
+    /**
+     * @brief updateStructure -
+     */
     void updateStructure();
 
+    /**
+     * @brief handleGridlines - Toggles whether grid lines are present
+     */
     void handleGridlines();
 
-    void handleMeasurement();
+    /**
+     * @brief handleMeasurment - Toggles if the measurement ruler is on
+     */
+    void handleMeasurment();
 
+
+    /**
+     * @brief getStatistics - This get the Weight, Volume, Density, Centre of Gravity and Number of Cells of the
+     * model.
+     */
     void getStatistics();
 
+    /**
+     * @brief handleHelpButton - When pressed the GitHub repository opens
+     */
     void handleHelpButton();
 
     void handleSettingsButton();
