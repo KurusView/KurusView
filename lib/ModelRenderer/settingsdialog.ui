@@ -45,6 +45,9 @@
        <property name="text">
         <string>Settings</string>
        </property>
+       <property name="margin">
+        <number>10</number>
+       </property>
       </widget>
      </item>
      <item>

@@ -16,10 +16,23 @@ public:
 
     ~settingsDialog();
 
+    static QString getDefault_saveLocation();
+
+    static unsigned short int getDefault_maxModelsPerWindow();
+
+    static int getDefault_displayRecents();
+
+    static bool getDefault_alwaysOpenModelToNewWindow();
+
+    static QColor getDefault_modelColour();
+
+    static QColor getDefault_modelBackFaceColour();
+
+    static QColor getDefault_backgroundColour();
+
+
 private:
     Ui::settingsDialog *ui;
-
-    QSettings appSettings;
 
     QString defaultSaveLocation;
 

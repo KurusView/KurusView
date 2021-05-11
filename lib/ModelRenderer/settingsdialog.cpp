@@ -10,73 +10,36 @@
 
 settingsDialog::settingsDialog(QWidget *parent) :
         QDialog(parent),
-        ui(new Ui::settingsDialog),
-        appSettings(QDir::currentPath() + "/settings.ini", QSettings::IniFormat) {
+        ui(new Ui::settingsDialog) {
 
+    // setup ui
     ui->setupUi(this);
 
-    appSettings.sync();
-
     // update members on saved defaults or fresh-run defaults.
-
-    if (appSettings.childGroups().contains("defaultSaveLocation", Qt::CaseSensitive)) {
-        defaultSaveLocation = appSettings.value("defaultSaveLocation", defaultSaveLocation).value<QString>();
-
-        std::cout << "found save entry: ";
-
-    } else {
-        defaultSaveLocation = QDir::currentPath();
-
-        std::cout << "did not found save entry: ";
-    }
-    std::cout << defaultSaveLocation.toStdString() << std::endl;
-
-    if (appSettings.childGroups().contains("maxModelsPerWindow", Qt::CaseSensitive)) {
-        maxModelsPerWindow = appSettings.value("maxModelsPerWindow", defaultSaveLocation).value<unsigned short int>();
-    } else {
-        maxModelsPerWindow = 4;
-    }
-
-    if (appSettings.childGroups().contains("displayRecents", Qt::CaseSensitive)) {
-        displayRecents = appSettings.value("displayRecents", defaultSaveLocation).value<unsigned int>();
-    } else {
-        displayRecents = 20;
-    }
-
-    if (appSettings.childGroups().contains("alwaysOpenModelToNewWindow", Qt::CaseSensitive)) {
-        alwaysOpenModelToNewWindow = appSettings.value("alwaysOpenModelToNewWindow", defaultSaveLocation).value<bool>();
-    } else {
-        alwaysOpenModelToNewWindow = false;
-    }
-
-    if (appSettings.childGroups().contains("defaultModelColour", Qt::CaseSensitive)) {
-        defaultModelColour = appSettings.value("defaultModelColour", defaultSaveLocation).value<QColor>();
-    } else {
-        defaultModelColour = QColor("rosybrown");
-    }
-
-    if (appSettings.childGroups().contains("defaultBackFaceColour", Qt::CaseSensitive)) {
-        defaultBackFaceColour = appSettings.value("defaultBackFaceColour", defaultSaveLocation).value<QColor>();
-    } else {
-        defaultBackFaceColour = QColor("goldenrod");
-    }
-
-    if (appSettings.childGroups().contains("defaultBackgroundColour", Qt::CaseSensitive)) {
-        defaultBackgroundColour = appSettings.value("defaultBackgroundColour", defaultSaveLocation).value<QColor>();
-    } else {
-        defaultBackgroundColour = QColor("seashell");
-    }
+    defaultSaveLocation = getDefault_saveLocation();
+    maxModelsPerWindow = getDefault_maxModelsPerWindow();
+    displayRecents = getDefault_displayRecents();
+    alwaysOpenModelToNewWindow = getDefault_alwaysOpenModelToNewWindow();
+    defaultModelColour = getDefault_modelColour();
+    defaultBackFaceColour = getDefault_modelBackFaceColour();
+    defaultBackgroundColour = getDefault_backgroundColour();
 
     // update ui
     ui->displayPathLabel->setText(defaultSaveLocation);
     ui->modelsPerWindowSpin->setValue(maxModelsPerWindow);
     ui->alwaysOpenOnNewWindowCheck->setChecked(alwaysOpenModelToNewWindow);
     ui->displayRecentsSpin->setValue(displayRecents);
-    ui->defaultModelColour->setStyleSheet("background-color: " + defaultModelColour.name() + "; border:none;");
+
+    ui->defaultModelColour->setStyleSheet(
+            "background-color: " + defaultModelColour.name() + "; border:none;"
+    );
     ui->defaultModelBackfaceColour->setStyleSheet(
-            "background-color: " + defaultBackFaceColour.name() + "; border:none;");
+            "background-color: " + defaultBackFaceColour.name() + "; border:none;"
+    );
+
     ui->defaultModelBackgroundColour->setStyleSheet(
-            "background-color: " + defaultBackgroundColour.name() + "; border:none;");
+            "background-color: " + defaultBackgroundColour.name() + "; border:none;"
+    );
 
 
     connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(acceptDialog()));
@@ -97,6 +60,7 @@ settingsDialog::settingsDialog(QWidget *parent) :
             &settingsDialog::handleDisplayRecentsSpin
     );
 
+    // function pointer syntax
 //    connect(ui->modelsPerWindowSpin, QOverload<int>::of(&QSpinBox::valueChanged), [=](int i){ handleModelsPerWindowSpin(i); });
 //    connect(ui->displayRecentsSpin, QOverload<int>::of(&QSpinBox::valueChanged), [=](int i){ handleDisplayRecentsSpin(i); });
 }
@@ -113,7 +77,7 @@ void settingsDialog::rejectDialog() {
 void settingsDialog::acceptDialog() {
 
     // instantiate settings
-    appSettings.sync();
+    QSettings appSettings(QDir::currentPath() + "/settings.ini", QSettings::IniFormat);
 
     // actually save to qsettings
     appSettings.setValue("defaultSaveLocation", defaultSaveLocation);
@@ -124,10 +88,8 @@ void settingsDialog::acceptDialog() {
     appSettings.setValue("defaultBackFaceColour", defaultBackFaceColour);
     appSettings.setValue("defaultBackgroundColour", defaultBackgroundColour);
 
+    // update
     appSettings.sync();
-
-    // read value poc
-    //settings.value("lastOpenDirectory","save_models").value<QString>()
 
     // test ====================================================================
     std::cout << "default save loc " << defaultSaveLocation.toStdString() << std::endl;
@@ -201,4 +163,74 @@ void settingsDialog::handModelBackgroundColour() {
     // update button color
     ui->defaultModelBackgroundColour->setStyleSheet(
             "background-color: " + defaultBackgroundColour.name() + "; border:none;");
+}
+
+
+QString settingsDialog::getDefault_saveLocation() {
+
+    // connect to settings
+    QSettings settings(QDir::currentPath() + "/settings.ini", QSettings::IniFormat);
+    settings.sync();
+
+    // get all time / configured defaults.
+    return settings.value("defaultSaveLocation", QDir::currentPath()).value<QString>();
+}
+
+unsigned short int settingsDialog::getDefault_maxModelsPerWindow() {
+
+    // connect to settings
+    QSettings settings(QDir::currentPath() + "/settings.ini", QSettings::IniFormat);
+    settings.sync();
+
+    // get all time / configured defaults.
+    return settings.value("maxModelsPerWindow", 4).value<unsigned short int>();
+}
+
+int settingsDialog::getDefault_displayRecents() {
+
+    // connect to settings
+    QSettings settings(QDir::currentPath() + "/settings.ini", QSettings::IniFormat);
+    settings.sync();
+
+    // get all time / configured defaults.
+    return settings.value("displayRecents", 20).value<unsigned int>();
+}
+
+bool settingsDialog::getDefault_alwaysOpenModelToNewWindow() {
+
+    // connect to settings
+    QSettings settings(QDir::currentPath() + "/settings.ini", QSettings::IniFormat);
+    settings.sync();
+
+    // get all time / configured defaults.
+    return settings.value("alwaysOpenModelToNewWindow", false).value<bool>();
+}
+
+QColor settingsDialog::getDefault_modelColour() {
+
+    // connect to settings
+    QSettings settings(QDir::currentPath() + "/settings.ini", QSettings::IniFormat);
+    settings.sync();
+
+    // get all time / configured defaults.
+    return settings.value("defaultModelColour", QColor("rosybrown")).value<QColor>();
+}
+
+QColor settingsDialog::getDefault_modelBackFaceColour() {
+
+    // connect to settings
+    QSettings settings(QDir::currentPath() + "/settings.ini", QSettings::IniFormat);
+    settings.sync();
+
+    // get all time / configured defaults.
+    return settings.value("defaultBackFaceColour", QColor("goldenrod")).value<QColor>();
+}
+
+QColor settingsDialog::getDefault_backgroundColour() {
+    // connect to settings
+    QSettings settings(QDir::currentPath() + "/settings.ini", QSettings::IniFormat);
+    settings.sync();
+
+    // get all time / configured defaults.
+    return settings.value("defaultBackgroundColour", QColor("seashell")).value<QColor>();
 }
