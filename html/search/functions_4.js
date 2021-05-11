@@ -2,10 +2,13 @@ var searchData=
 [
   ['getcellcount',['getCellCount',['../class_model.html#a4bfc8814ba4bc5b04db76c59c4c9a43a',1,'Model']]],
   ['getcentreofgrav',['getCentreOfGrav',['../class_m_cell.html#ad3f809c04e1b1ad6d4b0cde3370128eb',1,'MCell']]],
+  ['getcolour',['getColour',['../class_material.html#a5e3d1977e862ab3585b88ce38646f1fc',1,'Material']]],
   ['getcount',['getCount',['../class_m_cell.html#aeb4799060fa852694769ba92b08af991',1,'MCell']]],
+  ['getdensity',['getDensity',['../class_material.html#a2f4aef76c8505c30caa3f21488f8cf04',1,'Material']]],
   ['getid',['getID',['../class_m_cell.html#ae6308f30835ccfea1c9aa2e72ee8f868',1,'MCell::getID()'],['../class_m_vector.html#ad61e4de172de5f1236b912c82c3aa8a5',1,'MVector::getID()']]],
   ['getmaterial',['getMaterial',['../class_m_cell.html#a7b303927485c96794667164a5f6df5ed',1,'MCell']]],
   ['getmodulus',['getModulus',['../class_m_vector.html#ac6c986661e65cf09db16315fb9cbc84e',1,'MVector']]],
+  ['getname',['getName',['../class_material.html#a275072930daf2dc4dec61e9cf174d47c',1,'Material']]],
   ['getstatistics',['getStatistics',['../class_model_window.html#a0c3b43ce1241a4a14f6cbfc66451013d',1,'ModelWindow']]],
   ['gettype',['getType',['../class_m_cell.html#a2dea7dfb6195a67f3093b71d068ee274',1,'MCell']]],
   ['getvertexindices',['getVertexIndices',['../class_m_cell.html#abf7d14f0c3ec37ed3cc4723422163f72',1,'MCell']]],

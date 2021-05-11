@@ -159,14 +159,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:ab63cf37f9d2b24e07c01f3bf0e8653f6"><td class="memItemLeft" align="right" valign="top">vtkSmartPointer&lt; vtkAlgorithm &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#ab63cf37f9d2b24e07c01f3bf0e8653f6">getVTKModel</a> ()</td></tr>
 <tr class="memdesc:ab63cf37f9d2b24e07c01f3bf0e8653f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">getVTKModel - Gets the private built vtk model  <a href="#ab63cf37f9d2b24e07c01f3bf0e8653f6">More...</a><br /></td></tr>
 <tr class="separator:ab63cf37f9d2b24e07c01f3bf0e8653f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a707d660adfc089994e11c158172d42d2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a707d660adfc089994e11c158172d42d2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>loadSTLModel</b> (const std::string &amp;filePath)</td></tr>
+<tr class="memitem:a707d660adfc089994e11c158172d42d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a707d660adfc089994e11c158172d42d2">loadSTLModel</a> (const std::string &amp;filePath)</td></tr>
+<tr class="memdesc:a707d660adfc089994e11c158172d42d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">loadSTLModel - Loads an model with STL filetype  <a href="#a707d660adfc089994e11c158172d42d2">More...</a><br /></td></tr>
 <tr class="separator:a707d660adfc089994e11c158172d42d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22299e47342aafc34e76f07fc8e020f4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a22299e47342aafc34e76f07fc8e020f4"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>calcVolume</b> ()</td></tr>
+<tr class="memitem:a22299e47342aafc34e76f07fc8e020f4"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a22299e47342aafc34e76f07fc8e020f4">calcVolume</a> ()</td></tr>
+<tr class="memdesc:a22299e47342aafc34e76f07fc8e020f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">calcVolume - Calculates the volume of the model  <a href="#a22299e47342aafc34e76f07fc8e020f4">More...</a><br /></td></tr>
 <tr class="separator:a22299e47342aafc34e76f07fc8e020f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1928e138c778f47c5582592aec0b421"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab1928e138c778f47c5582592aec0b421"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>calcWeight</b> ()</td></tr>
+<tr class="memitem:ab1928e138c778f47c5582592aec0b421"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#ab1928e138c778f47c5582592aec0b421">calcWeight</a> ()</td></tr>
+<tr class="memdesc:ab1928e138c778f47c5582592aec0b421"><td class="mdescLeft">&#160;</td><td class="mdescRight">calcWeight - Calculates the weight of the model  <a href="#ab1928e138c778f47c5582592aec0b421">More...</a><br /></td></tr>
 <tr class="separator:ab1928e138c778f47c5582592aec0b421"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -209,7 +209,7 @@ vtkSmartPointer&lt; vtkSTLReader &gt;&#160;</td><td class="memItemRight" valign=
 <p><a class="el" href="class_model.html" title="Model - This object is responsible for reading and writing model entities to VTK style data files...">Model</a> - Constructor that loads a model from a file using loadModel. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">filePath</td><td>- Path to the data file </td></tr>
+    <tr><td class="paramname">filePath</td><td>- Path to the data file </td></tr>
   </table>
   </dd>
 </dl>
@@ -232,6 +232,42 @@ vtkSmartPointer&lt; vtkSTLReader &gt;&#160;</td><td class="memItemRight" valign=
 
 <p>calcCentre - Calculates the centre of the model </p>
 <dl class="section return"><dt>Returns</dt><dd>- <a class="el" href="class_m_vector.html">MVector</a> that points to the centre of the model </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a22299e47342aafc34e76f07fc8e020f4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Model::calcVolume </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>calcVolume - Calculates the volume of the model </p>
+<dl class="section return"><dt>Returns</dt><dd>totalVolume - The total volume of the model </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab1928e138c778f47c5582592aec0b421"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Model::calcWeight </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>calcWeight - Calculates the weight of the model </p>
+<dl class="section return"><dt>Returns</dt><dd>totalWeight - The total weight of the model </dd></dl>
 
 </div>
 </div>
@@ -270,7 +306,31 @@ vtkSmartPointer&lt; vtkSTLReader &gt;&#160;</td><td class="memItemRight" valign=
 <p>loadModel - Loads a model from a VTK style data file </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">filePath</td><td>- Path to the data file </td></tr>
+    <tr><td class="paramname">filePath</td><td>- Path to the data file </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a707d660adfc089994e11c158172d42d2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Model::loadSTLModel </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filePath</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>loadSTLModel - Loads an model with STL filetype </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filePath</td><td>- The path of the file that is selected </td></tr>
   </table>
   </dd>
 </dl>
@@ -294,7 +354,7 @@ vtkSmartPointer&lt; vtkSTLReader &gt;&#160;</td><td class="memItemRight" valign=
 <p>saveModel - Saves the currently loaded model to a VTK style data file </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">filePath</td><td>- Path to save the file in </td></tr>
+    <tr><td class="paramname">filePath</td><td>- Path to save the file in </td></tr>
   </table>
   </dd>
 </dl>

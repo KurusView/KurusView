@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['material',['Material',['../class_material.html',1,'']]],
+  ['material',['Material',['../class_material.html',1,'Material'],['../class_material.html#a438466a007458fb862d4d9a7774b3006',1,'Material::Material()']]],
   ['matrix',['Matrix',['../class_matrix.html',1,'Matrix'],['../class_matrix.html#a7658ffc311e5f035d38ae3168eb0be52',1,'Matrix::Matrix(const MVector &amp;v1, const MVector &amp;v2, const MVector &amp;v3)'],['../class_matrix.html#a9f1d8d688e354bd4d7c693fb6c6b3d05',1,'Matrix::Matrix(double v1x, double v1y, double v1z, double v2x, double v2y, double v2z, double v3x, double v3y, double v3z)'],['../class_matrix.html#a2dba13c45127354c9f75ef576f49269b',1,'Matrix::Matrix()']]],
   ['matrix_2eh',['Matrix.h',['../_matrix_8h.html',1,'']]],
   ['mcell',['MCell',['../class_m_cell.html',1,'MCell'],['../class_m_cell.html#a49a75fcbf33bb6d83f9fae1acbe39bc9',1,'MCell::MCell(std::vector&lt; std::shared_ptr&lt; MVector &gt;&gt; vertices, std::shared_ptr&lt; Material &gt; material, long int id)'],['../class_m_cell.html#ac09fa3dd66d4b96eff0ee9ec02b633df',1,'MCell::MCell()=delete']]],
