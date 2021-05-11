@@ -32,7 +32,7 @@ public:
 
     int lightIntensity, lightSpecularity, modelOpacity, structure;
 
-    QString backgroundColour, modelColour;
+    QString backgroundColour, modelColour, modelBackFaceColor;
 
     bool isClipped, isShrunk, gridLinesEnabled, measurementEnabled;
 
@@ -50,6 +50,8 @@ public:
     static unsigned short int getCount();
 
     void setModelColor(const QColor &color);
+
+    void setModelBackFaceColor(const QColor &color);
 
     void setBackgroundColor(const QColor &color);
 

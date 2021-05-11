@@ -178,6 +178,8 @@ void ModelWindow::handleModelBackFaceColor() {
     if (!color.isValid())
         return;
 
+    activeView->setModelBackFaceColor(color);
+
     // hack around QT bug(?): backface color is not updated if model colour is same as backface. Set the the model
     // colour to something else and back. Colour is offset by a small amount so the change is invisible.
     QColor currentModelColour = QColor(activeView->modelColour);
@@ -383,6 +385,8 @@ void ModelWindow::setActiveView(View *newActiveView) {
             "background-color: " + activeView->backgroundColour + "; border:none;");
     ui->modelColourPushButton->setStyleSheet(
             "background-color: " + activeView->modelColour + "; border:none;");
+    ui->modelBackFaceColourPushButton->setStyleSheet(
+            "background-color: " + activeView->modelBackFaceColor + "; border:none;");
 
     // Structure
     switch (activeView->structure) {

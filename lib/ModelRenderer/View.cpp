@@ -100,8 +100,11 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
     toggleShrinkFilter(viewSettings->value("isShrunk", false).value<bool>());
 
     // Colours
-    setModelColor(viewSettings->value("modelColor", QColor("Green")).value<QColor>());
-    setBackgroundColor(viewSettings->value("backgroundColor", QColor("Silver")).value<QColor>());
+    setModelColor(viewSettings->value("modelColor", settingsDialog::getDefault_modelColour()).value<QColor>());
+    setModelBackFaceColor(viewSettings->value("modelBackFaceColor",
+                                              settingsDialog::getDefault_modelBackFaceColour()).value<QColor>());
+    setBackgroundColor(
+            viewSettings->value("backgroundColor", settingsDialog::getDefault_backgroundColour()).value<QColor>());
 
     // Structure
     setStructure(viewSettings->value("structure", 0).value<int>());
@@ -194,13 +197,51 @@ void View::setModelColor(const QColor &color) {
     vtkActorCollection *actors = qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
     auto *actor = (vtkActor *) actors->GetItemAsObject(0);
 
-    // Set tviewSettings->value("gridLinesEnabled", false).value<bool>() Color of the actor
+    // update settings
     viewSettings->setValue("modelColor", color);
     actor->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
 
     // Store the color locally
     modelColour = color.name();
 }
+
+
+void View::setModelBackFaceColor(const QColor &color) {
+    if (!color.isValid())
+        return;
+
+    // update settings
+    viewSettings->setValue("modelBackFaceColor", color);
+
+    // hack around QT bug(?): backface color is not updated if model colour is same as backface. Set the the model
+    // colour to something else and back. Colour is offset by a small amount so the change is invisible.
+    QColor currentModelColour = QColor(modelColour);
+    QColor offByOne = QColor(modelColour);
+    offByOne.setRedF(offByOne.redF() + 0.1);
+    setModelColor(offByOne);
+    setModelColor(currentModelColour);
+
+    // get actor
+    auto *actor = (vtkActor *) qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
+            0);
+
+
+    // QReal is a double
+    vtkColor3d vtkcolor(color.redF(), color.greenF(), color.blueF());
+
+    // set backface color (from docs: as the side effect of setting the ambient diffuse and specular colors as well.
+    // This is basically a quick overall color setting method).
+    vtkNew<vtkProperty> backFace;
+    //backFaces->SetDiffuseColor(vtkcolor.GetData());
+    backFace->SetDiffuseColor(color.redF(), color.greenF(), color.blueF());
+
+    // apply color to actor
+    actor->SetBackfaceProperty(backFace);
+
+    // Store the color locally
+    modelBackFaceColor = color.name();
+}
+
 
 void View::setBackgroundColor(const QColor &color) {
     if (!color.isValid())
@@ -371,6 +412,7 @@ void View::populateSettings() {
     // Colours
     viewSettings->setValue("modelColor", modelColour);
     viewSettings->setValue("backgroundColor", backgroundColour);
+    viewSettings->setValue("modelBackFaceColor", modelBackFaceColor);
 
     // Structure
     viewSettings->setValue("structure", structure);
@@ -443,4 +485,4 @@ void View::gridlinesInit() {
     qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->AddActor(cubeAxesActor);
 
     toggleGridLines(false);
-}
+}}
