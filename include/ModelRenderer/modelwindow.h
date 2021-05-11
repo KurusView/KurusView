@@ -122,6 +122,8 @@ public slots:
     void getStatistics();
 
     void handleHelpButton();
+
+    void handleSettingsButton();
 };
 
 

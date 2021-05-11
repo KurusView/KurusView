@@ -611,6 +611,7 @@ void ModelWindow::createActionsAndConnections() {
     connect(ui->actionSaveView, &QAction::triggered, activeView, &View::save);
     connect(ui->actionCloseView, &QAction::triggered, this, &ModelWindow::closeView);
     connect(ui->actionHelp, &QAction::triggered, this, &ModelWindow::handleHelpButton);
+    connect(ui->actionSettings, &QAction::triggered, this, &ModelWindow::handleSettingsButton);
 
 
     for (auto i = 0; i < maxFileNr; ++i) {
@@ -679,4 +680,10 @@ void ModelWindow::closeView() {
 
 void ModelWindow::handleHelpButton() {
     QDesktopServices::openUrl(QUrl("https://github.com/KurusView/2020_GROUP_21", QUrl::TolerantMode));
+}
+
+void ModelWindow::handleSettingsButton() {
+    settingsDialog open_settings;
+
+    open_settings.exec();
 }
