@@ -16,6 +16,9 @@ var hierarchy =
       [ "Dialog", "class_dialog.html", null ],
       [ "settingsDialog", "classsettings_dialog.html", null ]
     ] ],
+    [ "QLabel", null, [
+      [ "clickableQLabel", "classclickable_q_label.html", null ]
+    ] ],
     [ "QMainWindow", null, [
       [ "ModelWindow", "class_model_window.html", null ],
       [ "WelcomeWindow", "class_welcome_window.html", null ]

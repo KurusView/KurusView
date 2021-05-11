@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['dialog',['Dialog',['../class_dialog.html',1,'']]]
+  ['clickableqlabel',['clickableQLabel',['../classclickable_q_label.html',1,'']]]
 ];

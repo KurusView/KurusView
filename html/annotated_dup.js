@@ -1,5 +1,6 @@
 var annotated_dup =
 [
+    [ "clickableQLabel", "classclickable_q_label.html", "classclickable_q_label" ],
     [ "Dialog", "class_dialog.html", "class_dialog" ],
     [ "Material", "class_material.html", "class_material" ],
     [ "Matrix", "class_matrix.html", "class_matrix" ],
