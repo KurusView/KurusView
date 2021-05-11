@@ -12,6 +12,9 @@ settingsDialog::settingsDialog(QWidget *parent) :
         QDialog(parent),
         ui(new Ui::settingsDialog) {
 
+    // bit fiddling to remove the ? button on the top right
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+
     // setup ui
     ui->setupUi(this);
 
