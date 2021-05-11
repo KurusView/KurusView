@@ -282,6 +282,13 @@ Generating docs for c/home/travis/build/KurusView/2020_GROUP_21/include/ModelRen
 /home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:139: warning: Member operator==(const MVector &v) const  (function) of class MVector is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:141: warning: Member operator!=(const MVector &v) const  (function) of class MVector is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/settingsdialog.h:15: warning: Member settingsDialog(QWidget *parent=nullptr) (function) of class settingsDialog is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/settingsdialog.h:19: warning: Member getDefault_saveLocation() (function) of class settingsDialog is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/settingsdialog.h:21: warning: Member getDefault_maxModelsPerWindow() (function) of class settingsDialog is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/settingsdialog.h:23: warning: Member getDefault_displayRecents() (function) of class settingsDialog is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/settingsdialog.h:25: warning: Member getDefault_alwaysOpenModelToNewWindow() (function) of class settingsDialog is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/settingsdialog.h:27: warning: Member getDefault_modelColour() (function) of class settingsDialog is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/settingsdialog.h:29: warning: Member getDefault_modelBackFaceColour() (function) of class settingsDialog is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/settingsdialog.h:31: warning: Member getDefault_backgroundColour() (function) of class settingsDialog is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:39: warning: Member View(const QString &filePath, QWidget *parent=nullptr) (function) of class View is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:43: warning: Member buildChain() (function) of class View is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:45: warning: Member toggleShrinkFilter(bool enable) (function) of class View is not documented.
@@ -355,5 +362,5 @@ Generating file member index...
 Generating example index...
 finalizing index lists...
 writing tag file...
-lookup cache used 313/65536 hits=1761 misses=341
+lookup cache used 319/65536 hits=1798 misses=347
 finished...
