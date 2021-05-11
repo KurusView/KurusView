@@ -22,6 +22,7 @@ var searchData=
   ['mpyramid_2eh',['MPyramid.h',['../_m_pyramid_8h.html',1,'']]],
   ['mtetrahedron',['MTetrahedron',['../class_m_tetrahedron.html',1,'MTetrahedron'],['../class_m_tetrahedron.html#a62a8c657e56b1d79905907c94dd9f35b',1,'MTetrahedron::MTetrahedron(const std::vector&lt; std::shared_ptr&lt; MVector &gt;&gt; &amp;vertices, const std::shared_ptr&lt; Material &gt; &amp;material, long int id)'],['../class_m_tetrahedron.html#a4528fd5b702bcf92fde7029a83aae0b3',1,'MTetrahedron::MTetrahedron()=delete']]],
   ['mtetrahedron_2eh',['MTetrahedron.h',['../_m_tetrahedron_8h.html',1,'']]],
+  ['mux_5fhandlelightactorslider',['mux_handleLightActorSlider',['../class_model_window.html#a56afb845e27afd543a4a0a1f9bcebc57',1,'ModelWindow']]],
   ['mvector',['MVector',['../class_m_vector.html',1,'MVector'],['../class_m_vector.html#a974ad5f1b11e3a60c10fa0469441432d',1,'MVector::MVector()'],['../class_m_vector.html#a4bff1818ed0b2e859a39439bd0dbf8d1',1,'MVector::MVector(double x, double y, double z)'],['../class_m_vector.html#a0903b57611e5cbb06d19bb741e92531a',1,'MVector::MVector(double x, double y, double z, long int id)']]],
   ['mvector_2eh',['MVector.h',['../_m_vector_8h.html',1,'']]]
 ];

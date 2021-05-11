@@ -8,5 +8,6 @@ var searchData=
   ['modelwindow',['ModelWindow',['../class_model_window.html#a7d0bc65177144fae19eeb079a506636e',1,'ModelWindow']]],
   ['mpyramid',['MPyramid',['../class_m_pyramid.html#ae4d028c96918e16594824395fff28b78',1,'MPyramid::MPyramid(const std::vector&lt; std::shared_ptr&lt; MVector &gt;&gt; &amp;vertices, const std::shared_ptr&lt; Material &gt; &amp;material, long int id)'],['../class_m_pyramid.html#afdf1b315ef0915c4405115c0930841de',1,'MPyramid::MPyramid()=delete']]],
   ['mtetrahedron',['MTetrahedron',['../class_m_tetrahedron.html#a62a8c657e56b1d79905907c94dd9f35b',1,'MTetrahedron::MTetrahedron(const std::vector&lt; std::shared_ptr&lt; MVector &gt;&gt; &amp;vertices, const std::shared_ptr&lt; Material &gt; &amp;material, long int id)'],['../class_m_tetrahedron.html#a4528fd5b702bcf92fde7029a83aae0b3',1,'MTetrahedron::MTetrahedron()=delete']]],
+  ['mux_5fhandlelightactorslider',['mux_handleLightActorSlider',['../class_model_window.html#a56afb845e27afd543a4a0a1f9bcebc57',1,'ModelWindow']]],
   ['mvector',['MVector',['../class_m_vector.html#a974ad5f1b11e3a60c10fa0469441432d',1,'MVector::MVector()'],['../class_m_vector.html#a4bff1818ed0b2e859a39439bd0dbf8d1',1,'MVector::MVector(double x, double y, double z)'],['../class_m_vector.html#a0903b57611e5cbb06d19bb741e92531a',1,'MVector::MVector(double x, double y, double z, long int id)']]]
 ];
