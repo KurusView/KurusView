@@ -73,9 +73,9 @@ public:
     MVector calcCentre();
 
     /**
-     * @brief buildVTKModel - Builds model from cells and vectors loaded from a proprietary model file
+     * @brief buildVTKModelFromMod - Builds model from cells and vectors loaded from a proprietary model file
      */
-    void buildVTKModel();
+    void buildVTKModelFromMod();
 
     /**
      * @brief getVTKModel - Gets the private built vtk model
