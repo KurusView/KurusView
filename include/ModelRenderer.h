@@ -22,6 +22,8 @@ public:
      */
     ModelRenderer(int &argc, char **argv);
 
+    virtual ~ModelRenderer();
+
 public slots:
     void openFile(const QStringList &filePaths);
 
@@ -39,6 +41,8 @@ private:
 
     QPalette LightPalette;
     QPalette DarkPalette;
+
+    QTimer *activeTimer;
 };
 
 

@@ -508,7 +508,6 @@
    <addaction name="actionOpenView"/>
    <addaction name="actionSaveView"/>
    <addaction name="actionHelp"/>
-   <addaction name="actionPrint"/>
   </widget>
   <action name="actionOpenView">
    <property name="icon">
@@ -535,15 +534,6 @@
    </property>
    <property name="text">
     <string>Help</string>
-   </property>
-  </action>
-  <action name="actionPrint">
-   <property name="icon">
-    <iconset resource="../../Icons/icons.qrc">
-     <normaloff>:/Icons/print.png</normaloff>:/Icons/print.png</iconset>
-   </property>
-   <property name="text">
-    <string>Print</string>
    </property>
   </action>
   <action name="emptyRecentsIndicator">

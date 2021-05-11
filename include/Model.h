@@ -34,7 +34,7 @@ public:
 
     /**
      * @brief Model - Constructor that loads a model from a file using loadModel
-     * @param [in] filePath - Path to the data file
+     * @param filePath - Path to the data file
      */
     explicit Model(const std::string &filePath);
 
@@ -45,13 +45,13 @@ public:
 
     /**
      * @brief loadModel - Loads a model from a VTK style data file
-     * @param [in] filePath - Path to the data file
+     * @param filePath - Path to the data file
      */
     void loadModel(const std::string &filePath);
 
     /**
      * @brief saveModel - Saves the currently loaded model to a VTK style data file
-     * @param [in] filePath - Path to save the file in
+     * @param filePath - Path to save the file in
      */
     void saveModel(const std::string &filePath);
 
@@ -83,10 +83,21 @@ public:
      */
     vtkSmartPointer<vtkAlgorithm> getVTKModel();
 
+    /**
+     * @brief loadSTLModel - Loads an model with STL filetype
+     * @param filePath - The path of the file that is selected
+     */
     void loadSTLModel(const std::string &filePath);
-
+    /**
+     * @brief calcVolume - Calculates the volume of the model
+     * @return totalVolume - The total volume of the model
+     */
     double calcVolume();
 
+    /**
+     * @brief calcWeight - Calculates the weight of the model
+     * @return totalWeight - The total weight of the model
+     */
     double calcWeight();
 
     std::string fileType;

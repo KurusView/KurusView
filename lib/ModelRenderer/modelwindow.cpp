@@ -30,6 +30,7 @@
 #include <QWidget>
 #include <QScreen>
 #include <QSettings>
+#include <QDesktopServices>
 
 #include <vtkOrientationMarkerWidget.h>
 
@@ -50,16 +51,21 @@
 #include <vtkMassProperties.h>
 #include <vtkCenterOfMass.h>
 
+#include "settingsdialog.h"
 
 ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainWindow(parent),
                                                                           ui(new Ui::ModelWindow),
-                                                                          maxFileNr(4),
+                                                                          maxFileNr(
+                                                                                  10), // this one should probably be hardcoded to 10 or less
                                                                           settings(QDir::currentPath() +
                                                                                    "/kurusview.ini",
                                                                                    QSettings::IniFormat) {
     //TODO: Make sure the model is properly initialized before loading the window
     // standard call to setup Qt UI (same as previously)
     ui->setupUi(this);
+
+    this->setWindowTitle("KurusView: Model Viewer");
+
     // Get Primary Screen Height
     int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
     int screenWidth = QGuiApplication::primaryScreen()->geometry().width();
@@ -76,6 +82,24 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
     ui->volumeLabel->setMinimumWidth(statisticsBoxWidth / 1.7);
 
     std::cout << ui->centreOfGravLabel->width() << std::endl;
+
+    for (int i = 0; i < filePaths.size() && i < 4; ++i) {
+        addViewToFrame(new View(filePaths[i], parent));
+    }
+
+    for (auto &view : views) {
+        setActiveView(view);
+    }
+
+    setActiveView(views[0]);
+
+    std::cout << View::getCount();
+
+    createActionsAndConnections();
+
+    connect(ui->menuRecent_Files, &QMenu::aboutToShow, this, &ModelWindow::updateRecentActionList);
+
+    show();
 
     // Camera View Button Slots
     connect(ui->resetCameraViewPushButton, &QPushButton::released, this, &ModelWindow::handleChangePerspective);
@@ -112,38 +136,16 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
     connect(ui->resetLightingPushButton, &QPushButton::released, this, &ModelWindow::handleResetLighting);
 
     //Measurement button
-    connect(ui->measurementButton, &QPushButton::released, this, &ModelWindow::handleMeasurment);
+    connect(ui->measurementButton, &QPushButton::released, this, &ModelWindow::handleMeasurement);
 
-
-    for (int i = 0; i < filePaths.size() && i < 4; ++i) {
-        addViewToFrame(new View(filePaths[i], parent));
-    }
-
-    for (auto &view : views) {
-        setActiveView(view);
-    }
-
-    setActiveView(views[0]);
-
-    std::cout << View::getCount();
-
-    createActionsAndConnections();
-
-    connect(ui->menuRecent_Files, &QMenu::aboutToShow, this, &ModelWindow::updateRecentActionList);
-
-
-    show();
 }
 
 ModelWindow::~ModelWindow() {
-    for (auto &view : views) {
-        delete view;
-    }
     delete ui;
 }
 
 void ModelWindow::handleBackgroundColor() {
-    QColor color = QColorDialog::getColor(Qt::yellow, this);
+    QColor color = QColorDialog::getColor(QColor(activeView->backgroundColour), this);
 
     if (!color.isValid())
         return;
@@ -159,7 +161,7 @@ void ModelWindow::handleBackgroundColor() {
 }
 
 void ModelWindow::handleModelColor() {
-    QColor color = QColorDialog::getColor(Qt::yellow, this);
+    QColor color = QColorDialog::getColor(QColor(activeView->modelColour), this);
 
     if (!color.isValid())
         return;
@@ -177,6 +179,8 @@ void ModelWindow::handleModelBackFaceColor() {
     // sanity check
     if (!color.isValid())
         return;
+
+    activeView->setModelBackFaceColor(color);
 
     // hack around QT bug(?): backface color is not updated if model colour is same as backface. Set the the model
     // colour to something else and back. Colour is offset by a small amount so the change is invisible.
@@ -218,21 +222,30 @@ void ModelWindow::handleResetColor() {
     ui->modelBackFaceColourPushButton->setStyleSheet("background-color: silver; border:none;");
     ui->backgroundColourPushButton->setStyleSheet("background-color: silver; border:none;");
 
+    // convert QT to vtk colours
+    QColor model_qt = settingsDialog::getDefault_modelColour();
+    QColor backFace_qt = settingsDialog::getDefault_modelBackFaceColour();
+    QColor background_qt = settingsDialog::getDefault_backgroundColour();
+
+    vtkColor3d model_vtk(model_qt.redF(), model_qt.greenF(), model_qt.blueF());
+    vtkColor3d backFace_vtk(backFace_qt.redF(), backFace_qt.greenF(), backFace_qt.blueF());
+    vtkColor3d background_vtk(background_qt.redF(), background_qt.greenF(), background_qt.blueF());
+
     // reset background
     vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
     activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->SetBackground(
-            colors->GetColor3d("Silver").GetData());
+            background_vtk.GetData());
 
     // get actor
     auto *actor = (vtkActor *) activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
             0);
 
     // reset model
-    actor->GetProperty()->SetColor(colors->GetColor3d("Red").GetData());
+    actor->GetProperty()->SetColor(model_vtk.GetData());
 
     // reset model backface
     vtkNew<vtkProperty> backFace;
-    backFace->SetDiffuseColor(colors->GetColor3d("Silver").GetData());
+    backFace->SetDiffuseColor(backFace_vtk.GetData());
     actor->SetBackfaceProperty(backFace);
 
     // refresh view
@@ -383,6 +396,8 @@ void ModelWindow::setActiveView(View *newActiveView) {
             "background-color: " + activeView->backgroundColour + "; border:none;");
     ui->modelColourPushButton->setStyleSheet(
             "background-color: " + activeView->modelColour + "; border:none;");
+    ui->modelBackFaceColourPushButton->setStyleSheet(
+            "background-color: " + activeView->modelBackFaceColor + "; border:none;");
 
     // Structure
     switch (activeView->structure) {
@@ -405,6 +420,7 @@ void ModelWindow::setActiveView(View *newActiveView) {
 
     // Statistics
     getStatistics();
+    ui->measurementButton->setChecked(activeView->measurementEnabled);
 
     std::cout << ui->statisticsGroupBox->width() << std::endl;
 }
@@ -425,21 +441,13 @@ void ModelWindow::handleGridlines() {
     activeView->toggleGridLines(ui->gridLinesCheckBox->isChecked());
 }
 
-void ModelWindow::handleMeasurment() {
+void ModelWindow::handleMeasurement() {
     if (ui->measurementButton->isChecked()) {
         ui->lightOpacitySlider->setValue(25);
-        distanceWidget = vtkDistanceWidget::New();
-        distanceWidget->SetInteractor(activeView->qVTKWidget->GetRenderWindow()->GetInteractor());
-        vtkSmartPointer<vtkDistanceRepresentation3D> representation = vtkDistanceRepresentation3D::New();
-        distanceWidget->SetRepresentation(representation);
-        distanceWidget->SetPriority(0.9);
-        dynamic_cast<vtkDistanceRepresentation *> (distanceWidget->GetRepresentation())->SetLabelFormat("%-#6.2f mm");
-        distanceWidget->ManagesCursorOn();
-        distanceWidget->On();
     } else {
         ui->lightOpacitySlider->setValue(100);
-        distanceWidget->Off();
     }
+    activeView->toggleMeasurement(ui->measurementButton->isChecked());
 }
 
 void ModelWindow::addViewToFrame(View *view) {
@@ -458,7 +466,13 @@ void ModelWindow::addViewToFrame(View *view) {
     // Store previous views.
     views.push_back(view);
 
-    // fitting matrix
+    resetViewLayout();
+
+    connect(view->qVTKWidget, &QVTKOpenGLWidget::mouseEvent, this, &ModelWindow::viewActive);
+}
+
+void ModelWindow::resetViewLayout() {
+// fitting matrix
     static unsigned short int fm[4][4] = {
             {0, 0, 1, 1},   /*  row, column, rowSpan, columnSpan of first inserted */
             {0, 1, 1, 1},   /*  row, column, rowSpan, columnSpan of second inserted */
@@ -466,22 +480,21 @@ void ModelWindow::addViewToFrame(View *view) {
             {1, 1, 1, 1},   /*  row, column, rowSpan, columnSpan of fourth inserted */
     };
 
+    for (int i = 0; i < views.size(); ++i) {
+        ui->viewFrame->addWidget(views[i], fm[i][0], fm[i][1], fm[i][2], fm[i][3]);
+        // refit previous:
+        //
+        // There is no method for resetting the row/column-span after a widget has been added. However, addWidget can
+        // be called again on the same widget to achieve the same affect, because re-adding a widget to the same layout
+        // always implicitly removes it first.
 
-    ui->viewFrame->addWidget(view, fm[index][0], fm[index][1], fm[index][2], fm[index][3]);
+        if (i + 1 == 3)
+            ui->viewFrame->addWidget(views[1], 1, 0, 1, 1);
 
-    // refit previous:
-    //
-    // There is no method for resetting the row/column-span after a widget has been added. However, addWidget can
-    // be called again on the same widget to achieve the same affect, because re-adding a widget to the same layout
-    // always implicitly removes it first.
+        if (i + 1 == 4)
+            ui->viewFrame->addWidget(views[2], 0, 1, 1, 1);
 
-    if (index + 1 == 3)
-        ui->viewFrame->addWidget(views[1], 1, 0, 1, 1);
-
-    if (index + 1 == 4)
-        ui->viewFrame->addWidget(views[2], 0, 1, 1, 1);
-
-    connect(view->qVTKWidget, &QVTKOpenGLWidget::mouseEvent, this, &ModelWindow::viewActive);
+    }
 }
 
 void ModelWindow::getStatistics() {
@@ -596,6 +609,10 @@ void ModelWindow::createActionsAndConnections() {
     ui->actionOpenView->setShortcuts(QKeySequence::Open);
     connect(ui->actionOpenView, &QAction::triggered, this, &ModelWindow::open);
     connect(ui->actionSaveView, &QAction::triggered, activeView, &View::save);
+    connect(ui->actionCloseView, &QAction::triggered, this, &ModelWindow::closeView);
+    connect(ui->actionHelp, &QAction::triggered, this, &ModelWindow::handleHelpButton);
+    connect(ui->actionSettings, &QAction::triggered, this, &ModelWindow::handleSettingsButton);
+
 
     for (auto i = 0; i < maxFileNr; ++i) {
         QAction *recentFileAction = new QAction(this);
@@ -647,3 +664,26 @@ void ModelWindow::loadFile(const QStringList &filePaths) {
         adjustForCurrentFile(filePaths[i]);
 }
 
+void ModelWindow::closeView() {
+    for (int i = 0; i < views.size(); ++i) {
+        if (views[i] == activeView) {
+            View *view = views[i];
+            views.erase(views.begin() + i);
+            delete view;
+        }
+    }
+    if (views.empty()) {
+        close();
+    }
+    resetViewLayout();
+}
+
+void ModelWindow::handleHelpButton() {
+    QDesktopServices::openUrl(QUrl("https://github.com/KurusView/2020_GROUP_21", QUrl::TolerantMode));
+}
+
+void ModelWindow::handleSettingsButton() {
+    settingsDialog open_settings;
+
+    open_settings.exec();
+}

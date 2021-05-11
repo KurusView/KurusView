@@ -60,7 +60,7 @@ ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv),
 
 
     // configure PIT
-    auto *activeTimer = new QTimer(this);
+    activeTimer = new QTimer(this);
     activeTimer->setInterval(2 * 1000); //5 seconds
     activeTimer->setSingleShot(false);
 
@@ -107,12 +107,25 @@ void ModelRenderer::applyLightMode() {
     }
 }
 
-void ModelRenderer::openFile(const QStringList &filePaths){
-    for (int i = 0; i < filePaths.length(); i+=4) {
-        QStringList subList = filePaths.mid(i,4);
+void ModelRenderer::openFile(const QStringList &filePaths) {
+
+    for (int i = 0; i < filePaths.length(); i += 4) {
+
+        // split into 4 segments starting from i (multi window functionality)
+        QStringList subList = filePaths.mid(i, 4);
+
+        // save filepaths
         std::shared_ptr<ModelWindow> modelWindow = std::make_shared<ModelWindow>(subList);
         modelWindows.emplace_back(modelWindow);
+
+        // connect new windows to this handler for decentralized opening
         connect(modelWindow.get(), &ModelWindow::openNewModelWindow, this, &ModelRenderer::openFile);
     }
+
+    // close the welcome window when a model is loaded
     welcomeWindow.close();
+}
+
+ModelRenderer::~ModelRenderer() {
+    delete activeTimer;
 }

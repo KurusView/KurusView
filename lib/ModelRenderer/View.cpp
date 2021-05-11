@@ -18,10 +18,12 @@
 #include <vtkLight.h>
 #include <vtkLightCollection.h>
 #include <vtkCubeAxesActor.h>
+#include <vtkDistanceRepresentation3D.h>
 #include <QFileDialog>
 #include <vtkTextProperty.h>
 
 #include "View.h"
+#include "settingsdialog.h"
 
 // set default instance count
 unsigned short int View::ViewInstanceCount = 0;
@@ -99,8 +101,11 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
     toggleShrinkFilter(viewSettings->value("isShrunk", false).value<bool>());
 
     // Colours
-    setModelColor(viewSettings->value("modelColor", QColor("Green")).value<QColor>());
-    setBackgroundColor(viewSettings->value("backgroundColor", QColor("Silver")).value<QColor>());
+    setModelColor(viewSettings->value("modelColor", settingsDialog::getDefault_modelColour()).value<QColor>());
+    setModelBackFaceColor(viewSettings->value("modelBackFaceColor",
+                                              settingsDialog::getDefault_modelBackFaceColour()).value<QColor>());
+    setBackgroundColor(
+            viewSettings->value("backgroundColor", settingsDialog::getDefault_backgroundColour()).value<QColor>());
 
     // Structure
     setStructure(viewSettings->value("structure", 0).value<int>());
@@ -110,6 +115,9 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
     setLightIntensity(viewSettings->value("lightIntensity", 70).value<int>());
     setModelOpacity(viewSettings->value("modelOpacity", 100).value<int>());
     setLightSpecularity(viewSettings->value("lightSpecularity", 0).value<int>());
+
+    // Measurement
+    measurementEnabled = false;
 
     buildChain();
     qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->ResetCamera();
@@ -190,13 +198,51 @@ void View::setModelColor(const QColor &color) {
     vtkActorCollection *actors = qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
     auto *actor = (vtkActor *) actors->GetItemAsObject(0);
 
-    // Set tviewSettings->value("gridLinesEnabled", false).value<bool>() Color of the actor
+    // update settings
     viewSettings->setValue("modelColor", color);
     actor->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
 
     // Store the color locally
     modelColour = color.name();
 }
+
+
+void View::setModelBackFaceColor(const QColor &color) {
+    if (!color.isValid())
+        return;
+
+    // update settings
+    viewSettings->setValue("modelBackFaceColor", color);
+
+    // hack around QT bug(?): backface color is not updated if model colour is same as backface. Set the the model
+    // colour to something else and back. Colour is offset by a small amount so the change is invisible.
+    QColor currentModelColour = QColor(modelColour);
+    QColor offByOne = QColor(modelColour);
+    offByOne.setRedF(offByOne.redF() + 0.1);
+    setModelColor(offByOne);
+    setModelColor(currentModelColour);
+
+    // get actor
+    auto *actor = (vtkActor *) qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
+            0);
+
+
+    // QReal is a double
+    vtkColor3d vtkcolor(color.redF(), color.greenF(), color.blueF());
+
+    // set backface color (from docs: as the side effect of setting the ambient diffuse and specular colors as well.
+    // This is basically a quick overall color setting method).
+    vtkNew<vtkProperty> backFace;
+    //backFaces->SetDiffuseColor(vtkcolor.GetData());
+    backFace->SetDiffuseColor(color.redF(), color.greenF(), color.blueF());
+
+    // apply color to actor
+    actor->SetBackfaceProperty(backFace);
+
+    // Store the color locally
+    modelBackFaceColor = color.name();
+}
+
 
 void View::setBackgroundColor(const QColor &color) {
     if (!color.isValid())
@@ -320,6 +366,23 @@ void View::toggleGridLines(bool enable) {
     qVTKWidget->GetRenderWindow()->Render();
 }
 
+void View::toggleMeasurement(bool enable) {
+    if (enable) {
+        distanceWidget = vtkDistanceWidget::New();
+        distanceWidget->SetInteractor(qVTKWidget->GetRenderWindow()->GetInteractor());
+        vtkSmartPointer<vtkDistanceRepresentation3D> representation = vtkDistanceRepresentation3D::New();
+        distanceWidget->SetRepresentation(representation);
+        distanceWidget->SetPriority(0.9);
+        dynamic_cast<vtkDistanceRepresentation *> (distanceWidget->GetRepresentation())->SetLabelFormat(
+                "%-#6.2f mm");
+        distanceWidget->ManagesCursorOn();
+        distanceWidget->On();
+    } else {
+        distanceWidget->Off();
+    }
+    measurementEnabled = enable;
+}
+
 void View::setStructure(int selectedStructure) {
     vtkActorCollection *actors = qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
     auto *actor = (vtkActor *) actors->GetItemAsObject(0);
@@ -350,6 +413,7 @@ void View::populateSettings() {
     // Colours
     viewSettings->setValue("modelColor", modelColour);
     viewSettings->setValue("backgroundColor", backgroundColour);
+    viewSettings->setValue("modelBackFaceColor", modelBackFaceColor);
 
     // Structure
     viewSettings->setValue("structure", structure);

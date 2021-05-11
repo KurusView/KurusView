@@ -92,6 +92,11 @@ public slots:
     void handleAboutButton();
 
     /**
+     * @brief Open settings menu (QDialog)
+     */
+    void handleSettingsButton();
+
+    /**
      * @brief Removes the file selected from recents.
      */
     void removeEntryFromRecents();

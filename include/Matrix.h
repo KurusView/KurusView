@@ -118,7 +118,7 @@ private:
 
 };
 
-/**
+    /**
      * @brief RotationMatrix - calculates the rotation matrix of a specific set of angles
      * @param Rotation - vector of MVectors specifying the rotation in each axis
      * @return - Rotation Matrix

@@ -1,6 +1,7 @@
 #include <QFileDialog>
 #include "welcomewindow.h"
 #include "ui_welcomewindow.h"
+#include "settingsdialog.h"
 #include <QDesktopServices>
 #include <QtCore>
 #include <QLabel>
@@ -13,17 +14,20 @@
 #include <QClipboard>
 #include <QScrollBar>
 
+
 #include <iostream>
 
 WelcomeWindow::WelcomeWindow(QWidget *parent) :
         QMainWindow(parent),
         ui(new Ui::WelcomeWindow),
-        maxFileNr(25),
+        maxFileNr(settingsDialog::getDefault_displayRecents()),
         settings(QDir::currentPath() + "/kurusview.ini", QSettings::IniFormat) {
 
     ui->setupUi(this);
     img = new QImage(":/Icons/kurusview.png");
     p = QPixmap::fromImage(*img);
+
+    std::cout << maxFileNr;
 
     this->setWindowTitle("Welcome to KurusView");
 
@@ -31,12 +35,10 @@ WelcomeWindow::WelcomeWindow(QWidget *parent) :
 
     populateRecents();
 
-    // Connect the signal to the slot
+    // Connect the signals to slots
     connect(ui->openPushButton, &QPushButton::released, this, &WelcomeWindow::handleOpenButton);
     connect(ui->aboutPushButton, &QPushButton::released, this, &WelcomeWindow::handleAboutButton);
-
-    // Connect a double click for the listView.
-    //connect(ui->recentListView, SIGNAL(QAbstractItemV), this, &WelcomWindow::);
+    connect(ui->settingsPushButton, &QPushButton::released, this, &WelcomeWindow::handleSettingsButton);
 }
 
 WelcomeWindow::~WelcomeWindow() {
@@ -243,6 +245,7 @@ void WelcomeWindow::populateRecents() {
 
     // fit frame horizontally and some extra padding
     ui->scrollArea->setMinimumWidth(xFrame->width() + 10);
+    ui->scrollArea->setMinimumHeight(xFrame->width() / 2);
 }
 
 void WelcomeWindow::showContextMenu(const QPoint &pos) {
@@ -288,4 +291,10 @@ void WelcomeWindow::loadEntryAsModel() {
 
     // load the entry
     loadModel((QStringList) pathLabel);
+}
+
+void WelcomeWindow::handleSettingsButton() {
+    settingsDialog settings;
+
+    settings.exec();
 }
