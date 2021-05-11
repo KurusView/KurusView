@@ -35,7 +35,7 @@ WelcomeWindow::WelcomeWindow(QWidget *parent) :
 
     populateRecents();
 
-    // Connect the signal to the slot
+    // Connect the signals to slots
     connect(ui->openPushButton, &QPushButton::released, this, &WelcomeWindow::handleOpenButton);
     connect(ui->aboutPushButton, &QPushButton::released, this, &WelcomeWindow::handleAboutButton);
     connect(ui->settingsPushButton, &QPushButton::released, this, &WelcomeWindow::handleSettingsButton);
