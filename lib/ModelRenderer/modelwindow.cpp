@@ -237,19 +237,23 @@ void ModelWindow::handleResetColor() {
             background_vtk.GetData());
 
     // get actor
-    auto *actor = (vtkActor *) activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
-            0);
+//    auto *actor = (vtkActor *) activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
+//            0);
 
     // reset model
-    actor->GetProperty()->SetColor(model_vtk.GetData());
+    if (activeView->model->fileType == "stl")
+        activeView->setModelColor(settingsDialog::getDefault_modelColour());
+    else
+        activeView->setModelColor();
 
     // reset model backface
     vtkNew<vtkProperty> backFace;
     backFace->SetDiffuseColor(backFace_vtk.GetData());
-    actor->SetBackfaceProperty(backFace);
+//    actor->SetBackfaceProperty(backFace);
 
     // refresh view
     activeView->qVTKWidget->GetRenderWindow()->Render();
+    setActiveView(activeView);
 }
 
 void ModelWindow::handleResetLighting() {

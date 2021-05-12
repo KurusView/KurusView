@@ -17,6 +17,7 @@
 #include <vtkNamedColors.h>
 #include <QColor>
 #include <QString>
+#include <vtkMinimalStandardRandomSequence.h>
 
 Model::Model(const std::string &filePath) {
     std::cout << "Creating new model from file" << std::endl;
@@ -223,7 +224,7 @@ void Model::buildVTKModelFromMod() {
     // cells placeholder
     std::vector<vtkSmartPointer<vtkCell3D>> cells3D;
 
-    size_t counter = 0;
+    vtkIdType counter = 0;
     for (auto &cell : cells) {
         // get cell colour
         QColor cellColour_qt;
@@ -256,22 +257,33 @@ void Model::buildVTKModelFromMod() {
     vtkSmartPointer<vtkUnstructuredGrid> uGrid = vtkSmartPointer<vtkUnstructuredGrid>::New();
 
     // Insert each cell into an unstructured grid.
+    counter = 0;
+    vtkNew<vtkUnsignedCharArray> cellData;
+
+    // colors placeholder
+    cellData->SetNumberOfComponents(3);
+    cellData->SetNumberOfTuples(uGrid->GetNumberOfCells());
+
+    vtkNew<vtkMinimalStandardRandomSequence> randomSequence;
+    randomSequence->SetSeed(8775070);
+
     for (auto &cell: cells3D) {
         uGrid->InsertNextCell(cell->GetCellType(), cell->GetPointIds());
 
-        // colors placeholder
-        vtkNew<vtkUnsignedCharArray> cellData;
-        cellData->SetNumberOfComponents(3);
-        cellData->SetNumberOfTuples(uGrid->GetNumberOfCells());
-
         // populate colours
-        float rgb[3];
-        for (int i = 0; i < 3; i++) {
-            cellData->InsertTuple(i, rgb);
-        }
+        double rgb[3];
+        rgb[0] = cellColours[counter].GetRed() * 255.0;
+        randomSequence->Next();
+        rgb[1] = cellColours[counter].GetGreen() * 255.0;
+        randomSequence->Next();
+        rgb[2] = cellColours[counter].GetBlue() * 255.0;
+        randomSequence->Next();
+        cellData->InsertTuple(counter, rgb);
 
-        uGrid->GetCellData()->SetScalars(cellData);
+        counter++;
     }
+
+    uGrid->GetCellData()->SetScalars(cellData);
 
     // Unstructured grid has a global list of vectors (points)
     // which it uses to construct the cells using indices
