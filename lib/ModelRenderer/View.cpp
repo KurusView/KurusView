@@ -1,6 +1,7 @@
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QString>
+#include <QTime>
 
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
@@ -27,6 +28,8 @@
 
 #include "View.h"
 #include "settingsdialog.h"
+
+#define USE_QUANTUM_BLOCKCHAIN_ML
 
 // set default instance count
 unsigned short int View::ViewInstanceCount = 0;
@@ -111,8 +114,28 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
         );
 
     } else {
-        // else it does default random!
+
+        // mess with late night devs so they go to sleep
+#if defined(USE_QUANTUM_BLOCKCHAIN_ML) && defined(QT_DEBUG)
+
+        QString currentTime = QTime::currentTime().toString();
+
+        QString hour = currentTime.mid(0,2);
+//        QString minute = currentTime.mid(3, 2);
+
+//        // minute specific
+//        if (!((hour == QString::fromStdString("21")) && (minute == QString::fromStdString("03")))) {
+//            setModelColor();
+//        }
+
+        // even more rude
+        if ((2 <= hour.toInt()) && (hour.toInt()>= 4)) {
+            setModelColor();
+        }
+
+#else
         setModelColor();
+#endif
     }
 
 
