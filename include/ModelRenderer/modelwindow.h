@@ -89,7 +89,6 @@ private:
     Ui::ModelWindow *ui;
     std::vector<View *> views;
     View *activeView;
-    // TODO Store file path in Model.h instead
     QString currentModelFilePath;
 
     /**

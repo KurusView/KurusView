@@ -253,7 +253,6 @@ void WelcomeWindow::showContextMenu(const QPoint &pos) {
     // configure context menu
     QMenu contextMenu(tr("Context menu"), (QFrame *) sender());
 
-    // add actions TODO open, properties?
     QAction action_del("Remove from Recents", (QFrame *) sender());
     QAction action_opn("Open Model", (QFrame *) sender());
     QAction action_cpy("Copy Path", (QFrame *) sender());

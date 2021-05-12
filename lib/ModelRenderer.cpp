@@ -81,12 +81,6 @@ ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv) 
     // start timer - can be disabled through stop(). Useful if settings forces light/dark mode.
     activeTimer->start();
 
-
-    // TODO Check if a path was given as an argument
-    //  If so, then directly load up a model window with that model
-    //  Otherwise, show the welcome window, which will then load the
-    //  model window based on user selection
-
     connect(&welcomeWindow, &WelcomeWindow::fileSelected, this, &ModelRenderer::openFile);
 
     // If path is not given as argument, load up welcomeWindow
