@@ -145,6 +145,7 @@ ModelWindow::~ModelWindow() {
     delete ui;
 }
 
+// set buttons and delegate model tasks to view class. Render.
 void ModelWindow::handleBackgroundColor() {
     QColor color = QColorDialog::getColor(QColor(activeView->backgroundColour), this);
 
@@ -155,24 +156,29 @@ void ModelWindow::handleBackgroundColor() {
 
     // update button color
     ui->backgroundColourPushButton->setStyleSheet("background-color: " + color.name() + "; border:none;");
-    activeView->backgroundColour = color.name();
 
     // refresh view
     activeView->qVTKWidget->GetRenderWindow()->Render();
 }
 
+// set buttons and delegate model tasks to view class. Render.
 void ModelWindow::handleModelColor() {
     QColor color = QColorDialog::getColor(QColor(activeView->modelColour), this);
 
+    // sanity
     if (!color.isValid())
         return;
+
     activeView->setModelColor(color);
+
     // update button color
     ui->modelColourPushButton->setStyleSheet("background-color: " + color.name() + "; border:none;");
+
     // refresh view
     activeView->qVTKWidget->GetRenderWindow()->Render();
 }
 
+// set buttons and delegate model tasks to view class. Render.
 void ModelWindow::handleModelBackFaceColor() {
 
     // .mod files dont have backface functionality
@@ -193,31 +199,6 @@ void ModelWindow::handleModelBackFaceColor() {
         return;
 
     activeView->setModelBackFaceColor(color);
-
-    // hack around QT bug(?): backface color is not updated if model colour is same as backface. Set the the model
-    // colour to something else and back. Colour is offset by a small amount so the change is invisible.
-    QColor currentModelColour = QColor(activeView->modelColour);
-    QColor offByOne = QColor(activeView->modelColour);
-    offByOne.setRedF(offByOne.redF() + 0.1);
-    activeView->setModelColor(offByOne);
-    activeView->setModelColor(currentModelColour);
-
-    // get actor
-    auto *actor = (vtkActor *) activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
-            0);
-
-
-    // QReal is a double
-    vtkColor3d vtkcolor(color.redF(), color.greenF(), color.blueF());
-
-    // set backface color (from docs: as the side effect of setting the ambient diffuse and specular colors as well.
-    // This is basically a quick overall color setting method).
-    vtkNew<vtkProperty> backFace;
-    //backFaces->SetDiffuseColor(vtkcolor.GetData());
-    backFace->SetDiffuseColor(color.redF(), color.greenF(), color.blueF());
-
-    // apply color to actor
-    actor->SetBackfaceProperty(backFace);
 
     // update button color
     ui->modelBackFaceColourPushButton->setStyleSheet("background-color: " + color.name() + "; border:none;");
@@ -290,19 +271,24 @@ void ModelWindow::handleResetColor() {
         activeView->setModelColor();
     }
 
-
     // refresh view
     activeView->qVTKWidget->GetRenderWindow()->Render();
     setActiveView(activeView);
 }
 
+// set buttons and delegate model tasks to view class. Render.
 void ModelWindow::handleResetLighting() {
     activeView->resetLighting();
+
     ui->lightIntensitySlider->setValue(activeView->lightIntensity);
     ui->lightOpacitySlider->setValue(activeView->modelOpacity);
     ui->lightSpecularitySlider->setValue(activeView->lightSpecularity);
+
+    // refresh
+    activeView->qVTKWidget->GetRenderWindow()->Render();
 }
 
+// set buttons and delegate model tasks to view class. Render.
 void ModelWindow::handleLightIntensitySlider(int position) {
     // Set the light intensity
     activeView->setLightIntensity(position);
@@ -310,6 +296,7 @@ void ModelWindow::handleLightIntensitySlider(int position) {
     activeView->qVTKWidget->GetRenderWindow()->Render();
 }
 
+// set buttons and delegate model tasks to view class. Render.
 void ModelWindow::mux_handleLightActorSlider(int position) {
     // find who raised the signal
     QObject *emitter = sender();
@@ -466,7 +453,7 @@ void ModelWindow::setActiveView(View *newActiveView) {
     getStatistics();
     ui->measurementButton->setChecked(activeView->measurementEnabled);
 
-    std::cout << ui->statisticsGroupBox->width() << std::endl;
+    //std::cout << ui->statisticsGroupBox->width() << std::endl;
 }
 
 void ModelWindow::updateStructure() {
