@@ -57,3 +57,5 @@ target_link_libraries(${PROJECT_NAME}_LIB Qt5::Widgets ${VTK_LIBRARIES})
 #SET(INC_DIRS ${INC_DIRS} PARENT_SCOPE)
 #SET(INC_SOURCES ${INC_SOURCES} PARENT_SCOPE)
 #SET(QRC_Srcs ${QRC_Srcs} PARENT_SCOPE)
+
+message("----------------------------------------------------------")
