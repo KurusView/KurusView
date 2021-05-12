@@ -50,6 +50,7 @@
 #include <vtkTriangleFilter.h>
 #include <vtkMassProperties.h>
 #include <vtkCenterOfMass.h>
+#include <QMessageBox>
 
 #include "settingsdialog.h"
 
@@ -173,6 +174,17 @@ void ModelWindow::handleModelColor() {
 }
 
 void ModelWindow::handleModelBackFaceColor() {
+
+    // .mod files dont have backface functionality
+    if (activeView->model->fileType == "mod") {
+
+        QMessageBox msgBox;
+        msgBox.setText(QString("Custom .mod files do not have a backface"));
+        msgBox.exec();
+
+        return;
+    }
+
     // request color
     QColor color = QColorDialog::getColor(QColor(activeView->modelColour), this);
 
@@ -218,9 +230,26 @@ void ModelWindow::handleModelBackFaceColor() {
 void ModelWindow::handleResetColor() {
 
     //reset buttons
-    ui->modelColourPushButton->setStyleSheet("background-color: silver; border:none;");
-    ui->modelBackFaceColourPushButton->setStyleSheet("background-color: silver; border:none;");
-    ui->backgroundColourPushButton->setStyleSheet("background-color: silver; border:none;");
+
+    ui->backgroundColourPushButton->setStyleSheet(
+            "background-color: " + settingsDialog::getDefault_backgroundColour().name() + "; border:none;"
+    );
+
+
+    // mod files buttons default to gray (no backface and multiple cell colours per model)
+    if (activeView->model->fileType == "mod") {
+        ui->modelColourPushButton->setStyleSheet("background-color: Silver; border:none;");
+
+        ui->modelBackFaceColourPushButton->setStyleSheet("background-color: Silver; border:none;");
+    } else {
+        ui->modelColourPushButton->setStyleSheet(
+                "background-color: " + settingsDialog::getDefault_modelColour().name() + "; border:none;"
+        );
+
+        ui->modelBackFaceColourPushButton->setStyleSheet(
+                "background-color: " + settingsDialog::getDefault_modelBackFaceColour().name() + "; border:none;"
+        );
+    }
 
     // convert QT to vtk colours
     QColor model_qt = settingsDialog::getDefault_modelColour();
@@ -231,25 +260,36 @@ void ModelWindow::handleResetColor() {
     vtkColor3d backFace_vtk(backFace_qt.redF(), backFace_qt.greenF(), backFace_qt.blueF());
     vtkColor3d background_vtk(background_qt.redF(), background_qt.greenF(), background_qt.blueF());
 
+    // reset active view references
+    activeView->modelColour = model_qt.name();
+    activeView->backgroundColour = background_qt.name();
+
+    if (activeView->model->fileType == "stl") {
+        activeView->modelBackFaceColor = backFace_qt.name();
+    }
+
     // reset background
     vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
     activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->SetBackground(
             background_vtk.GetData());
 
     // get actor
-//    auto *actor = (vtkActor *) activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
-//            0);
+    auto *actor = (vtkActor *) activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
+            0);
 
     // reset model
-    if (activeView->model->fileType == "stl")
+    if (activeView->model->fileType == "stl") {
         activeView->setModelColor(settingsDialog::getDefault_modelColour());
-    else
-        activeView->setModelColor();
 
-    // reset model backface
-    vtkNew<vtkProperty> backFace;
-    backFace->SetDiffuseColor(backFace_vtk.GetData());
-//    actor->SetBackfaceProperty(backFace);
+        // reset model backface (.mods dont have backface functionality)
+        vtkNew<vtkProperty> backFace;
+        backFace->SetDiffuseColor(backFace_vtk.GetData());
+        actor->SetBackfaceProperty(backFace);
+
+    } else {
+        activeView->setModelColor();
+    }
+
 
     // refresh view
     activeView->qVTKWidget->GetRenderWindow()->Render();

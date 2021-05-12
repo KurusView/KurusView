@@ -104,14 +104,23 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
     toggleShrinkFilter(viewSettings->value("isShrunk", false).value<bool>());
 
     // Colours
-    if (viewSettings->contains("modelColor") || model->fileType == "stl")
+    if (viewSettings->contains("modelColor") || model->fileType == "stl") {
         setModelColor(viewSettings->value("modelColor", settingsDialog::getDefault_modelColour()).value<QColor>());
-    else
+        setModelBackFaceColor(viewSettings->value("modelBackFaceColor",
+                                                  settingsDialog::getDefault_modelBackFaceColour()).value<QColor>()
+        );
+
+    } else {
         setModelColor();
-    setModelBackFaceColor(viewSettings->value("modelBackFaceColor",
-                                              settingsDialog::getDefault_modelBackFaceColour()).value<QColor>());
+
+        // set backface colour button to silver
+        setModelBackFaceColor(QColor("Silver"));
+    }
+
+
     setBackgroundColor(
-            viewSettings->value("backgroundColor", settingsDialog::getDefault_backgroundColour()).value<QColor>());
+            viewSettings->value("backgroundColor", settingsDialog::getDefault_backgroundColour()).value<QColor>()
+    );
 
     // Structure
     setStructure(viewSettings->value("structure", 0).value<int>());
