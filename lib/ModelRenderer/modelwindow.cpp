@@ -58,7 +58,9 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
                                                                           ui(new Ui::ModelWindow),
                                                                           maxFileNr(
                                                                                   10), // this one should probably be hardcoded to 10 or less
-                                                                          settings(QSettings::IniFormat, QSettings::UserScope, "Kurus", "KurusView") {
+                                                                          settings(QSettings::IniFormat,
+                                                                                   QSettings::UserScope, "Kurus",
+                                                                                   "KurusView") {
     //TODO: Make sure the model is properly initialized before loading the window
     // standard call to setup Qt UI (same as previously)
     ui->setupUi(this);
@@ -246,6 +248,9 @@ void ModelWindow::handleResetColor() {
 
     // refresh view
     activeView->qVTKWidget->GetRenderWindow()->Render();
+
+    // button visibility
+    setActiveView(activeView);
 
     // XXX BUG
     // hack the planet! (update this counter if you have tried fixing the need for this without success: 3)
