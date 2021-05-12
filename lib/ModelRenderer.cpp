@@ -12,7 +12,11 @@
 
 #define USE_FUSION
 
-ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv), welcomeWindow() {
+ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv) {
+    setOrganizationName("Kurus");
+    setApplicationName("KurusView");
+    setOrganizationDomain("KurusView.github.io");
+
     // Get Primary Screen Height
     int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
     // Load in the splash screen image and scale it to 1/3 of the screen height, keeping the same aspect ratio

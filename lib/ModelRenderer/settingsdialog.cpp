@@ -172,7 +172,7 @@ void settingsDialog::handModelBackgroundColour() {
 QString settingsDialog::getDefault_saveLocation() {
 
     // connect to settings
-    QSettings settings(QDir::currentPath() + "/settings.ini", QSettings::IniFormat);
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, "Kurus", "KurusView");
     settings.sync();
 
     // get all time / configured defaults.
@@ -182,7 +182,7 @@ QString settingsDialog::getDefault_saveLocation() {
 unsigned short int settingsDialog::getDefault_maxModelsPerWindow() {
 
     // connect to settings
-    QSettings settings(QDir::currentPath() + "/settings.ini", QSettings::IniFormat);
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, "Kurus", "KurusView");
     settings.sync();
 
     // get all time / configured defaults.
@@ -192,7 +192,7 @@ unsigned short int settingsDialog::getDefault_maxModelsPerWindow() {
 int settingsDialog::getDefault_displayRecents() {
 
     // connect to settings
-    QSettings settings(QDir::currentPath() + "/settings.ini", QSettings::IniFormat);
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, "Kurus", "KurusView");
     settings.sync();
 
     // get all time / configured defaults.
@@ -202,7 +202,7 @@ int settingsDialog::getDefault_displayRecents() {
 bool settingsDialog::getDefault_alwaysOpenModelToNewWindow() {
 
     // connect to settings
-    QSettings settings(QDir::currentPath() + "/settings.ini", QSettings::IniFormat);
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, "Kurus", "KurusView");
     settings.sync();
 
     // get all time / configured defaults.
@@ -212,7 +212,7 @@ bool settingsDialog::getDefault_alwaysOpenModelToNewWindow() {
 QColor settingsDialog::getDefault_modelColour() {
 
     // connect to settings
-    QSettings settings(QDir::currentPath() + "/settings.ini", QSettings::IniFormat);
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, "Kurus", "KurusView");
     settings.sync();
 
     // get all time / configured defaults.
@@ -222,7 +222,7 @@ QColor settingsDialog::getDefault_modelColour() {
 QColor settingsDialog::getDefault_modelBackFaceColour() {
 
     // connect to settings
-    QSettings settings(QDir::currentPath() + "/settings.ini", QSettings::IniFormat);
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, "Kurus", "KurusView");
     settings.sync();
 
     // get all time / configured defaults.
@@ -231,7 +231,7 @@ QColor settingsDialog::getDefault_modelBackFaceColour() {
 
 QColor settingsDialog::getDefault_backgroundColour() {
     // connect to settings
-    QSettings settings(QDir::currentPath() + "/settings.ini", QSettings::IniFormat);
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, "Kurus", "KurusView");
     settings.sync();
 
     // get all time / configured defaults.

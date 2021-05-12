@@ -21,7 +21,7 @@ WelcomeWindow::WelcomeWindow(QWidget *parent) :
         QMainWindow(parent),
         ui(new Ui::WelcomeWindow),
         maxFileNr(settingsDialog::getDefault_displayRecents()),
-        settings(QDir::currentPath() + "/kurusview.ini", QSettings::IniFormat) {
+        settings(QSettings::IniFormat, QSettings::UserScope, "Kurus", "KurusView") {
 
     ui->setupUi(this);
     img = new QImage(":/Icons/kurusview.png");

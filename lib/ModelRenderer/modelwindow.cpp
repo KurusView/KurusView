@@ -58,9 +58,7 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
                                                                           ui(new Ui::ModelWindow),
                                                                           maxFileNr(
                                                                                   10), // this one should probably be hardcoded to 10 or less
-                                                                          settings(QDir::currentPath() +
-                                                                                   "/kurusview.ini",
-                                                                                   QSettings::IniFormat) {
+                                                                          settings(QSettings::IniFormat, QSettings::UserScope, "Kurus", "KurusView") {
     //TODO: Make sure the model is properly initialized before loading the window
     // standard call to setup Qt UI (same as previously)
     ui->setupUi(this);
