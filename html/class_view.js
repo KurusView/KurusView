@@ -3,6 +3,7 @@ var class_view =
     [ "View", "class_view.html#a998a29b177bf9f5cd78f44975da6a384", null ],
     [ "~View", "class_view.html#ad0dc854db9aabbea98a334dec89f785c", null ],
     [ "buildChain", "class_view.html#a2e3b2eaf0dc9c3a1db939a05200f331e", null ],
+    [ "resetColour", "class_view.html#a53673c9e728f9ef0a0607242f5279f4f", null ],
     [ "resetLighting", "class_view.html#a5a39c3a8844953e2a6896e2e04b5a02e", null ],
     [ "save", "class_view.html#aa2cb33a313c314d30b11e3e8484f87fc", null ],
     [ "saveAs", "class_view.html#a9f092e6bd0a005f69bbd02eddae7112c", null ],

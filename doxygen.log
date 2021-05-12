@@ -280,16 +280,16 @@ Ge/home/travis/build/KurusView/2020_GROUP_21/include/Matrix.h:128: warning: Memb
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:37: warning: Member isShrunk (variable) of class View is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:37: warning: Member gridLinesEnabled (variable) of class View is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:37: warning: Member measurementEnabled (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:84: warning: Member density (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:84: warning: Member volume (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:84: warning: Member weight (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:86: warning: Member numOfCells (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:88: warning: Member centreOfGrav (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:91: warning: Member distanceWidget (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:135: warning: Member filePath (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:137: warning: Member viewSettings (variable) of class View is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:140: warning: Found unknown command `\breif'
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:145: warning: Found unknown command `\breif'
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:90: warning: Member density (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:90: warning: Member volume (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:90: warning: Member weight (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:92: warning: Member numOfCells (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:94: warning: Member centreOfGrav (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:97: warning: Member distanceWidget (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:141: warning: Member filePath (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:143: warning: Member viewSettings (variable) of class View is not documented.
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:146: warning: Found unknown command `\breif'
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:151: warning: Found unknown command `\breif'
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:116: warning: Member fileSelected(const QStringList &filePaths) (signal) of class WelcomeWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:25: warning: Member WelcomeWindow(QWidget *parent=nullptr) (function) of class WelcomeWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:119: warning: Member eventFilter(QObject *obj, QEvent *event) override (function) of class WelcomeWindow is not documented.
@@ -337,5 +337,5 @@ Generating file member index...
 Generating example index...
 finalizing index lists...
 writing tag file...
-lookup cache used 348/65536 hits=1897 misses=379
+lookup cache used 348/65536 hits=1899 misses=379
 finished...
