@@ -12,7 +12,7 @@ set(APP_ICON_RESOURCE_WINDOWS Icons/kurusview.rc)
 # Define the executable and it's sources.
 file(GLOB_RECURSE EXE_SOURCES "src/*.cpp")
 # TODO: Add WIN32 to prevent cmd from opening
-add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${EXE_SOURCES} ${INC_SOURCES} ${QRC_Srcs} ${APP_ICON_RESOURCE_WINDOWS})
+add_executable(${PROJECT_NAME} WIN32 MACOSX_BUNDLE ${EXE_SOURCES} ${INC_SOURCES} ${QRC_Srcs} ${APP_ICON_RESOURCE_WINDOWS})
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${INC_DIRS})
 
@@ -44,34 +44,30 @@ foreach (Qt_library ${Qt5Widgets_LIBRARIES} ${Qt5Core_LIBRARIES} ${Qt5Gui_LIBRAR
 
     # Initially assume the both dlls should be installed, but
     # fall back to release if necessary
-    if ( Qt_lib_name_release AND EXISTS ${Qt_lib_name_release} AND Qt_lib_name_debug AND EXISTS ${Qt_lib_name_debug} )
-        set( Qt_library_location ${Qt_lib_name_release} )
-        set( Qt_debug_library_location ${Qt_lib_name_debug} )
-    elseif ( Qt_lib_name_release AND EXISTS ${Qt_lib_name_release} )
-        set( Qt_library_location ${Qt_lib_name_release} )
-    elseif ( Qt_lib_name_debug AND EXISTS ${Qt_lib_name_debug} AND ENVIRONMENT_DEBUG )
+#    if ( Qt_lib_name_release AND EXISTS ${Qt_lib_name_release} AND Qt_lib_name_debug AND EXISTS ${Qt_lib_name_debug} )
+#        set( Qt_library_location ${Qt_lib_name_release} )
+#        set( Qt_debug_library_location ${Qt_lib_name_debug} )
+#    if ( Qt_lib_name_release AND EXISTS ${Qt_lib_name_release} )
+#        set( Qt_library_location ${Qt_lib_name_release} )
+    if ( Qt_lib_name_debug AND EXISTS ${Qt_lib_name_debug} )
         set( Qt_library_location ${Qt_lib_name_debug} )
-    elseif ( Qt_lib_name AND EXISTS ${Qt_lib_name} )
+    elseif ( Qt_lib_name_debug AND EXISTS ${Qt_lib_name_debug} AND ENVIRONMENT_DEBUG )
         set( Qt_library_location ${Qt_lib_name} )
-    endif ( Qt_lib_name_release AND EXISTS ${Qt_lib_name_release} AND Qt_lib_name_debug AND EXISTS ${Qt_lib_name_debug} )
+    endif ( Qt_lib_name_debug AND EXISTS ${Qt_lib_name_debug} AND ENVIRONMENT_DEBUG )
 
     set(QT_BINARY_DIR "C://Qt//5.15.1//msvc2019_64//bin")
 
     # Extract the filename part, without the lib-prefix or the .a or ..lib suffix
     get_filename_component( Qt_library_name ${Qt_library_location} NAME_WE )
     string( REGEX REPLACE "^lib(.*)" "\\1" Qt_library_name ${Qt_library_name} )
-    get_filename_component( Qt_debug_library_name ${Qt_debug_library_location} NAME_WE )
-    string( REGEX REPLACE "^lib(.*)" "\\1" Qt_debug_library_name ${Qt_debug_library_name} )
 
     set( Qt_shared_library ${QT_BINARY_DIR}/${Qt_library_name}.dll )
-    set( Qt_debug_shared_library ${QT_BINARY_DIR}/${Qt_debug_library_name}.dll )
-    if ( EXISTS ${Qt_shared_library} AND EXISTS ${Qt_debug_shared_library})
+    if ( EXISTS ${Qt_shared_library})
         # Add it to the list of 'desired' qt-libraries for later installation
         list( APPEND Qt_Install_Libraries ${Qt_shared_library} )
-        list( APPEND Qt_Install_Libraries ${Qt_debug_shared_library} )
-    else ( EXISTS ${Qt_shared_library} AND EXISTS ${Qt_debug_shared_library})
-        message( WARNING "    could not find ${Qt_shared_library} and ${Qt_debug_shared_library}" )
-    endif ( EXISTS ${Qt_shared_library} AND EXISTS ${Qt_debug_shared_library})
+    else ( EXISTS ${Qt_shared_library} )
+        message( WARNING "    could not find ${Qt_shared_library}" )
+    endif ( EXISTS ${Qt_shared_library} )
 endforeach ()
 
 list( REMOVE_DUPLICATES Qt_Install_Libraries )
