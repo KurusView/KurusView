@@ -111,10 +111,8 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
         );
 
     } else {
+        // else it does default random!
         setModelColor();
-
-        // set backface colour button to silver
-        setModelBackFaceColor(QColor("Silver"));
     }
 
 
@@ -242,8 +240,12 @@ void View::setModelColor(const QColor &color) {
         if (color.isValid()) {
             modelColour = color.name();
         } else {
-            modelColour = "Silver";
+            modelColour = nullptr;
         }
+
+        qVTKWidget->GetRenderWindow()->Render();
+
+
     } else {
         vtkActorCollection *actors = qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
         auto *actor = (vtkActor *) actors->GetItemAsObject(0);

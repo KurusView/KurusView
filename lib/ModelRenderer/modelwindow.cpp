@@ -171,11 +171,18 @@ void ModelWindow::handleModelColor() {
 
     activeView->setModelColor(color);
 
+    QString button_color = (activeView->modelColour == nullptr) ? QString("Silver") : color.name();
+
     // update button color
-    ui->modelColourPushButton->setStyleSheet("background-color: " + color.name() + "; border:none;");
+    ui->modelColourPushButton->setStyleSheet("background-color: " + button_color + "; border:none;");
 
     // refresh view
     activeView->qVTKWidget->GetRenderWindow()->Render();
+
+
+    // hack the planet! (update this counter if you have tried fixing this without success: 2)
+    ui->shrinkPushButton->click();
+    ui->shrinkPushButton->click();
 }
 
 // set buttons and delegate model tasks to view class. Render.
@@ -219,9 +226,9 @@ void ModelWindow::handleResetColor() {
 
     // mod files buttons default to gray (no backface and multiple cell colours per model)
     if (activeView->model->fileType == "mod") {
-        ui->modelColourPushButton->setStyleSheet("background-color: Silver; border:none;");
+        ui->modelColourPushButton->setStyleSheet("border:none;");
 
-        ui->modelBackFaceColourPushButton->setStyleSheet("background-color: Silver; border:none;");
+        ui->modelBackFaceColourPushButton->setStyleSheet("border:none;");
     } else {
         ui->modelColourPushButton->setStyleSheet(
                 "background-color: " + settingsDialog::getDefault_modelColour().name() + "; border:none;"
@@ -260,14 +267,16 @@ void ModelWindow::handleResetColor() {
 
     // reset model
     if (activeView->model->fileType == "stl") {
+        // reset model colour
         activeView->setModelColor(settingsDialog::getDefault_modelColour());
 
-        // reset model backface (.mods dont have backface functionality)
+        // reset model backface
         vtkNew<vtkProperty> backFace;
         backFace->SetDiffuseColor(backFace_vtk.GetData());
         actor->SetBackfaceProperty(backFace);
 
     } else {
+        // reset model colour only (.mods dont have backface functionality)
         activeView->setModelColor();
     }
 
@@ -486,7 +495,7 @@ void ModelWindow::addViewToFrame(View *view) {
     // active view count
     unsigned short int avc = View::getCount();
     size_t index = views.size();
-    std::cout << "Total Views: " << avc << ", Views in Current Window: " << index + 1  << std::endl;
+    std::cout << "Total Views: " << avc << ", Views in Current Window: " << index + 1 << std::endl;
 
     // max 4 views allowed PER WINDOW
     if (views.size() > 4) {

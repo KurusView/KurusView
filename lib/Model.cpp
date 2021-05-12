@@ -272,11 +272,11 @@ void Model::buildVTKModelFromMod() {
 
         // populate colours
         double rgb[3];
-        rgb[0] = cellColours[counter].GetRed() * 255.0;
+        rgb[0] = randomSequence->GetRangeValue(64, 255);
         randomSequence->Next();
-        rgb[1] = cellColours[counter].GetGreen() * 255.0;
+        rgb[1] = randomSequence->GetRangeValue(64, 255);
         randomSequence->Next();
-        rgb[2] = cellColours[counter].GetBlue() * 255.0;
+        rgb[2] = randomSequence->GetRangeValue(64, 255);// cellColours[counter].GetBlue() * 255.0;
         randomSequence->Next();
         cellData->InsertTuple(counter, rgb);
 
