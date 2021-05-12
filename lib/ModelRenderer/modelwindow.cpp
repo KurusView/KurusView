@@ -182,9 +182,12 @@ void ModelWindow::handleModelColor() {
     activeView->qVTKWidget->GetRenderWindow()->Render();
 
 
-    // hack the planet! (update this counter if you have tried fixing this without success: 2)
-    ui->shrinkPushButton->click();
-    ui->shrinkPushButton->click();
+    // XXX BUG
+    // hack the planet! (update this counter if you have tried fixing the need for this without success: 3)
+    if (activeView->model->fileType == "mod") {
+        ui->shrinkPushButton->click();
+        ui->shrinkPushButton->click();
+    }
 }
 
 // set buttons and delegate model tasks to view class. Render.
@@ -217,6 +220,7 @@ void ModelWindow::handleModelBackFaceColor() {
 
 }
 
+// set buttons and delegate model tasks to view class. Render.
 void ModelWindow::handleResetColor() {
 
     //reset buttons
@@ -229,7 +233,6 @@ void ModelWindow::handleResetColor() {
     // mod files buttons default to gray (no backface and multiple cell colours per model)
     if (activeView->model->fileType == "mod") {
         ui->modelColourPushButton->setStyleSheet("border:none;");
-
         ui->modelBackFaceColourPushButton->setStyleSheet("border:none;");
     } else {
         ui->modelColourPushButton->setStyleSheet(
@@ -241,50 +244,17 @@ void ModelWindow::handleResetColor() {
         );
     }
 
-    // convert QT to vtk colours
-    QColor model_qt = settingsDialog::getDefault_modelColour();
-    QColor backFace_qt = settingsDialog::getDefault_modelBackFaceColour();
-    QColor background_qt = settingsDialog::getDefault_backgroundColour();
-
-    vtkColor3d model_vtk(model_qt.redF(), model_qt.greenF(), model_qt.blueF());
-    vtkColor3d backFace_vtk(backFace_qt.redF(), backFace_qt.greenF(), backFace_qt.blueF());
-    vtkColor3d background_vtk(background_qt.redF(), background_qt.greenF(), background_qt.blueF());
-
-    // reset active view references
-    activeView->modelColour = model_qt.name();
-    activeView->backgroundColour = background_qt.name();
-
-    if (activeView->model->fileType == "stl") {
-        activeView->modelBackFaceColor = backFace_qt.name();
-    }
-
-    // reset background
-    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
-    activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->SetBackground(
-            background_vtk.GetData());
-
-    // get actor
-    auto *actor = (vtkActor *) activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
-            0);
-
-    // reset model
-    if (activeView->model->fileType == "stl") {
-        // reset model colour
-        activeView->setModelColor(settingsDialog::getDefault_modelColour());
-
-        // reset model backface
-        vtkNew<vtkProperty> backFace;
-        backFace->SetDiffuseColor(backFace_vtk.GetData());
-        actor->SetBackfaceProperty(backFace);
-
-    } else {
-        // reset model colour only (.mods dont have backface functionality)
-        activeView->setModelColor();
-    }
+    activeView->resetColour();
 
     // refresh view
     activeView->qVTKWidget->GetRenderWindow()->Render();
-    setActiveView(activeView);
+
+    // XXX BUG
+    // hack the planet! (update this counter if you have tried fixing the need for this without success: 3)
+    if (activeView->model->fileType == "mod") {
+        ui->shrinkPushButton->click();
+        ui->shrinkPushButton->click();
+    }
 }
 
 // set buttons and delegate model tasks to view class. Render.

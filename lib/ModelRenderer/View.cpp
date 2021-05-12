@@ -401,6 +401,49 @@ void View::resetLighting() {
     setLightSpecularity(0);
 }
 
+void View::resetColour() {
+    // convert QT to vtk colours
+    QColor model_qt = settingsDialog::getDefault_modelColour();
+    QColor backFace_qt = settingsDialog::getDefault_modelBackFaceColour();
+    QColor background_qt = settingsDialog::getDefault_backgroundColour();
+
+    vtkColor3d model_vtk(model_qt.redF(), model_qt.greenF(), model_qt.blueF());
+    vtkColor3d backFace_vtk(backFace_qt.redF(), backFace_qt.greenF(), backFace_qt.blueF());
+    vtkColor3d background_vtk(background_qt.redF(), background_qt.greenF(), background_qt.blueF());
+
+    // reset active view references
+    modelColour = model_qt.name();
+    backgroundColour = background_qt.name();
+
+    if (model->fileType == "stl") {
+        modelBackFaceColor = backFace_qt.name();
+    }
+
+    // reset background
+    vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
+    qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->SetBackground(
+            background_vtk.GetData());
+
+    // get actor
+    auto *actor = (vtkActor *) qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
+            0);
+
+    // reset model
+    if (model->fileType == "stl") {
+        // reset model colour
+        setModelColor(settingsDialog::getDefault_modelColour());
+
+        // reset model backface
+        vtkNew<vtkProperty> backFace;
+        backFace->SetDiffuseColor(backFace_vtk.GetData());
+        actor->SetBackfaceProperty(backFace);
+
+    } else {
+        // reset model colour only (.mods dont have backface functionality)
+        setModelColor();
+    }
+}
+
 void View::toggleGridLines(bool enable) {
     auto *cubeAxesActor = (vtkCubeAxesActor *) (qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor());
 

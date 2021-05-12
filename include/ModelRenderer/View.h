@@ -81,6 +81,12 @@ public:
 
     void setBackgroundColor(const QColor &color);
 
+    /**
+     * @brief resetColour - Resets all colours of the model according to defaults.
+     */
+    void resetColour();
+
+
     double density, volume, weight;
 
     unsigned long numOfCells;
