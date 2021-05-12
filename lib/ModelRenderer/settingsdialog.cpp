@@ -80,7 +80,7 @@ void settingsDialog::rejectDialog() {
 void settingsDialog::acceptDialog() {
 
     // instantiate settings
-    QSettings appSettings(QDir::currentPath() + "/settings.ini", QSettings::IniFormat);
+    QSettings appSettings(QSettings::IniFormat, QSettings::UserScope, "Kurus", "KurusView");
 
     // actually save to qsettings
     appSettings.setValue("defaultSaveLocation", defaultSaveLocation);
