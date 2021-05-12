@@ -152,10 +152,10 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <tr class="memitem:a684fce1b8bf9d129bd03d6375a2a7c7f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_m_vector.html">MVector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a684fce1b8bf9d129bd03d6375a2a7c7f">calcCentre</a> ()</td></tr>
 <tr class="memdesc:a684fce1b8bf9d129bd03d6375a2a7c7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">calcCentre - Calculates the centre of the model  <a href="#a684fce1b8bf9d129bd03d6375a2a7c7f">More...</a><br /></td></tr>
 <tr class="separator:a684fce1b8bf9d129bd03d6375a2a7c7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae60d4ec4d96b666015d645c76cb81abc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae60d4ec4d96b666015d645c76cb81abc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#ae60d4ec4d96b666015d645c76cb81abc">buildVTKModel</a> ()</td></tr>
-<tr class="memdesc:ae60d4ec4d96b666015d645c76cb81abc"><td class="mdescLeft">&#160;</td><td class="mdescRight">buildVTKModel - Builds model from cells and vectors loaded from a proprietary model file <br /></td></tr>
-<tr class="separator:ae60d4ec4d96b666015d645c76cb81abc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b9092c99f7e18b5fb8193825887f244"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8b9092c99f7e18b5fb8193825887f244"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a8b9092c99f7e18b5fb8193825887f244">buildVTKModelFromMod</a> ()</td></tr>
+<tr class="memdesc:a8b9092c99f7e18b5fb8193825887f244"><td class="mdescLeft">&#160;</td><td class="mdescRight">buildVTKModelFromMod - Builds model from cells and vectors loaded from a proprietary model file <br /></td></tr>
+<tr class="separator:a8b9092c99f7e18b5fb8193825887f244"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab63cf37f9d2b24e07c01f3bf0e8653f6"><td class="memItemLeft" align="right" valign="top">vtkSmartPointer&lt; vtkAlgorithm &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#ab63cf37f9d2b24e07c01f3bf0e8653f6">getVTKModel</a> ()</td></tr>
 <tr class="memdesc:ab63cf37f9d2b24e07c01f3bf0e8653f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">getVTKModel - Gets the private built vtk model  <a href="#ab63cf37f9d2b24e07c01f3bf0e8653f6">More...</a><br /></td></tr>
 <tr class="separator:ab63cf37f9d2b24e07c01f3bf0e8653f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -168,6 +168,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:ab1928e138c778f47c5582592aec0b421"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#ab1928e138c778f47c5582592aec0b421">calcWeight</a> ()</td></tr>
 <tr class="memdesc:ab1928e138c778f47c5582592aec0b421"><td class="mdescLeft">&#160;</td><td class="mdescRight">calcWeight - Calculates the weight of the model  <a href="#ab1928e138c778f47c5582592aec0b421">More...</a><br /></td></tr>
 <tr class="separator:ab1928e138c778f47c5582592aec0b421"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cc1a92d579e2ee59ab262a7065adc0d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5cc1a92d579e2ee59ab262a7065adc0d"></a>
+std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getMaterials</b> ()</td></tr>
+<tr class="separator:a5cc1a92d579e2ee59ab262a7065adc0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4500879f39107176f4cd14d2681c1d4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab4500879f39107176f4cd14d2681c1d4"></a>
+std::vector&lt; <a class="el" href="class_m_vector.html">MVector</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getVectors</b> ()</td></tr>
+<tr class="separator:ab4500879f39107176f4cd14d2681c1d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a892158cef8e3cf9239d28ad4e7622285"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a892158cef8e3cf9239d28ad4e7622285"></a>
+std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_m_cell.html">MCell</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getCells</b> ()</td></tr>
+<tr class="separator:a892158cef8e3cf9239d28ad4e7622285"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37084ef232d248c6874762102ae30337"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a37084ef232d248c6874762102ae30337"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>getVectorCount</b> ()</td></tr>
+<tr class="separator:a37084ef232d248c6874762102ae30337"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ba5f3af4558832670ee1cb3c7bb4d68"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1ba5f3af4558832670ee1cb3c7bb4d68"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>getMaterialCount</b> ()</td></tr>
+<tr class="separator:a1ba5f3af4558832670ee1cb3c7bb4d68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -180,6 +195,10 @@ QString&#160;</td><td class="memItemRight" valign="bottom"><b>filePath</b></td><
 <tr class="memitem:afd0a65b6917deee4c3d32731bfc61915"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afd0a65b6917deee4c3d32731bfc61915"></a>
 vtkSmartPointer&lt; vtkSTLReader &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>STLModel</b></td></tr>
 <tr class="separator:afd0a65b6917deee4c3d32731bfc61915"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb51957969a5de20c88fd5c958960114"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abb51957969a5de20c88fd5c958960114"></a>
+std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_m_cell.html">MCell</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#abb51957969a5de20c88fd5c958960114">cells</a></td></tr>
+<tr class="memdesc:abb51957969a5de20c88fd5c958960114"><td class="mdescLeft">&#160;</td><td class="mdescRight">cells - List of all the cells in the model <br /></td></tr>
+<tr class="separator:abb51957969a5de20c88fd5c958960114"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="class_model.html" title="Model - This object is responsible for reading and writing model entities to VTK style data files...">Model</a> - This object is responsible for reading and writing model entities to VTK style data files. </p>

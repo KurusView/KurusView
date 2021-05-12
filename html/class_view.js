@@ -10,7 +10,7 @@ var class_view =
     [ "setLightIntensity", "class_view.html#a67a666ec6b492f18afa9fdf95554e70d", null ],
     [ "setLightSpecularity", "class_view.html#a0694f26a3b89e987bd94221fe4185059", null ],
     [ "setModelBackFaceColor", "class_view.html#a988205be75453fdf364dc062985e814a", null ],
-    [ "setModelColor", "class_view.html#a17d8f1cc5e0778af4a82188964be50f3", null ],
+    [ "setModelColor", "class_view.html#ac1e0cd474e85979e0164d44139c93c53", null ],
     [ "setModelOpacity", "class_view.html#abf078a38e9433a48005241f559c668f3", null ],
     [ "setStructure", "class_view.html#aa4c521340838ec7bb113ec4ce7730037", null ],
     [ "toggleClipFilter", "class_view.html#aca7799811bfd5ba370c0aad18713df02", null ],

@@ -12,7 +12,7 @@ var searchData=
   ['setmat',['setMat',['../class_matrix.html#a84c42bbd7e4a235800010c7e0b2d38ce',1,'Matrix']]],
   ['setmaterial',['setMaterial',['../class_m_cell.html#ac6926e5a5bf27f677dc38c15bbbc84da',1,'MCell']]],
   ['setmodelbackfacecolor',['setModelBackFaceColor',['../class_view.html#a988205be75453fdf364dc062985e814a',1,'View']]],
-  ['setmodelcolor',['setModelColor',['../class_view.html#a17d8f1cc5e0778af4a82188964be50f3',1,'View']]],
+  ['setmodelcolor',['setModelColor',['../class_view.html#ac1e0cd474e85979e0164d44139c93c53',1,'View']]],
   ['setmodelopacity',['setModelOpacity',['../class_view.html#abf078a38e9433a48005241f559c668f3',1,'View']]],
   ['setname',['setName',['../class_material.html#ad145d32cfce9e76b56a6fc3dfbf046d1',1,'Material']]],
   ['setstructure',['setStructure',['../class_view.html#aa4c521340838ec7bb113ec4ce7730037',1,'View']]],
