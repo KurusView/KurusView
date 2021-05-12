@@ -8,25 +8,31 @@ foreach (p CMP0071) # 3.10: Let AUTOMOC and AUTOUIC process GENERATED files
     endif ()
 endforeach ()
 
-# Name of the project
-project(KurusView)
-
 # https://stackoverflow.com/a/10055571
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     message([STATUS] " Using GCC " ...)
     add_compile_options("-Wall" "-Wextra" "-pedantic")
 endif ()
 
+# Name of the project
+project(KurusView
+        VERSION 0.1.0.0
+        DESCRIPTION "3D Visualisation Tool"
+        HOMEPAGE_URL "https://KurusView.github.io")
+
 # The CMake build process might generate some new files in the current
 # directory. This makes sure they can be found.
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 include(lib/KurusViewLib.cmake)
-add_subdirectory(src)
+include(src/KurusView.cmake)
 
-option(PACKAGE_TESTS "Build the tests" ON)
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
+#qt_finalize_executable(${PROJECT_NAME})
 
-if(PACKAGE_TESTS)
+option(PACKAGE_TESTS "Build the tests" OFF)
+
+if(NOT DISABLE_TESTS)
     enable_testing()
     include(GoogleTest)
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
