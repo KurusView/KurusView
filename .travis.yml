@@ -1,7 +1,7 @@
 sudo: false
 branches:
   only:
-    - vtk_integration
+    - master
 # Build your code
 # Modify these variables that will be used in generateDocumentationAndDeploy.sh
 # (see below). They tell Doxygen where to find the source on and where to send
