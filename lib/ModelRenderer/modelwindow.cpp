@@ -71,6 +71,8 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
     int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
     int screenWidth = QGuiApplication::primaryScreen()->geometry().width();
 
+    setMinimumHeight(screenHeight / 2);
+
     ui->bottomMenu->setMaximumHeight(screenHeight / 6);
     ui->statisticsGroupBox->setMinimumWidth(screenWidth / 6);
 
