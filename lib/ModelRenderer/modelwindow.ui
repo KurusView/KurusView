@@ -397,7 +397,7 @@
                 <item row="0" column="3">
                  <widget class="QPushButton" name="backgroundColourPushButton">
                   <property name="styleSheet">
-                   <string notr="true">background-color:  silver; border:none;</string>
+                   <string notr="true">border:none;</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -411,7 +411,7 @@
                 <item row="0" column="3">
                  <widget class="QPushButton" name="modelColourPushButton">
                   <property name="styleSheet">
-                   <string notr="true">background-color:  silver; border:none;</string>
+                   <string notr="true">border:none;</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -439,7 +439,7 @@
                 <item row="1" column="3">
                  <widget class="QPushButton" name="modelBackFaceColourPushButton">
                   <property name="styleSheet">
-                   <string notr="true">background-color:  silver; border:none;</string>
+                   <string notr="true">border:none;</string>
                   </property>
                   <property name="text">
                    <string/>

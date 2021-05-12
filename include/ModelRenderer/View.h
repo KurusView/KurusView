@@ -66,7 +66,7 @@ public:
      * @brief setModelColor - Sets the colour of the model
      * @param color - The colour the model is set to
      */
-    void setModelColor(const QColor &color);
+    void setModelColor(const QColor &color = nullptr);
 
     /**
      * @brief setModelBackFaceColor - Sets the colour of the face of the model that is but by the clip filter

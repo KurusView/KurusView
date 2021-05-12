@@ -18,8 +18,6 @@ class Model {
 private:
     /** @brief vectors - List of all the vectors in the model */
     std::vector<MVector> vectors;
-    /** @brief cells - List of all the cells in the model */
-    std::vector<std::shared_ptr<MCell>> cells;
     /** @brief materials - List of all the materials in the model */
     std::vector<std::shared_ptr<Material>> materials;
     /** @brief vtkModel - Unstructured grid containing all the cells of the model */
@@ -73,9 +71,9 @@ public:
     MVector calcCentre();
 
     /**
-     * @brief buildVTKModel - Builds model from cells and vectors loaded from a proprietary model file
+     * @brief buildVTKModelFromMod - Builds model from cells and vectors loaded from a proprietary model file
      */
-    void buildVTKModel();
+    void buildVTKModelFromMod();
 
     /**
      * @brief getVTKModel - Gets the private built vtk model
@@ -88,6 +86,7 @@ public:
      * @param filePath - The path of the file that is selected
      */
     void loadSTLModel(const std::string &filePath);
+
     /**
      * @brief calcVolume - Calculates the volume of the model
      * @return totalVolume - The total volume of the model
@@ -105,6 +104,19 @@ public:
     QString filePath;
 
     vtkSmartPointer<vtkSTLReader> STLModel;
+
+    /** @brief cells - List of all the cells in the model */
+    std::vector<std::shared_ptr<MCell>> cells;
+
+    std::vector<std::shared_ptr<Material>> getMaterials();
+
+    std::vector<MVector> getVectors();
+
+    std::vector<std::shared_ptr<MCell>> getCells();
+
+    size_t getVectorCount();
+
+    size_t getMaterialCount();
 };
 
 

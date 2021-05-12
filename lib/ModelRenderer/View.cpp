@@ -21,6 +21,9 @@
 #include <vtkDistanceRepresentation3D.h>
 #include <QFileDialog>
 #include <vtkTextProperty.h>
+#include <vtkUnstructuredGridReader.h>
+#include <vtkUnstructuredGrid.h>
+#include <vtkCellData.h>
 
 #include "View.h"
 #include "settingsdialog.h"
@@ -101,11 +104,21 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
     toggleShrinkFilter(viewSettings->value("isShrunk", false).value<bool>());
 
     // Colours
-    setModelColor(viewSettings->value("modelColor", settingsDialog::getDefault_modelColour()).value<QColor>());
-    setModelBackFaceColor(viewSettings->value("modelBackFaceColor",
-                                              settingsDialog::getDefault_modelBackFaceColour()).value<QColor>());
+    if (viewSettings->contains("modelColor") || model->fileType == "stl") {
+        setModelColor(viewSettings->value("modelColor", settingsDialog::getDefault_modelColour()).value<QColor>());
+        setModelBackFaceColor(viewSettings->value("modelBackFaceColor",
+                                                  settingsDialog::getDefault_modelBackFaceColour()).value<QColor>()
+        );
+
+    } else {
+        // else it does default random!
+        setModelColor();
+    }
+
+
     setBackgroundColor(
-            viewSettings->value("backgroundColor", settingsDialog::getDefault_backgroundColour()).value<QColor>());
+            viewSettings->value("backgroundColor", settingsDialog::getDefault_backgroundColour()).value<QColor>()
+    );
 
     // Structure
     setStructure(viewSettings->value("structure", 0).value<int>());
@@ -191,19 +204,55 @@ unsigned short int View::getCount() {
 }
 
 void View::setModelColor(const QColor &color) {
-    if (!color.isValid())
-        return;
-
-    // Get Actor
-    vtkActorCollection *actors = qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
-    auto *actor = (vtkActor *) actors->GetItemAsObject(0);
-
     // update settings
     viewSettings->setValue("modelColor", color);
-    actor->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+    if (model->fileType == "mod") {
+        vtkUnstructuredGridReader *uGridReader = (vtkUnstructuredGridReader *) model->getVTKModel().Get();
+        vtkUnstructuredGrid *uGrid = uGridReader->GetOutput();
 
-    // Store the color locally
-    modelColour = color.name();
+        vtkNew<vtkUnsignedCharArray> cellData;
+
+        // colors placeholder
+        cellData->SetNumberOfComponents(3);
+        cellData->SetNumberOfTuples(uGrid->GetNumberOfCells());
+
+        for (int i = 0; i < model->getCellCount(); i++) {
+            // populate colours
+            double rgb[3];
+            if (!color.isValid()) {
+                std::string cellColour_raw = "#" + model->getCells()[i]->getMaterial()->getColour();
+                QColor cellColour_qt = QColor(QString::fromStdString(cellColour_raw));
+                rgb[0] = cellColour_qt.red();
+                rgb[1] = cellColour_qt.green();
+                rgb[2] = cellColour_qt.blue();
+            } else {
+                rgb[0] = color.red();
+                rgb[1] = color.green();
+                rgb[2] = color.blue();
+            }
+            std::cout << rgb[0] << "\t" << rgb[1] << "\t" << rgb[2] << "\t" << endl;
+            cellData->SetTuple(i, rgb);
+        }
+        uGrid->GetCellData()->SetScalars(cellData);
+
+        //QColor cellColour_qt = QColor(QString::fromStdString(modelColour));
+
+        if (color.isValid()) {
+            modelColour = color.name();
+        } else {
+            modelColour = nullptr;
+        }
+
+        qVTKWidget->GetRenderWindow()->Render();
+
+
+    } else {
+        vtkActorCollection *actors = qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
+        auto *actor = (vtkActor *) actors->GetItemAsObject(0);
+        actor->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+
+        modelColour = color.name();
+    }
 }
 
 
@@ -216,11 +265,16 @@ void View::setModelBackFaceColor(const QColor &color) {
 
     // hack around QT bug(?): backface color is not updated if model colour is same as backface. Set the the model
     // colour to something else and back. Colour is offset by a small amount so the change is invisible.
-    QColor currentModelColour = QColor(modelColour);
-    QColor offByOne = QColor(modelColour);
-    offByOne.setRedF(offByOne.redF() + 0.1);
-    setModelColor(offByOne);
-    setModelColor(currentModelColour);
+//    QColor currentModelColour = QColor(modelColour);
+//    QColor offByOne = QColor(modelColour);
+//    offByOne.setRedF(offByOne.redF() + 0.1);
+//    setModelColor(offByOne);
+//    setModelColor(currentModelColour);
+    bool toggle = isClipped;
+    if (isClipped || isShrunk) {
+        toggleClipFilter(!toggle);
+        toggleClipFilter(toggle);
+    }
 
     // get actor
     auto *actor = (vtkActor *) qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(

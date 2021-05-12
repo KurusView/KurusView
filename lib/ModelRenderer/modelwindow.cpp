@@ -50,6 +50,7 @@
 #include <vtkTriangleFilter.h>
 #include <vtkMassProperties.h>
 #include <vtkCenterOfMass.h>
+#include <QMessageBox>
 
 #include "settingsdialog.h"
 
@@ -69,6 +70,8 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
     // Get Primary Screen Height
     int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
     int screenWidth = QGuiApplication::primaryScreen()->geometry().width();
+
+    setMinimumHeight(screenHeight / 2);
 
     ui->bottomMenu->setMaximumHeight(screenHeight / 6);
     ui->statisticsGroupBox->setMinimumWidth(screenWidth / 6);
@@ -144,6 +147,7 @@ ModelWindow::~ModelWindow() {
     delete ui;
 }
 
+// set buttons and delegate model tasks to view class. Render.
 void ModelWindow::handleBackgroundColor() {
     QColor color = QColorDialog::getColor(QColor(activeView->backgroundColour), this);
 
@@ -154,25 +158,48 @@ void ModelWindow::handleBackgroundColor() {
 
     // update button color
     ui->backgroundColourPushButton->setStyleSheet("background-color: " + color.name() + "; border:none;");
-    activeView->backgroundColour = color.name();
 
     // refresh view
     activeView->qVTKWidget->GetRenderWindow()->Render();
 }
 
+// set buttons and delegate model tasks to view class. Render.
 void ModelWindow::handleModelColor() {
     QColor color = QColorDialog::getColor(QColor(activeView->modelColour), this);
 
+    // sanity
     if (!color.isValid())
         return;
+
     activeView->setModelColor(color);
+
+    QString button_color = (activeView->modelColour == nullptr) ? QString("Silver") : color.name();
+
     // update button color
-    ui->modelColourPushButton->setStyleSheet("background-color: " + color.name() + "; border:none;");
+    ui->modelColourPushButton->setStyleSheet("background-color: " + button_color + "; border:none;");
+
     // refresh view
     activeView->qVTKWidget->GetRenderWindow()->Render();
+
+
+    // hack the planet! (update this counter if you have tried fixing this without success: 2)
+    ui->shrinkPushButton->click();
+    ui->shrinkPushButton->click();
 }
 
+// set buttons and delegate model tasks to view class. Render.
 void ModelWindow::handleModelBackFaceColor() {
+
+    // .mod files dont have backface functionality
+    if (activeView->model->fileType == "mod") {
+
+        QMessageBox msgBox;
+        msgBox.setText(QString("Custom .mod files do not have a backface"));
+        msgBox.exec();
+
+        return;
+    }
+
     // request color
     QColor color = QColorDialog::getColor(QColor(activeView->modelColour), this);
 
@@ -181,31 +208,6 @@ void ModelWindow::handleModelBackFaceColor() {
         return;
 
     activeView->setModelBackFaceColor(color);
-
-    // hack around QT bug(?): backface color is not updated if model colour is same as backface. Set the the model
-    // colour to something else and back. Colour is offset by a small amount so the change is invisible.
-    QColor currentModelColour = QColor(activeView->modelColour);
-    QColor offByOne = QColor(activeView->modelColour);
-    offByOne.setRedF(offByOne.redF() + 0.1);
-    activeView->setModelColor(offByOne);
-    activeView->setModelColor(currentModelColour);
-
-    // get actor
-    auto *actor = (vtkActor *) activeView->qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetItemAsObject(
-            0);
-
-
-    // QReal is a double
-    vtkColor3d vtkcolor(color.redF(), color.greenF(), color.blueF());
-
-    // set backface color (from docs: as the side effect of setting the ambient diffuse and specular colors as well.
-    // This is basically a quick overall color setting method).
-    vtkNew<vtkProperty> backFace;
-    //backFaces->SetDiffuseColor(vtkcolor.GetData());
-    backFace->SetDiffuseColor(color.redF(), color.greenF(), color.blueF());
-
-    // apply color to actor
-    actor->SetBackfaceProperty(backFace);
 
     // update button color
     ui->modelBackFaceColourPushButton->setStyleSheet("background-color: " + color.name() + "; border:none;");
@@ -218,15 +220,26 @@ void ModelWindow::handleModelBackFaceColor() {
 void ModelWindow::handleResetColor() {
 
     //reset buttons
-    ui->modelColourPushButton->setStyleSheet(
-            "background-color: " + settingsDialog::getDefault_modelColour().name() + "; border:none;"
-    );
-    ui->modelBackFaceColourPushButton->setStyleSheet(
-            "background-color: " + settingsDialog::getDefault_modelBackFaceColour().name() + "; border:none;"
-    );
+
     ui->backgroundColourPushButton->setStyleSheet(
             "background-color: " + settingsDialog::getDefault_backgroundColour().name() + "; border:none;"
     );
+
+
+    // mod files buttons default to gray (no backface and multiple cell colours per model)
+    if (activeView->model->fileType == "mod") {
+        ui->modelColourPushButton->setStyleSheet("border:none;");
+
+        ui->modelBackFaceColourPushButton->setStyleSheet("border:none;");
+    } else {
+        ui->modelColourPushButton->setStyleSheet(
+                "background-color: " + settingsDialog::getDefault_modelColour().name() + "; border:none;"
+        );
+
+        ui->modelBackFaceColourPushButton->setStyleSheet(
+                "background-color: " + settingsDialog::getDefault_modelBackFaceColour().name() + "; border:none;"
+        );
+    }
 
     // convert QT to vtk colours
     QColor model_qt = settingsDialog::getDefault_modelColour();
@@ -239,8 +252,11 @@ void ModelWindow::handleResetColor() {
 
     // reset active view references
     activeView->modelColour = model_qt.name();
-    activeView->modelBackFaceColor = backFace_qt.name();
     activeView->backgroundColour = background_qt.name();
+
+    if (activeView->model->fileType == "stl") {
+        activeView->modelBackFaceColor = backFace_qt.name();
+    }
 
     // reset background
     vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
@@ -252,24 +268,38 @@ void ModelWindow::handleResetColor() {
             0);
 
     // reset model
-    actor->GetProperty()->SetColor(model_vtk.GetData());
+    if (activeView->model->fileType == "stl") {
+        // reset model colour
+        activeView->setModelColor(settingsDialog::getDefault_modelColour());
 
-    // reset model backface
-    vtkNew<vtkProperty> backFace;
-    backFace->SetDiffuseColor(backFace_vtk.GetData());
-    actor->SetBackfaceProperty(backFace);
+        // reset model backface
+        vtkNew<vtkProperty> backFace;
+        backFace->SetDiffuseColor(backFace_vtk.GetData());
+        actor->SetBackfaceProperty(backFace);
+
+    } else {
+        // reset model colour only (.mods dont have backface functionality)
+        activeView->setModelColor();
+    }
 
     // refresh view
     activeView->qVTKWidget->GetRenderWindow()->Render();
+    setActiveView(activeView);
 }
 
+// set buttons and delegate model tasks to view class. Render.
 void ModelWindow::handleResetLighting() {
     activeView->resetLighting();
+
     ui->lightIntensitySlider->setValue(activeView->lightIntensity);
     ui->lightOpacitySlider->setValue(activeView->modelOpacity);
     ui->lightSpecularitySlider->setValue(activeView->lightSpecularity);
+
+    // refresh
+    activeView->qVTKWidget->GetRenderWindow()->Render();
 }
 
+// set buttons and delegate model tasks to view class. Render.
 void ModelWindow::handleLightIntensitySlider(int position) {
     // Set the light intensity
     activeView->setLightIntensity(position);
@@ -277,6 +307,7 @@ void ModelWindow::handleLightIntensitySlider(int position) {
     activeView->qVTKWidget->GetRenderWindow()->Render();
 }
 
+// set buttons and delegate model tasks to view class. Render.
 void ModelWindow::mux_handleLightActorSlider(int position) {
     // find who raised the signal
     QObject *emitter = sender();
@@ -386,7 +417,15 @@ void ModelWindow::viewActive(QMouseEvent *event) {
 }
 
 void ModelWindow::setActiveView(View *newActiveView) {
+    // Disconnect save button from old active view
+    disconnect(ui->actionSaveView, &QAction::triggered, activeView, &View::save);
+
+    // Set the active view
     activeView = newActiveView;
+
+    // Connect it to new active view
+    connect(ui->actionSaveView, &QAction::triggered, activeView, &View::save);
+
     for (auto &view : views) {
         if (view == newActiveView) {
             view->setStyleSheet(
@@ -433,7 +472,7 @@ void ModelWindow::setActiveView(View *newActiveView) {
     getStatistics();
     ui->measurementButton->setChecked(activeView->measurementEnabled);
 
-    std::cout << ui->statisticsGroupBox->width() << std::endl;
+    //std::cout << ui->statisticsGroupBox->width() << std::endl;
 }
 
 void ModelWindow::updateStructure() {
@@ -466,7 +505,7 @@ void ModelWindow::addViewToFrame(View *view) {
     // active view count
     unsigned short int avc = View::getCount();
     size_t index = views.size();
-    std::cout << "Total Views: " << avc << ", Views in Current Window: " << index << std::endl;
+    std::cout << "Total Views: " << avc << ", Views in Current Window: " << index + 1 << std::endl;
 
     // max 4 views allowed PER WINDOW
     if (views.size() > 4) {
@@ -619,7 +658,6 @@ void ModelWindow::openRecent() {
 void ModelWindow::createActionsAndConnections() {
     ui->actionOpenView->setShortcuts(QKeySequence::Open);
     connect(ui->actionOpenView, &QAction::triggered, this, &ModelWindow::open);
-    connect(ui->actionSaveView, &QAction::triggered, activeView, &View::save);
     connect(ui->actionCloseView, &QAction::triggered, this, &ModelWindow::closeView);
     connect(ui->actionHelp, &QAction::triggered, this, &ModelWindow::handleHelpButton);
     connect(ui->actionSettings, &QAction::triggered, this, &ModelWindow::handleSettingsButton);
