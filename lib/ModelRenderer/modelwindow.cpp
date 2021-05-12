@@ -417,7 +417,15 @@ void ModelWindow::viewActive(QMouseEvent *event) {
 }
 
 void ModelWindow::setActiveView(View *newActiveView) {
+    // Disconnect save button from old active view
+    disconnect(ui->actionSaveView, &QAction::triggered, activeView, &View::save);
+
+    // Set the active view
     activeView = newActiveView;
+
+    // Connect it to new active view
+    connect(ui->actionSaveView, &QAction::triggered, activeView, &View::save);
+
     for (auto &view : views) {
         if (view == newActiveView) {
             view->setStyleSheet(
@@ -650,7 +658,6 @@ void ModelWindow::openRecent() {
 void ModelWindow::createActionsAndConnections() {
     ui->actionOpenView->setShortcuts(QKeySequence::Open);
     connect(ui->actionOpenView, &QAction::triggered, this, &ModelWindow::open);
-    connect(ui->actionSaveView, &QAction::triggered, activeView, &View::save);
     connect(ui->actionCloseView, &QAction::triggered, this, &ModelWindow::closeView);
     connect(ui->actionHelp, &QAction::triggered, this, &ModelWindow::handleHelpButton);
     connect(ui->actionSettings, &QAction::triggered, this, &ModelWindow::handleSettingsButton);
