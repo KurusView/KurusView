@@ -486,7 +486,7 @@ void ModelWindow::addViewToFrame(View *view) {
     // active view count
     unsigned short int avc = View::getCount();
     size_t index = views.size();
-    std::cout << "Total Views: " << avc << ", Views in Current Window: " << index << std::endl;
+    std::cout << "Total Views: " << avc << ", Views in Current Window: " << index + 1  << std::endl;
 
     // max 4 views allowed PER WINDOW
     if (views.size() > 4) {
