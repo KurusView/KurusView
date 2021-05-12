@@ -1,4 +1,4 @@
-# hello_qt_cm/CMakeLists.txt -----------------------------------------
+# CMakeLists.txt -----------------------------------------
 # This is the minimum cmake version needed for Qt
 cmake_minimum_required(VERSION 3.1.0)
 
@@ -20,13 +20,16 @@ endif ()
 # The CMake build process might generate some new files in the current
 # directory. This makes sure they can be found.
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-option(PACKAGE_TESTS "Build the tests" ON)
-
-enable_testing()
-include(GoogleTest)
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 include(lib/KurusViewLib.cmake)
 add_subdirectory(src)
-add_subdirectory(tests)
+
+option(PACKAGE_TESTS "Build the tests" ON)
+
+if(PACKAGE_TESTS)
+    enable_testing()
+    include(GoogleTest)
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+    add_subdirectory(tests)
+endif()
 # --------------------------------------------------------------------

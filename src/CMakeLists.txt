@@ -42,3 +42,5 @@ add_custom_target(package_${PROJECT_NAME}
         "${CMAKE_COMMAND}" --build "${CMAKE_BINARY_DIR}" --target package
         DEPENDS ${PROJECT_NAME} ${PROJECT_NAME}_LIB
         COMMENT "Packaging ${PROJECT_NAME}...")
+
+message("----------------------------------------------------------")
