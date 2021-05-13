@@ -1,3 +1,17 @@
+# Travis CI Job Lifecycle
+#  1 - apt addons (OPTIONAL)
+#  2 - cache components (OPTIONAL)
+#  3 - before_install
+#  4 -- install
+#  5 - before_script
+#  6 -- script
+#  7 - before_cache (if and only if caching is effective)
+#  8 - after_success (Runs if script was successful) OR after_failure (Runs if script failed)
+#  9 - before-deploy (OPTIONAL)
+# 10 - deploy (OPTIONAL)
+# 11 - after-deploy (OPTIONAL)
+# 12 - after_script
+
 language: cpp
 dist: trusty
 compiler: gcc
@@ -23,13 +37,16 @@ addons:
       - doxygen
       - graphviz
 
-# After successfully building and testing your software we give Doxygen the
-# instruction to scan the code for docstrings and generate the html output.
-# The bulk of these instructions is encapsulated in a script.
+before_install:
+  - sudo add-apt-repository ppa:beineri/opt-qt58-trusty -y
+
+install:
+  - sudo apt-get install qt58base qt58svg qt58charts-no-lgpl qt58xmlpatterns
+  - source /opt/qt58/bin/qt58-env.sh
+
 script:
   - /opt/qt58/bin/qmake PREFIX=/usr
   - make
-  - # Generate AppImage
   - sudo apt-get -y install checkinstall
   - sudo checkinstall --pkgname=app --pkgversion="1" --pkgrelease="1" --backup=no --fstrans=no --default --deldoc
   - mkdir -p appdir/usr/bin ; cd appdir
@@ -44,17 +61,14 @@ script:
   - ./linuxdeployqt*.AppImage ./appdir/usr/bin/* -bundle-non-qt-libs
   - ./linuxdeployqt*.AppImage ./appdir/usr/bin/* -appimage
   - curl --upload-file ./KurusView*.AppImage https://transfer.sh/KurusView-git.$(git rev-parse --short HEAD)-x86_64.AppImage
-  - cd $TRAVIS_BUILD_DIR
-  - chmod +x generateDocumentationAndDeploy.sh
-  - ./generateDocumentationAndDeploy.sh
   - cmake .
   - make
   - make test
 
-before_install:
-  - sudo add-apt-repository ppa:beineri/opt-qt58-trusty -y
-  - sudo apt-get update
-
-install:
-  - sudo apt-get install qt58base qt58svg qt58charts-no-lgpl qt58xmlpatterns
-  - source /opt/qt58/bin/qt58-env.sh
+# After successfully building and testing your software we give Doxygen the
+# instruction to scan the code for docstrings and generate the html output.
+# The bulk of these instructions is encapsulated in a script.
+after_success:
+  - cd $TRAVIS_BUILD_DIR
+  - chmod +x generateDocumentationAndDeploy.sh
+  - ./generateDocumentationAndDeploy.sh
