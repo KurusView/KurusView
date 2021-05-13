@@ -54,6 +54,7 @@ matrix:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
 
 before_install:
+  - sudo apt-get update || true
   - eval "${MATRIX_EVAL}"
   - sudo apt-get -y install libjsoncpp0 libobjc-4.8-dev libclang-common-5.0-dev
 
