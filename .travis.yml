@@ -58,7 +58,7 @@ before_install:
   - sudo apt-get -y install libjsoncpp0 libobjc-4.8-dev libclang-common-5.0-dev
 
 script:
-  - cmake -DDISABLE_TESTS = false .
+  - cmake -DDISABLE_TESTS=false .
   - make
   - make test
 
