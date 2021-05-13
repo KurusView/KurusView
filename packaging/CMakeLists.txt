@@ -27,7 +27,7 @@ else ()
 endif ()
 
 # Set CPack Variables
-set(CPACK_PACKAGE_NAME KurusView)
+set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
 set(CPACK_PACKAGE_VENDOR "Kurus")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY ${PROJECT_DESCRIPTION})
 set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
@@ -36,6 +36,30 @@ set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
 set(CPACK_PACKAGE_VERSION_TWEAK ${PROJECT_VERSION_TWEAK})
 set(CPACK_PACKAGE_INSTALL_DIRECTORY ${CPACK_PACKAGE_NAME})
+
+# NSIS Settings
+# Icon in the add/remove programs settings. Must be an .exe file
+set(CPACK_NSIS_DISPLAY_NAME ${PROJECT_NAME})
+set(CPACK_NSIS_PACKAGE_NAME ${PROJECT_NAME})
+
+# Installer icon, given as exe that contains icon
+set(CPACK_NSIS_INSTALLED_ICON_NAME bin\\\\${PROJECT_NAME}.exe)
+
+# Installer and uninstaller program icon
+set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}\\\\Icons\\\\kurusview.ico")
+set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}\\\\Icons\\\\kurusview.ico")
+
+# Welcome and finish page BMPs
+set(CPACK_NSIS_MUI_WELCOMEFINISHPAGE_BITMAP "${CMAKE_SOURCE_DIR}\\\\Icons\\\\welcomefinish.bmp")
+set(CPACK_NSIS_MUI_UNWELCOMEFINISHPAGE_BITMAP "${CMAKE_SOURCE_DIR}\\\\Icons\\\\welcomefinish.bmp")
+# Header BMP
+set(CPACK_NSIS_MUI_HEADERIMAGE "${CMAKE_SOURCE_DIR}\\\\Icons\\\\header.bmp")
+
+# Allows user to uninstall previous version (if exists) before installing
+set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL ON)
+
+set(CPACK_NSIS_URL_INFO_ABOUT "https://github.com/KurusView/2020_Group_21")
+set(CPACK_NSIS_HELP_LINK "https://KurusView.github.io")
 
 # Components are just name
 # Used to group installed files
@@ -58,13 +82,27 @@ set(CPACK_PACKAGE_INSTALL_DIRECTORY ${CPACK_PACKAGE_NAME})
 set(CPACK_VERBATIM_VARIABLES TRUE)
 
 # Files with descriptive text
-set(CPACK_PACKAGE_DESCRIPTION_FILE ${CMAKE_CURRENT_LIST_DIR}/../Description.txt)
-set(CPACK_RESOURCE_FILE_WELCOME ${CMAKE_CURRENT_LIST_DIR}/../Welcome.txt)
-set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_LIST_DIR}/../License.txt)
-set(CPACK_RESOURCE_FILE_README ${CMAKE_CURRENT_LIST_DIR}/../README.md)
+set(CPACK_PACKAGE_DESCRIPTION_FILE ${CMAKE_SOURCE_DIR}/Description.txt)
+set(CPACK_RESOURCE_FILE_WELCOME ${CMAKE_SOURCE_DIR}/Welcome.txt)
+set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_SOURCE_DIR}/License.txt)
+set(CPACK_RESOURCE_FILE_README ${CMAKE_SOURCE_DIR}/README.md)
 
-# Icon not working for some reason
-#set(CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/Icons/resize_kurusview.bmp")
+# Icons
+set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}\\\\Icons\\\\old_kurusview.bmp")
+
+# Adds start menu icon, given in the format "exe_name;start_menu_name"
+set(CPACK_PACKAGE_EXECUTABLES "${PROJECT_NAME};${PROJECT_NAME}")
+
+# Creates Desktop Icon
+set(CPACK_CREATE_DESKTOP_LINKS "KurusView")
+# Gives page for user to choose to add to path and toggle create desktop icon
+set(CPACK_NSIS_MODIFY_PATH ON)
+# Adds an option to run the program after installation
+set(CPACK_NSIS_MUI_FINISHPAGE_RUN "${PROJECT_NAME}.exe")
+
+# Enables parallel compression of the package if available
+# Setting it to 0 uses all available CPU cores
+set(CPACK_THREADS 0)
 
 set(CMAKE_INSTALL_DEBUG_LIBRARIES TRUE)
 set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
