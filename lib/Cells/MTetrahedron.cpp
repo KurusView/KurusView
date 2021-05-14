@@ -1,5 +1,6 @@
 #include "MTetrahedron.h"
 
+#include <stdlib.h>
 
 MTetrahedron::MTetrahedron(const std::vector<std::shared_ptr<MVector>> &vertices,
                            const std::shared_ptr<Material> &material, long int id) : MCell(vertices, material, id) {

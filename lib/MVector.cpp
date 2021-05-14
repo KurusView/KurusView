@@ -1,5 +1,7 @@
 #include <MVector.h>
 
+#include <stdlib.h>
+
 std::ostream &operator<<(std::ostream &os, MVector &obj) {
     //Overloads << operator
     // Produces an outstream to print the values of x, y and z of a vector simultaneously
@@ -183,19 +185,15 @@ const double &MVector::operator[](int index) const {
     switch (index) {
         case 0:
             return x;
-            break;
         case 1:
             return y;
-            break;
         case 2:
             return z;
-            break;
         default:
             std::cerr << std::endl
                       << "Error: Vectors contain 3 coordinates only, make sure the index is less than or equal to two."
                       << std::endl;
             exit(2);
-            break;
     }
 }
 
@@ -216,4 +214,3 @@ double dotProduct(MVector v1, MVector v2) {
 double scalarTripleProduct(MVector dotA, MVector xB, MVector xC) {
     return dotProduct(dotA, (xB * xC));
 }
-
