@@ -3,8 +3,8 @@ message("----------------------------------------------------------")
 
 if (${ENABLE_TESTS})
     ####################### Only load non-QT/VTK classes for tests #######################
-    # Include files
-    SET(INC_SOURCES include/Material.h
+    # Include files with relative path from main CMakeLists
+    set(REL_INC_SOURCES include/Material.h
             include/Matrix.h
             include/MVector.h
             include/Model.h
@@ -12,13 +12,28 @@ if (${ENABLE_TESTS})
             include/Cells/MHexahedron.h
             include/Cells/MPyramid.h
             include/Cells/MTetrahedron.h)
+    # Include sources
+    set(INC_SOURCES "")
     # Include directories
-    SET(INC_DIRS include include/Cells)
+    SET(INC_DIRS "")
+    foreach (inc_src ${REL_INC_SOURCES})
+        get_filename_component(ABSOLUTE_PATH ${inc_src} ABSOLUTE)
+        set(INC_SOURCES ${INC_SOURCES} ${ABSOLUTE_PATH})
+
+        get_filename_component(dir_path ${ABSOLUTE_PATH} PATH)
+        set(INC_DIRS ${INC_DIRS} ${dir_path})
+    endforeach ()
+
+    #[[Remove duplicates to end up with a list of all the include directories]]
+    LIST(REMOVE_DUPLICATES INC_DIRS)
+    message("Include Sources ${INC_SOURCES}")
+    message("Include Directories ${INC_DIRS}")
+
     # Add the include directory to prevent the need to provide the full path when including library files
     include_directories(${INC_DIRS})
 
     # Define the library sources
-    file(LIB_SOURCES lib/Material.cpp
+    set(REL_LIB_SOURCES lib/Material.cpp
             lib/Matrix.cpp
             lib/MVector.cpp
             lib/Model.cpp
@@ -26,6 +41,12 @@ if (${ENABLE_TESTS})
             lib/Cells/MHexahedron.cpp
             lib/Cells/MPyramid.cpp
             lib/Cells/MTetrahedron.cpp)
+
+    set(LIB_SOURCES)
+    foreach (lib_src ${REL_LIB_SOURCES})
+        get_filename_component(ABSOLUTE_PATH ${lib_src} ABSOLUTE)
+        list(APPEND LIB_SOURCES ${ABSOLUTE_PATH})
+    endforeach ()
 
     # Define the library, without any QT Stuffs
     add_library(${PROJECT_NAME}_LIB ${LIB_SOURCES} ${INC_SOURCES})
