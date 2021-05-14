@@ -21,9 +21,9 @@
 # RPM, customized by CPACK_RPM_xxx variables, but requires rpm package tool
 # Debian, customized by CPACK_DEB_xxx variables, but no tools required
 if (WIN32)
-    set(CPACK_GENERATOR "NSIS64")
+    set(CPACK_GENERATOR "ZIP;NSIS64")
 else ()
-    set(CPACK_GENERATOR "ZIP")
+    set(CPACK_GENERATOR "ZIP;TGZ;DEB")
 endif ()
 
 ######################## CPack Variables ########################
@@ -40,6 +40,10 @@ set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
 set(CPACK_PACKAGE_VERSION_TWEAK ${PROJECT_VERSION_TWEAK})
 set(CPACK_PACKAGE_INSTALL_DIRECTORY ${CPACK_PACKAGE_NAME})
+
+# Allows creating DEB packages, as CPACK_DEBIAN_PACKAGE_MAINTAINER,
+# which is mandatory, defaults to this variable
+set(CPACK_PACKAGE_CONTACT "eeyoa10@nottingham.ac.uk")
 
 # Controls a legacy behaviour, in legacy mode by default
 # Forces variables to have their values written out to cpack packaging script
