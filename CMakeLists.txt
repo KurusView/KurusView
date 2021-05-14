@@ -26,17 +26,23 @@ project(KurusView
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 include(lib/KurusViewLib.cmake)
-include(src/KurusView.cmake)
 
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 #qt_finalize_executable(${PROJECT_NAME})
 
-option(PACKAGE_TESTS "Build the tests" OFF)
-
-if(NOT DISABLE_TESTS)
+message("ENABLE_TESTS is set to ${ENABLE_TESTS}")
+if (NOT ${ENABLE_TESTS})
+    message("Building with QT and VTK, tests disabled")
+    message("-------------------------------------")
+    option(PACKAGE_TESTS "Build the tests" OFF)
+    include(src/KurusView.cmake)
+else ()
+    message("Building without QT or VTK, tests enabled")
+    message("-------------------------------------")
+    option(PACKAGE_TESTS "Build the tests" ON)
     enable_testing()
     include(GoogleTest)
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
     add_subdirectory(tests)
-endif()
+endif ()
 # --------------------------------------------------------------------
