@@ -12,17 +12,12 @@
 # 11 - after-deploy (OPTIONAL)
 # 12 - after_script
 
-language: cpp
-dist: trusty
-compiler:
-  - g++
-  - clang
 sudo: false
 branches:
   only:
     - master
-# Build your code
-# Modify these variables that will be used in generateDocumentationAndDeploy.sh
+
+# These variables will be used in generateDocumentationAndDeploy.sh
 # (see below). They tell Doxygen where to find the source on and where to send
 # the generated documentation.
 env:
@@ -30,6 +25,7 @@ env:
     - GH_REPO_NAME: "2020_GROUP_21"
     - DOXYFILE: $TRAVIS_BUILD_DIR/Doxyfile
     - GH_REPO_REF: github.com/KurusView/2020_GROUP_21.git
+
 # The virtual machines created by Travis do not by default have doxygen
 # installed. This is fortunately not difficult on a Debian flavoured Linux
 # system.
@@ -39,32 +35,13 @@ addons:
       - doxygen
       - graphviz
 
-matrix:
-  include:
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - llvm-toolchain-trusty-5.0
-          packages:
-            - clang-5.0
-            - doxygen
-            - graphviz
-      env:
-        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
-
-before_install:
-  - sudo apt-get update || true
-  - eval "${MATRIX_EVAL}"
-  - sudo apt-get -y install libjsoncpp0 libobjc-4.8-dev libclang-common-5.0-dev
-
+# Build project with tests enabled
 script:
-  - cmake -DDISABLE_TESTS=false .
+  - cmake -DENABLE_TESTS=ON .
   - make
   - make test
 
-# After successfully building and testing your software we give Doxygen the
-# instruction to scan the code for docstrings and generate the html output.
+# Tell doxygen to scan the code for docstrings and generate the html output.
 # The bulk of these instructions is encapsulated in a script.
 after_success:
   - cd $TRAVIS_BUILD_DIR
