@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 #include "Model.h"
 #include "Material.h"
+std::string modelsDir = MODELS_DIR;
 
 TEST(ModelTest, getMaterials) {
-
-    Model mod("D://Github Repos//2020_GROUP_21//cmake-build-debug//KurusView//bin//Debug//models//ExampleModel1.mod");
+    Model mod(modelsDir + "/ExampleModel1.mod");
 
     std::vector<std::shared_ptr<Material>> materials = mod.getMaterials();
 
@@ -21,7 +21,7 @@ TEST(ModelTest, getMaterials) {
 
 TEST(ModelTest, getVectors) {
 
-    Model mod("D://Github Repos//2020_GROUP_21//cmake-build-debug//KurusView//bin//Debug//models//ExampleModel1.mod");
+    Model mod(modelsDir + "/ExampleModel1.mod");
 
     std::vector<MVector> vertices = mod.getVectors();
 
@@ -44,7 +44,7 @@ TEST(ModelTest, getVectors) {
 
 TEST(ModelTest, getCells) {
 
-    Model mod("D://Github Repos//2020_GROUP_21//cmake-build-debug//KurusView//bin//Debug//models//ExampleModel1.mod");
+    Model mod(modelsDir + "/ExampleModel1.mod");
     std::vector<std::shared_ptr<MCell>> cells = mod.getCells();
     std::vector<std::shared_ptr<MVector>> cellVertices = cells[0]->getVertices();
 
@@ -61,7 +61,7 @@ TEST(ModelTest, materialsCount) {
 
     int countExpected = 2;
 
-    Model mod("D://Github Repos//2020_GROUP_21//cmake-build-debug//KurusView//bin//Debug//models//ExampleModel1.mod");
+    Model mod(modelsDir + "/ExampleModel1.mod");
 
     int countObtained = mod.getMaterialCount();
 
@@ -72,7 +72,7 @@ TEST(ModelTest, vectorCount) {
 
     int countExpected = 12;
 
-    Model mod("D://Github Repos//2020_GROUP_21//cmake-build-debug//KurusView//bin//Debug//models//ExampleModel1.mod");
+    Model mod(modelsDir + "/ExampleModel1.mod");
 
     int countObtained = mod.getVectorCount();
 
@@ -83,7 +83,7 @@ TEST(ModelTest, cellCount) {
 
     int countExpected = 2;
 
-    Model mod("D://Github Repos//2020_GROUP_21//cmake-build-debug//KurusView//bin//Debug//models//ExampleModel1.mod");
+    Model mod(modelsDir + "/ExampleModel1.mod");
 
     int countObtained = mod.getCellCount();
 
@@ -94,7 +94,7 @@ TEST(ModelTest, calcWeight) {
 
     int weightExpected = 9185;
 
-    Model mod("D://Github Repos//2020_GROUP_21//cmake-build-debug//KurusView//bin//Debug//models//ExampleModel1.mod");
+    Model mod(modelsDir + "/ExampleModel1.mod");
 
     double weightObtained = mod.calcWeight();
 
@@ -105,7 +105,7 @@ TEST(ModelTest, calcVolume) {
 
     double volumeExpected = 1.08;
 
-    Model mod("D://Github Repos//2020_GROUP_21//cmake-build-debug//KurusView//bin//Debug//models//ExampleModel1.mod");
+    Model mod(modelsDir + "/ExampleModel1.mod");
 
     double volumeObtained = mod.calcVolume();
 
@@ -116,7 +116,7 @@ TEST(ModelTest, calcCentreOfGrav) {
 
     MVector centreOfGravExpected(0.625, 0.619, 0.491);
 
-    Model mod("D://Github Repos//2020_GROUP_21//cmake-build-debug//KurusView//bin//Debug//models//ExampleModel1.mod");
+    Model mod(modelsDir + "/ExampleModel1.mod");
 
     MVector centreOfGravObtained = mod.calcCentre();
 

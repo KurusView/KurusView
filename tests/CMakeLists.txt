@@ -3,6 +3,7 @@ message("----------------------------------------------------------")
 
 # TODO: Move submodules to extern/
 add_subdirectory("${PROJECT_SOURCE_DIR}/googletest" "googletest")
+add_definitions( -DMODELS_DIR="${CMAKE_SOURCE_DIR}/models" )
 
 # Keeps the cache cleaner
 mark_as_advanced(
