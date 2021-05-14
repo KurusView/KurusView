@@ -26,28 +26,20 @@ env:
     - GH_REPO_NAME: "2020_GROUP_21"
     - DOXYFILE: $TRAVIS_BUILD_DIR/Doxyfile
     - GH_REPO_REF: github.com/KurusView/2020_GROUP_21.git
+    - CC: gcc-9
+    - CXX: g++-9
 
 # The virtual machines created by Travis do not by default have doxygen
 # installed. This is fortunately not difficult on a Debian flavoured Linux
 # system.
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
     packages:
       - doxygen
       - graphviz
-
-matrix:
-  include:
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-9
-      env: MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
-
-before_install: eval "${MATRIX_EVAL}"
+      - g++-9
 
 # Build project with tests enabled
 script:
