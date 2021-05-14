@@ -13,6 +13,7 @@
 # 12 - after_script
 
 sudo: false
+language: cpp
 branches:
   only:
     - master
@@ -34,6 +35,9 @@ addons:
     packages:
       - doxygen
       - graphviz
+      - g++-9
+
+before_install: eval "CC=gcc-9 CXX=g++-9"
 
 # Build project with tests enabled
 script:
