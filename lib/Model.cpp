@@ -6,18 +6,6 @@
 #include <MTetrahedron.h>
 #include "Model.h"
 #include "MVector.h"
-#include <vtkHexahedron.h>
-#include <vtkTetra.h>
-#include <vtkPyramid.h>
-#include <vtkUnstructuredGrid.h>
-#include <vtkUnstructuredGridReader.h>
-#include <vtkSTLReader.h>
-#include <vtkCellData.h>
-#include <vtkColor.h>
-#include <vtkNamedColors.h>
-#include <QColor>
-#include <QString>
-#include <vtkMinimalStandardRandomSequence.h>
 
 Model::Model(const std::string &filePath) {
     std::cout << "Creating new model from file" << std::endl;
@@ -25,14 +13,10 @@ Model::Model(const std::string &filePath) {
     std::string fileExtension = filePath.substr(filePath.find_last_of('.') + 1);
 
     this->fileType = fileExtension;
-    this->filePath = QString::fromStdString(filePath);
+    this->filePath = filePath;
 
-    if (fileExtension == "stl") {
-        loadSTLModel(filePath);
-    } else if (fileExtension == "mod") {
+    if (fileExtension == "mod")
         loadModel(filePath);
-        buildVTKModelFromMod();
-    }
 }
 
 void Model::loadModel(const std::string &filePath) {
@@ -205,103 +189,6 @@ MVector Model::calcCentre() {
 
     centreOfGravity = centreOfGravity / totalMass;
     return centreOfGravity;
-}
-
-void Model::buildVTKModelFromMod() {
-    vtkNew<vtkNamedColors> colors;
-
-    // vertex placeholder
-    vtkNew<vtkPoints> vertex;
-
-    // Store all points from the model vector list
-    for (auto &vector : vectors) {
-        vertex->InsertNextPoint(vector.getX(), vector.getY(), vector.getZ());
-    }
-
-    // cell colour placeholder
-    std::vector<vtkColor3d> cellColours;
-
-    // cells placeholder
-    std::vector<vtkSmartPointer<vtkCell3D>> cells3D;
-
-    vtkIdType counter = 0;
-    for (auto &cell : cells) {
-        // get cell colour
-        QColor cellColour_qt;
-        std::string cellColour_raw = "#" + cell->getMaterial()->getColour();
-        cellColour_qt = QColor(QString::fromStdString(cellColour_raw));
-        cellColours.emplace_back(cellColour_qt.redF(), cellColour_qt.greenF(), cellColour_qt.blueF());
-
-        // store raw tetra hex pyra list
-        switch (cell->getType()[0][0]) {
-            case 'h':
-                cells3D.emplace_back(vtkSmartPointer<vtkHexahedron>::New());
-                break;
-            case 't':
-                cells3D.emplace_back(vtkSmartPointer<vtkTetra>::New());
-                break;
-            case 'p':
-                cells3D.emplace_back(vtkSmartPointer<vtkPyramid>::New());
-                break;
-        }
-
-        // Associate cell vertices with IDs
-        for (int j = 0; j < cell->getVertices().size(); ++j) {
-            cells3D[counter]->GetPointIds()->SetId(j, cell->getVertexIndices()[j]);
-        }
-
-        counter++;
-    }
-
-    // An unstructured grid allows any cell type to be combined in arbitrary combinations.
-    vtkSmartPointer<vtkUnstructuredGrid> uGrid = vtkSmartPointer<vtkUnstructuredGrid>::New();
-
-    // Insert each cell into an unstructured grid.
-    counter = 0;
-    vtkNew<vtkUnsignedCharArray> cellData;
-
-    // colors placeholder
-    cellData->SetNumberOfComponents(3);
-    cellData->SetNumberOfTuples(uGrid->GetNumberOfCells());
-
-    vtkNew<vtkMinimalStandardRandomSequence> randomSequence;
-    randomSequence->SetSeed(8775070);
-
-    for (auto &cell: cells3D) {
-        uGrid->InsertNextCell(cell->GetCellType(), cell->GetPointIds());
-
-        // populate colours
-        double rgb[3];
-        rgb[0] = randomSequence->GetRangeValue(64, 255);
-        randomSequence->Next();
-        rgb[1] = randomSequence->GetRangeValue(64, 255);
-        randomSequence->Next();
-        rgb[2] = randomSequence->GetRangeValue(64, 255);// cellColours[counter].GetBlue() * 255.0;
-        randomSequence->Next();
-        cellData->InsertTuple(counter, rgb);
-
-        counter++;
-    }
-
-    uGrid->GetCellData()->SetScalars(cellData);
-
-    // Unstructured grid has a global list of vectors (points)
-    // which it uses to construct the cells using indices
-    uGrid->SetPoints(vertex);
-    vtkSmartPointer<vtkUnstructuredGridReader> uGridReader = vtkSmartPointer<vtkUnstructuredGridReader>::New();
-    uGridReader->SetOutput(uGrid);
-    vtkModel = uGridReader;
-}
-
-vtkSmartPointer<vtkAlgorithm> Model::getVTKModel() {
-    return vtkModel;
-}
-
-void Model::loadSTLModel(const std::string &filePath) {
-    STLModel = vtkSmartPointer<vtkSTLReader>::New();
-    STLModel->SetFileName(filePath.c_str());
-    STLModel->Update();
-    vtkModel = STLModel;
 }
 
 double Model::calcVolume() {

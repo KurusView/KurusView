@@ -6,10 +6,6 @@
 #include "MCell.h"
 #include "Material.h"
 #include "MVector.h"
-#include <vtkSmartPointer.h>
-#include <vtkAlgorithm.h>
-#include <vtkSTLReader.h>
-#include <QString>
 
 /**
  * @brief Model - This object is responsible for reading and writing model entities to VTK style data files
@@ -20,8 +16,6 @@ private:
     std::vector<MVector> vectors;
     /** @brief materials - List of all the materials in the model */
     std::vector<std::shared_ptr<Material>> materials;
-    /** @brief vtkModel - Unstructured grid containing all the cells of the model */
-    vtkSmartPointer<vtkAlgorithm> vtkModel;
 
 
 public:
@@ -71,23 +65,6 @@ public:
     MVector calcCentre();
 
     /**
-     * @brief buildVTKModelFromMod - Builds model from cells and vectors loaded from a proprietary model file
-     */
-    void buildVTKModelFromMod();
-
-    /**
-     * @brief getVTKModel - Gets the private built vtk model
-     * @return - vtkUnstructuredGrid containing the model
-     */
-    vtkSmartPointer<vtkAlgorithm> getVTKModel();
-
-    /**
-     * @brief loadSTLModel - Loads an model with STL filetype
-     * @param filePath - The path of the file that is selected
-     */
-    void loadSTLModel(const std::string &filePath);
-
-    /**
      * @brief calcVolume - Calculates the volume of the model
      * @return totalVolume - The total volume of the model
      */
@@ -101,9 +78,7 @@ public:
 
     std::string fileType;
 
-    QString filePath;
-
-    vtkSmartPointer<vtkSTLReader> STLModel;
+    std::string filePath;
 
     /** @brief cells - List of all the cells in the model */
     std::vector<std::shared_ptr<MCell>> cells;

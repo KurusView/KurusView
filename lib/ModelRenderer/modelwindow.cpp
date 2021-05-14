@@ -385,7 +385,7 @@ void ModelWindow::handleChangePerspective() {
 
 void ModelWindow::viewActive(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
-        setActiveView((View *) (((QVTKOpenGLWidget *) sender())->parentWidget()));
+        setActiveView((View * )(((QVTKOpenGLWidget *) sender())->parentWidget()));
     }
 }
 
@@ -542,7 +542,7 @@ void ModelWindow::getStatistics() {
         ui->densityLabel->setText(QString::number(activeView->density));
     } else if (activeView->model->fileType == "stl") {
         vtkSmartPointer<vtkTriangleFilter> triFilter = vtkSmartPointer<vtkTriangleFilter>::New();
-        triFilter->SetInputData(activeView->model->STLModel->GetOutput());
+        triFilter->SetInputData(activeView->STLModel->GetOutput());
         triFilter->Update();
 
         vtkSmartPointer<vtkMassProperties> massProp = vtkSmartPointer<vtkMassProperties>::New();
@@ -561,7 +561,7 @@ void ModelWindow::getStatistics() {
         QString z = QString::number(centreOfGrav.getZ(), 'g', 3);
 
 
-        unsigned long numOfCells = activeView->model->STLModel->GetOutputDataObject(0)->GetNumberOfElements(
+        unsigned long numOfCells = activeView->STLModel->GetOutputDataObject(0)->GetNumberOfElements(
                 vtkDataObject::CELL);
 
         activeView->volume = volume;

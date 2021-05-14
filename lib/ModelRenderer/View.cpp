@@ -1,6 +1,5 @@
 #include <QWidget>
 #include <QVBoxLayout>
-#include <QString>
 #include <QTime>
 
 #include <vtkRenderWindow.h>
@@ -13,7 +12,6 @@
 #include <vtkProperty.h>
 #include <vtkNamedColors.h>
 #include <vtkGenericOpenGLRenderWindow.h>
-#include <vtkAlgorithm.h>
 #include <vtkCallbackCommand.h>
 #include <vtkPlane.h>
 #include <vtkLight.h>
@@ -25,6 +23,12 @@
 #include <vtkUnstructuredGridReader.h>
 #include <vtkUnstructuredGrid.h>
 #include <vtkCellData.h>
+#include <vtkHexahedron.h>
+#include <vtkTetra.h>
+#include <vtkPyramid.h>
+#include <vtkSTLReader.h>
+#include <vtkColor.h>
+#include <vtkMinimalStandardRandomSequence.h>
 
 #include "View.h"
 #include "settingsdialog.h"
@@ -57,6 +61,12 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
         model = std::make_shared<Model>(filePath.toStdString());
     }
 
+    if (model->fileType == "stl") {
+        loadSTLModel();
+    } else if (model->fileType == "mod") {
+        buildVTKModelFromMod();
+    }
+
     setStyleSheet("*{padding: 0; border-width: 3 ;border-style:solid;border-color: dark" + this->borderColor + ";}");
 
 
@@ -73,8 +83,7 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
     vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
     qVTKWidget->SetRenderWindow(renderWindow);
 
-    vtkSmartPointer<vtkAlgorithm> modelAlgo = model->getVTKModel();
-    vtkDataObject *dataObj = modelAlgo->GetOutputDataObject(0);
+    vtkDataObject *dataObj = vtkModel->GetOutputDataObject(0);
     auto *datSet = (vtkDataSet *) (dataObj);
 
     // Initialize filters
@@ -160,9 +169,102 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
     qVTKWidget->GetRenderWindow()->Render();
 }
 
+void View::buildVTKModelFromMod() {
+    vtkNew<vtkNamedColors> colors;
+
+    // vertex placeholder
+    vtkNew<vtkPoints> vertex;
+
+    // Store all points from the model vector list
+    for (auto &vector : model->getVectors()) {
+        vertex->InsertNextPoint(vector.getX(), vector.getY(), vector.getZ());
+    }
+
+    // cell colour placeholder
+    std::vector<vtkColor3d> cellColours;
+
+    // cells placeholder
+    std::vector<vtkSmartPointer<vtkCell3D>> cells3D;
+
+    vtkIdType counter = 0;
+    for (auto &cell : model->cells) {
+        // get cell colour
+        QColor cellColour_qt;
+        std::string cellColour_raw = "#" + cell->getMaterial()->getColour();
+        cellColour_qt = QColor(QString::fromStdString(cellColour_raw));
+        cellColours.emplace_back(cellColour_qt.redF(), cellColour_qt.greenF(), cellColour_qt.blueF());
+
+        // store raw tetra hex pyra list
+        switch (cell->getType()[0][0]) {
+            case 'h':
+                cells3D.emplace_back(vtkSmartPointer<vtkHexahedron>::New());
+                break;
+            case 't':
+                cells3D.emplace_back(vtkSmartPointer<vtkTetra>::New());
+                break;
+            case 'p':
+                cells3D.emplace_back(vtkSmartPointer<vtkPyramid>::New());
+                break;
+        }
+
+        // Associate cell vertices with IDs
+        for (int j = 0; j < cell->getVertices().size(); ++j) {
+            cells3D[counter]->GetPointIds()->SetId(j, cell->getVertexIndices()[j]);
+        }
+
+        counter++;
+    }
+
+    // An unstructured grid allows any cell type to be combined in arbitrary combinations.
+    vtkSmartPointer<vtkUnstructuredGrid> uGrid = vtkSmartPointer<vtkUnstructuredGrid>::New();
+
+    // Insert each cell into an unstructured grid.
+    counter = 0;
+    vtkNew<vtkUnsignedCharArray> cellData;
+
+    // colors placeholder
+    cellData->SetNumberOfComponents(3);
+    cellData->SetNumberOfTuples(uGrid->GetNumberOfCells());
+
+    vtkNew<vtkMinimalStandardRandomSequence> randomSequence;
+    randomSequence->SetSeed(8775070);
+
+    for (auto &cell: cells3D) {
+        uGrid->InsertNextCell(cell->GetCellType(), cell->GetPointIds());
+
+        // populate colours
+        double rgb[3];
+        rgb[0] = randomSequence->GetRangeValue(64, 255);
+        randomSequence->Next();
+        rgb[1] = randomSequence->GetRangeValue(64, 255);
+        randomSequence->Next();
+        rgb[2] = randomSequence->GetRangeValue(64, 255);// cellColours[counter].GetBlue() * 255.0;
+        randomSequence->Next();
+        cellData->InsertTuple(counter, rgb);
+
+        counter++;
+    }
+
+    uGrid->GetCellData()->SetScalars(cellData);
+
+    // Unstructured grid has a global list of vectors (points)
+    // which it uses to construct the cells using indices
+    uGrid->SetPoints(vertex);
+    vtkSmartPointer<vtkUnstructuredGridReader> uGridReader = vtkSmartPointer<vtkUnstructuredGridReader>::New();
+    uGridReader->SetOutput(uGrid);
+    vtkModel = uGridReader;
+}
+
+void View::loadSTLModel() {
+    STLModel = vtkSmartPointer<vtkSTLReader>::New();
+    STLModel->SetFileName(model->filePath.c_str());
+    STLModel->Update();
+    vtkModel = STLModel;
+}
+
 void View::buildChain() {
     // Store the source object, as it's used multiple times
-    vtkDataSet *source = dynamic_cast<vtkDataSet *>(model->getVTKModel()->GetOutputDataObject(0));
+    vtkDataSet *source = dynamic_cast<vtkDataSet *>(vtkModel->GetOutputDataObject(0));
     // If no filters are applied
     if (filters.empty()) {
         // Source -> Mapper
@@ -230,7 +332,7 @@ void View::setModelColor(const QColor &color) {
     // update settings
     viewSettings->setValue("modelColor", color);
     if (model->fileType == "mod") {
-        vtkUnstructuredGridReader *uGridReader = (vtkUnstructuredGridReader *) model->getVTKModel().Get();
+        vtkUnstructuredGridReader *uGridReader = (vtkUnstructuredGridReader *) vtkModel.Get();
         vtkUnstructuredGrid *uGrid = uGridReader->GetOutput();
 
         vtkNew<vtkUnsignedCharArray> cellData;
@@ -524,7 +626,7 @@ void View::setStructure(int selectedStructure) {
 void View::populateSettings() {
     // Set all parameters
     // Model
-    viewSettings->setValue("modelFilePath", model->filePath);
+    viewSettings->setValue("modelFilePath", QString::fromStdString(model->filePath));
 
     // Filters
     viewSettings->setValue("isClipped", isClipped);

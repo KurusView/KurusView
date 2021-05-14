@@ -6,6 +6,7 @@
 #include <QFrame>
 #include <QColor>
 #include <QSettings>
+#include <QString>
 
 #include <QVTKOpenGLWidget.h>
 #include <vtkSmartPointer.h>
@@ -13,6 +14,8 @@
 #include <vtkClipDataSet.h>
 #include <vtkShrinkFilter.h>
 #include <vtkDistanceWidget.h>
+#include <vtkAlgorithm.h>
+#include <vtkSTLReader.h>
 
 #include "Model.h"
 
@@ -25,6 +28,10 @@ public:
 
     QVTKOpenGLWidget *qVTKWidget;
     std::shared_ptr<Model> model;
+    /** @brief vtkModel - Unstructured grid containing all the cells of the model */
+    vtkSmartPointer<vtkAlgorithm> vtkModel;
+    vtkSmartPointer<vtkSTLReader> STLModel;
+
     vtkSmartPointer<vtkDataSetMapper> mapper;
     std::vector<vtkSmartPointer<vtkAlgorithm>> filters;
     vtkSmartPointer<vtkClipDataSet> clipFilter;
@@ -39,6 +46,17 @@ public:
     View(const QString &filePath, QWidget *parent = nullptr);
 
     virtual ~View();
+
+    /**
+     * @brief buildVTKModelFromMod - Builds model from cells and vectors loaded from a proprietary model file
+     */
+    void buildVTKModelFromMod();
+
+    /**
+     * @brief loadSTLModel - Loads an model with STL filetype
+     * @param filePath - The path of the file that is selected
+     */
+    void loadSTLModel();
 
     /**
      * @brief buildChain -
