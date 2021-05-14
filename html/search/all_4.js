@@ -21,7 +21,6 @@ var searchData=
   ['getvertexindices',['getVertexIndices',['../class_m_cell.html#abf7d14f0c3ec37ed3cc4723422163f72',1,'MCell']]],
   ['getvertices',['getVertices',['../class_m_cell.html#ab94c358f78b5f2ee528d941c083b736d',1,'MCell']]],
   ['getvolume',['getVolume',['../class_m_cell.html#a1031f8cfe1e89a20218162d6413131fd',1,'MCell']]],
-  ['getvtkmodel',['getVTKModel',['../class_model.html#ab63cf37f9d2b24e07c01f3bf0e8653f6',1,'Model']]],
   ['getweight',['getWeight',['../class_m_cell.html#a198ac6f5bea8bc8525077425201e6ce3',1,'MCell']]],
   ['getx',['getX',['../class_m_vector.html#aea57f0e60e4e9da2924d53b07e25ea3a',1,'MVector']]],
   ['gety',['getY',['../class_m_vector.html#ac692cbc75dd4f0fc56a0a10fd3b673e4',1,'MVector']]],

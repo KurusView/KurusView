@@ -152,16 +152,6 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <tr class="memitem:a684fce1b8bf9d129bd03d6375a2a7c7f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_m_vector.html">MVector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a684fce1b8bf9d129bd03d6375a2a7c7f">calcCentre</a> ()</td></tr>
 <tr class="memdesc:a684fce1b8bf9d129bd03d6375a2a7c7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">calcCentre - Calculates the centre of the model  <a href="#a684fce1b8bf9d129bd03d6375a2a7c7f">More...</a><br /></td></tr>
 <tr class="separator:a684fce1b8bf9d129bd03d6375a2a7c7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b9092c99f7e18b5fb8193825887f244"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8b9092c99f7e18b5fb8193825887f244"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a8b9092c99f7e18b5fb8193825887f244">buildVTKModelFromMod</a> ()</td></tr>
-<tr class="memdesc:a8b9092c99f7e18b5fb8193825887f244"><td class="mdescLeft">&#160;</td><td class="mdescRight">buildVTKModelFromMod - Builds model from cells and vectors loaded from a proprietary model file <br /></td></tr>
-<tr class="separator:a8b9092c99f7e18b5fb8193825887f244"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab63cf37f9d2b24e07c01f3bf0e8653f6"><td class="memItemLeft" align="right" valign="top">vtkSmartPointer&lt; vtkAlgorithm &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#ab63cf37f9d2b24e07c01f3bf0e8653f6">getVTKModel</a> ()</td></tr>
-<tr class="memdesc:ab63cf37f9d2b24e07c01f3bf0e8653f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">getVTKModel - Gets the private built vtk model  <a href="#ab63cf37f9d2b24e07c01f3bf0e8653f6">More...</a><br /></td></tr>
-<tr class="separator:ab63cf37f9d2b24e07c01f3bf0e8653f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a707d660adfc089994e11c158172d42d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a707d660adfc089994e11c158172d42d2">loadSTLModel</a> (const std::string &amp;filePath)</td></tr>
-<tr class="memdesc:a707d660adfc089994e11c158172d42d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">loadSTLModel - Loads an model with STL filetype  <a href="#a707d660adfc089994e11c158172d42d2">More...</a><br /></td></tr>
-<tr class="separator:a707d660adfc089994e11c158172d42d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22299e47342aafc34e76f07fc8e020f4"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#a22299e47342aafc34e76f07fc8e020f4">calcVolume</a> ()</td></tr>
 <tr class="memdesc:a22299e47342aafc34e76f07fc8e020f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">calcVolume - Calculates the volume of the model  <a href="#a22299e47342aafc34e76f07fc8e020f4">More...</a><br /></td></tr>
 <tr class="separator:a22299e47342aafc34e76f07fc8e020f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,12 +179,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:aa15b2ec7d6de70be3b744bc477f4402c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa15b2ec7d6de70be3b744bc477f4402c"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>fileType</b></td></tr>
 <tr class="separator:aa15b2ec7d6de70be3b744bc477f4402c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ae916d3f65f0ac8cf29f7963e3debe6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5ae916d3f65f0ac8cf29f7963e3debe6"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>filePath</b></td></tr>
-<tr class="separator:a5ae916d3f65f0ac8cf29f7963e3debe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd0a65b6917deee4c3d32731bfc61915"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afd0a65b6917deee4c3d32731bfc61915"></a>
-vtkSmartPointer&lt; vtkSTLReader &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>STLModel</b></td></tr>
-<tr class="separator:afd0a65b6917deee4c3d32731bfc61915"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af860c6a575b1805de53354c331bc4a0d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af860c6a575b1805de53354c331bc4a0d"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>filePath</b></td></tr>
+<tr class="separator:af860c6a575b1805de53354c331bc4a0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb51957969a5de20c88fd5c958960114"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abb51957969a5de20c88fd5c958960114"></a>
 std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_m_cell.html">MCell</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model.html#abb51957969a5de20c88fd5c958960114">cells</a></td></tr>
 <tr class="memdesc:abb51957969a5de20c88fd5c958960114"><td class="mdescLeft">&#160;</td><td class="mdescRight">cells - List of all the cells in the model <br /></td></tr>
@@ -290,24 +277,6 @@ std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_m_cell.html">MCell
 
 </div>
 </div>
-<a class="anchor" id="ab63cf37f9d2b24e07c01f3bf0e8653f6"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">vtkSmartPointer&lt; vtkAlgorithm &gt; Model::getVTKModel </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>getVTKModel - Gets the private built vtk model </p>
-<dl class="section return"><dt>Returns</dt><dd>- vtkUnstructuredGrid containing the model </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a1b24f12f7610a5ebfa8e61c322e3952b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -326,30 +295,6 @@ std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_m_cell.html">MCell
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filePath</td><td>- Path to the data file </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a707d660adfc089994e11c158172d42d2"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Model::loadSTLModel </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>filePath</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>loadSTLModel - Loads an model with STL filetype </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">filePath</td><td>- The path of the file that is selected </td></tr>
   </table>
   </dd>
 </dl>

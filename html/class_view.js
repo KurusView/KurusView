@@ -3,6 +3,8 @@ var class_view =
     [ "View", "class_view.html#a998a29b177bf9f5cd78f44975da6a384", null ],
     [ "~View", "class_view.html#ad0dc854db9aabbea98a334dec89f785c", null ],
     [ "buildChain", "class_view.html#a2e3b2eaf0dc9c3a1db939a05200f331e", null ],
+    [ "buildVTKModelFromMod", "class_view.html#a75176f27b9131e524f8562a29deb84b9", null ],
+    [ "loadSTLModel", "class_view.html#ad7e07f912445a078da3e9cb668e70813", null ],
     [ "resetColour", "class_view.html#a53673c9e728f9ef0a0607242f5279f4f", null ],
     [ "resetLighting", "class_view.html#a5a39c3a8844953e2a6896e2e04b5a02e", null ],
     [ "save", "class_view.html#aa2cb33a313c314d30b11e3e8484f87fc", null ],
@@ -40,9 +42,11 @@ var class_view =
     [ "numOfCells", "class_view.html#a4a3407760ff340ee2d0b9ad573d1d410", null ],
     [ "qVTKWidget", "class_view.html#a509ec6c90fb87719eddf1510837b44ea", null ],
     [ "shrinkFilter", "class_view.html#a5032692f2ee8fa5c166c86a18e0681b6", null ],
+    [ "STLModel", "class_view.html#aa08a57fa92f2175456c380e41af4cc9a", null ],
     [ "structure", "class_view.html#ad453e2ffd5dfc6e8467f9ad0c353a2c6", null ],
     [ "verticalLayout", "class_view.html#a7a5b42dcdc1cadcf8e0904cef53bd9b7", null ],
     [ "viewSettings", "class_view.html#a81993b11e678e5434c43bcdbf23f4949", null ],
     [ "volume", "class_view.html#a97a4599a7ca11cf4f8ceaac487b4da3a", null ],
+    [ "vtkModel", "class_view.html#a813df9074bab5e126af4fc7cbfa6529b", null ],
     [ "weight", "class_view.html#a96ca964a47253864d2bff3f606b6e819", null ]
 ];

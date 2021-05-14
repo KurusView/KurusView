@@ -131,6 +131,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a998a29b177bf9f5cd78f44975da6a384"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a998a29b177bf9f5cd78f44975da6a384"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>View</b> (const QString &amp;filePath, QWidget *parent=nullptr)</td></tr>
 <tr class="separator:a998a29b177bf9f5cd78f44975da6a384"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75176f27b9131e524f8562a29deb84b9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a75176f27b9131e524f8562a29deb84b9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a75176f27b9131e524f8562a29deb84b9">buildVTKModelFromMod</a> ()</td></tr>
+<tr class="memdesc:a75176f27b9131e524f8562a29deb84b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">buildVTKModelFromMod - Builds model from cells and vectors loaded from a proprietary model file <br /></td></tr>
+<tr class="separator:a75176f27b9131e524f8562a29deb84b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7e07f912445a078da3e9cb668e70813"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#ad7e07f912445a078da3e9cb668e70813">loadSTLModel</a> ()</td></tr>
+<tr class="memdesc:ad7e07f912445a078da3e9cb668e70813"><td class="mdescLeft">&#160;</td><td class="mdescRight">loadSTLModel - Loads an model with STL filetype  <a href="#ad7e07f912445a078da3e9cb668e70813">More...</a><br /></td></tr>
+<tr class="separator:ad7e07f912445a078da3e9cb668e70813"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e3b2eaf0dc9c3a1db939a05200f331e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2e3b2eaf0dc9c3a1db939a05200f331e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a2e3b2eaf0dc9c3a1db939a05200f331e">buildChain</a> ()</td></tr>
 <tr class="memdesc:a2e3b2eaf0dc9c3a1db939a05200f331e"><td class="mdescLeft">&#160;</td><td class="mdescRight">buildChain - <br /></td></tr>
@@ -201,6 +208,13 @@ QVTKOpenGLWidget *&#160;</td><td class="memItemRight" valign="bottom"><b>qVTKWid
 <tr class="memitem:a7f48a90dcffb7a4900be089159286ee6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7f48a90dcffb7a4900be089159286ee6"></a>
 std::shared_ptr&lt; <a class="el" href="class_model.html">Model</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>model</b></td></tr>
 <tr class="separator:a7f48a90dcffb7a4900be089159286ee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a813df9074bab5e126af4fc7cbfa6529b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a813df9074bab5e126af4fc7cbfa6529b"></a>
+vtkSmartPointer&lt; vtkAlgorithm &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a813df9074bab5e126af4fc7cbfa6529b">vtkModel</a></td></tr>
+<tr class="memdesc:a813df9074bab5e126af4fc7cbfa6529b"><td class="mdescLeft">&#160;</td><td class="mdescRight">vtkModel - Unstructured grid containing all the cells of the model <br /></td></tr>
+<tr class="separator:a813df9074bab5e126af4fc7cbfa6529b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa08a57fa92f2175456c380e41af4cc9a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa08a57fa92f2175456c380e41af4cc9a"></a>
+vtkSmartPointer&lt; vtkSTLReader &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>STLModel</b></td></tr>
+<tr class="separator:aa08a57fa92f2175456c380e41af4cc9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a591d27de6f260c9d3d4fdf8e2e7c3901"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a591d27de6f260c9d3d4fdf8e2e7c3901"></a>
 vtkSmartPointer&lt; vtkDataSetMapper &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mapper</b></td></tr>
 <tr class="separator:a591d27de6f260c9d3d4fdf8e2e7c3901"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -272,6 +286,29 @@ std::shared_ptr&lt; QSettings &gt;&#160;</td><td class="memItemRight" valign="bo
 <tr class="separator:a81993b11e678e5434c43bcdbf23f4949"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="ad7e07f912445a078da3e9cb668e70813"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void View::loadSTLModel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>loadSTLModel - Loads an model with STL filetype </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filePath</td><td>- The path of the file that is selected </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="aa2cb33a313c314d30b11e3e8484f87fc"></a>
 <div class="memitem">
 <div class="memproto">
