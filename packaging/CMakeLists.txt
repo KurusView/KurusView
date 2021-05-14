@@ -110,7 +110,7 @@ set(CPACK_NSIS_HELP_LINK "https://KurusView.github.io")
 include(CPack)
 include(InstallRequiredSystemLibraries)
 include(DeployQt5.cmake)
-install_qt5_executable("bin/packages/${PROJECT_NAME}${CMAKE_EXECUTABLE_SUFFIX}"
+install_qt5_executable("bin/${PROJECT_NAME}${CMAKE_EXECUTABLE_SUFFIX}"
         "${Qt5Gui_PLUGINS};" "" "" "plugins" TRUE)
 
 
