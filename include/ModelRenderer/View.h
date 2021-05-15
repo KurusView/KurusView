@@ -164,8 +164,9 @@ public:
 
     /**
      * @breif save - Saves the model to the opened file
+     * @return Success parameter
      */
-    void save();
+    bool save();
 
     /**
      * @breif saveAs - Saves the current model to new file

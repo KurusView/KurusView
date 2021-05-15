@@ -212,7 +212,15 @@ public slots:
      */
     void handleHelpButton();
 
+    /**
+     * @brief Open settings menu (QDialog)
+     */
     void handleSettingsButton();
+
+    /**
+     * @brief If file has not been saved before, opens file explorer to select save location, otherwise, just saves
+     */
+    void handleSaveButton();
 };
 
 

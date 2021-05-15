@@ -4,6 +4,7 @@
 #include <QGuiApplication>
 #include <QScreen>
 #include <QInputDialog>
+#include <QTemporaryFile>
 
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
@@ -42,8 +43,6 @@
 unsigned short int View::ViewInstanceCount = 0;
 
 View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
-
-
     //increment instance count
     ViewInstanceCount++;
 
@@ -59,7 +58,12 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
         QString modelFilePath = viewSettings->value("modelFilePath").value<QString>();
         model = std::make_shared<Model>(modelFilePath.toStdString());
     } else {
-        viewSettings = std::make_shared<QSettings>();
+        // Create a temporary file to store settings before they are saved
+        QTemporaryFile tmpSettingsFile;
+        tmpSettingsFile.open();
+        viewSettings = std::make_shared<QSettings>(tmpSettingsFile.fileName(), QSettings::IniFormat);
+        // QTemporaryFile creates a unique empty file each time anyways, but just sanity check
+        viewSettings->clear();
         viewSettings->setValue("modelFilePath", filePath);
         model = std::make_shared<Model>(filePath.toStdString());
     }
@@ -131,19 +135,10 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
         );
 
     } else {
-
         // mess with late night devs so they go to sleep
 #if defined(USE_QUANTUM_BLOCKCHAIN_ML) && defined(QT_DEBUG)
 
-        QString currentTime = QTime::currentTime().toString();
-
-        QString hour = currentTime.mid(0, 2);
-//        QString minute = currentTime.mid(3, 2);
-
-//        // minute specific
-//        if (!((hour == QString::fromStdString("21")) && (minute == QString::fromStdString("03")))) {
-//            setModelColor();
-//        }
+        QString hour = QTime::currentTime().toString().mid(0, 2);
 
         // even more rude
         if ((2 <= hour.toInt()) && (hour.toInt() >= 4)) {
@@ -155,9 +150,9 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
 #endif
     }
 
-
     setBackgroundColor(
-            viewSettings->value("backgroundColor", settingsDialog::getDefault_backgroundColour()).value<QColor>()
+            viewSettings->value("backgroundColor", viewSettings->value("background",
+                                                                       settingsDialog::getDefault_backgroundColour()).value<QColor>()).value<QColor>()
     );
 
     // Structure
@@ -668,17 +663,20 @@ void View::populateSettings() {
     viewSettings->setValue("lightSpecularity", lightSpecularity);
 }
 
-void View::save() {
+bool View::save() {
     populateSettings();
     if (filePath.isEmpty())
         saveAs();
+    // If path is empty after saveAs, then user cancelled
+    if (filePath.isEmpty())
+        return false;
     viewSettings->sync();
+    return true;
 }
 
 void View::saveAs() {
     QSettings globalSettings(QDir::currentPath() + "/kurusview.ini", QSettings::IniFormat);
     globalSettings.sync();
-
     QString savePath = QFileDialog::getSaveFileName(this, tr("Save Kurus View"),
                                                     globalSettings.value("lastOpenDirectory",
                                                                          "save_models").value<QString>(),
