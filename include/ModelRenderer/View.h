@@ -67,8 +67,10 @@ public:
      * @brief toggleShrinkFilter - Adds the clip filter to the back of the filter list if enabled and removes it from
      * the list of filters
      * @param enable - If the filter is activated by the user
+     * @param shrinkFactor - If enable is true, and shrinkFactor is set, model will shrink to shrinkFactor,
+     *                          otherwise, shrinkFactor dialog will open
      */
-    void toggleShrinkFilter(bool enable);
+    bool toggleShrinkFilter(bool enable, double shrinkFactor = NULL);
 
     /**
      * @brief toggleClipFilter - Adds the clip filter to the back of the filter list if enabled and removes it from

@@ -3,6 +3,7 @@
 #include <QTime>
 #include <QGuiApplication>
 #include <QScreen>
+#include <QInputDialog>
 
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
@@ -119,7 +120,8 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
 
     // Filters
     toggleClipFilter(viewSettings->value("isClipped", false).value<bool>());
-    toggleShrinkFilter(viewSettings->value("isShrunk", false).value<bool>());
+    toggleShrinkFilter(viewSettings->value("isShrunk", false).value<bool>(),
+                       viewSettings->value("shrinkFactor", NULL).value<double>());
 
     // Colours
     if (viewSettings->contains("modelColor") || model->fileType == "stl") {
@@ -135,7 +137,7 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
 
         QString currentTime = QTime::currentTime().toString();
 
-        QString hour = currentTime.mid(0,2);
+        QString hour = currentTime.mid(0, 2);
 //        QString minute = currentTime.mid(3, 2);
 
 //        // minute specific
@@ -144,7 +146,7 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
 //        }
 
         // even more rude
-        if ((2 <= hour.toInt()) && (hour.toInt()>= 4)) {
+        if ((2 <= hour.toInt()) && (hour.toInt() >= 4)) {
             setModelColor();
         }
 
@@ -293,11 +295,20 @@ void View::buildChain() {
     mapper->SetInputData(dynamic_cast<vtkDataSet *>(filters[1]->GetOutputDataObject(0)));
 }
 
-void View::toggleShrinkFilter(bool enable) {
+bool View::toggleShrinkFilter(bool enable, double shrinkFactor) {
+    bool gotNumber = false;
     if (enable) {
-        // TODO: Dialog Box asking for shrink value
+        if (shrinkFactor == NULL) {
+
+            // Requests user for shrink factor, defaulting to stored value in kurus file, or 0.5 otherwise
+            shrinkFactor = QInputDialog::getDouble(this, tr("Shrink Factor Dialog"),
+                                                   tr("Please enter a shrink factor, between 0 and 1"),
+                                                   viewSettings->value("shrinkFactor", 0.5).value<double>(), 0, 1, 1,
+                                                   &gotNumber, Qt::WindowFlags(), 0.1);
+            if (!gotNumber) return false;
+        }
         // Shrinks to 50%
-        shrinkFilter->SetShrinkFactor(0.5);
+        shrinkFilter->SetShrinkFactor(shrinkFactor);
         // Insert at the end of the filter list
         filters.emplace_back(shrinkFilter);
     } else if (std::find(filters.begin(), filters.end(), shrinkFilter) != filters.end()) {
@@ -307,6 +318,10 @@ void View::toggleShrinkFilter(bool enable) {
     isShrunk = enable;
 
     viewSettings->setValue("isShrunk", enable);
+    if (gotNumber)
+        viewSettings->setValue("shrinkFactor", shrinkFactor);
+
+    return true;
 }
 
 void View::toggleClipFilter(bool enable) {

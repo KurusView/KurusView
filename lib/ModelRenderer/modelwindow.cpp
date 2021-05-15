@@ -301,7 +301,9 @@ void ModelWindow::updateFilters() {
     if (senderObj == ui->clipPushButton) {
         activeView->toggleClipFilter(ui->clipPushButton->isChecked());
     } else if (senderObj == ui->shrinkPushButton) {
-        activeView->toggleShrinkFilter(ui->shrinkPushButton->isChecked());
+        bool success = activeView->toggleShrinkFilter(ui->shrinkPushButton->isChecked());
+        if (!success)
+            ui->shrinkPushButton->setChecked(false);
     } else if (senderObj == ui->resetFiltersPushButton) {
         ui->clipPushButton->setChecked(false);
         ui->shrinkPushButton->setChecked(false);
