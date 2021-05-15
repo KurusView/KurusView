@@ -19,7 +19,7 @@ var class_view =
     [ "toggleClipFilter", "class_view.html#aca7799811bfd5ba370c0aad18713df02", null ],
     [ "toggleGridLines", "class_view.html#ad0a61df5e843c106085edf827e948853", null ],
     [ "toggleMeasurement", "class_view.html#a73e07d2568d0a3116867e1cf609bcb7f", null ],
-    [ "toggleShrinkFilter", "class_view.html#afa8fb3020c414418da0b328f2ea6d3c7", null ],
+    [ "toggleShrinkFilter", "class_view.html#a8c4ec3714fde64b08e833399732b2b83", null ],
     [ "backgroundColour", "class_view.html#aaf311c2b0d7b46542e3a359ecd6f3e72", null ],
     [ "borderColor", "class_view.html#a41aa009bbcfef3d9a841beb3880a4159", null ],
     [ "centreOfGrav", "class_view.html#acd9da9e8042062065ebd30915a0c5fc9", null ],

@@ -142,9 +142,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a2e3b2eaf0dc9c3a1db939a05200f331e">buildChain</a> ()</td></tr>
 <tr class="memdesc:a2e3b2eaf0dc9c3a1db939a05200f331e"><td class="mdescLeft">&#160;</td><td class="mdescRight">buildChain - <br /></td></tr>
 <tr class="separator:a2e3b2eaf0dc9c3a1db939a05200f331e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa8fb3020c414418da0b328f2ea6d3c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#afa8fb3020c414418da0b328f2ea6d3c7">toggleShrinkFilter</a> (bool enable)</td></tr>
-<tr class="memdesc:afa8fb3020c414418da0b328f2ea6d3c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">toggleShrinkFilter - Adds the clip filter to the back of the filter list if enabled and removes it from the list of filters  <a href="#afa8fb3020c414418da0b328f2ea6d3c7">More...</a><br /></td></tr>
-<tr class="separator:afa8fb3020c414418da0b328f2ea6d3c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c4ec3714fde64b08e833399732b2b83"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#a8c4ec3714fde64b08e833399732b2b83">toggleShrinkFilter</a> (bool enable, double shrinkFactor=NULL)</td></tr>
+<tr class="memdesc:a8c4ec3714fde64b08e833399732b2b83"><td class="mdescLeft">&#160;</td><td class="mdescRight">toggleShrinkFilter - Adds the clip filter to the back of the filter list if enabled and removes it from the list of filters  <a href="#a8c4ec3714fde64b08e833399732b2b83">More...</a><br /></td></tr>
+<tr class="separator:a8c4ec3714fde64b08e833399732b2b83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca7799811bfd5ba370c0aad18713df02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_view.html#aca7799811bfd5ba370c0aad18713df02">toggleClipFilter</a> (bool enable)</td></tr>
 <tr class="memdesc:aca7799811bfd5ba370c0aad18713df02"><td class="mdescLeft">&#160;</td><td class="mdescRight">toggleClipFilter - Adds the clip filter to the back of the filter list if enabled and removes it from the list of filters  <a href="#aca7799811bfd5ba370c0aad18713df02">More...</a><br /></td></tr>
 <tr class="separator:aca7799811bfd5ba370c0aad18713df02"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -581,16 +581,26 @@ std::shared_ptr&lt; QSettings &gt;&#160;</td><td class="memItemRight" valign="bo
 
 </div>
 </div>
-<a class="anchor" id="afa8fb3020c414418da0b328f2ea6d3c7"></a>
+<a class="anchor" id="a8c4ec3714fde64b08e833399732b2b83"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void View::toggleShrinkFilter </td>
+          <td class="memname">bool View::toggleShrinkFilter </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>enable</em></td><td>)</td>
+          <td class="paramname"><em>enable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>shrinkFactor</em> = <code>NULL</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -599,6 +609,7 @@ std::shared_ptr&lt; QSettings &gt;&#160;</td><td class="memItemRight" valign="bo
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">enable</td><td>- If the filter is activated by the user </td></tr>
+    <tr><td class="paramname">shrinkFactor</td><td>- If enable is true, and shrinkFactor is set, model will shrink to shrinkFactor, otherwise, shrinkFactor dialog will open </td></tr>
   </table>
   </dd>
 </dl>
