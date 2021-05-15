@@ -42,18 +42,15 @@ foreach (Qt_library ${Qt5Widgets_LIBRARIES} ${Qt5Core_LIBRARIES} ${Qt5Gui_LIBRAR
     get_target_property( Qt_lib_name_debug ${Qt_library} IMPORTED_LOCATION_DEBUG )
     get_target_property( Qt_lib_name_release ${Qt_library} IMPORTED_LOCATION_RELEASE )
 
-    # Initially assume the both dlls should be installed, but
+    # Initially assume the DEBUG dlls should be installed, but
     # fall back to release if necessary
-#    if ( Qt_lib_name_release AND EXISTS ${Qt_lib_name_release} AND Qt_lib_name_debug AND EXISTS ${Qt_lib_name_debug} )
-#        set( Qt_library_location ${Qt_lib_name_release} )
-#        set( Qt_debug_library_location ${Qt_lib_name_debug} )
-#    if ( Qt_lib_name_release AND EXISTS ${Qt_lib_name_release} )
-#        set( Qt_library_location ${Qt_lib_name_release} )
     if ( Qt_lib_name_debug AND EXISTS ${Qt_lib_name_debug} )
         set( Qt_library_location ${Qt_lib_name_debug} )
-    elseif ( Qt_lib_name_debug AND EXISTS ${Qt_lib_name_debug} AND ENVIRONMENT_DEBUG )
+    elseif ( Qt_lib_name_release AND EXISTS ${Qt_lib_name_release} )
+        set( Qt_library_location ${Qt_lib_name_release} )
+    elseif ( Qt_lib_name AND EXISTS ${Qt_lib_name} )
         set( Qt_library_location ${Qt_lib_name} )
-    endif ( Qt_lib_name_debug AND EXISTS ${Qt_lib_name_debug} AND ENVIRONMENT_DEBUG )
+    endif ( Qt_lib_name_debug AND EXISTS ${Qt_lib_name_debug} )
 
     set(QT_BINARY_DIR "C://Qt//5.15.1//msvc2019_64//bin")
 
