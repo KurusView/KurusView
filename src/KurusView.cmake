@@ -52,7 +52,9 @@ foreach (Qt_library ${Qt5Widgets_LIBRARIES} ${Qt5Core_LIBRARIES} ${Qt5Gui_LIBRAR
         set( Qt_library_location ${Qt_lib_name} )
     endif ( Qt_lib_name_debug AND EXISTS ${Qt_lib_name_debug} )
 
-    set(QT_BINARY_DIR "C://Qt//5.15.1//msvc2019_64//bin")
+    # Get library location, and get it's directory
+    get_target_property(QT_BINARY_DIR ${Qt_library} LOCATION)
+    get_filename_component(QT_BINARY_DIR ${QT_BINARY_DIR} DIRECTORY)
 
     # Extract the filename part, without the lib-prefix or the .a or ..lib suffix
     get_filename_component( Qt_library_name ${Qt_library_location} NAME_WE )
