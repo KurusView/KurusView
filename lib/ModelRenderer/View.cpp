@@ -1,6 +1,8 @@
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QTime>
+#include <QGuiApplication>
+#include <QScreen>
 
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
@@ -72,8 +74,12 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
 
     verticalLayout = new QVBoxLayout(this);
 
+    // Get Primary Screen Height
+    int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
+    int screenWidth = QGuiApplication::primaryScreen()->geometry().width();
+
     qVTKWidget = new QVTKOpenGLWidget(parent);
-    qVTKWidget->setMinimumSize(QSize(300, 200)); // TODO make this dynamic
+    qVTKWidget->setMinimumSize(QSize(screenHeight/10, screenWidth/10)); // TODO make this dynamic
 
     verticalLayout->addWidget(qVTKWidget);
 
