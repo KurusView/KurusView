@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['save',['save',['../class_view.html#aa2cb33a313c314d30b11e3e8484f87fc',1,'View']]],
+  ['save',['save',['../class_view.html#ad5f19dd44d33b52e9f13c115d874f7f6',1,'View']]],
   ['saveas',['saveAs',['../class_view.html#a9f092e6bd0a005f69bbd02eddae7112c',1,'View']]],
   ['savemodel',['saveModel',['../class_model.html#a41873a62770f294e288f78f908d8868d',1,'Model']]],
   ['scalartripleproduct',['scalarTripleProduct',['../_m_vector_8h.html#a5066371dc1f01be6fefe92ef448aa37e',1,'MVector.cpp']]],

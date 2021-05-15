@@ -214,7 +214,6 @@ Possible candidates:
 /home/travis/build/KurusView/2020_GROUP_21/include/Model.h:81: warning: Member filePath (variable) of class Model is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer.h:28: warning: Member openFile(const QStringList &filePaths) (slot) of class ModelRenderer is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer.h:30: warning: Member applyLightMode() (slot) of class ModelRenderer is not documented.
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:215: warning: Member handleSettingsButton() (slot) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:55: warning: Member fileMenu (variable) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:56: warning: Member recentFilesMenu (variable) of class ModelWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/modelwindow.h:58: warning: Member openAction (variable) of class ModelWindow is not documented.
@@ -339,7 +338,7 @@ Generat/home/travis/build/KurusView/2020_GROUP_21/include/MVector.h:137: warning
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:163: warning: Member viewSettings (variable) of class View is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:56: warning: argument 'filePath' of command @param is not found in the argument list of View::loadSTLModel()
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:166: warning: Found unknown command `\breif'
-/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:171: warning: Found unknown command `\breif'
+/home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/View.h:172: warning: Found unknown command `\breif'
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:116: warning: Member fileSelected(const QStringList &filePaths) (signal) of class WelcomeWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:25: warning: Member WelcomeWindow(QWidget *parent=nullptr) (function) of class WelcomeWindow is not documented.
 /home/travis/build/KurusView/2020_GROUP_21/include/ModelRenderer/welcomewindow.h:119: warning: Member eventFilter(QObject *obj, QEvent *event) override (function) of class WelcomeWindow is not documented.
@@ -368,5 +367,5 @@ Generating file member index...
 Generating example index...
 finalizing index lists...
 writing tag file...
-lookup cache used 346/65536 hits=1892 misses=377
+lookup cache used 347/65536 hits=1898 misses=378
 finished...

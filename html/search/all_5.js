@@ -12,5 +12,6 @@ var searchData=
   ['handleopenbutton',['handleOpenButton',['../class_welcome_window.html#a6df5805ce1c6d7bd0d59a71ed13a0a4b',1,'WelcomeWindow']]],
   ['handleresetcolor',['handleResetColor',['../class_model_window.html#a4c9eefb90446f87941efa952e6b29900',1,'ModelWindow']]],
   ['handleresetlighting',['handleResetLighting',['../class_model_window.html#a2e42c0dabaa52b19487e8bf58b337397',1,'ModelWindow']]],
-  ['handlesettingsbutton',['handleSettingsButton',['../class_welcome_window.html#a51295926bbc4ac0d9c843ce4d7e23560',1,'WelcomeWindow']]]
+  ['handlesavebutton',['handleSaveButton',['../class_model_window.html#a756acf7b318b41aafd624e615adb777b',1,'ModelWindow']]],
+  ['handlesettingsbutton',['handleSettingsButton',['../class_model_window.html#a68d1deb9c060c703a9bf82306bc4aa81',1,'ModelWindow::handleSettingsButton()'],['../class_welcome_window.html#a51295926bbc4ac0d9c843ce4d7e23560',1,'WelcomeWindow::handleSettingsButton()']]]
 ];

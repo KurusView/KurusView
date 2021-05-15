@@ -7,7 +7,7 @@ var class_view =
     [ "loadSTLModel", "class_view.html#ad7e07f912445a078da3e9cb668e70813", null ],
     [ "resetColour", "class_view.html#a53673c9e728f9ef0a0607242f5279f4f", null ],
     [ "resetLighting", "class_view.html#a5a39c3a8844953e2a6896e2e04b5a02e", null ],
-    [ "save", "class_view.html#aa2cb33a313c314d30b11e3e8484f87fc", null ],
+    [ "save", "class_view.html#ad5f19dd44d33b52e9f13c115d874f7f6", null ],
     [ "saveAs", "class_view.html#a9f092e6bd0a005f69bbd02eddae7112c", null ],
     [ "setBackgroundColor", "class_view.html#aae0c941bc902e7da58fd7a4956ee986d", null ],
     [ "setLightIntensity", "class_view.html#a67a666ec6b492f18afa9fdf95554e70d", null ],
