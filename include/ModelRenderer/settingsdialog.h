@@ -4,10 +4,14 @@
 #include <QDialog>
 #include <QSettings>
 
+// wrap the class in Ui::
 namespace Ui {
     class settingsDialog;
 }
 
+/**
+ * @brief Settings menu class. UI and logic
+ */
 class settingsDialog : public QDialog {
 Q_OBJECT
 
@@ -67,16 +71,14 @@ public:
 
 
 private:
+    /// @brief ui - pointer to the ui object from QT creator. Deleted in dtor.
     Ui::settingsDialog *ui;
 
+    /// @brief temporary members to hold changed values until save
     QString defaultSaveLocation;
-
     unsigned short int maxModelsPerWindow;
-
     unsigned int displayRecents;
-
     bool alwaysOpenModelToNewWindow;
-
     QColor defaultModelColour, defaultBackFaceColour, defaultBackgroundColour;
 
 private slots:

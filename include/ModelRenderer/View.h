@@ -19,33 +19,74 @@
 
 #include "Model.h"
 
+// wrap the class in Ui::
+namespace Ui {
+    class View;
+}
 
-class View : public QWidget {
+/**
+ * @brief View class - abstracts all rendering duties. Has no effect on UI elements, which are handled by ModelWindow
+ *
+ * @note should be used as a standalone class. Intentionally disables inheritance capability.
+ */
+class View final : public QWidget {
 public:
+    /// @TODO reconsider member visibility, use accessors
     QString borderColor;
-
     QVBoxLayout *verticalLayout;
-
     QVTKOpenGLWidget *qVTKWidget;
     std::shared_ptr<Model> model;
-    /** @brief vtkModel - Unstructured grid containing all the cells of the model */
+
+    /**
+     * @brief vtkModel - Unstructured grid containing all the cells of the model.
+     *
+     * @note used to render custom .mod models.
+     */
     vtkSmartPointer<vtkAlgorithm> vtkModel;
+
+    /// @brief STLModel - STL model source
     vtkSmartPointer<vtkSTLReader> STLModel;
 
+    /// @brief mapper - sole rendering mapper
     vtkSmartPointer<vtkDataSetMapper> mapper;
+
+    /// @brief filters - list or active filters.
     std::vector<vtkSmartPointer<vtkAlgorithm>> filters;
+
+    /// @brief clipFilter - global instance of clipFilter
     vtkSmartPointer<vtkClipDataSet> clipFilter;
+
+    /// @brief shrinkFilter - global instance of shrinkFilter
     vtkSmartPointer<vtkShrinkFilter> shrinkFilter;
 
+    /// @brief model properties
     int lightIntensity, lightSpecularity, modelOpacity, structure;
-
     QString backgroundColour, modelColour, modelBackFaceColor;
-
     bool isClipped, isShrunk, gridLinesEnabled, measurementEnabled;
+    double density, volume, weight;
+    unsigned long numOfCells;
+    MVector centreOfGrav;
+    vtkSmartPointer<vtkDistanceWidget> distanceWidget;
+    QString filePath;
+    std::shared_ptr<QSettings> viewSettings;
 
-    View(const QString &filePath, QWidget *parent = nullptr);
+    /**
+     * @brief View constructor - renders model provided by filePath. Internally calls ModelRenderer.
+     * @param filePath - path to the model to be rendered
+     * @param parent
+     *
+     * @internal Constructors that are callable with a single argument must be marked explicit to avoid unintentional
+     *           implicit conversions if we implement polymorphic ctors.
+     */
+    explicit View(const QString &filePath, QWidget *parent = nullptr);
 
-    virtual ~View();
+    /**
+     * @brief destructor - decrements instance count
+     *
+     * @internal final because this class is not meant to be inherited from. Doing so without final will easily lead to
+     *           accidentally bypassing the instance count decrement.
+     */
+    ~View() final;
 
     /**
      * @brief buildVTKModelFromMod - Builds model from cells and vectors loaded from a proprietary model file
@@ -79,7 +120,10 @@ public:
      */
     void toggleClipFilter(bool enable);
 
-    // return instance count
+    /**
+     * @brief get the count of existing View objects
+     * @return instance count
+     */
     static unsigned short int getCount();
 
     /**
@@ -105,17 +149,6 @@ public:
      * @brief resetColour - Resets all colours of the model according to defaults.
      */
     void resetColour();
-
-
-    double density, volume, weight;
-
-    unsigned long numOfCells;
-
-    MVector centreOfGrav;
-
-
-    vtkSmartPointer<vtkDistanceWidget> distanceWidget;
-
 
     /**
      * @brief setLightIntensity - Sets the light intensity of the model
@@ -158,10 +191,6 @@ public:
      */
     void setStructure(int selectedStructure);
 
-    QString filePath;
-
-    std::shared_ptr<QSettings> viewSettings;
-
     /**
      * @breif save - Saves the model to the opened file
      * @return Success parameter
@@ -181,6 +210,11 @@ private:
      */
     static unsigned short int ViewInstanceCount;
 
+    /**
+     * @internal dynamic View border colour setting
+     *
+     * @TODO fix bug: when opening a view in a new window, the counter should reset
+     */
     QString borderColors[4] = {"red", "blue", "cyan", "magenta"};
 
     /**

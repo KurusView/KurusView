@@ -22,12 +22,13 @@
 #include "Model.h"
 #include "View.h"
 
+// wrap the class in Ui::
 namespace Ui {
     class ModelWindow;
 }
 
 /**
- * @brief Visualises a model in a user-friendly GUI
+ * @brief Holds Views and handles ui elements
  */
 class ModelWindow : public QMainWindow {
 Q_OBJECT

@@ -9,8 +9,8 @@
 #include <QGridLayout>
 #include <QScrollArea>
 
+// wrap the class in Ui
 namespace Ui {
-
     class WelcomeWindow;
 }
 
@@ -18,6 +18,7 @@ class QFrame;
 
 
 class WelcomeWindow : public QMainWindow {
+    /// @internal need to have declare class as Q_OBJECT to handle signals/slots
 Q_OBJECT
 
 public:
@@ -29,27 +30,36 @@ public:
      * @param inputFileNames
      */
     void addToRecentFiles(QStringList &inputFileNames);
+
     /**
     * @brief ~WelcomeWindow - Default Destructor
     */
     ~WelcomeWindow();
 
 private:
+    /// @brief ui - pointer to the ui object from QT creator. Deleted in dtor.
     Ui::WelcomeWindow *ui;
+
+    /// @brief recentFilePaths - list of paths to recently opened models
     QStringList recentFilePaths;
 
+    /// @internal the a xFrames are constructed inside of mainLayout, which is placed in a ScrollArea, from the recents lsit
     QScrollArea *scrollAreaX;
     QGridLayout *mainLayout;
+
+    /// @brief xFrame - each recent model gets its own xFrame, containing icon, index, filepath, and model name
     QFrame *xFrame;
 
+    /// @brief maxFileNr - maximum number of models to display on recents, set by settings.
     const int maxFileNr;
 
+    /// @brief settings - accessor to global settings
     QSettings settings;
 
+    /// @binternal recents list icon placeholders. We use pixelmaps to apply size transformations.
     QImage *img;
     QPixmap p;
 
-    QFrame *
     /**
      *
      * @brief Adds a new row to the displayed recent files .
@@ -59,7 +69,7 @@ private:
      * @param generalFontsize Is the font size of the text
      *
      */
-    CreateNewRow(int number, QString title, QString subtitle, int generalFontSize = 18);
+    QFrame *CreateNewRow(int number, QString title, QString subtitle, int generalFontSize = 18);
 
     /**
      *
@@ -81,6 +91,7 @@ private:
 
 
 public slots:
+
     /**
      * @breif Opens the file explorer to select a file to open.
      */
@@ -113,9 +124,14 @@ public slots:
 
 signals:
 
+    /// @brief signal caught by ModelWindow to render a new model when selected from the list or from the open menu
     void fileSelected(const QStringList &filePaths);
 
 protected:
+    /**
+     * @brief used to catch events from mouse.
+     * @internal right click dialog currently bypasses this function. Wrap around it or stop using it.
+     */
     bool eventFilter(QObject *obj, QEvent *event) override;
 };
 
