@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['vertexids',['vertexIDs',['../class_m_cell.html#a4f390f612c718f67578f0f2852b7e605',1,'MCell']]],
-  ['view',['View',['../class_view.html',1,'']]],
-  ['viewactive',['viewActive',['../class_model_window.html#a2e1ce42f7783febdf37b75c5cd6b7747',1,'ModelWindow']]],
-  ['vtkmodel',['vtkModel',['../class_view.html#a813df9074bab5e126af4fc7cbfa6529b',1,'View']]]
+  ['team_20members_20and_20roles',['Team Members and Roles',['../md__home_travis_build_KurusView_2020_GROUP_21_TEAM.html',1,'']]],
+  ['toggleclipfilter',['toggleClipFilter',['../class_view.html#aca7799811bfd5ba370c0aad18713df02',1,'View']]],
+  ['togglegridlines',['toggleGridLines',['../class_view.html#ad0a61df5e843c106085edf827e948853',1,'View']]],
+  ['togglemeasurement',['toggleMeasurement',['../class_view.html#a73e07d2568d0a3116867e1cf609bcb7f',1,'View']]],
+  ['toggleshrinkfilter',['toggleShrinkFilter',['../class_view.html#a8c4ec3714fde64b08e833399732b2b83',1,'View']]],
+  ['transpose',['transpose',['../class_matrix.html#aa753de1a2ed37c8eb934e06823fee179',1,'Matrix']]]
 ];

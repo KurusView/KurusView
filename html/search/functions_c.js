@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['toggleclipfilter',['toggleClipFilter',['../class_view.html#aca7799811bfd5ba370c0aad18713df02',1,'View']]],
-  ['togglegridlines',['toggleGridLines',['../class_view.html#ad0a61df5e843c106085edf827e948853',1,'View']]],
-  ['togglemeasurement',['toggleMeasurement',['../class_view.html#a73e07d2568d0a3116867e1cf609bcb7f',1,'View']]],
-  ['toggleshrinkfilter',['toggleShrinkFilter',['../class_view.html#a8c4ec3714fde64b08e833399732b2b83',1,'View']]],
-  ['transpose',['transpose',['../class_matrix.html#aa753de1a2ed37c8eb934e06823fee179',1,'Matrix']]]
+  ['removeentryfromrecents',['removeEntryFromRecents',['../class_welcome_window.html#af6474706e21f5301800f916bad14ee5f',1,'WelcomeWindow']]],
+  ['resetcolour',['resetColour',['../class_view.html#a53673c9e728f9ef0a0607242f5279f4f',1,'View']]],
+  ['resetlighting',['resetLighting',['../class_view.html#a5a39c3a8844953e2a6896e2e04b5a02e',1,'View']]],
+  ['rotationmatrix',['RotationMatrix',['../_matrix_8h.html#a500d8d8a1cabfbadfb38ca824c09e251',1,'Matrix.cpp']]]
 ];

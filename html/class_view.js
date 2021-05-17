@@ -1,7 +1,7 @@
 var class_view =
 [
     [ "View", "class_view.html#a998a29b177bf9f5cd78f44975da6a384", null ],
-    [ "~View", "class_view.html#ad0dc854db9aabbea98a334dec89f785c", null ],
+    [ "~View", "class_view.html#aabb2a54b8a27043c75ba1f8a28184dc5", null ],
     [ "buildChain", "class_view.html#a2e3b2eaf0dc9c3a1db939a05200f331e", null ],
     [ "buildVTKModelFromMod", "class_view.html#a75176f27b9131e524f8562a29deb84b9", null ],
     [ "loadSTLModel", "class_view.html#ad7e07f912445a078da3e9cb668e70813", null ],
