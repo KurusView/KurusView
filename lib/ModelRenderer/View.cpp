@@ -296,7 +296,7 @@ bool View::toggleShrinkFilter(bool enable, double shrinkFactor) {
         if (shrinkFactor == NULL) {
 
             // Requests user for shrink factor, defaulting to stored value in kurus file, or 0.5 otherwise
-            shrinkFactor = QInputDialog::getDouble(this, tr("Shrink Factor Dialog"),
+            shrinkFactor = QInputDialog::getDouble(this->parentWidget(), tr("Shrink Factor Dialog"),
                                                    tr("Please enter a shrink factor, between 0 and 1"),
                                                    viewSettings->value("shrinkFactor", 0.5).value<double>(), 0, 1, 1,
                                                    &gotNumber, Qt::WindowFlags(), 0.1);
