@@ -56,7 +56,7 @@ set(CPACK_RESOURCE_FILE_WELCOME ${CMAKE_SOURCE_DIR}/Welcome.txt)
 set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_SOURCE_DIR}/License.txt)
 set(CPACK_RESOURCE_FILE_README ${CMAKE_SOURCE_DIR}/README.md)
 # Icons
-set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}\\\\Icons\\\\old_kurusview.bmp")
+set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}\\\\Resources\\\\old_kurusview.bmp")
 # Adds start menu icon, given in the format "exe_name;start_menu_name"
 set(CPACK_PACKAGE_EXECUTABLES "${PROJECT_NAME};${PROJECT_NAME}")
 # Creates Desktop Icon
@@ -77,14 +77,14 @@ set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
 set(CPACK_NSIS_INSTALLED_ICON_NAME bin\\\\${PROJECT_NAME}.exe)
 
 # Installer and uninstaller program icon (.ico)
-set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}\\\\Icons\\\\kurusview.ico")
-set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}\\\\Icons\\\\kurusview.ico")
+set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}\\\\Resources\\\\kurusview.ico")
+set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}\\\\Resources\\\\kurusview.ico")
 
 # Welcome and finish page BMPs
-set(CPACK_NSIS_MUI_WELCOMEFINISHPAGE_BITMAP "${CMAKE_SOURCE_DIR}\\\\Icons\\\\welcomefinish.bmp")
-set(CPACK_NSIS_MUI_UNWELCOMEFINISHPAGE_BITMAP "${CMAKE_SOURCE_DIR}\\\\Icons\\\\welcomefinish.bmp")
+set(CPACK_NSIS_MUI_WELCOMEFINISHPAGE_BITMAP "${CMAKE_SOURCE_DIR}\\\\Resources\\\\welcomefinish.bmp")
+set(CPACK_NSIS_MUI_UNWELCOMEFINISHPAGE_BITMAP "${CMAKE_SOURCE_DIR}\\\\Resources\\\\welcomefinish.bmp")
 # Header BMP
-set(CPACK_NSIS_MUI_HEADERIMAGE "${CMAKE_SOURCE_DIR}\\\\Icons\\\\header.bmp")
+set(CPACK_NSIS_MUI_HEADERIMAGE "${CMAKE_SOURCE_DIR}\\\\Resources\\\\header.bmp")
 
 # Allows user to uninstall previous version (if exists) before installing
 set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL ON)

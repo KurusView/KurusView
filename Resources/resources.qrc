@@ -1,6 +1,6 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
-    <qresource prefix="/Icons">
+    <qresource prefix="/Resources">
         <!-- KurusView -->
         <file>kurusview.png</file>
         <file>kurusview.ico</file>

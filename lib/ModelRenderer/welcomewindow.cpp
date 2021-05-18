@@ -24,7 +24,7 @@ WelcomeWindow::WelcomeWindow(QWidget *parent) :
         settings(QSettings::IniFormat, QSettings::UserScope, "Kurus", "KurusView") {
 
     ui->setupUi(this);
-    img = new QImage(":/Icons/kurusview.png");
+    img = new QImage(":/Resources/kurusview.png");
     p = QPixmap::fromImage(*img);
 
     std::cout << maxFileNr;

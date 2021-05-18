@@ -14,8 +14,8 @@
    <string>MainWindow</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../Icons/icons.qrc">
-    <normaloff>:/Icons/kurusview.png</normaloff>:/Icons/kurusview.png</iconset>
+   <iconset resource="../../Resources/resources.qrc">
+    <normaloff>:/Resources/kurusview.png</normaloff>:/Resources/kurusview.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -511,8 +511,8 @@
   </widget>
   <action name="actionOpenView">
    <property name="icon">
-    <iconset resource="../../Icons/icons.qrc">
-     <normaloff>:/Icons/fileopen.png</normaloff>:/Icons/fileopen.png</iconset>
+    <iconset resource="../../Resources/resources.qrc">
+     <normaloff>:/Resources/fileopen.png</normaloff>:/Resources/fileopen.png</iconset>
    </property>
    <property name="text">
     <string>Open</string>
@@ -520,8 +520,8 @@
   </action>
   <action name="actionSaveView">
    <property name="icon">
-    <iconset resource="../../Icons/icons.qrc">
-     <normaloff>:/Icons/filesave.png</normaloff>:/Icons/filesave.png</iconset>
+    <iconset resource="../../Resources/resources.qrc">
+     <normaloff>:/Resources/filesave.png</normaloff>:/Resources/filesave.png</iconset>
    </property>
    <property name="text">
     <string>Save View</string>
@@ -529,8 +529,8 @@
   </action>
   <action name="actionHelp">
    <property name="icon">
-    <iconset resource="../../Icons/icons.qrc">
-     <normaloff>:/Icons/help.png</normaloff>:/Icons/help.png</iconset>
+    <iconset resource="../../Resources/resources.qrc">
+     <normaloff>:/Resources/help.png</normaloff>:/Resources/help.png</iconset>
    </property>
    <property name="text">
     <string>Help</string>
@@ -556,8 +556,8 @@
   </action>
  </widget>
  <resources>
-  <include location="../../Icons/icons.qrc"/>
-  <include location="../../Icons/icons.qrc"/>
+  <include location="../../Resources/resources.qrc"/>
+  <include location="../../Resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

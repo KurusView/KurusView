@@ -20,7 +20,7 @@ ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv) 
     // Get Primary Screen Height
     int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
     // Load in the splash screen image and scale it to 1/3 of the screen height, keeping the same aspect ratio
-    QPixmap splashImage = QPixmap(":/Icons/splashscreen.png").scaledToHeight(screenHeight / 3);
+    QPixmap splashImage = QPixmap(":/Resources/splashscreen.png").scaledToHeight(screenHeight / 3);
     // Create and show the splash screen, keeping it on top
     QSplashScreen splashScreen(splashImage, Qt::WindowStaysOnTopHint);
     splashScreen.show();
@@ -30,7 +30,7 @@ ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv) 
 
 #ifndef USE_FUSION
     // Open Stylesheet file
-    QFile styleSheetFile(":/Icons/Combinear.qss");
+    QFile styleSheetFile(":/Resources/Combinear.qss");
     styleSheetFile.open(QFile::ReadOnly);
     // Store all the contents of the file in a string
     QString styleSheet = QLatin1String(styleSheetFile.readAll());

@@ -7,7 +7,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/KurusView/lib)
 # Place executable output in a bin directory within the build directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/KurusView/bin)
 
-set(APP_ICON_RESOURCE_WINDOWS Icons/kurusview.rc)
+set(APP_ICON_RESOURCE_WINDOWS Resources/kurusview.rc)
 
 # Define the executable and it's sources.
 file(GLOB_RECURSE EXE_SOURCES "src/*.cpp")
