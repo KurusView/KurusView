@@ -34,6 +34,10 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../../Resources/resources.qrc">
+    <normaloff>:/Resources/kurusview.png</normaloff>:/Resources/kurusview.png</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_4">
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -397,6 +401,9 @@
    <header location="global">clickableqlabel.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../../Resources/resources.qrc"/>
+  <include location="../../Resources/resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
