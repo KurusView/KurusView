@@ -52,6 +52,7 @@ KurusView is a cross-platform visualisation tool for three-dimensional models.
 
 ---
 
+
 ## Requirements
 - CMake >= 3.3
 - Qt 5
@@ -59,11 +60,15 @@ KurusView is a cross-platform visualisation tool for three-dimensional models.
 
 > These requirements are only relevant if compiling from source. [Installers](#Install) are available.
 
+
 ## Install
+
 `zip` and `exe` installers are available for Windows, and `zip`, `tgz` and `deb` for Linux. 
 
 
+
 ## Compile from source
+
 ``` bash
 $ cmake -DENABLE_TESTS=OFF build/
 $ cmake --build build/ --target KurusView
@@ -75,7 +80,9 @@ $ cmake -DENABLE_TESTS=OFF build/
 $ cmake --build build/ --target KurusView_LIB
 ```
 
+
 ## Repo tree
+
 ```
 .
 ├── include/                # Project Headers
@@ -99,6 +106,7 @@ $ cmake --build build/ --target KurusView_LIB
 ├── doxygen-awesome-css/    # Git Submodule: Doxygen Awesome
 └── CMakeLists.txt          # Main CMakeLists
 ```
+
 
 ## Documentation
 Doxygen formatted comments are used in all header files and docs are hosted [here](https://kurusview.github.io/2020_GROUP_21/). The [theme](https://github.com/jothepro/doxygen-awesome-css) used is by [@jothepro](https://github.com/jothepro) :rocket:.
