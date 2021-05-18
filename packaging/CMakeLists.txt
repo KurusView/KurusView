@@ -124,7 +124,57 @@ set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS
 # Simpler, less portable: cpack -C "Debug;Release"
 
 include(CPack)
+
+# Create Install Types
+#### End User
+#### Developer (includes headers)
+
+cpack_add_install_type(end_user_install
+        DISPLAY_NAME "Easy Install"
+        )
+
+cpack_add_install_type(developer_install
+        DISPLAY_NAME "Developer Install"
+        )
+
+# Create Component Group for Qt and VTK
+cpack_add_component_group(external_libraries
+        DISPLAY_NAME "External Libraries"
+        DESCRIPTION "Libraries required if not installed on your system"
+        EXPANDED
+)
+
+# Create Components and assign to install types and groups
+cpack_add_component(KurusView
+        DISPLAY_NAME "Kurus View"
+        DESCRIPTION "Main GUI Application"
+        REQUIRED
+        INSTALL_TYPES end_user_install developer_install
+        )
+
+cpack_add_component(header_files
+        DISPLAY_NAME "Header Files"
+        DESCRIPTION "Library Headers, use if developing with the library."
+        INSTALL_TYPES developer_install
+        )
+
+cpack_add_component(Qt
+        DISPLAY_NAME "Qt"
+        DESCRIPTION "Qt DLLs (Required if Qt is not installed on your system)"
+        GROUP external_libraries
+        INSTALL_TYPES end_user_install developer_install
+        )
+
+cpack_add_component(VTK
+        DISPLAY_NAME "VTK"
+        DESCRIPTION "VTK DLLs (Required if VTK is not installed on your system)"
+        GROUP external_libraries
+        INSTALL_TYPES end_user_install developer_install
+        )
+
 include(InstallRequiredSystemLibraries)
+
+# Ensures all required Qt dlls are installed, put in plugins directory
 include(DeployQt5.cmake)
 install_qt5_executable("bin/${PROJECT_NAME}${CMAKE_EXECUTABLE_SUFFIX}"
         "${Qt5Gui_PLUGINS};" "" "" "plugins" TRUE)
