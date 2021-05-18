@@ -92,6 +92,22 @@ set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL ON)
 set(CPACK_NSIS_URL_INFO_ABOUT "https://github.com/KurusView/2020_Group_21")
 set(CPACK_NSIS_HELP_LINK "https://KurusView.github.io")
 
+get_filename_component(path_to_plugins "${CMAKE_SOURCE_DIR}" ABSOLUTE)
+file(TO_NATIVE_PATH "${path_to_plugins}" path_to_plugins)
+string(REPLACE "\\" "/" path_to_plugins "${path_to_plugins}")
+
+# Include FileAssociation.nsh
+set(CPACK_NSIS_EXTRA_PREINSTALL_COMMANDS
+        "!include \"${path_to_plugins}\\\\packaging\\\\FileAssociation.nsh\"")
+
+# Create association
+set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS
+        "\${RegisterExtension} '$INSTDIR\\\\bin\\\\${PROJECT_NAME}.exe' '.kurus' 'Kurus_View_Model'")
+
+# Remove association
+set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS
+        "\${UnRegisterExtension} '.kurus' 'Kurus View Model'")
+
 # Components are just name
 # Used to group installed files
 # Can be grouped into a hierarchy with one component dependant on another
