@@ -4,10 +4,10 @@
 #include <MHexahedron.h>
 #include <MPyramid.h>
 #include <MTetrahedron.h>
-#include "Model.h"
+#include "MModel.h"
 #include "MVector.h"
 
-Model::Model(const std::string &filePath) {
+MModel::MModel(const std::string &filePath) {
     std::cout << "Creating new model from file" << std::endl;
 
     std::string fileExtension = filePath.substr(filePath.find_last_of('.') + 1);
@@ -19,7 +19,7 @@ Model::Model(const std::string &filePath) {
         loadModel(filePath);
 }
 
-void Model::loadModel(const std::string &filePath) {
+void MModel::loadModel(const std::string &filePath) {
     // Open the file with an input file stream
     std::ifstream inputFile(filePath);
     // Ensure file is open
@@ -138,7 +138,7 @@ void Model::loadModel(const std::string &filePath) {
     inputFile.close();
 }
 
-void Model::saveModel(const std::string &filePath) {
+void MModel::saveModel(const std::string &filePath) {
 //    Open the file with an output file stream
     std::ofstream outputFile;
     outputFile.open(filePath, std::ofstream::out);
@@ -169,16 +169,16 @@ void Model::saveModel(const std::string &filePath) {
     outputFile.close();
 }
 
-void Model::displayVertexCount() {
+void MModel::displayVertexCount() {
     std::cout << "Number of Vertices: " << vectors.size() << std::endl;
 }
 
-size_t Model::getCellCount() {
+size_t MModel::getCellCount() {
 //    MCell::getCount(); // For global count
     return cells.size();
 }
 
-MVector Model::calcCentre() {
+MVector MModel::calcCentre() {
     MVector centreOfGravity;
     double totalMass = 0;
 
@@ -191,7 +191,7 @@ MVector Model::calcCentre() {
     return centreOfGravity;
 }
 
-double Model::calcVolume() {
+double MModel::calcVolume() {
     double totalVolume = 0.0;
     for (auto &cell : cells) {
         totalVolume += cell->getVolume();
@@ -199,7 +199,7 @@ double Model::calcVolume() {
     return totalVolume;
 }
 
-double Model::calcWeight() {
+double MModel::calcWeight() {
     double totalWeight = 0.0;
     for (auto &cell : cells) {
         totalWeight += cell->getWeight();
@@ -207,25 +207,22 @@ double Model::calcWeight() {
     return totalWeight;
 }
 
-std::vector<std::shared_ptr<Material>> Model::getMaterials() {
+std::vector<std::shared_ptr<Material>> MModel::getMaterials() {
     return this->materials;
 }
 
-std::vector<MVector> Model::getVectors() {
+std::vector<MVector> MModel::getVectors() {
     return vectors;
 }
 
-std::vector<std::shared_ptr<MCell>> Model::getCells() {
+std::vector<std::shared_ptr<MCell>> MModel::getCells() {
     return cells;
 }
 
-size_t Model::getMaterialCount() {
+size_t MModel::getMaterialCount() {
     return materials.size();
 }
 
-size_t Model::getVectorCount() {
+size_t MModel::getVectorCount() {
     return vectors.size();
 }
-
-
-

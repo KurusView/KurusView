@@ -8,9 +8,9 @@
 #include "MVector.h"
 
 /**
- * @brief Model - This object is responsible for reading and writing model entities to VTK style data files
+ * @brief MModel - This object is responsible for reading and writing model entities to .mod data files
  */
-class Model {
+class MModel {
 private:
     /** @brief vectors - List of all the vectors in the model */
     std::vector<MVector> vectors;
@@ -20,20 +20,20 @@ private:
 
 public:
     /**
-     * @brief Model - Default Constructor
+     * @brief MModel - Default Constructor
      */
-    Model() = default;
+    MModel() = default;
 
     /**
-     * @brief Model - Constructor that loads a model from a file using loadModel
+     * @brief MModel - Constructor that loads a model from a file using loadModel
      * @param filePath - Path to the data file
      */
-    explicit Model(const std::string &filePath);
+    explicit MModel(const std::string &filePath);
 
     /**
-     * @brief ~Model - Default Destructor
+     * @brief ~MModel - Default Destructor
      */
-    ~Model() = default;
+    ~MModel() = default;
 
     /**
      * @brief loadModel - Loads a model from a VTK style data file

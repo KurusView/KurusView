@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
-#include "Model.h"
+#include "MModel.h"
 #include "Material.h"
 std::string modelsDir = MODELS_DIR;
 
-TEST(ModelTest, getMaterials) {
-    Model mod(modelsDir + "/ExampleModel1.mod");
+TEST(MModelTest, getMaterials) {
+    MModel mod(modelsDir + "/ExampleModel1.mod");
 
     std::vector<std::shared_ptr<Material>> materials = mod.getMaterials();
 
@@ -19,9 +19,9 @@ TEST(ModelTest, getMaterials) {
     ASSERT_EQ(density1, 8960);
 }
 
-TEST(ModelTest, getVectors) {
+TEST(MModelTest, getVectors) {
 
-    Model mod(modelsDir + "/ExampleModel1.mod");
+    MModel mod(modelsDir + "/ExampleModel1.mod");
 
     std::vector<MVector> vertices = mod.getVectors();
 
@@ -42,9 +42,9 @@ TEST(ModelTest, getVectors) {
     ASSERT_NEAR(z2, 0, 0.009);
 }
 
-TEST(ModelTest, getCells) {
+TEST(MModelTest, getCells) {
 
-    Model mod(modelsDir + "/ExampleModel1.mod");
+    MModel mod(modelsDir + "/ExampleModel1.mod");
     std::vector<std::shared_ptr<MCell>> cells = mod.getCells();
     std::vector<std::shared_ptr<MVector>> cellVertices = cells[0]->getVertices();
 
@@ -57,66 +57,66 @@ TEST(ModelTest, getCells) {
     ASSERT_NEAR(z1, 0, 0.009);
 }
 
-TEST(ModelTest, materialsCount) {
+TEST(MModelTest, materialsCount) {
 
     int countExpected = 2;
 
-    Model mod(modelsDir + "/ExampleModel1.mod");
+    MModel mod(modelsDir + "/ExampleModel1.mod");
 
     int countObtained = mod.getMaterialCount();
 
     ASSERT_EQ(countObtained, countExpected);
 }
 
-TEST(ModelTest, vectorCount) {
+TEST(MModelTest, vectorCount) {
 
     int countExpected = 12;
 
-    Model mod(modelsDir + "/ExampleModel1.mod");
+    MModel mod(modelsDir + "/ExampleModel1.mod");
 
     int countObtained = mod.getVectorCount();
 
     ASSERT_EQ(countObtained, countExpected);
 }
 
-TEST(ModelTest, cellCount) {
+TEST(MModelTest, cellCount) {
 
     int countExpected = 2;
 
-    Model mod(modelsDir + "/ExampleModel1.mod");
+    MModel mod(modelsDir + "/ExampleModel1.mod");
 
     int countObtained = mod.getCellCount();
 
     ASSERT_EQ(countObtained, countExpected);
 }
 
-TEST(ModelTest, calcWeight) {
+TEST(MModelTest, calcWeight) {
 
     int weightExpected = 9185;
 
-    Model mod(modelsDir + "/ExampleModel1.mod");
+    MModel mod(modelsDir + "/ExampleModel1.mod");
 
     double weightObtained = mod.calcWeight();
 
     ASSERT_EQ(weightObtained, weightExpected);
 }
 
-TEST(ModelTest, calcVolume) {
+TEST(MModelTest, calcVolume) {
 
     double volumeExpected = 1.08;
 
-    Model mod(modelsDir + "/ExampleModel1.mod");
+    MModel mod(modelsDir + "/ExampleModel1.mod");
 
     double volumeObtained = mod.calcVolume();
 
     ASSERT_NEAR(volumeObtained, volumeExpected, 0.01);
 }
 
-TEST(ModelTest, calcCentreOfGrav) {
+TEST(MModelTest, calcCentreOfGrav) {
 
     MVector centreOfGravExpected(0.625, 0.619, 0.491);
 
-    Model mod(modelsDir + "/ExampleModel1.mod");
+    MModel mod(modelsDir + "/ExampleModel1.mod");
 
     MVector centreOfGravObtained = mod.calcCentre();
 

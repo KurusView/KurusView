@@ -7,7 +7,7 @@ if (${ENABLE_TESTS})
     set(REL_INC_SOURCES include/Material.h
             include/Matrix.h
             include/MVector.h
-            include/Model.h
+            include/MModel.h
             include/MCell.h
             include/Cells/MHexahedron.h
             include/Cells/MPyramid.h
@@ -36,7 +36,7 @@ if (${ENABLE_TESTS})
     set(REL_LIB_SOURCES lib/Material.cpp
             lib/Matrix.cpp
             lib/MVector.cpp
-            lib/Model.cpp
+            lib/MModel.cpp
             lib/MCell.cpp
             lib/Cells/MHexahedron.cpp
             lib/Cells/MPyramid.cpp

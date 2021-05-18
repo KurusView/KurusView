@@ -17,7 +17,7 @@
 #include <vtkAlgorithm.h>
 #include <vtkSTLReader.h>
 
-#include "Model.h"
+#include "MModel.h"
 
 // wrap the class in Ui::
 namespace Ui {
@@ -35,7 +35,7 @@ public:
     QString borderColor;
     QVBoxLayout *verticalLayout;
     QVTKOpenGLWidget *qVTKWidget;
-    std::shared_ptr<Model> model;
+    std::shared_ptr<MModel> model;
 
     /**
      * @brief vtkModel - Unstructured grid containing all the cells of the model.

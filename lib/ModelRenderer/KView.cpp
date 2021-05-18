@@ -56,7 +56,7 @@ KView::KView(const QString &filePath, QWidget *parent) : QWidget(parent) {
         this->filePath = filePath;
 
         QString modelFilePath = viewSettings->value("modelFilePath").value<QString>();
-        model = std::make_shared<Model>(modelFilePath.toStdString());
+        model = std::make_shared<MModel>(modelFilePath.toStdString());
     } else {
         // Create a temporary file to store settings before they are saved
         QTemporaryFile tmpSettingsFile;
@@ -65,7 +65,7 @@ KView::KView(const QString &filePath, QWidget *parent) : QWidget(parent) {
         // QTemporaryFile creates a unique empty file each time anyways, but just sanity check
         viewSettings->clear();
         viewSettings->setValue("modelFilePath", filePath);
-        model = std::make_shared<Model>(filePath.toStdString());
+        model = std::make_shared<MModel>(filePath.toStdString());
     }
 
     if (model->fileType == "stl") {

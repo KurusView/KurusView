@@ -1,4 +1,4 @@
-#include "Model.h"
+#include "MModel.h"
 #include "MVector.h"
 #include <vtkActor.h>
 #include <vtkProperty.h>

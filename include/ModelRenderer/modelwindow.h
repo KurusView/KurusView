@@ -19,7 +19,7 @@
 #include <QSettings>
 #include <vtkColor.h>
 
-#include "Model.h"
+#include "MModel.h"
 #include "KView.h"
 
 // wrap the class in Ui::
