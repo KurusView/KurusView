@@ -35,7 +35,7 @@ var class_k_view =
     [ "lightSpecularity", "class_k_view.html#a704341d5d14b9b1babe45dad531f3d65", null ],
     [ "mapper", "class_k_view.html#a374ae48705f363b815d42adf3774f199", null ],
     [ "measurementEnabled", "class_k_view.html#a6c775da3d5c413464f5b0af563c23341", null ],
-    [ "model", "class_k_view.html#a44097d25b8ba68339b91b6cc216fec3d", null ],
+    [ "model", "class_k_view.html#aee0212b0e7fc32cf04ef523fa59a35e4", null ],
     [ "modelBackFaceColor", "class_k_view.html#ac297b8e9f3c2c202ad6e06a8fd3f5eda", null ],
     [ "modelColour", "class_k_view.html#a5df870d45afe8497340fbff1e3b198b5", null ],
     [ "modelOpacity", "class_k_view.html#a4d2daa5e35051f8f93f51190da3dff9b", null ],

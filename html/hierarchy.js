@@ -7,7 +7,7 @@ var hierarchy =
       [ "MPyramid", "class_m_pyramid.html", null ],
       [ "MTetrahedron", "class_m_tetrahedron.html", null ]
     ] ],
-    [ "Model", "class_model.html", null ],
+    [ "MModel", "class_m_model.html", null ],
     [ "MVector", "class_m_vector.html", null ],
     [ "QApplication", null, [
       [ "ModelRenderer", "class_model_renderer.html", null ]

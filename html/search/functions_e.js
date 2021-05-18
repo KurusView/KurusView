@@ -2,7 +2,7 @@ var searchData=
 [
   ['save',['save',['../class_k_view.html#a9b9de1d13c012e9ec3e2e611f1c675a6',1,'KView']]],
   ['saveas',['saveAs',['../class_k_view.html#ac2adaaa0e3ee6c3e2e17681cc0bf3b30',1,'KView']]],
-  ['savemodel',['saveModel',['../class_model.html#a41873a62770f294e288f78f908d8868d',1,'Model']]],
+  ['savemodel',['saveModel',['../class_m_model.html#ac2a847ae1a8c4dae3efa2503959a99fe',1,'MModel']]],
   ['scalartripleproduct',['scalarTripleProduct',['../_m_vector_8h.html#a5066371dc1f01be6fefe92ef448aa37e',1,'MVector.cpp']]],
   ['setbackgroundcolor',['setBackgroundColor',['../class_k_view.html#a0eab5f589f7c72954ffb708072552651',1,'KView']]],
   ['setcolour',['setColour',['../class_material.html#af60491d6643feb2ff679258f7fe8720c',1,'Material']]],

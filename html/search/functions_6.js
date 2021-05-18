@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['getcellcount',['getCellCount',['../class_model.html#a4bfc8814ba4bc5b04db76c59c4c9a43a',1,'Model']]],
+  ['getcellcount',['getCellCount',['../class_m_model.html#a9f80df5d638007f9adf9d3c7d4222b18',1,'MModel']]],
   ['getcentreofgrav',['getCentreOfGrav',['../class_m_cell.html#ad3f809c04e1b1ad6d4b0cde3370128eb',1,'MCell']]],
   ['getcolour',['getColour',['../class_material.html#a5e3d1977e862ab3585b88ce38646f1fc',1,'Material']]],
   ['getcount',['getCount',['../class_m_cell.html#aeb4799060fa852694769ba92b08af991',1,'MCell::getCount()'],['../class_k_view.html#aa70f6a87f30f901f901149b2239d79d6',1,'KView::getCount()']]],

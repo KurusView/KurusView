@@ -8,6 +8,6 @@ var dir_d44c64559bbebec7f509842c48db8b23 =
     [ "MCell.h", "_m_cell_8h.html", [
       [ "MCell", "class_m_cell.html", "class_m_cell" ]
     ] ],
-    [ "Model.h", "_model_8h_source.html", null ],
+    [ "MModel.h", "_m_model_8h_source.html", null ],
     [ "MVector.h", "_m_vector_8h.html", "_m_vector_8h" ]
 ];

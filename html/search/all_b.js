@@ -16,7 +16,7 @@ var searchData=
   ['mcellweight',['MCellWeight',['../class_m_cell.html#ae7bfe41c202dc0af89eb31a2117a6951',1,'MCell']]],
   ['mhexahedron',['MHexahedron',['../class_m_hexahedron.html',1,'MHexahedron'],['../class_m_hexahedron.html#a11e9d49a84ff44e97993dcf6ed08d351',1,'MHexahedron::MHexahedron(const std::vector&lt; std::shared_ptr&lt; MVector &gt;&gt; &amp;vertices, const std::shared_ptr&lt; Material &gt; &amp;material, long int id)'],['../class_m_hexahedron.html#a4b7b6f3f770a2b770127355bb086f5c1',1,'MHexahedron::MHexahedron()=delete']]],
   ['mhexahedron_2eh',['MHexahedron.h',['../_m_hexahedron_8h.html',1,'']]],
-  ['model',['Model',['../class_model.html',1,'Model'],['../class_model.html#ab5bdabea36b1d1bee80151e2da913373',1,'Model::Model()=default'],['../class_model.html#a94f3c75c5bc6349e7df292fbfb10fc61',1,'Model::Model(const std::string &amp;filePath)']]],
+  ['mmodel',['MModel',['../class_m_model.html',1,'MModel'],['../class_m_model.html#ae5de9dbb9bf500a89e4f7308dc2302a9',1,'MModel::MModel()=default'],['../class_m_model.html#a371cdf6ec2a7ec952ce76d539f38d6df',1,'MModel::MModel(const std::string &amp;filePath)']]],
   ['modelrenderer',['ModelRenderer',['../class_model_renderer.html',1,'ModelRenderer'],['../class_model_renderer.html#a26b34d370db1a593c9a6c53ea155567d',1,'ModelRenderer::ModelRenderer()']]],
   ['modelwindow',['ModelWindow',['../class_model_window.html',1,'ModelWindow'],['../class_model_window.html#a7d0bc65177144fae19eeb079a506636e',1,'ModelWindow::ModelWindow()']]],
   ['mousepressevent',['mousePressEvent',['../classclickable_q_label.html#ab23acaad897ee1c7bea30d8b920984ea',1,'clickableQLabel']]],

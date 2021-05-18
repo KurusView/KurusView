@@ -7,7 +7,7 @@ var annotated_dup =
     [ "Matrix", "class_matrix.html", "class_matrix" ],
     [ "MCell", "class_m_cell.html", "class_m_cell" ],
     [ "MHexahedron", "class_m_hexahedron.html", "class_m_hexahedron" ],
-    [ "Model", "class_model.html", "class_model" ],
+    [ "MModel", "class_m_model.html", "class_m_model" ],
     [ "ModelRenderer", "class_model_renderer.html", "class_model_renderer" ],
     [ "ModelWindow", "class_model_window.html", "class_model_window" ],
     [ "MPyramid", "class_m_pyramid.html", "class_m_pyramid" ],

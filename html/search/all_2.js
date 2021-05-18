@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['calccentre',['calcCentre',['../class_model.html#a684fce1b8bf9d129bd03d6375a2a7c7f',1,'Model']]],
+  ['calccentre',['calcCentre',['../class_m_model.html#a679bc1d26cb238486b0cf777636a02ba',1,'MModel']]],
   ['calccentreofgrav',['calcCentreOfGrav',['../class_m_cell.html#aaafeea0e5385a57631ea6b49124137f2',1,'MCell']]],
-  ['calcvolume',['calcVolume',['../class_m_cell.html#abef50e732986f28c2a740925e63359a7',1,'MCell::calcVolume()'],['../class_model.html#a22299e47342aafc34e76f07fc8e020f4',1,'Model::calcVolume()']]],
-  ['calcweight',['calcWeight',['../class_m_cell.html#a5279d7c510ffb1db9402dcf5fd62a1af',1,'MCell::calcWeight()'],['../class_model.html#ab1928e138c778f47c5582592aec0b421',1,'Model::calcWeight()']]],
-  ['cells',['cells',['../class_model.html#abb51957969a5de20c88fd5c958960114',1,'Model']]],
+  ['calcvolume',['calcVolume',['../class_m_cell.html#abef50e732986f28c2a740925e63359a7',1,'MCell::calcVolume()'],['../class_m_model.html#a36b9ec41fe7e36204132e3bc18aa2350',1,'MModel::calcVolume()']]],
+  ['calcweight',['calcWeight',['../class_m_cell.html#a5279d7c510ffb1db9402dcf5fd62a1af',1,'MCell::calcWeight()'],['../class_m_model.html#ad0bce719e3c76fdf5d7c1494b50989f0',1,'MModel::calcWeight()']]],
+  ['cells',['cells',['../class_m_model.html#a9639d44587abc54ce6ae663b8fc8da82',1,'MModel']]],
   ['clickableqlabel',['clickableQLabel',['../classclickable_q_label.html',1,'clickableQLabel'],['../classclickable_q_label.html#a240c69db7f5af92251101438fdf3de6f',1,'clickableQLabel::clickableQLabel()']]],
   ['clipfilter',['clipFilter',['../class_k_view.html#a61f0b0aa84a42cb6c8ec2e578f8fe326',1,'KView']]],
   ['copyentrytoclipboard',['copyEntryToClipboard',['../class_welcome_window.html#a8aff3661e9f490cf54119a0ee4300b69',1,'WelcomeWindow']]],
