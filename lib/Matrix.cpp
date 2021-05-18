@@ -325,7 +325,7 @@ Matrix RotationMatrix(const std::vector<MVector> &Rotation) {
      *  | 0  |
      */
 
-    int size = Rotation.size();
+    size_t size = Rotation.size();
     MVector vx1(1, 0, 0), vx2, vx3, vy1, vy2(0, 1, 0), vy3, vz1, vz2, vz3(0, 0, 1);
     Matrix rx, ry, rz;
 
@@ -339,7 +339,7 @@ Matrix RotationMatrix(const std::vector<MVector> &Rotation) {
     // the matrix that need to be calculated
     // Source for the explanation is:
     // https://mathworld.wolfram.com/RotationMatrix.html under formulas 4, 5 and 6
-    for (int i = 0; i < size; ++i) {
+    for (size_t i = 0; i < size; ++i) {
         if (Rotation[i].getX() != 0) {
             vx2.setY(cos(Rotation[i].getX()));
             vx2.setZ(sin(Rotation[i].getX()));
@@ -373,7 +373,7 @@ Matrix RotationMatrix(const std::vector<MVector> &Rotation) {
     }
     Matrix result;
     result = orderOfRotation[orderOfRotation.size() - 1];
-    for (int i = orderOfRotation.size() - 2; i >= 0; --i) {
+    for (size_t i = orderOfRotation.size() - 2; i >= 0; --i) {
         result = result * orderOfRotation[i];
     }
 

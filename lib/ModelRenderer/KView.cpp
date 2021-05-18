@@ -34,15 +34,15 @@
 #include <vtkColor.h>
 #include <vtkMinimalStandardRandomSequence.h>
 
-#include "View.h"
+#include "KView.h"
 #include "settingsdialog.h"
 
 #define USE_QUANTUM_BLOCKCHAIN_ML
 
 // set default instance count
-unsigned short int View::ViewInstanceCount = 0;
+unsigned short int KView::ViewInstanceCount = 0;
 
-View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
+KView::KView(const QString &filePath, QWidget *parent) : QWidget(parent) {
     //increment instance count
     ViewInstanceCount++;
 
@@ -167,7 +167,7 @@ View::View(const QString &filePath, QWidget *parent) : QWidget(parent) {
     qVTKWidget->GetRenderWindow()->Render();
 }
 
-void View::buildVTKModelFromMod() {
+void KView::buildVTKModelFromMod() {
     vtkNew<vtkNamedColors> colors;
 
     // vertex placeholder
@@ -253,14 +253,14 @@ void View::buildVTKModelFromMod() {
     vtkModel = uGridReader;
 }
 
-void View::loadSTLModel() {
+void KView::loadSTLModel() {
     STLModel = vtkSmartPointer<vtkSTLReader>::New();
     STLModel->SetFileName(model->filePath.c_str());
     STLModel->Update();
     vtkModel = STLModel;
 }
 
-void View::buildChain() {
+void KView::buildChain() {
     // Store the source object, as it's used multiple times
     vtkDataSet *source = dynamic_cast<vtkDataSet *>(vtkModel->GetOutputDataObject(0));
     // If no filters are applied
@@ -285,7 +285,7 @@ void View::buildChain() {
     mapper->SetInputData(dynamic_cast<vtkDataSet *>(filters[1]->GetOutputDataObject(0)));
 }
 
-bool View::toggleShrinkFilter(bool enable, double shrinkFactor) {
+bool KView::toggleShrinkFilter(bool enable, double shrinkFactor) {
     bool gotNumber = false;
     if (enable) {
         if (shrinkFactor == NULL) {
@@ -314,7 +314,7 @@ bool View::toggleShrinkFilter(bool enable, double shrinkFactor) {
     return true;
 }
 
-void View::toggleClipFilter(bool enable) {
+void KView::toggleClipFilter(bool enable) {
     if (enable) {
         vtkSmartPointer<vtkPlane> planeLeft = vtkSmartPointer<vtkPlane>::New();
         planeLeft->SetOrigin(0.0, 0.0, 0.0);
@@ -330,16 +330,16 @@ void View::toggleClipFilter(bool enable) {
     viewSettings->setValue("isClipped", enable);
 }
 
-View::~View() {
+KView::~KView() {
     //decrement instance count
     ViewInstanceCount++;
 }
 
-unsigned short int View::getCount() {
-    return View::ViewInstanceCount;
+unsigned short int KView::getCount() {
+    return KView::ViewInstanceCount;
 }
 
-void View::setModelColor(const QColor &color) {
+void KView::setModelColor(const QColor &color) {
     // update settings
     viewSettings->setValue("modelColor", color);
     if (model->fileType == "mod") {
@@ -392,7 +392,7 @@ void View::setModelColor(const QColor &color) {
 }
 
 
-void View::setModelBackFaceColor(const QColor &color) {
+void KView::setModelBackFaceColor(const QColor &color) {
     if (!color.isValid())
         return;
 
@@ -434,7 +434,7 @@ void View::setModelBackFaceColor(const QColor &color) {
 }
 
 
-void View::setBackgroundColor(const QColor &color) {
+void KView::setBackgroundColor(const QColor &color) {
     if (!color.isValid())
         return;
 
@@ -448,7 +448,7 @@ void View::setBackgroundColor(const QColor &color) {
     backgroundColour = color.name();
 }
 
-void View::setLightIntensity(int value) {
+void KView::setLightIntensity(int value) {
     if (value < 0 || value > 100)
         return;
 
@@ -475,7 +475,7 @@ void View::setLightIntensity(int value) {
     viewSettings->setValue("lightIntensity", value);
 }
 
-void View::setLightSpecularity(int value) {
+void KView::setLightSpecularity(int value) {
     if (value < 0 || value > 100)
         return;
 
@@ -492,7 +492,7 @@ void View::setLightSpecularity(int value) {
     viewSettings->setValue("lightSpecularity", value);
 }
 
-void View::setModelOpacity(int value) {
+void KView::setModelOpacity(int value) {
     if (value < 0 || value > 100)
         return;
 
@@ -508,13 +508,13 @@ void View::setModelOpacity(int value) {
     viewSettings->setValue("modelOpacity", value);
 }
 
-void View::resetLighting() {
+void KView::resetLighting() {
     setLightIntensity(75);
     setModelOpacity(100);
     setLightSpecularity(0);
 }
 
-void View::resetColour() {
+void KView::resetColour() {
     // convert QT to vtk colours
     QColor model_qt = settingsDialog::getDefault_modelColour();
     QColor backFace_qt = settingsDialog::getDefault_modelBackFaceColour();
@@ -557,7 +557,7 @@ void View::resetColour() {
     }
 }
 
-void View::toggleGridLines(bool enable) {
+void KView::toggleGridLines(bool enable) {
     auto *cubeAxesActor = (vtkCubeAxesActor *) (qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetLastActor());
 
     if (enable) {
@@ -599,7 +599,7 @@ void View::toggleGridLines(bool enable) {
     qVTKWidget->GetRenderWindow()->Render();
 }
 
-void View::toggleMeasurement(bool enable) {
+void KView::toggleMeasurement(bool enable) {
     if (enable) {
         distanceWidget = vtkDistanceWidget::New();
         distanceWidget->SetInteractor(qVTKWidget->GetRenderWindow()->GetInteractor());
@@ -616,7 +616,7 @@ void View::toggleMeasurement(bool enable) {
     measurementEnabled = enable;
 }
 
-void View::setStructure(int selectedStructure) {
+void KView::setStructure(int selectedStructure) {
     vtkActorCollection *actors = qVTKWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
     auto *actor = (vtkActor *) actors->GetItemAsObject(0);
     switch (selectedStructure) {
@@ -634,7 +634,7 @@ void View::setStructure(int selectedStructure) {
     viewSettings->setValue("structure", selectedStructure);
 }
 
-void View::populateSettings() {
+void KView::populateSettings() {
     // Set all parameters
     // Model
     viewSettings->setValue("modelFilePath", QString::fromStdString(model->filePath));
@@ -658,7 +658,7 @@ void View::populateSettings() {
     viewSettings->setValue("lightSpecularity", lightSpecularity);
 }
 
-bool View::save() {
+bool KView::save() {
     populateSettings();
     if (filePath.isEmpty())
         saveAs();
@@ -669,7 +669,7 @@ bool View::save() {
     return true;
 }
 
-void View::saveAs() {
+void KView::saveAs() {
     QSettings globalSettings(QDir::currentPath() + "/kurusview.ini", QSettings::IniFormat);
     globalSettings.sync();
     QString savePath = QFileDialog::getSaveFileName(this, tr("Save Kurus View"),
@@ -689,7 +689,7 @@ void View::saveAs() {
     std::cout << viewSettings->status() << std::endl;
 }
 
-void View::gridlinesInit() {
+void KView::gridlinesInit() {
     vtkSmartPointer<vtkNamedColors> colors = vtkSmartPointer<vtkNamedColors>::New();
     vtkColor3d axis1Color = colors->GetColor3d("Salmon");
     vtkColor3d axis2Color = colors->GetColor3d("PaleGreen");

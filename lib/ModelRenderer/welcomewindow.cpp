@@ -218,7 +218,7 @@ void WelcomeWindow::populateRecents() {
     mainLayout->setRowStretch(25, 25);
 
     // populate recents list
-    size_t row = 0;
+    int row = 0;
     for (auto &recent : recentFilePaths) {
         QFileInfo fi(recent);
 

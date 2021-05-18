@@ -20,7 +20,7 @@
 #include <vtkColor.h>
 
 #include "Model.h"
-#include "View.h"
+#include "KView.h"
 
 // wrap the class in Ui::
 namespace Ui {
@@ -51,14 +51,14 @@ public:
      * @brief addViewToFrame -
      * @param view
      */
-    void addViewToFrame(View *view);
+    void addViewToFrame(KView *view);
 
     QMenu *fileMenu;
     QMenu *recentFilesMenu;
 
     QAction *openAction;
     QList<QAction *> recentFileActionList;
-    const int maxFileNr;
+    const unsigned int maxFileNr;
 
     QString currentFilePath;
 
@@ -88,15 +88,15 @@ signals:
 
 private:
     Ui::ModelWindow *ui;
-    std::vector<View *> views;
-    View *activeView;
+    std::vector<KView *> views;
+    KView *activeView;
     QString currentModelFilePath;
 
     /**
      * @brief setActiveView -
      * @param newActiveView -
      */
-    void setActiveView(View *newActiveView);
+    void setActiveView(KView *newActiveView);
 
 
     QStringList recentFilePaths;

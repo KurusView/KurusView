@@ -34,7 +34,7 @@
 
 #include <vtkOrientationMarkerWidget.h>
 
-#include "View.h"
+#include "KView.h"
 #include "modelwindow.h"
 #include "ui_modelwindow.h"
 #include "dialog.h"
@@ -87,7 +87,7 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
     std::cout << ui->centreOfGravLabel->width() << std::endl;
 
     for (int i = 0; i < filePaths.size() && i < 4; ++i) {
-        addViewToFrame(new View(filePaths[i], parent));
+        addViewToFrame(new KView(filePaths[i], parent));
     }
 
     for (auto &view : views) {
@@ -96,7 +96,7 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
 
     setActiveView(views[0]);
 
-    std::cout << View::getCount();
+    std::cout << KView::getCount();
 
     createActionsAndConnections();
 
@@ -387,11 +387,11 @@ void ModelWindow::handleChangePerspective() {
 
 void ModelWindow::viewActive(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
-        setActiveView((View * )(((QVTKOpenGLWidget *) sender())->parentWidget()));
+        setActiveView((KView * )(((QVTKOpenGLWidget *) sender())->parentWidget()));
     }
 }
 
-void ModelWindow::setActiveView(View *newActiveView) {
+void ModelWindow::setActiveView(KView *newActiveView) {
     // Set the active view
     activeView = newActiveView;
 
@@ -467,10 +467,10 @@ void ModelWindow::handleMeasurement() {
     activeView->toggleMeasurement(ui->measurementButton->isChecked());
 }
 
-void ModelWindow::addViewToFrame(View *view) {
+void ModelWindow::addViewToFrame(KView *view) {
 
     // active view count
-    unsigned short int avc = View::getCount();
+    unsigned short int avc = KView::getCount();
     size_t index = views.size();
     std::cout << "Total Views: " << avc << ", Views in Current Window: " << index + 1 << std::endl;
 
@@ -579,7 +579,7 @@ void ModelWindow::updateRecentActionList() {
     recentFilePaths =
             settings.value("recentFiles").toStringList();
 
-    auto itEnd = 0u;
+    unsigned int itEnd = 0u;
     if (recentFilePaths.size() <= maxFileNr)
         itEnd = recentFilePaths.size();
     else
@@ -592,7 +592,7 @@ void ModelWindow::updateRecentActionList() {
         recentFileActionList.at(i)->setVisible(true);
     }
 
-    for (auto i = itEnd; i < maxFileNr; ++i)
+    for ( auto i = itEnd; i < maxFileNr; ++i)
         recentFileActionList.at(i)->setVisible(false);
 }
 
@@ -631,14 +631,14 @@ void ModelWindow::createActionsAndConnections() {
     connect(ui->actionSettings, &QAction::triggered, this, &ModelWindow::handleSettingsButton);
 
 
-    for (auto i = 0; i < maxFileNr; ++i) {
+    for (unsigned int i = 0; i < maxFileNr; ++i) {
         QAction *recentFileAction = new QAction(this);
         recentFileAction->setVisible(false);
         connect(recentFileAction, &QAction::triggered, this, &ModelWindow::openRecent);
         recentFileActionList.append(recentFileAction);
     }
     recentFilesMenu = ui->menuRecent_Files;
-    for (auto i = 0; i < maxFileNr; ++i)
+    for (int i = 0; i < maxFileNr; ++i)
         recentFilesMenu->addAction(recentFileActionList.at(i));
 
     updateRecentActionList();
@@ -674,7 +674,7 @@ void ModelWindow::loadFile(const QStringList &filePaths) {
             emit openNewModelWindow(filePaths);
     else {
         for (int i = 0; i < filePaths.size(); ++i)
-            addViewToFrame(new View(filePaths[i]));
+            addViewToFrame(new KView(filePaths[i]));
         setActiveView(views[views.size() - 1]);
     }
     for (int i = 0; i < filePaths.size(); ++i)
@@ -684,7 +684,7 @@ void ModelWindow::loadFile(const QStringList &filePaths) {
 void ModelWindow::closeView() {
     for (int i = 0; i < views.size(); ++i) {
         if (views[i] == activeView) {
-            View *view = views[i];
+            KView *view = views[i];
             views.erase(views.begin() + i);
             delete view;
         }

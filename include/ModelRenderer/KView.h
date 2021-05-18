@@ -1,5 +1,5 @@
-#ifndef KURUSVIEW_VIEW_H
-#define KURUSVIEW_VIEW_H
+#ifndef KURUSVIEW_KVIEW_H
+#define KURUSVIEW_KVIEW_H
 
 #include <QWidget>
 #include <QVBoxLayout>
@@ -29,7 +29,7 @@ namespace Ui {
  *
  * @note should be used as a standalone class. Intentionally disables inheritance capability.
  */
-class View final : public QWidget {
+class KView final : public QWidget {
 public:
     /// @TODO reconsider member visibility, use accessors
     QString borderColor;
@@ -64,7 +64,7 @@ public:
     QString backgroundColour, modelColour, modelBackFaceColor;
     bool isClipped, isShrunk, gridLinesEnabled, measurementEnabled;
     double density, volume, weight;
-    unsigned long numOfCells;
+    size_t numOfCells;
     MVector centreOfGrav;
     vtkSmartPointer<vtkDistanceWidget> distanceWidget;
     QString filePath;
@@ -78,7 +78,7 @@ public:
      * @internal Constructors that are callable with a single argument must be marked explicit to avoid unintentional
      *           implicit conversions if we implement polymorphic ctors.
      */
-    explicit View(const QString &filePath, QWidget *parent = nullptr);
+    explicit KView(const QString &filePath, QWidget *parent = nullptr);
 
     /**
      * @brief destructor - decrements instance count
@@ -86,7 +86,7 @@ public:
      * @internal final because this class is not meant to be inherited from. Doing so without final will easily lead to
      *           accidentally bypassing the instance count decrement.
      */
-    ~View() final;
+    ~KView() final;
 
     /**
      * @brief buildVTKModelFromMod - Builds model from cells and vectors loaded from a proprietary model file
@@ -230,4 +230,4 @@ private:
 };
 
 
-#endif //KURUSVIEW_VIEW_H
+#endif //KURUSVIEW_KVIEW_H
