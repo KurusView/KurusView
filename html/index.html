@@ -109,7 +109,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <div class="image">
 <img src="https://user-images.githubusercontent.com/38017709/118720858-6e15ed00-b82a-11eb-801c-28a2963f58e3.png"  alt="main_sidePanel"/>
 </div>
-<h3>Iinteraction with the models is supported through the following features:</h3>
+<h3>Interaction with the models is supported through the following features:</h3>
 <ul>
 <li>Open multiple models in the same or different windows.</li>
 <li>Move models freely around every axis.</li>
@@ -131,9 +131,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>Adjust lighting, model opacity and specularity.</li>
 <li>Save per-model view transformations (colours, position, etc) to proprietary .kurus files.</li>
 </ul>
-<blockquote class="doxtable">
-<p>Light and dark modes are available and on Windows switching is automatic matching Windows app settings. </p>
-</blockquote>
+<p><b>Light</b> and <b>dark modes</b> are available and on Windows switching is automatic matching Windows app settings.</p>
 <p>&#160; </p><hr/>
 <h2>Requirements</h2>
 <ul>
@@ -141,7 +139,9 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>Qt 5</li>
 <li>VTK 8.2.0</li>
 </ul>
-<p>These requirements are only relevant if compiling from source. <a href="#Install">Installers</a> are available.</p>
+<blockquote class="doxtable">
+<p>These requirements are only relevant if compiling from source. <a href="#Install">Installers</a> are available. </p>
+</blockquote>
 <h2>Install</h2>
 <p><code>zip</code> and <code>exe</code> installers are available for Windows, and <code>zip</code>, <code>tgz</code> and <code>deb</code> for Linux.</p>
 <p>## Compile from source </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;$ cmake -DENABLE_TESTS=OFF build/</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;$ cmake --build build/ --target KurusView</div></div><!-- fragment --><p>Or without the GUI: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;$ cmake -DENABLE_TESTS=OFF build/</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;$ cmake --build build/ --target KurusView_LIB</div></div><!-- fragment --><p>## Repo tree </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;.</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;├── include/                # Project Headers</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;|   ├── Cells/                  # MCell Children Headers</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;|   ├── ModelRenderer/          # Semester 2 GUI Headers</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;|   └── Utils/                  # Internally Used Utility Headers</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;├── lib/                    # Library Source Files</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;|   ├── Cells/                  # MCell Children Source Files</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;|   ├── ModelRenderer/          # Semester 2 GUI Source Files</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;|   ├── Utils/                  # Internally Used Utilities</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;|   └── KurusViewLib.cmake      # Library CMake</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;├── models/                 # Example Models (.kurus, .mod and .stl)</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;├── packaging/              # Packaging CMake Dependencies</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;|   └── CMakeLists.txt          # Packaging CMake</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;├── Resources/              # Icons, Images and Stylesheets</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;├── src/                    # Main Function Source File</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;|   └── KurusView.cmake         # Main Function CMake</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;├── tests/                  # Google Test Tests</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;|   └── CMakeLists.txt          # Tests CMake</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;├── googletest/             # Git Submodule: Google Test</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;├── doxygen-awesome-css/    # Git Submodule: Doxygen Awesome</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;└── CMakeLists.txt          # Main CMakeLists</div></div><!-- fragment --><h2>Documentation</h2>
