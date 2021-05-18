@@ -373,7 +373,7 @@ Matrix RotationMatrix(const std::vector<MVector> &Rotation) {
     }
     Matrix result;
     result = orderOfRotation[orderOfRotation.size() - 1];
-    for (size_t i = orderOfRotation.size() - 2; i >= 0; --i) {
+    for (int i = orderOfRotation.size() - 2; i >= 0; --i) {
         result = result * orderOfRotation[i];
     }
 
