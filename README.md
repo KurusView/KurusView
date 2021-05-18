@@ -25,7 +25,7 @@ KurusView is a cross-platform visualisation tool for three-dimensional models.
 ![main_sidePanel](https://user-images.githubusercontent.com/38017709/118720858-6e15ed00-b82a-11eb-801c-28a2963f58e3.png)
 
 
-### Iinteraction with the models is supported through the following features:
+### Interaction with the models is supported through the following features:
 
 * Open multiple models in the same or different windows.
 * Move models freely around every axis.
@@ -45,7 +45,7 @@ KurusView is a cross-platform visualisation tool for three-dimensional models.
 * Adjust lighting, model opacity and specularity.
 * Save per-model view transformations (colours, position, etc) to proprietary .kurus files.
 
-> Light and dark modes are available and on Windows switching is automatic matching Windows app settings.
+**Light** and **dark modes** are available and on Windows switching is automatic matching Windows app settings.
 
 
 &nbsp;
@@ -57,7 +57,7 @@ KurusView is a cross-platform visualisation tool for three-dimensional models.
 - Qt 5
 - VTK 8.2.0
 
-These requirements are only relevant if compiling from source. [Installers](#Install) are available.
+> These requirements are only relevant if compiling from source. [Installers](#Install) are available.
 
 ## Install
 `zip` and `exe` installers are available for Windows, and `zip`, `tgz` and `deb` for Linux. 
