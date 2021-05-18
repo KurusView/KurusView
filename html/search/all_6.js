@@ -3,7 +3,7 @@ var searchData=
   ['getcellcount',['getCellCount',['../class_model.html#a4bfc8814ba4bc5b04db76c59c4c9a43a',1,'Model']]],
   ['getcentreofgrav',['getCentreOfGrav',['../class_m_cell.html#ad3f809c04e1b1ad6d4b0cde3370128eb',1,'MCell']]],
   ['getcolour',['getColour',['../class_material.html#a5e3d1977e862ab3585b88ce38646f1fc',1,'Material']]],
-  ['getcount',['getCount',['../class_m_cell.html#aeb4799060fa852694769ba92b08af991',1,'MCell::getCount()'],['../class_view.html#ad4df9cf9979cfa6406feccbfe9531e70',1,'View::getCount()']]],
+  ['getcount',['getCount',['../class_m_cell.html#aeb4799060fa852694769ba92b08af991',1,'MCell::getCount()'],['../class_k_view.html#aa70f6a87f30f901f901149b2239d79d6',1,'KView::getCount()']]],
   ['getdefault_5falwaysopenmodeltonewwindow',['getDefault_alwaysOpenModelToNewWindow',['../classsettings_dialog.html#aa86b674e33a781a82a533bba3cb9683a',1,'settingsDialog']]],
   ['getdefault_5fbackgroundcolour',['getDefault_backgroundColour',['../classsettings_dialog.html#a28c42d17a1b52ba99da2e13925d04939',1,'settingsDialog']]],
   ['getdefault_5fdisplayrecents',['getDefault_displayRecents',['../classsettings_dialog.html#a7373566f274a553edb418322d8945a50',1,'settingsDialog']]],
@@ -24,6 +24,5 @@ var searchData=
   ['getweight',['getWeight',['../class_m_cell.html#a198ac6f5bea8bc8525077425201e6ce3',1,'MCell']]],
   ['getx',['getX',['../class_m_vector.html#aea57f0e60e4e9da2924d53b07e25ea3a',1,'MVector']]],
   ['gety',['getY',['../class_m_vector.html#ac692cbc75dd4f0fc56a0a10fd3b673e4',1,'MVector']]],
-  ['getz',['getZ',['../class_m_vector.html#ab60d42129589977525cd483a483a3ff1',1,'MVector']]],
-  ['group_2021_20computing_20project_20_2d_20kurusview',['Group 21 Computing Project - KurusView',['../index.html',1,'']]]
+  ['getz',['getZ',['../class_m_vector.html#ab60d42129589977525cd483a483a3ff1',1,'MVector']]]
 ];

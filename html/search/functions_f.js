@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['updatefilters',['updateFilters',['../class_model_window.html#a274d01769538d149595a5cce505c07b5',1,'ModelWindow']]],
-  ['updaterecentactionlist',['updateRecentActionList',['../class_model_window.html#a46205a58cd996e60ada24ff826a6ec16',1,'ModelWindow']]],
-  ['updatestructure',['updateStructure',['../class_model_window.html#a22662895af406e3889535120c7bb748b',1,'ModelWindow']]]
+  ['toggleclipfilter',['toggleClipFilter',['../class_k_view.html#a75ff6397fdc6a53d2b70ee2958d0b221',1,'KView']]],
+  ['togglegridlines',['toggleGridLines',['../class_k_view.html#a22fa4afa2d556660181d7511492c23c1',1,'KView']]],
+  ['togglemeasurement',['toggleMeasurement',['../class_k_view.html#a7fba8fa9b998a9635a7443a5bc7af008',1,'KView']]],
+  ['toggleshrinkfilter',['toggleShrinkFilter',['../class_k_view.html#afb77ae0f330399425e83f8ca64d62e9c',1,'KView']]],
+  ['transpose',['transpose',['../class_matrix.html#aa753de1a2ed37c8eb934e06823fee179',1,'Matrix']]]
 ];

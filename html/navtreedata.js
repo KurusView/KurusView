@@ -1,7 +1,6 @@
 var NAVTREE =
 [
   [ "KurusView", "index.html", [
-    [ "Group 21 Computing Project - KurusView", "index.html", null ],
     [ "NEWS", "md__home_travis_build_KurusView_2020_GROUP_21_NEWS.html", null ],
     [ "Team Members and Roles", "md__home_travis_build_KurusView_2020_GROUP_21_TEAM.html", null ],
     [ "Classes", "annotated.html", [
@@ -28,8 +27,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_m_cell_8h.html",
-"dialog_8h_source.html"
+"_k_view_8h_source.html",
+"clickable_q_label_8h_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

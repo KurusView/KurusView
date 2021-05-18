@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['mapper',['mapper',['../class_view.html#a591d27de6f260c9d3d4fdf8e2e7c3901',1,'View']]],
+  ['mapper',['mapper',['../class_k_view.html#a374ae48705f363b815d42adf3774f199',1,'KView']]],
   ['mcellcog',['MCellCOG',['../class_m_cell.html#a6c67b6979440b9bf61d8b9d97e01f1db',1,'MCell']]],
   ['mcellid',['MCellID',['../class_m_cell.html#a14b85fdce4e93b59d7be36d43cb29c0a',1,'MCell']]],
   ['mcellmaterial',['MCellMaterial',['../class_m_cell.html#a3c93c0e60fb016114000aade159d9e75',1,'MCell']]],

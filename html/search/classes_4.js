@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['view',['View',['../class_view.html',1,'']]]
+  ['settingsdialog',['settingsDialog',['../classsettings_dialog.html',1,'']]]
 ];

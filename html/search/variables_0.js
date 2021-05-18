@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bordercolor',['borderColor',['../class_view.html#a41aa009bbcfef3d9a841beb3880a4159',1,'View']]]
+  ['bordercolor',['borderColor',['../class_k_view.html#ae7b29178175bbda1516e0b95c83da2e8',1,'KView']]]
 ];

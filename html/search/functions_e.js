@@ -1,8 +1,24 @@
 var searchData=
 [
-  ['toggleclipfilter',['toggleClipFilter',['../class_view.html#aca7799811bfd5ba370c0aad18713df02',1,'View']]],
-  ['togglegridlines',['toggleGridLines',['../class_view.html#ad0a61df5e843c106085edf827e948853',1,'View']]],
-  ['togglemeasurement',['toggleMeasurement',['../class_view.html#a73e07d2568d0a3116867e1cf609bcb7f',1,'View']]],
-  ['toggleshrinkfilter',['toggleShrinkFilter',['../class_view.html#a8c4ec3714fde64b08e833399732b2b83',1,'View']]],
-  ['transpose',['transpose',['../class_matrix.html#aa753de1a2ed37c8eb934e06823fee179',1,'Matrix']]]
+  ['save',['save',['../class_k_view.html#a9b9de1d13c012e9ec3e2e611f1c675a6',1,'KView']]],
+  ['saveas',['saveAs',['../class_k_view.html#ac2adaaa0e3ee6c3e2e17681cc0bf3b30',1,'KView']]],
+  ['savemodel',['saveModel',['../class_model.html#a41873a62770f294e288f78f908d8868d',1,'Model']]],
+  ['scalartripleproduct',['scalarTripleProduct',['../_m_vector_8h.html#a5066371dc1f01be6fefe92ef448aa37e',1,'MVector.cpp']]],
+  ['setbackgroundcolor',['setBackgroundColor',['../class_k_view.html#a0eab5f589f7c72954ffb708072552651',1,'KView']]],
+  ['setcolour',['setColour',['../class_material.html#af60491d6643feb2ff679258f7fe8720c',1,'Material']]],
+  ['setdensity',['setDensity',['../class_material.html#af69052530ff348e10bb73fe6790d7b9a',1,'Material']]],
+  ['setlightintensity',['setLightIntensity',['../class_k_view.html#a888b7cf52e780301bf6abe7bc8ba2325',1,'KView']]],
+  ['setlightspecularity',['setLightSpecularity',['../class_k_view.html#a14d5c6d33be2d50fa239a09d6553f832',1,'KView']]],
+  ['setmat',['setMat',['../class_matrix.html#a84c42bbd7e4a235800010c7e0b2d38ce',1,'Matrix']]],
+  ['setmaterial',['setMaterial',['../class_m_cell.html#ac6926e5a5bf27f677dc38c15bbbc84da',1,'MCell']]],
+  ['setmodelbackfacecolor',['setModelBackFaceColor',['../class_k_view.html#a30fc54602bb07ffacab750faf6d049a6',1,'KView']]],
+  ['setmodelcolor',['setModelColor',['../class_k_view.html#a8ad0d5c783a07315e68a4f6d3fd6309a',1,'KView']]],
+  ['setmodelopacity',['setModelOpacity',['../class_k_view.html#a6a5564e3eb3242f5bbaa6217a88200e2',1,'KView']]],
+  ['setname',['setName',['../class_material.html#ad145d32cfce9e76b56a6fc3dfbf046d1',1,'Material']]],
+  ['setstructure',['setStructure',['../class_k_view.html#afce1ac4f09e8f705cca25475646aea2f',1,'KView']]],
+  ['settingsdialog',['settingsDialog',['../classsettings_dialog.html#a1c6cdbef39c84881cd59e37b974618ba',1,'settingsDialog']]],
+  ['setvertices',['setVertices',['../class_m_cell.html#a3f80b850909ed7ea9db8704177b331d5',1,'MCell']]],
+  ['setx',['setX',['../class_m_vector.html#afa5c5d42a5fc80e325d72a8f29b2a865',1,'MVector']]],
+  ['sety',['setY',['../class_m_vector.html#aa8ee4263b76c1163c56fdd4864b03eb0',1,'MVector']]],
+  ['setz',['setZ',['../class_m_vector.html#a03a3b18913786c805879a5cdc22ee48e',1,'MVector']]]
 ];

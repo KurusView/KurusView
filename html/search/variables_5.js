@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['shrinkfilter',['shrinkFilter',['../class_view.html#a5032692f2ee8fa5c166c86a18e0681b6',1,'View']]],
-  ['stlmodel',['STLModel',['../class_view.html#aa08a57fa92f2175456c380e41af4cc9a',1,'View']]]
+  ['shrinkfilter',['shrinkFilter',['../class_k_view.html#a380a1d1de04f5f16268fc2d9add2a378',1,'KView']]],
+  ['stlmodel',['STLModel',['../class_k_view.html#afb4a59150200d49aa9bba5fef745a2cc',1,'KView']]]
 ];

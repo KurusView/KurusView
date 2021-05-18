@@ -24,6 +24,6 @@ var hierarchy =
       [ "WelcomeWindow", "class_welcome_window.html", null ]
     ] ],
     [ "QWidget", null, [
-      [ "View", "class_view.html", null ]
+      [ "KView", "class_k_view.html", null ]
     ] ]
 ];

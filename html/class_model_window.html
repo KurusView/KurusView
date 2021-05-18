@@ -199,6 +199,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_window.html#a756acf7b318b41aafd624e615adb777b">handleSaveButton</a> ()</td></tr>
 <tr class="memdesc:a756acf7b318b41aafd624e615adb777b"><td class="mdescLeft">&#160;</td><td class="mdescRight">If file has not been saved before, opens file explorer to select save location, otherwise, just saves. <br /></td></tr>
 <tr class="separator:a756acf7b318b41aafd624e615adb777b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a978ae3d0c39304b041067ff147c2708e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a978ae3d0c39304b041067ff147c2708e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>dragEnterEvent</b> (QDragEnterEvent *e)</td></tr>
+<tr class="separator:a978ae3d0c39304b041067ff147c2708e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89edf83afc8b503add8177c7c6cf8ec2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_window.html#a89edf83afc8b503add8177c7c6cf8ec2">dropEvent</a> (QDropEvent *e)</td></tr>
+<tr class="memdesc:a89edf83afc8b503add8177c7c6cf8ec2"><td class="mdescLeft">&#160;</td><td class="mdescRight">opens models dragged and dropped onto window.  <a href="#a89edf83afc8b503add8177c7c6cf8ec2">More...</a><br /></td></tr>
+<tr class="separator:a89edf83afc8b503add8177c7c6cf8ec2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
 Signals</h2></td></tr>
@@ -211,9 +217,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7d0bc65177144fae19eeb079a506636e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_window.html#a7d0bc65177144fae19eeb079a506636e">ModelWindow</a> (const QStringList &amp;filePaths, QWidget *parent=nullptr)</td></tr>
 <tr class="memdesc:a7d0bc65177144fae19eeb079a506636e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_model_window.html" title="Holds Views and handles ui elements. ">ModelWindow</a> - Initialises a <a class="el" href="class_model_window.html" title="Holds Views and handles ui elements. ">ModelWindow</a> and loads a <a class="el" href="class_model.html" title="Model - This object is responsible for reading and writing model entities to VTK style data files...">Model</a> with the filePath.  <a href="#a7d0bc65177144fae19eeb079a506636e">More...</a><br /></td></tr>
 <tr class="separator:a7d0bc65177144fae19eeb079a506636e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56ba88f30017ae63fe501ba4193f02ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_window.html#a56ba88f30017ae63fe501ba4193f02ae">addViewToFrame</a> (<a class="el" href="class_view.html">View</a> *view)</td></tr>
-<tr class="memdesc:a56ba88f30017ae63fe501ba4193f02ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">addViewToFrame -  <a href="#a56ba88f30017ae63fe501ba4193f02ae">More...</a><br /></td></tr>
-<tr class="separator:a56ba88f30017ae63fe501ba4193f02ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8d5b9f44215c86577f1406af2976ead"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_window.html#aa8d5b9f44215c86577f1406af2976ead">addViewToFrame</a> (<a class="el" href="class_k_view.html">KView</a> *view)</td></tr>
+<tr class="memdesc:aa8d5b9f44215c86577f1406af2976ead"><td class="mdescLeft">&#160;</td><td class="mdescRight">addViewToFrame -  <a href="#aa8d5b9f44215c86577f1406af2976ead">More...</a><br /></td></tr>
+<tr class="separator:aa8d5b9f44215c86577f1406af2976ead"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acef8c210a66d3669894b68656a1bb79c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acef8c210a66d3669894b68656a1bb79c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_model_window.html#acef8c210a66d3669894b68656a1bb79c">createActionsAndConnections</a> ()</td></tr>
 <tr class="memdesc:acef8c210a66d3669894b68656a1bb79c"><td class="mdescLeft">&#160;</td><td class="mdescRight">createActionsAndConnections - <br /></td></tr>
@@ -240,9 +246,9 @@ QAction *&#160;</td><td class="memItemRight" valign="bottom"><b>openAction</b></
 <tr class="memitem:ac6db600556aef07f797d16928d4d9d71"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac6db600556aef07f797d16928d4d9d71"></a>
 QList&lt; QAction * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>recentFileActionList</b></td></tr>
 <tr class="separator:ac6db600556aef07f797d16928d4d9d71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af52f00dda31e74ca66870abec8917487"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af52f00dda31e74ca66870abec8917487"></a>
-const int&#160;</td><td class="memItemRight" valign="bottom"><b>maxFileNr</b></td></tr>
-<tr class="separator:af52f00dda31e74ca66870abec8917487"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f0d107835b6dcce27754c5c972803d1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8f0d107835b6dcce27754c5c972803d1"></a>
+const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>maxFileNr</b></td></tr>
+<tr class="separator:a8f0d107835b6dcce27754c5c972803d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3e0dc62aab07ce4b784c4964f8724fc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa3e0dc62aab07ce4b784c4964f8724fc"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>currentFilePath</b></td></tr>
 <tr class="separator:aa3e0dc62aab07ce4b784c4964f8724fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -298,14 +304,14 @@ QSettings&#160;</td><td class="memItemRight" valign="bottom"><b>settings</b></td
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a56ba88f30017ae63fe501ba4193f02ae"></a>
+<a class="anchor" id="aa8d5b9f44215c86577f1406af2976ead"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void ModelWindow::addViewToFrame </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_view.html">View</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="class_k_view.html">KView</a> *&#160;</td>
           <td class="paramname"><em>view</em></td><td>)</td>
           <td></td>
         </tr>
@@ -343,6 +349,33 @@ QSettings&#160;</td><td class="memItemRight" valign="bottom"><b>settings</b></td
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="a89edf83afc8b503add8177c7c6cf8ec2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ModelWindow::dropEvent </td>
+          <td>(</td>
+          <td class="paramtype">QDropEvent *&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>opens models dragged and dropped onto window. </p>
+<dl class="section note"><dt>Note</dt><dd>filters file extension </dd></dl>
 
 </div>
 </div>

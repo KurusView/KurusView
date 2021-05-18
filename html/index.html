@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>KurusView: Group 21 Computing Project - KurusView</title>
+<title>KurusView: Main Page</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -101,49 +101,68 @@ $(document).ready(function(){initNavTree('index.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Group 21 Computing Project - KurusView </div>  </div>
+<div class="title">KurusView Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="image">
-<img src="https://user-images.githubusercontent.com/38017709/104436085-11a57700-5585-11eb-979e-47145ab32988.png"  alt="image"/>
+<div class="textblock"><div align="left"> &#160;&#160;</div><div align="left"> <a href="https://travis-ci.com/KurusView/2020_GROUP_21"></a></div><div align="left"> <a href="https://github.com/KurusView/2020_GROUP_21"></a></div><div align="left"></div><h1>KurusView</h1>
+<p>KurusView is a cross-platform visualisation tool for three-dimensional models.</p>
+<div class="image">
+<img src="https://user-images.githubusercontent.com/38017709/118720858-6e15ed00-b82a-11eb-801c-28a2963f58e3.png"  alt="main_sidePanel"/>
 </div>
- <hr/>
-<p><em>Development of a small library capable of loading custom 3D model files as well as STL models, utilizing Qt for the GUI and VTK for 3D modelling, while learning the importance of software engineering and code management through GitHub.</em></p>
-<h3>Overview</h3>
-<p>Software on this repository can load, render, transform and save .stl models.</p>
-<p><b>Implemented Classes</b> (marked if working):</p><ul>
-<li>[x] Class 1: 3D Vector</li>
-<li>[x] Class 2: Cell</li>
-<li>[x] Class 3: <a class="el" href="class_material.html">Material</a></li>
-<li>[x] Class 4: <a class="el" href="class_model.html" title="Model - This object is responsible for reading and writing model entities to VTK style data files...">Model</a></li>
-<li>[x] Class 5: <a class="el" href="class_matrix.html">Matrix</a></li>
-<li>[x] Class 6: <a class="el" href="class_model_renderer.html" title="This class acts as the base for the KurusView GUI Application, handling windows and initialisation...">ModelRenderer</a></li>
-</ul>
-<h3>Coding style</h3>
-<p>Custom model loading library classes start with M, eg: </p><div class="fragment"><div class="line"><a class="code" href="class_m_cell.html">MCell</a>();</div><div class="line"><a class="code" href="class_m_vector.html">MVector</a>();</div></div><!-- fragment --><p>To avoid confusion with similarly named dependency objects.</p>
-<h3>Branches</h3>
-<blockquote class="doxtable">
-<p><b>master</b>: Fully working .stl model loading </p>
-</blockquote>
-<blockquote class="doxtable">
-<p><b>opengl_development</b>: master + openGL rendering POC. </p>
-</blockquote>
-<blockquote class="doxtable">
-<p><b>SDL/mouse_control</b>: opengl_development + mouse controlled rotation, translation, and scaling POC. Zoom on cursor in development. </p>
-</blockquote>
-<h3>Folder structure</h3>
-<p>├── include/ # Library header files ├── lib/ # Library source files ├── models/ # Sample .stl models └── src/ # Main program with testing code</p>
-<h3>Requirements</h3>
+<h3>Iinteraction with the models is supported through the following features:</h3>
 <ul>
-<li>CMAKE &gt; 3.1.0</li>
-<li>Qt5</li>
-<li>SDL2</li>
-<li>GLEW</li>
-<li>GLm</li>
+<li>Open multiple models in the same or different windows.</li>
+<li>Move models freely around every axis.</li>
+<li>Modify and edit multiple models at once.</li>
+<li>Apply shrink and/or clip filters.</li>
+<li>Measure model dimensions along predefined or custom axis.</li>
+<li>Change model, background, and back-face colour independently.</li>
+<li>Change the structure of the model to a wireframe.</li>
+<li>View the individual points of the model.</li>
+<li>Apply 3D gridlines encapsulating any model.</li>
+<li>Calculation of model statistics such as:<ul>
+<li>Volume</li>
+<li>Weight</li>
+<li>Centre of Gravity</li>
+<li>Number of Cells</li>
+<li>Density</li>
 </ul>
-<h3>Documentation</h3>
-<p>Code comments follow doxygen syntax to automatically generate documentation.</p>
-<p>Commit comments are used as well as issues to document development. </p>
+</li>
+<li>Adjust lighting, model opacity and specularity.</li>
+<li>Save per-model view transformations (colours, position, etc) to proprietary .kurus files.</li>
+</ul>
+<blockquote class="doxtable">
+<p>Light and dark modes are available and on Windows switching is automatic matching Windows app settings. </p>
+</blockquote>
+<p>&#160; </p><hr/>
+<h2>Requirements</h2>
+<ul>
+<li>CMake &gt;= 3.3</li>
+<li>Qt 5</li>
+<li>VTK 8.2.0</li>
+</ul>
+<p>These requirements are only relevant if compiling from source. <a href="#Install">Installers</a> are available.</p>
+<h2>Install</h2>
+<p><code>zip</code> and <code>exe</code> installers are available for Windows, and <code>zip</code>, <code>tgz</code> and <code>deb</code> for Linux.</p>
+<p>## Compile from source </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;$ cmake -DENABLE_TESTS=OFF build/</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;$ cmake --build build/ --target KurusView</div></div><!-- fragment --><p>Or without the GUI: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;$ cmake -DENABLE_TESTS=OFF build/</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;$ cmake --build build/ --target KurusView_LIB</div></div><!-- fragment --><p>## Repo tree </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;.</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;├── include/                # Project Headers</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;|   ├── Cells/                  # MCell Children Headers</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;|   ├── ModelRenderer/          # Semester 2 GUI Headers</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;|   └── Utils/                  # Internally Used Utility Headers</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;├── lib/                    # Library Source Files</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;|   ├── Cells/                  # MCell Children Source Files</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;|   ├── ModelRenderer/          # Semester 2 GUI Source Files</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;|   ├── Utils/                  # Internally Used Utilities</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;|   └── KurusViewLib.cmake      # Library CMake</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;├── models/                 # Example Models (.kurus, .mod and .stl)</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;├── packaging/              # Packaging CMake Dependencies</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;|   └── CMakeLists.txt          # Packaging CMake</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;├── Resources/              # Icons, Images and Stylesheets</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;├── src/                    # Main Function Source File</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;|   └── KurusView.cmake         # Main Function CMake</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;├── tests/                  # Google Test Tests</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;|   └── CMakeLists.txt          # Tests CMake</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;├── googletest/             # Git Submodule: Google Test</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;├── doxygen-awesome-css/    # Git Submodule: Doxygen Awesome</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;└── CMakeLists.txt          # Main CMakeLists</div></div><!-- fragment --><h2>Documentation</h2>
+<p>Doxygen formatted comments are used in all header files and docs are hosted <a href="https://kurusview.github.io/2020_GROUP_21/">here</a>. The <a href="https://github.com/jothepro/doxygen-awesome-css">theme</a> used is by <a href="https://github.com/jothepro"></a> :rocket:.</p>
+<div class="image">
+<img src="https://user-images.githubusercontent.com/38017709/118726672-ef24b280-b831-11eb-957b-c3ce2fc8e03e.png"  alt="docs"/>
+</div>
+<h2>Testing and Continuous Integration</h2>
+<p>This repository uses <a href="https://github.com/google/googletest">Google Test</a> and <a href="https://travis-ci.org/">Travis CI</a>. To run tests yourself: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;$ cmake -DENABLE_TESTS=ON build/</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;$ make test</div></div><!-- fragment --><h2>Other views</h2>
+<table class="doxtable">
+<tr>
+<th align="center">Welcome window </th><th align="center">Settings  </th></tr>
+<tr>
+<td align="center"><div class="image">
+<img src="https://user-images.githubusercontent.com/38017709/118721895-b71a7100-b82b-11eb-84a5-9ae32dd6eb9e.png" />
+</div>
+ </td><td align="center"><div class="image">
+<img src="https://user-images.githubusercontent.com/38017709/118722592-9bfc3100-b82c-11eb-9960-e9ea6c7f897d.png" />
+</div>
+ </td></tr>
+</table>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
