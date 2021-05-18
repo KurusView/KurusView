@@ -172,6 +172,12 @@ cpack_add_component(VTK
         INSTALL_TYPES end_user_install developer_install
         )
 
+cpack_add_component(Example_Models
+        DISPLAY_NAME "Example Models"
+        DESCRIPTION "KURUS, STL and MOD models to test out"
+        INSTALL_TYPES end_user_install developer_install
+        )
+
 include(InstallRequiredSystemLibraries)
 
 # Ensures all required Qt dlls are installed, put in plugins directory

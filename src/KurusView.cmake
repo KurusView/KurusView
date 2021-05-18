@@ -81,10 +81,10 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         # Create a save_models directory in the build folder to store any models the program saves
         COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:${PROJECT_NAME}>/save_models)
 
-#FILE(GLOB_RECURSE model_files "models/*")
-#install(FILES ${model_files}
-#        DESTINATION example_models
-#        COMPONENT "Example Models")
+FILE(GLOB_RECURSE model_files "models/*")
+install(FILES ${model_files}
+        DESTINATION example_models
+        COMPONENT Example_Models)
 
 install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_LIB
         RUNTIME DESTINATION bin
