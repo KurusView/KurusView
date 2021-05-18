@@ -92,6 +92,9 @@ else ()
     LIST(REMOVE_DUPLICATES INC_DIRS)
     ############################################################################
 
+    install( FILES ${INC_SOURCES}
+            DESTINATION include
+            COMPONENT header_files )
 
     # Add the include directory to prevent the need to provide the full path when including library files
     include_directories(${INC_DIRS})
