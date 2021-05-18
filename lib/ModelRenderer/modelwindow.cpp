@@ -51,6 +51,8 @@
 #include <vtkMassProperties.h>
 #include <vtkCenterOfMass.h>
 #include <QMessageBox>
+#include <QMimeData>
+#include <QDragEnterEvent>
 
 #include "settingsdialog.h"
 
@@ -141,6 +143,8 @@ ModelWindow::ModelWindow(const QStringList &filePaths, QWidget *parent) : QMainW
     //Measurement button
     connect(ui->measurementButton, &QPushButton::released, this, &ModelWindow::handleMeasurement);
 
+    // allow dropping files into program
+    setAcceptDrops(true);
 }
 
 ModelWindow::~ModelWindow() {
@@ -387,7 +391,7 @@ void ModelWindow::handleChangePerspective() {
 
 void ModelWindow::viewActive(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
-        setActiveView((KView * )(((QVTKOpenGLWidget *) sender())->parentWidget()));
+        setActiveView((KView *) (((QVTKOpenGLWidget *) sender())->parentWidget()));
     }
 }
 
@@ -592,7 +596,7 @@ void ModelWindow::updateRecentActionList() {
         recentFileActionList.at(i)->setVisible(true);
     }
 
-    for ( auto i = itEnd; i < maxFileNr; ++i)
+    for (auto i = itEnd; i < maxFileNr; ++i)
         recentFileActionList.at(i)->setVisible(false);
 }
 
@@ -706,6 +710,34 @@ void ModelWindow::handleSettingsButton() {
 }
 
 void ModelWindow::handleSaveButton() {
-    if(activeView->save())
+    if (activeView->save())
         adjustForCurrentFile(activeView->filePath);
+}
+
+void ModelWindow::dragEnterEvent(QDragEnterEvent *e) {
+    // accept drag events of files
+    if (e->mimeData()->hasUrls()) {
+        e->acceptProposedAction();
+    }
+}
+
+void ModelWindow::dropEvent(QDropEvent *e) {
+
+    QStringList filePaths;
+
+    foreach (const QUrl &url, e->mimeData()->urls()) {
+        // convert from url to filepath
+        QUrl file = url.toLocalFile();
+        QString path = file.path();
+
+        std::cout << "drop file: " << path.toStdString() << std::endl;
+
+        // check file extension to only open valid files
+        std::string fileExtension = path.toStdString().substr(path.toStdString().find_last_of('.') + 1);
+        if (fileExtension == "kurus" || fileExtension == "mod" || fileExtension == "stl") {
+            filePaths.append(path);
+        }
+    }
+
+    loadFile(filePaths);
 }

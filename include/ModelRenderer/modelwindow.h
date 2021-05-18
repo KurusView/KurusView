@@ -66,6 +66,7 @@ public:
      * @brief createActionsAndConnections -
      */
     void createActionsAndConnections();
+
     /**
      * @brief adjustForCurrentFile - Updates the list of recently opened file paths
      * @param filePath - The path to the file most recently loaded
@@ -80,6 +81,7 @@ public:
     QSettings settings;
 
 signals:
+
     /**
      * @brief openNewModelWindow - Opens a new window with selected model
      * @param filePaths - The path of the file selected
@@ -148,6 +150,7 @@ public slots:
      * @brief handleModelColor - Sets the model colour
      */
     void handleModelColor();
+
     /**
      * @brief handleModelBackFaceColor - Sets the colour of the model's backface
      */
@@ -222,6 +225,18 @@ public slots:
      * @brief If file has not been saved before, opens file explorer to select save location, otherwise, just saves
      */
     void handleSaveButton();
+
+    /**
+     * @internal drag-onto-window event handler. Accepts filepaths only.
+     * @param e - QDragEnterEvent
+     */
+    void dragEnterEvent(QDragEnterEvent *e);
+
+    /**
+     * @brief opens models dragged and dropped onto window.
+     * @note filters file extension
+     */
+    void dropEvent(QDropEvent *e);
 };
 
 
