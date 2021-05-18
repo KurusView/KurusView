@@ -66,6 +66,8 @@ settingsDialog::settingsDialog(QWidget *parent) :
     // function pointer syntax
 //    connect(ui->modelsPerWindowSpin, QOverload<int>::of(&QSpinBox::valueChanged), [=](int i){ handleModelsPerWindowSpin(i); });
 //    connect(ui->displayRecentsSpin, QOverload<int>::of(&QSpinBox::valueChanged), [=](int i){ handleDisplayRecentsSpin(i); });
+
+    this->setWindowTitle("Settings");
 }
 
 
