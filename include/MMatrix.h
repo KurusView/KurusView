@@ -1,7 +1,7 @@
 /**
- * @file Matrix.h
+ * @file MMatrix.h
  * @author github.com/georgekhanachat
- * @brief Header file for Matrix class
+ * @brief Header file for MMatrix class
  *
  * This object encapsulates a 3x3 matrix
  */
@@ -13,52 +13,52 @@
 #include <iostream>
 #include <vector>
 
-class Matrix {
+class MMatrix {
     /**
-     * @brief classic friend overloaded ostream operator<< declaration - prints Matrix properties to stdout in human
+     * @brief classic friend overloaded ostream operator<< declaration - prints MMatrix properties to stdout in human
      *        friendly format
      * @param os - lhs element [ a.operator<<(b) ], might be std::cout or see return
-     * @param obj - Matrix instance
+     * @param obj - MMatrix instance
      * @return - os reference for cascading <<
      */
-    friend std::ostream &operator<<(std::ostream &os, Matrix &obj);
+    friend std::ostream &operator<<(std::ostream &os, MMatrix &obj);
 
 public:
     /**
      * @brief constructor - Initializes MVectors in the matrix
      */
-    Matrix(const MVector &v1, const MVector &v2, const MVector &v3);
+    MMatrix(const MVector &v1, const MVector &v2, const MVector &v3);
 
     /**
      * @brief constructor - Initializes coordinates in the matrix
      */
-    Matrix(double v1x, double v1y, double v1z, double v2x, double v2y, double v2z, double v3x, double v3y, double v3z);
+    MMatrix(double v1x, double v1y, double v1z, double v2x, double v2y, double v2z, double v3x, double v3y, double v3z);
 
     /**
      * @brief default constructor - Initializes matrix to zero with MVector constructor
      */
-    Matrix() : mat3x3(3, MVector()) {};
+    MMatrix() : mat3x3(3, MVector()) {};
 
     /**
      * @brief operator+ - overloads the + operator to add two matrices directly together
-     * @param obj - Matrix instance to add to the called object Matrix
-     * @return - Matrix that is a result of two added matrices
+     * @param obj - MMatrix instance to add to the called object MMatrix
+     * @return - MMatrix that is a result of two added matrices
      */
-    Matrix operator+(Matrix const &obj) const;
+    MMatrix operator+(MMatrix const &obj) const;
 
     /**
      * @brief operator- - overloads the - operator to subtract two matrices directly together
-     * @param obj - Matrix instance to subtract to the called object Matrix
-     * @return - Matrix that is a result of two subtracted matrices
+     * @param obj - MMatrix instance to subtract to the called object MMatrix
+     * @return - MMatrix that is a result of two subtracted matrices
      */
-    Matrix operator-(Matrix const &obj) const;
+    MMatrix operator-(MMatrix const &obj) const;
 
     /**
      * @brief operator* - overloads the * operator to multiply a matrix by a matrix
-     * @param obj - Matrix instance
-     * @return Matrix - result of matrix multiplied by a Matrix
+     * @param obj - MMatrix instance
+     * @return MMatrix - result of matrix multiplied by a MMatrix
      */
-    Matrix operator*(const Matrix &obj) const;
+    MMatrix operator*(const MMatrix &obj) const;
 
     /**
      * @brief operator* - overloads the * operator to multiply a matrix by a vector
@@ -69,17 +69,17 @@ public:
 
     /**
      * @brief operator* - overloads the * operator to multiply a matrix by a scalar
-     * @param scalar - a double value to multiply an Matrix with
-     * @return - Matrix multiplied by a scalar
+     * @param scalar - a double value to multiply an MMatrix with
+     * @return - MMatrix multiplied by a scalar
      */
-    Matrix operator*(double const &scalar) const;
+    MMatrix operator*(double const &scalar) const;
 
     /**
      * @brief operator/ - overloads the / operator to divide a matrix by a scalar
-     * @param scalar - a double value to divide an Matrix with
-     * @return - Matrix divided by a scalar
+     * @param scalar - a double value to divide an MMatrix with
+     * @return - MMatrix divided by a scalar
      */
-    Matrix operator/(double const &scalar) const;
+    MMatrix operator/(double const &scalar) const;
 
 
     /**
@@ -106,11 +106,11 @@ public:
     std::vector<MVector> &getMat();
 
     /// @brief default destructor
-    ~Matrix() = default;
+    ~MMatrix() = default;
 
-    bool operator==(const Matrix &m) const;
+    bool operator==(const MMatrix &m) const;
 
-    bool operator!=(const Matrix &m) const;
+    bool operator!=(const MMatrix &m) const;
 
 private:
     /// @brief Vector of 3D vectors from an imported header file
@@ -121,10 +121,10 @@ private:
     /**
      * @brief RotationMatrix - calculates the rotation matrix of a specific set of angles
      * @param Rotation - vector of MVectors specifying the rotation in each axis
-     * @return - Rotation Matrix
+     * @return - Rotation MMatrix
      */
-Matrix RotationMatrix(const std::vector<MVector> &Rotation);
+MMatrix RotationMatrix(const std::vector<MVector> &Rotation);
 
-Matrix ScalingMatrix(const double &scalingFactor);
+MMatrix ScalingMatrix(const double &scalingFactor);
 
 #endif //INC_KURUSVIEW_MATRIX_H

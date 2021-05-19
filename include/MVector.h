@@ -14,7 +14,7 @@
 #include <cmath>
 #include <vector>
 
-class Matrix;
+class MMatrix;
 
 class MVector {
     /**

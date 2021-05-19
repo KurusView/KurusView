@@ -5,7 +5,7 @@ if (${ENABLE_TESTS})
     ####################### Only load non-QT/VTK classes for tests #######################
     # Include files with relative path from main CMakeLists
     set(REL_INC_SOURCES include/MMaterial.h
-            include/Matrix.h
+            include/MMatrix.h
             include/MVector.h
             include/MModel.h
             include/MCell.h
@@ -34,7 +34,7 @@ if (${ENABLE_TESTS})
 
     # Define the library sources
     set(REL_LIB_SOURCES lib/MMaterial.cpp
-            lib/Matrix.cpp
+            lib/MMatrix.cpp
             lib/MVector.cpp
             lib/MModel.cpp
             lib/MCell.cpp

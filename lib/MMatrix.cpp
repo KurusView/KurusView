@@ -1,6 +1,6 @@
-#include "Matrix.h"
+#include "MMatrix.h"
 
-std::ostream &operator<<(std::ostream &os, Matrix &obj) {
+std::ostream &operator<<(std::ostream &os, MMatrix &obj) {
     //Overloads << operator
     // Produces an outstream to print the values of the matrix simultaneously in a matrix formation
     os << obj.mat3x3[0].getX() << "  " << obj.mat3x3[1].getX() << "  " << obj.mat3x3[2].getX() << std::endl;
@@ -11,7 +11,7 @@ std::ostream &operator<<(std::ostream &os, Matrix &obj) {
 }
 
 
-Matrix::Matrix(const MVector &v1, const MVector &v2, const MVector &v3) {
+MMatrix::MMatrix(const MVector &v1, const MVector &v2, const MVector &v3) {
     // Initializes matrix using 3 prepopulated vectors
     mat3x3.push_back(v1);
     mat3x3.push_back(v2);
@@ -20,7 +20,7 @@ Matrix::Matrix(const MVector &v1, const MVector &v2, const MVector &v3) {
 }
 
 
-Matrix::Matrix(double v1x, double v1y, double v1z, double v2x, double v2y, double v2z, double v3x, double v3y,
+MMatrix::MMatrix(double v1x, double v1y, double v1z, double v2x, double v2y, double v2z, double v3x, double v3y,
                double v3z) {
     // Initializes matrix using 3 prepopulated vectors
     MVector v1(v1x, v1y, v1z);
@@ -31,8 +31,8 @@ Matrix::Matrix(double v1x, double v1y, double v1z, double v2x, double v2y, doubl
     mat3x3.push_back(v3);
 }
 
-Matrix Matrix::operator+(const Matrix &obj) const {
-    // Matrix addition by looping through each vector in the matrix
+MMatrix MMatrix::operator+(const MMatrix &obj) const {
+    // MMatrix addition by looping through each vector in the matrix
 
     /*
      *     | 1   2   3|   | 1   2   3|   | a   b   c|
@@ -43,7 +43,7 @@ Matrix Matrix::operator+(const Matrix &obj) const {
      *     a = 1 + 1 = 2
      *     b = 2 + 2 = 4
      */
-    Matrix result;
+    MMatrix result;
     // Loops through every vector
     for (int i = 0; i < 3; ++i) {
         result.mat3x3[i].setX(mat3x3[i].getX() + obj.mat3x3[i].getX());
@@ -53,8 +53,8 @@ Matrix Matrix::operator+(const Matrix &obj) const {
     return result;
 }
 
-Matrix Matrix::operator-(const Matrix &obj) const {
-    // Matrix subtraction by looping through each vector in the matrix
+MMatrix MMatrix::operator-(const MMatrix &obj) const {
+    // MMatrix subtraction by looping through each vector in the matrix
 
     /*
      *     | 1   2   3|   | 1   2   3|   | a   b   c|
@@ -66,7 +66,7 @@ Matrix Matrix::operator-(const Matrix &obj) const {
      *     b = 2 - 2 = 0
      */
 
-    Matrix result;
+    MMatrix result;
     // Loops through every vector
     for (int i = 0; i < 3; ++i) {
         result.mat3x3[i].setX(mat3x3[i].getX() - obj.mat3x3[i].getX());
@@ -76,8 +76,8 @@ Matrix Matrix::operator-(const Matrix &obj) const {
     return result;
 }
 
-Matrix Matrix::operator*(const double &scalar) const {
-    // Matrix multiplication with a scalar
+MMatrix MMatrix::operator*(const double &scalar) const {
+    // MMatrix multiplication with a scalar
     // by looping through each vector in the matrix
     // and scaling it
 
@@ -90,7 +90,7 @@ Matrix Matrix::operator*(const double &scalar) const {
      *     a = 2 * 1 = 2
      */
 
-    Matrix result;
+    MMatrix result;
     // Loops through every vector
     for (int i = 0; i < 3; ++i) {
         result.mat3x3[i].setX(mat3x3[i].getX() * scalar);
@@ -100,10 +100,10 @@ Matrix Matrix::operator*(const double &scalar) const {
     return result;
 }
 
-Matrix Matrix::operator*(const Matrix &obj) const {
-    // Matrix multiplication with another matrix
+MMatrix MMatrix::operator*(const MMatrix &obj) const {
+    // MMatrix multiplication with another matrix
     // by looping through each vector in both matrices simultaneously
-    Matrix result;
+    MMatrix result;
     double x1, x2, x3, y1, y2, y3, z1, z2, z3;
 
     // This section has 3 parts to calculate the 3 components of each vector by
@@ -157,8 +157,8 @@ Matrix Matrix::operator*(const Matrix &obj) const {
     return result;
 }
 
-MVector Matrix::operator*(const MVector &obj) const {
-    // Matrix multiplication with a vector
+MVector MMatrix::operator*(const MVector &obj) const {
+    // MMatrix multiplication with a vector
     // by looping through each vector in the matrix
 
     /*
@@ -182,7 +182,7 @@ MVector Matrix::operator*(const MVector &obj) const {
     return result;
 }
 
-void Matrix::transpose() {
+void MMatrix::transpose() {
     // Transposing a matrix by reflecting the matrix of a diagonal
 
     /*
@@ -193,7 +193,7 @@ void Matrix::transpose() {
      *
      */
 
-    Matrix result;
+    MMatrix result;
     result.mat3x3[0].setX(mat3x3[0].getX());
     result.mat3x3[0].setY(mat3x3[1].getX());
     result.mat3x3[0].setZ(mat3x3[2].getX());
@@ -206,7 +206,7 @@ void Matrix::transpose() {
     this->mat3x3 = result.mat3x3;
 }
 
-double Matrix::determinant() const {
+double MMatrix::determinant() const {
     // Finding the determinant of a matrix to do various
     // calculations like finding the inverse of the matrix
 
@@ -225,7 +225,7 @@ double Matrix::determinant() const {
     return det;
 }
 
-void Matrix::inverse() {
+void MMatrix::inverse() {
     // Finding the inverse of a matrix through producing a cofactor matrix, transposing it
     // and multiplying it by the inverse of the determinant of the input matrix
 
@@ -248,7 +248,7 @@ void Matrix::inverse() {
      *        | c   b   i|   |    b    i |
      *
      */
-    Matrix cofactors, result, mat;
+    MMatrix cofactors, result, mat;
 
     mat.mat3x3 = this->mat3x3;
 
@@ -272,12 +272,12 @@ void Matrix::inverse() {
     this->mat3x3 = result.mat3x3;
 }
 
-void Matrix::setMat(int col, MVector vector) {
+void MMatrix::setMat(int col, MVector vector) {
     this->mat3x3[col] = vector;
 }
 
-Matrix Matrix::operator/(const double &scalar) const {
-    // Matrix multiplication with a scalar
+MMatrix MMatrix::operator/(const double &scalar) const {
+    // MMatrix multiplication with a scalar
     // by looping through each vector in the matrix
     // and scaling it
 
@@ -291,7 +291,7 @@ Matrix Matrix::operator/(const double &scalar) const {
      *     b = 2 / 2
      */
 
-    Matrix result;
+    MMatrix result;
     // Loops through every vector
     for (int i = 0; i < 3; ++i) {
         result.mat3x3[i].setX(mat3x3[i].getX() / scalar);
@@ -301,19 +301,19 @@ Matrix Matrix::operator/(const double &scalar) const {
     return result;
 }
 
-std::vector<MVector> &Matrix::getMat() {
+std::vector<MVector> &MMatrix::getMat() {
     return mat3x3;
 }
 
-bool Matrix::operator==(const Matrix &m) const {
+bool MMatrix::operator==(const MMatrix &m) const {
     return (m.mat3x3[0] == mat3x3[0] && m.mat3x3[1] == mat3x3[1] && m.mat3x3[2] == mat3x3[2]);
 }
 
-bool Matrix::operator!=(const Matrix &m) const {
+bool MMatrix::operator!=(const MMatrix &m) const {
     return !(m.mat3x3 == mat3x3);
 }
 
-Matrix RotationMatrix(const std::vector<MVector> &Rotation) {
+MMatrix RotationMatrix(const std::vector<MVector> &Rotation) {
 
     // Undergoes multiple rotations that needs to be done on a specific matrix or vector
     // Has an input of an array of MVectors where within the vector lays the
@@ -327,18 +327,18 @@ Matrix RotationMatrix(const std::vector<MVector> &Rotation) {
 
     size_t size = Rotation.size();
     MVector vx1(1, 0, 0), vx2, vx3, vy1, vy2(0, 1, 0), vy3, vz1, vz2, vz3(0, 0, 1);
-    Matrix rx, ry, rz;
+    MMatrix rx, ry, rz;
 
     // Stores the order at which the rotations occur at
-    std::vector<Matrix> orderOfRotation;
-    Matrix product;
+    std::vector<MMatrix> orderOfRotation;
+    MMatrix product;
 
     // Initializing the matrix with the formulas that correspond to each one
     // Loops through all the MVectors in the vector array
     // Undergoes the calculations in the four elements of
     // the matrix that need to be calculated
     // Source for the explanation is:
-    // https://mathworld.wolfram.com/RotationMatrix.html under formulas 4, 5 and 6
+    // https://mathworld.wolfram.com/RotationMMatrix.html under formulas 4, 5 and 6
     for (size_t i = 0; i < size; ++i) {
         if (Rotation[i].getX() != 0) {
             vx2.setY(cos(Rotation[i].getX()));
@@ -371,7 +371,7 @@ Matrix RotationMatrix(const std::vector<MVector> &Rotation) {
             orderOfRotation.push_back(rz);
         }
     }
-    Matrix result;
+    MMatrix result;
     result = orderOfRotation[orderOfRotation.size() - 1];
     for (int i = orderOfRotation.size() - 2; i >= 0; --i) {
         result = result * orderOfRotation[i];
@@ -380,15 +380,10 @@ Matrix RotationMatrix(const std::vector<MVector> &Rotation) {
     return result;
 }
 
-
-Matrix ScalingMatrix(const double &scalingFactor) {
-    Matrix result;
+MMatrix ScalingMatrix(const double &scalingFactor) {
+    MMatrix result;
     result.getMat()[0].setX(scalingFactor);
     result.getMat()[1].setY(scalingFactor);
     result.getMat()[2].setZ(scalingFactor);
     return result;
 }
-
-
-
-
