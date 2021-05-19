@@ -1,12 +1,12 @@
 var hierarchy =
 [
-    [ "Matrix", "class_matrix.html", null ],
     [ "MCell", "class_m_cell.html", [
       [ "MHexahedron", "class_m_hexahedron.html", null ],
       [ "MPyramid", "class_m_pyramid.html", null ],
       [ "MTetrahedron", "class_m_tetrahedron.html", null ]
     ] ],
     [ "MMaterial", "class_m_material.html", null ],
+    [ "MMatrix", "class_m_matrix.html", null ],
     [ "MModel", "class_m_model.html", null ],
     [ "MVector", "class_m_vector.html", null ],
     [ "QApplication", null, [

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['inverse',['inverse',['../class_matrix.html#a7257f6b60f2b1ec9b26d80cd86ed7dc1',1,'Matrix']]]
+  ['inverse',['inverse',['../class_m_matrix.html#afd8fb767e1fc42382bc5e80a050fd04b',1,'MMatrix']]]
 ];

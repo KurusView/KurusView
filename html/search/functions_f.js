@@ -4,5 +4,5 @@ var searchData=
   ['togglegridlines',['toggleGridLines',['../class_k_view.html#a22fa4afa2d556660181d7511492c23c1',1,'KView']]],
   ['togglemeasurement',['toggleMeasurement',['../class_k_view.html#a7fba8fa9b998a9635a7443a5bc7af008',1,'KView']]],
   ['toggleshrinkfilter',['toggleShrinkFilter',['../class_k_view.html#afb77ae0f330399425e83f8ca64d62e9c',1,'KView']]],
-  ['transpose',['transpose',['../class_matrix.html#aa753de1a2ed37c8eb934e06823fee179',1,'Matrix']]]
+  ['transpose',['transpose',['../class_m_matrix.html#ae6f3984f889b64b942fccd03cc366670',1,'MMatrix']]]
 ];

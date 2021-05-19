@@ -9,7 +9,7 @@ var searchData=
   ['setdensity',['setDensity',['../class_m_material.html#aa7c1255a631ca487ec3e4e353c2ab590',1,'MMaterial']]],
   ['setlightintensity',['setLightIntensity',['../class_k_view.html#a888b7cf52e780301bf6abe7bc8ba2325',1,'KView']]],
   ['setlightspecularity',['setLightSpecularity',['../class_k_view.html#a14d5c6d33be2d50fa239a09d6553f832',1,'KView']]],
-  ['setmat',['setMat',['../class_matrix.html#a84c42bbd7e4a235800010c7e0b2d38ce',1,'Matrix']]],
+  ['setmat',['setMat',['../class_m_matrix.html#a0adfc789b2b79ee824bc57880dcd8aa2',1,'MMatrix']]],
   ['setmaterial',['setMaterial',['../class_m_cell.html#acb3255049e5bc9535c58595e4b5031ca',1,'MCell']]],
   ['setmodelbackfacecolor',['setModelBackFaceColor',['../class_k_view.html#a30fc54602bb07ffacab750faf6d049a6',1,'KView']]],
   ['setmodelcolor',['setModelColor',['../class_k_view.html#a8ad0d5c783a07315e68a4f6d3fd6309a',1,'KView']]],
