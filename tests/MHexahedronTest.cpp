@@ -6,9 +6,9 @@
 #include "MHexahedron.h"
 #include "MVector.h"
 
-#include "Material.h"
+#include "MMaterial.h"
 
-std::shared_ptr<Material> SharedMaterial = std::make_shared<Material>("testM",
+std::shared_ptr<MMaterial> SharedMaterial = std::make_shared<MMaterial>("testM",
                                                                       "FFFF",
                                                                       8940,
                                                                       11);
@@ -96,5 +96,3 @@ TEST(MHexahedronTest, getCentreOfGrav) {
     ASSERT_NEAR(centreObtained->getY(), centreExpected.getY(), 0.009);
     ASSERT_NEAR(centreObtained->getZ(), centreExpected.getZ(), 0.009);
 }
-
-

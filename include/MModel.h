@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 #include "MCell.h"
-#include "Material.h"
+#include "MMaterial.h"
 #include "MVector.h"
 
 /**
@@ -15,7 +15,7 @@ private:
     /** @brief vectors - List of all the vectors in the model */
     std::vector<MVector> vectors;
     /** @brief materials - List of all the materials in the model */
-    std::vector<std::shared_ptr<Material>> materials;
+    std::vector<std::shared_ptr<MMaterial>> materials;
 
 
 public:
@@ -83,7 +83,7 @@ public:
     /** @brief cells - List of all the cells in the model */
     std::vector<std::shared_ptr<MCell>> cells;
 
-    std::vector<std::shared_ptr<Material>> getMaterials();
+    std::vector<std::shared_ptr<MMaterial>> getMaterials();
 
     std::vector<MVector> getVectors();
 

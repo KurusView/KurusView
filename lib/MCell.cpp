@@ -7,7 +7,7 @@
 unsigned long int MCell::MCellInstanceCount = 0;
 
 // Member Initializer Lists should be in declaration order
-MCell::MCell(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material, const long int id) :
+MCell::MCell(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<MMaterial> material, const long int id) :
         MCellID(id),
         MCellVertices(std::move(vertices)), // https://stackoverflow.com/a/41874953
         MCellMaterial(std::move(material)),
@@ -40,7 +40,7 @@ double MCell::getID() const {
     return this->MCellID;
 }
 
-std::shared_ptr<Material> MCell::getMaterial() const {
+std::shared_ptr<MMaterial> MCell::getMaterial() const {
     return this->MCellMaterial;
 }
 
@@ -53,7 +53,7 @@ double MCell::getCount() {
 }
 
 
-void MCell::setMaterial(std::shared_ptr<Material> material) {
+void MCell::setMaterial(std::shared_ptr<MMaterial> material) {
     this->MCellMaterial = std::move(material);
 }
 
@@ -88,7 +88,7 @@ std::ofstream &operator<<(std::ofstream &os, const MCell &mCell) {
      *   |_ Cell ID
      */
 
-    Material material = *mCell.getMaterial();
+    MMaterial material = *mCell.getMaterial();
 
     os << "c " << mCell.getID() << " "
        << mCell.getType()[0] << " "
@@ -115,7 +115,7 @@ std::ofstream &operator<<(std::ofstream &os, const MCell &mCell) {
 // inline?
 std::ostream &operator<<(std::ostream &os, const MCell &mCell) {
 
-    Material material = *mCell.getMaterial();
+    MMaterial material = *mCell.getMaterial();
     MVector COG = *mCell.getCentreOfGrav();
 
     os << "MCell type: " << mCell.getType()[1] << "Unique ID: " << mCell.getID() << std::endl

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 MPyramid::MPyramid(const std::vector<std::shared_ptr<MVector>> &vertices,
-                   const std::shared_ptr<Material> &material, long int id) : MCell(vertices, material, id) {
+                   const std::shared_ptr<MMaterial> &material, long int id) : MCell(vertices, material, id) {
 
     if (vertices.size() != 5) {
         std::cerr << std::endl << "Error: Pyramid must have 5 vertices, but " +

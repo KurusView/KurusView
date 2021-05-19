@@ -1,12 +1,12 @@
 #include <gtest/gtest.h>
 #include "MModel.h"
-#include "Material.h"
+#include "MMaterial.h"
 std::string modelsDir = MODELS_DIR;
 
 TEST(MModelTest, getMaterials) {
     MModel mod(modelsDir + "/ExampleModel1.mod");
 
-    std::vector<std::shared_ptr<Material>> materials = mod.getMaterials();
+    std::vector<std::shared_ptr<MMaterial>> materials = mod.getMaterials();
 
     std::string name1 = materials[0]->getName();
     std::string colour1 = materials[0]->getColour();

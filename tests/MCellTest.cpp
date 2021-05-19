@@ -6,13 +6,13 @@
 #include "MHexahedron.h"
 #include "MVector.h"
 
-#include "Material.h"
+#include "MMaterial.h"
 
 // Define a vertex
 std::shared_ptr<MVector> SharedVector = std::make_shared<MVector>(1, 2, 3, 99);
 
 // Define a Material
-std::shared_ptr<Material> SharedMaterial = std::make_shared<Material>("testM",
+std::shared_ptr<MMaterial> SharedMaterial = std::make_shared<MMaterial>("testM",
                                                                       "FFFF",
                                                                       8940,
                                                                       11);
@@ -80,8 +80,3 @@ TEST(MCellTest, getVertices) {
         ASSERT_EQ(vertices[i], verticesObtained[i]);
     }
 }
-
-
-
-
-

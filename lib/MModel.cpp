@@ -66,7 +66,7 @@ void MModel::loadModel(const std::string &filePath) {
 
                 // Insert a shared pointer to a new Material into the provided index
                 materials.insert(materials.begin() + std::stoul(tokens[1]),
-                                 std::make_shared<Material>(tokens[4], tokens[3],
+                                 std::make_shared<MMaterial>(tokens[4], tokens[3],
                                                             std::stoi(tokens[2]),
                                                             std::stoul(tokens[1])));
             } else if (line[0] == 'v') {
@@ -207,7 +207,7 @@ double MModel::calcWeight() {
     return totalWeight;
 }
 
-std::vector<std::shared_ptr<Material>> MModel::getMaterials() {
+std::vector<std::shared_ptr<MMaterial>> MModel::getMaterials() {
     return this->materials;
 }
 

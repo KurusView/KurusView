@@ -20,7 +20,7 @@ public:
      * @param material - material of the cell
      * @param id - unique cell identifier
      */
-    MTetrahedron(const std::vector<std::shared_ptr<MVector>> &vertices, const std::shared_ptr<Material> &material,
+    MTetrahedron(const std::vector<std::shared_ptr<MVector>> &vertices, const std::shared_ptr<MMaterial> &material,
                  long int id);
 
     /**

@@ -5,7 +5,7 @@
 #include <fstream>
 
 // Class for the Material and its properties.
-class Material {
+class MMaterial {
 private:
     const unsigned int ID; // Object for the material ID.
     std::string name; // Object of the material name.
@@ -15,7 +15,7 @@ public:
     /**
      *
      */
-    Material();
+    MMaterial();
     /**
      * @brief Material - Sets the propeties of the material in the model.
      * @param name - The name of the material
@@ -23,11 +23,11 @@ public:
      * @param density - The density of the material
      * @param id  - The id of the material
      */
-    Material(std::string name, std::string colour, double density, unsigned int id);
+    MMaterial(std::string name, std::string colour, double density, unsigned int id);
     /*
      * @breif ~Material - Destructor
      */
-    ~Material() = default;
+    ~MMaterial() = default;
 
     /**
      * @breif
@@ -35,7 +35,7 @@ public:
      * @param obj
      * @return
      */
-    friend std::ofstream &operator<<(std::ofstream &os, Material &obj);
+    friend std::ofstream &operator<<(std::ofstream &os, MMaterial &obj);
 
     unsigned int getId() const;
 

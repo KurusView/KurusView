@@ -16,7 +16,7 @@
 #include <memory>
 
 #include "MVector.h"
-#include "Material.h"
+#include "MMaterial.h"
 
 /**
  * @brief MCell - Interface (abstract) class for all the cell shapes
@@ -39,7 +39,7 @@ protected:
      * @note Protected accessibility because MCell is an abstract class. Explicit because Derived class should not be
      *       able to hardcode ID - it should come straight from the data file
      */
-    explicit MCell(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<Material> material, long int id);
+    explicit MCell(std::vector<std::shared_ptr<MVector>> vertices, std::shared_ptr<MMaterial> material, long int id);
 
     /**
      * @brief default constructor - deleted
@@ -96,7 +96,7 @@ protected:
     std::vector<unsigned int> vertexIDs;
 
     /// @brief holds a the material of the cell
-    std::shared_ptr<Material> MCellMaterial;
+    std::shared_ptr<MMaterial> MCellMaterial;
 
 
     /**
@@ -224,7 +224,7 @@ public:
      * @brief  get MCellMaterial (accessor)
      * @return shared pointer to Material instance
      */
-    std::shared_ptr<Material> getMaterial() const;
+    std::shared_ptr<MMaterial> getMaterial() const;
 
     /**
      * @brief  get MCellVertices (accessor)
@@ -253,7 +253,7 @@ public:
      * @brief set MCellMaterial accesor
      * @param material - a shared pointer to Material of the cell
      */
-    void setMaterial(std::shared_ptr<Material> material);
+    void setMaterial(std::shared_ptr<MMaterial> material);
 
     /**
      * @brief set MCellMaterial accesor

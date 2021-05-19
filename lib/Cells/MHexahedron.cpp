@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 MHexahedron::MHexahedron(const std::vector<std::shared_ptr<MVector>> &vertices,
-                         const std::shared_ptr<Material> &material, long int id) : MCell(vertices, material, id) {
+                         const std::shared_ptr<MMaterial> &material, long int id) : MCell(vertices, material, id) {
 
     if (vertices.size() != 8) {
         std::cerr << std::endl << "Error: Hexahedron must have 8 vertices, but " +
