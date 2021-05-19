@@ -5,7 +5,6 @@ var searchData=
   ['mmaterial',['MMaterial',['../class_m_material.html#a1f9a1518e1f5abba2c381e7c2bbdb6fb',1,'MMaterial']]],
   ['mmatrix',['MMatrix',['../class_m_matrix.html#ab42def3169df5be9b97540940a1a7562',1,'MMatrix::MMatrix(const MVector &amp;v1, const MVector &amp;v2, const MVector &amp;v3)'],['../class_m_matrix.html#a81014fdaca657132e57e150bf59ee829',1,'MMatrix::MMatrix(double v1x, double v1y, double v1z, double v2x, double v2y, double v2z, double v3x, double v3y, double v3z)'],['../class_m_matrix.html#ab89c9679ccc4d6c6f260ca479a16ab57',1,'MMatrix::MMatrix()']]],
   ['mmodel',['MModel',['../class_m_model.html#ae5de9dbb9bf500a89e4f7308dc2302a9',1,'MModel::MModel()=default'],['../class_m_model.html#a371cdf6ec2a7ec952ce76d539f38d6df',1,'MModel::MModel(const std::string &amp;filePath)']]],
-  ['modelrenderer',['ModelRenderer',['../class_model_renderer.html#a26b34d370db1a593c9a6c53ea155567d',1,'ModelRenderer']]],
   ['modelwindow',['ModelWindow',['../class_model_window.html#a7d0bc65177144fae19eeb079a506636e',1,'ModelWindow']]],
   ['mousepressevent',['mousePressEvent',['../classclickable_q_label.html#ab23acaad897ee1c7bea30d8b920984ea',1,'clickableQLabel']]],
   ['mpyramid',['MPyramid',['../class_m_pyramid.html#a5112bc0a3b995ee20a3fbabd11be904b',1,'MPyramid::MPyramid(const std::vector&lt; std::shared_ptr&lt; MVector &gt;&gt; &amp;vertices, const std::shared_ptr&lt; MMaterial &gt; &amp;material, long int id)'],['../class_m_pyramid.html#afdf1b315ef0915c4405115c0930841de',1,'MPyramid::MPyramid()=delete']]],

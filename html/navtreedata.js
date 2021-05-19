@@ -27,7 +27,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_k_view_8h_source.html",
+"_k_model_renderer_8h_source.html",
 "clickable_q_label_8h_source.html"
 ];
 

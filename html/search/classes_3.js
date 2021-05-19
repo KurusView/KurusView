@@ -5,7 +5,6 @@ var searchData=
   ['mmaterial',['MMaterial',['../class_m_material.html',1,'']]],
   ['mmatrix',['MMatrix',['../class_m_matrix.html',1,'']]],
   ['mmodel',['MModel',['../class_m_model.html',1,'']]],
-  ['modelrenderer',['ModelRenderer',['../class_model_renderer.html',1,'']]],
   ['modelwindow',['ModelWindow',['../class_model_window.html',1,'']]],
   ['mpyramid',['MPyramid',['../class_m_pyramid.html',1,'']]],
   ['mtetrahedron',['MTetrahedron',['../class_m_tetrahedron.html',1,'']]],

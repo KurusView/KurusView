@@ -10,7 +10,7 @@ var hierarchy =
     [ "MModel", "class_m_model.html", null ],
     [ "MVector", "class_m_vector.html", null ],
     [ "QApplication", null, [
-      [ "ModelRenderer", "class_model_renderer.html", null ]
+      [ "KModelRenderer", "class_k_model_renderer.html", null ]
     ] ],
     [ "QDialog", null, [
       [ "Dialog", "class_dialog.html", null ],
