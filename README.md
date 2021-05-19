@@ -12,7 +12,7 @@
   </a>
   <!-- SemVer Version -->
   <a href="https://github.com/KurusView/2020_GROUP_21">
-    <img src="https://img.shields.io/badge/Version-0.1.0-blue.svg"
+    <img src="https://img.shields.io/badge/Version-1.0.0-blue.svg"
       alt="SemVer Version" />
   </a>
 
