@@ -17,7 +17,7 @@ endif ()
 # Name of the project
 project(KurusView
         LANGUAGES C CXX
-        VERSION 0.1.0.0
+        VERSION 1.0.0
         DESCRIPTION "3D Visualisation Tool"
         HOMEPAGE_URL "https://KurusView.github.io")
 
