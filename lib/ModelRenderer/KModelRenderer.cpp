@@ -1,4 +1,4 @@
-#include "ModelRenderer.h"
+#include "KModelRenderer.h"
 
 #include <QSplashScreen>
 #include <QSurfaceFormat>
@@ -12,7 +12,7 @@
 
 #define USE_FUSION
 
-ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv) {
+KModelRenderer::KModelRenderer(int &argc, char **argv) : QApplication(argc, argv) {
     setOrganizationName("Kurus");
     setApplicationName("KurusView");
     setOrganizationDomain("KurusView.github.io");
@@ -81,7 +81,7 @@ ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv) 
     // start timer - can be disabled through stop(). Useful if settings forces light/dark mode.
     activeTimer->start();
 
-    connect(&welcomeWindow, &WelcomeWindow::fileSelected, this, &ModelRenderer::openFile);
+    connect(&welcomeWindow, &WelcomeWindow::fileSelected, this, &KModelRenderer::openFile);
 
     // If path is not given as argument, load up welcomeWindow
     if (argc == 1) {
@@ -97,7 +97,7 @@ ModelRenderer::ModelRenderer(int &argc, char **argv) : QApplication(argc, argv) 
 }
 
 // live dark/light mode change
-void ModelRenderer::applyLightMode() {
+void KModelRenderer::applyLightMode() {
     if (isDark()) {
         QApplication::setPalette(DarkPalette);
     } else {
@@ -105,7 +105,7 @@ void ModelRenderer::applyLightMode() {
     }
 }
 
-void ModelRenderer::openFile(const QStringList &filePaths) {
+void KModelRenderer::openFile(const QStringList &filePaths) {
 
     for (int i = 0; i < filePaths.length(); i += 4) {
 
@@ -117,13 +117,13 @@ void ModelRenderer::openFile(const QStringList &filePaths) {
         modelWindows.emplace_back(modelWindow);
 
         // connect new windows to this handler for decentralized opening
-        connect(modelWindow.get(), &ModelWindow::openNewModelWindow, this, &ModelRenderer::openFile);
+        connect(modelWindow.get(), &ModelWindow::openNewModelWindow, this, &KModelRenderer::openFile);
     }
 
     // close the welcome window when a model is loaded
     welcomeWindow.close();
 }
 
-ModelRenderer::~ModelRenderer() {
+KModelRenderer::~KModelRenderer() {
     delete activeTimer;
 }

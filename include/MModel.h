@@ -1,5 +1,5 @@
-#ifndef INC_KURUSVIEW_MODEL_H
-#define INC_KURUSVIEW_MODEL_H
+#ifndef INC_KURUSVIEW_MMODEL_H
+#define INC_KURUSVIEW_MMODEL_H
 
 #include <vector>
 #include <string>
@@ -95,4 +95,4 @@ public:
 };
 
 
-#endif //INC_KURUSVIEW_MODEL_H
+#endif //INC_KURUSVIEW_MMODEL_H

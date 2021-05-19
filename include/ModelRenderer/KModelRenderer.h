@@ -1,5 +1,5 @@
-#ifndef INC_KURUSVIEW_MODELRENDERER_H
-#define INC_KURUSVIEW_MODELRENDERER_H
+#ifndef INC_KURUSVIEW_KMODELRENDERER_H
+#define INC_KURUSVIEW_KMODELRENDERER_H
 
 #include <QApplication>
 #include <QString>
@@ -12,7 +12,7 @@
 /**
  * @brief This class acts as the base for the KurusView GUI Application, handling windows and initialisation.
  */
-class ModelRenderer : public QApplication {
+class KModelRenderer : public QApplication {
 Q_OBJECT
 public:
     /**
@@ -20,9 +20,9 @@ public:
      * @param argc Number of arguments passed to the program
      * @param argv Array of strings containing the arguments
      */
-    ModelRenderer(int &argc, char **argv);
+    KModelRenderer(int &argc, char **argv);
 
-    virtual ~ModelRenderer();
+    virtual ~KModelRenderer();
 
 public slots:
     void openFile(const QStringList &filePaths);
@@ -46,4 +46,4 @@ private:
 };
 
 
-#endif //INC_KURUSVIEW_MODELRENDERER_H
+#endif //INC_KURUSVIEW_KMODELRENDERER_H

@@ -1,6 +1,6 @@
-#include <ModelRenderer.h>
+#include <KModelRenderer.h>
 
 int main(int argc, char *argv[]) {
-    ModelRenderer modelRenderer(argc, argv);
-    return ModelRenderer::exec();
+    KModelRenderer modelRenderer(argc, argv);
+    return KModelRenderer::exec();
 }
