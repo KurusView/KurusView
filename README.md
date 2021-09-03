@@ -11,7 +11,7 @@
       alt="Build Status" />
   </a>
   <!-- SemVer Version -->
-  <a href="https://github.com/KurusView/2020_GROUP_21">
+  <a href="https://github.com/KurusView/KurusView">
     <img src="https://img.shields.io/badge/Version-1.0.0-blue.svg"
       alt="SemVer Version" />
   </a>
@@ -109,7 +109,7 @@ $ cmake --build build/ --target KurusView_LIB
 
 
 ## Documentation
-Doxygen formatted comments are used in all header files and docs are hosted [here](https://kurusview.github.io/2020_GROUP_21/). The [theme](https://github.com/jothepro/doxygen-awesome-css) used is by [@jothepro](https://github.com/jothepro) :rocket:.
+Doxygen formatted comments are used in all header files and docs are hosted [here](https://kurusview.github.io/KurusView/). The [theme](https://github.com/jothepro/doxygen-awesome-css) used is by [@jothepro](https://github.com/jothepro) :rocket:.
 
 ![docs](https://user-images.githubusercontent.com/38017709/118726672-ef24b280-b831-11eb-957b-c3ce2fc8e03e.png)
 
